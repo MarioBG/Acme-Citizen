@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * PopulateDatabase.xml * * Copyright (C) 2017 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="user3" />
+		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="manager1" />
+		<property name="password" value="c240642ddef994358c96da82c0361a58" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="manager2" />
+		<property name="password" value="8df5127cd164b5bc2d2b78410a7eea0c" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="manager3" />
+		<property name="password" value="2d3a5db4a2a9717b43698520a8de57d0" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MANAGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Other domain beans come here -->
+
+	<!-- ADMINISTRATOR1 -->
+
+	<bean id="administrator1" class="domain.Admin">
+		<property name="name" value="Administrador" />
+		<property name="surname" value="Acme Explorer" />
+		<property name="email" value="admin@system.com" />
+		<property name="phone" value="694443000" />
+		<property name="address" value="C/ Lugo" />
+		<property name="birth" value="12/09/1993" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+
+	<!-- User -->
+	<!-- User 1 -->
+	<bean id="user1" class="domain.User">
+		<property name="name" value="Mario" />
+		<property name="surname" value="Sánchez" />
+		<property name="email" value="codec@gmail.com" />
+		<property name="phone" value="601234578" />
+		<property name="address" value="C/Margarita nº7" />
+		<property name="birth" value="12/09/1993" />
+		<property name="userAccount" ref="userAccount2" />
+		<!-- <property name="answer"> <list> <ref bean="answer1" /> <ref bean="answer2" 
+			/> <ref bean="answer3" /> </list> </property> -->
+		<property name="organisedRendezvouses">
+			<list>
+				<ref bean="rendezvous1" />
+			</list>
+		</property>
+		<property name="rsvpdRendezvouses">
+			<list>
+				<ref bean="rendezvous1" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- User 2 -->
+	<bean id="user2" class="domain.User">
+		<property name="name" value="Ana" />
+		<property name="surname" value="Rodríguez" />
+		<property name="email" value="ana@gmail.com" />
+		<property name="phone" value="698253684" />
+		<property name="address" value="C/La Vega nº7" />
+		<property name="birth" value="06/05/1992" />
+		<property name="userAccount" ref="userAccount3" />
+		<!-- <property name="answer"> <list> <ref bean="answer4" /> <ref bean="answer5" 
+			/> </list> </property> -->
+		<property name="organisedRendezvouses">
+			<list>
+				<ref bean="rendezvous2" />
+				<ref bean="rendezvous3" />
+			</list>
+		</property>
+		<property name="rsvpdRendezvouses">
+			<list>
+				<ref bean="rendezvous2" />
+				<ref bean="rendezvous3" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- User 3 -->
+	<bean id="user3" class="domain.User">
+		<property name="name" value="Juan Carlos" />
+		<property name="surname" value="Cansino" />
+		<property name="email" value="jc@gmail.com" />
+		<property name="phone" value="698253674" />
+		<property name="address" value="C/LAraña nº12" />
+		<property name="birth" value="06/05/2001" />
+		<property name="userAccount" ref="userAccount4" />
+		<!-- <property name="answer"> <list> <ref bean="answer6" /> </list> </property> -->
+		<property name="organisedRendezvouses">
+			<list>
+			</list>
+		</property>
+		<property name="rsvpdRendezvouses">
+			<list>
+				<ref bean="rendezvous3" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- manager1 -->
+
+	<bean id="manager1" class="domain.Manager">
+		<property name="name" value="pepe manager" />
+		<property name="surname" value="Acme Explorer" />
+		<property name="email" value="admin@system.com" />
+		<property name="phone" value="694443600" />
+		<property name="address" value="C/ Lugo" />
+		<property name="birth" value="12/09/1993" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="vat" value="1A-2B" />
+		<property name="services">
+			<list>
+				<ref bean="service1" />
+				<ref bean="service3" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- manager2 -->
+
+	<bean id="manager2" class="domain.Manager">
+		<property name="name" value="david manager" />
+		<property name="surname" value="Acme Explorer" />
+		<property name="email" value="admin@system.com" />
+		<property name="phone" value="694443780" />
+		<property name="address" value="C/ josé estoso" />
+		<property name="birth" value="12/09/1965" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="vat" value="1A-2B" />
+		<property name="services">
+			<list>
+				<ref bean="service2" />
+				<ref bean="service4" />
+				<ref bean="service6" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- manager3 -->
+
+	<bean id="manager3" class="domain.Manager">
+		<property name="name" value="juan manager" />
+		<property name="surname" value="Acme Explorer" />
+		<property name="email" value="admin@system.com" />
+		<property name="phone" value="694443780" />
+		<property name="address" value="C/ josé estoso" />
+		<property name="birth" value="12/09/1965" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="vat" value="1A-2B" />
+		<property name="services">
+			<list>
+				<ref bean="service5" />
+				<ref bean="service7" />
+				<ref bean="service8" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service -->
+
+	<!-- Service 1 -->
+	<bean id="service1" class="domain.Service">
+		<property name="name" value="Servicio 1" />
+		<property name="description" value="Servicio 1 esta bien" />
+		<property name="picture" value="" />
+		<property name="category" ref="category1"/>
+		<property name="manager" ref="manager1" />
+		<property name="cancelled" value="false" />
+		<property name="requests">
+			<list>
+				<ref bean="request1" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service 2 -->
+	<bean id="service2" class="domain.Service">
+		<property name="name" value="Servicio 2" />
+		<property name="description" value="Servicio 2 esta mejor" />
+		<property name="picture"
+			value="http://www.neurosurg.cam.ac.uk/files/2017/09/yourstory_service_msme.jpg" />
+		<property name="category" ref="category1"/>
+		<property name="manager" ref="manager2" />
+		<property name="cancelled" value="false" />
+		<property name="requests">
+			<list>
+				<ref bean="request2" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service 3 -->
+	<bean id="service3" class="domain.Service">
+		<property name="name" value="Servicio 3" />
+		<property name="description" value="Servicio 3 esta mejor" />
+		<property name="picture"
+			value="http://www.neurosurg.cam.ac.uk/files/2017/09/yourstory_service_msme.jpg" />
+		<property name="category" ref="category1"/>
+		<property name="manager" ref="manager1" />
+		<property name="cancelled" value="false" />
+		<property name="requests">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service 4 -->
+	<bean id="service4" class="domain.Service">
+		<property name="name" value="Servicio 4" />
+		<property name="description" value="Servicio 4 esta mejor" />
+		<property name="picture"
+			value="http://www.neurosurg.cam.ac.uk/files/2017/09/yourstory_service_msme.jpg" />
+		<property name="category" ref="category2"/>
+		<property name="manager" ref="manager2" />
+		<property name="cancelled" value="true" />
+		<property name="requests">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service 5 -->
+	<bean id="service5" class="domain.Service">
+		<property name="name" value="Servicio 5" />
+		<property name="description" value="Servicio 5 esta mejor" />
+		<property name="picture"
+			value="http://www.neurosurg.cam.ac.uk/files/2017/09/yourstory_service_msme.jpg" />
+		<property name="category" ref="category2"/>
+		<property name="manager" ref="manager3" />
+		<property name="cancelled" value="false" />
+		<property name="requests">
+			<list>
+				<ref bean="request4" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service 6 -->
+	<bean id="service6" class="domain.Service">
+		<property name="name" value="Servicio 6" />
+		<property name="description" value="Servicio 6 esta mejor" />
+		<property name="picture"
+			value="http://www.neurosurg.cam.ac.uk/files/2017/09/yourstory_service_msme.jpg" />
+		<property name="category" ref="category3"/>
+		<property name="manager" ref="manager2" />
+		<property name="cancelled" value="false" />
+		<property name="requests">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service 7 -->
+	<bean id="service7" class="domain.Service">
+		<property name="name" value="Servicio 7" />
+		<property name="description" value="Servicio 7 esta mejor" />
+		<property name="picture"
+			value="http://www.neurosurg.cam.ac.uk/files/2017/09/yourstory_service_msme.jpg" />
+		<property name="category" ref="category3"/>
+		<property name="manager" ref="manager3" />
+		<property name="cancelled" value="false" />
+		<property name="requests">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Service 8 -->
+	<bean id="service8" class="domain.Service">
+		<property name="name" value="Servicio 8" />
+		<property name="description" value="Servicio 8 esta mejor" />
+		<property name="picture"
+			value="http://www.neurosurg.cam.ac.uk/files/2017/09/yourstory_service_msme.jpg" />
+		<property name="category" ref="category4"/>
+		<property name="manager" ref="manager3" />
+		<property name="cancelled" value="true" />
+		<property name="requests">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Category -->
+
+	<!-- Category 1 -->
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="Ground" />
+		<property name="description" value="Ground category" />
+		<property name="services">
+			<list>
+				<ref bean="service1" />
+				<ref bean="service2" />
+				<ref bean="service3" />
+			</list>
+		</property>
+		<property name="categories">
+			<list>
+				<ref bean="category2" />
+				<ref bean="category3" />
+			</list>
+		</property>
+		<property name="categoryParent"><null/></property>
+	</bean>
+
+	<!-- Category 2 -->
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="Beach" />
+		<property name="description" value="Beach category" />
+		<property name="services">
+			<list>
+				<ref bean="service4" />
+				<ref bean="service5" />
+			</list>
+		</property>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="categoryParent" ref="category1" />
+	</bean>
+
+	<!-- Category 3 -->
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="Savana" />
+		<property name="description" value="Savana category" />
+		<property name="services">
+			<list>
+				<ref bean="service6" />
+				<ref bean="service7" />
+			</list>
+		</property>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="categoryParent" ref="category1" />
+	</bean>
+
+	<!-- Category 4 -->
+	<bean id="category4" class="domain.Category">
+		<property name="name" value="Sea" />
+		<property name="description" value="Sea category" />
+		<property name="services">
+			<list>
+				<ref bean="service8" />
+			</list>
+		</property>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="categoryParent"><null/></property>
+	</bean>
+	
+	<!-- Category 5 -->
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="Forest" />
+		<property name="description" value="Forest category" />
+		<property name="services">
+			<list>
+			</list>
+		</property>
+		<property name="categories">
+			<list>
+			</list>
+		</property>
+		<property name="categoryParent"><null/></property>
+	</bean>
+
+	<!-- Request -->
+	<!-- Request 1 -->
+	<bean id="request1" class="domain.Request">
+		<property name="creditCard" ref="creditCard1" />
+		<property name="comment" value="Comment 1" />
+		<property name="service" ref="service1" />
+		<property name="rendezvous" ref="rendezvous1" />
+	</bean>
+
+	<!-- Request 2 -->
+	<bean id="request2" class="domain.Request">
+		<property name="creditCard" ref="creditCard2" />
+		<property name="comment" value="Comment 2" />
+		<property name="service" ref="service2" />
+		<property name="rendezvous" ref="rendezvous1" />
+	</bean>
+
+	<!-- Request 3 -->
+	<bean id="request3" class="domain.Request">
+		<property name="creditCard" ref="creditCard3" />
+		<property name="comment" value="Comment 3" />
+		<property name="service" ref="service1" />
+		<property name="rendezvous" ref="rendezvous2" />
+	</bean>
+
+	<!-- Request 4 -->
+	<bean id="request4" class="domain.Request">
+		<property name="creditCard" ref="creditCard4" />
+		<property name="comment" value="Comment 4" />
+		<property name="service" ref="service5" />
+		<property name="rendezvous" ref="rendezvous2" />
+	</bean>
+
+	<!-- CreditCard -->
+	<!-- CreditCard 1 -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holder" value="Name creditCard1" />
+		<property name="brand" value="VISA" />
+		<property name="number" value="4539009782278447" />
+		<property name="expirationMonth" value="5" />
+		<property name="expirationYear" value="2022" />
+		<property name="cvv" value="612" />
+	</bean>
+
+	<!-- CreditCard 2 -->
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holder" value="Name creditCard2" />
+		<property name="brand" value="VISA" />
+		<property name="number" value="4961155805327500" />
+		<property name="expirationMonth" value="7" />
+		<property name="expirationYear" value="2019" />
+		<property name="cvv" value="773" />
+	</bean>
+
+	<!-- CreditCard 3 -->
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holder" value="Name creditCard3" />
+		<property name="brand" value="VISA" />
+		<property name="number" value="4532255185600482" />
+		<property name="expirationMonth" value="5" />
+		<property name="expirationYear" value="2019" />
+		<property name="cvv" value="216" />
+	</bean>
+
+	<!-- CreditCard 3 -->
+	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holder" value="Name creditCard3" />
+		<property name="brand" value="VISA" />
+		<property name="number" value="4532255185600482" />
+		<property name="expirationMonth" value="5" />
+		<property name="expirationYear" value="2019" />
+		<property name="cvv" value="216" />
+	</bean>
+
+	<!-- Rendezvous -->
+	<!-- Rendezvous 1 -->
+	<bean id="rendezvous1" class="domain.Rendezvous">
+		<property name="name" value="Rendezvous 01" />
+		<property name="description" value="A description 1" />
+		<property name="picture"
+			value="http://www.uwyo.edu/reslife-dining/_files/re-design-images/dining-logos/rendezvouslogo_2016.png" />
+		<property name="moment" value="23/01/2020 19:09" />
+		<property name="adult" value="false" />
+		<property name="finalVersion" value="false" />
+		<property name="deleted" value="false" />
+		<property name="gpsCoordinate" ref="gpsCoordinate1" />
+		<property name="announcements">
+			<list>
+				<ref bean="announcement1" />
+				<ref bean="announcement4" />
+				<ref bean="announcement5" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment1" />
+			</list>
+		</property>
+		<!-- <property name="questions"> <list> <ref bean="question1" /> <ref bean="question2" 
+			/> </list> </property> -->
+		<property name="organiser" ref="user1" />
+		<property name="attendants">
+			<list>
+				<ref bean="user1" />
+			</list>
+		</property>
+		<property name="linkedRendezvouses">
+			<list>
+			</list>
+		</property>
+		<property name="requests">
+			<list>
+				<ref bean="request1" />
+				<ref bean="request2" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Rendezvous 2 -->
+	<bean id="rendezvous2" class="domain.Rendezvous">
+		<property name="name" value="Rendezvous 02" />
+		<property name="description" value="A description 2" />
+		<property name="picture"
+			value="http://www.uwyo.edu/reslife-dining/_files/re-design-images/dining-logos/rendezvouslogo_2016.png" />
+		<property name="moment" value="23/01/2020 19:09" />
+		<property name="adult" value="true" />
+		<property name="finalVersion" value="true" />
+		<property name="deleted" value="false" />
+		<property name="announcements">
+			<list>
+				<ref bean="announcement2" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<ref bean="comment2" />
+				<ref bean="comment3" />
+			</list>
+		</property>
+		<!-- <property name="questions"> <list> </list> </property> -->
+		<property name="organiser" ref="user2" />
+		<property name="attendants">
+			<list>
+				<ref bean="user2" />
+			</list>
+		</property>
+		<property name="linkedRendezvouses">
+			<list>
+				<ref bean="rendezvous3" />
+			</list>
+		</property>
+		<property name="requests">
+			<list>
+				<ref bean="request3" />
+				<ref bean="request4" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Rendezvous 3 -->
+	<bean id="rendezvous3" class="domain.Rendezvous">
+		<property name="name" value="Rendezvous 03" />
+		<property name="description" value="A description 3" />
+		<property name="picture"
+			value="http://www.uwyo.edu/reslife-dining/_files/re-design-images/dining-logos/rendezvouslogo_2016.png" />
+		<property name="moment" value="21/03/2025 19:09" />
+		<property name="adult" value="false" />
+		<property name="finalVersion" value="true" />
+		<property name="deleted" value="false" />
+		<property name="announcements">
+			<list>
+				<ref bean="announcement3" />
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+			</list>
+		</property>
+		<!-- <property name="questions"> <list> <ref bean="question3" /> </list> 
+			</property> -->
+		<property name="organiser" ref="user2" />
+		<property name="attendants">
+			<list>
+				<ref bean="user3" />
+				<ref bean="user2" />
+			</list>
+		</property>
+		<property name="linkedRendezvouses">
+			<list>
+			</list>
+		</property>
+		<property name="requests">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Comment -->
+	<!-- Comment 1 -->
+	<bean id="comment1" class="domain.Comment">
+		<property name="moment" value="23/01/2011 19:09" />
+		<property name="text" value="A short comment" />
+		<property name="picture" value="http://www.google.es" />
+		<property name="replies">
+			<list>
+			</list>
+		</property>
+		<property name="user" ref="user1" />
+		<property name="rendezvous" ref="rendezvous1" />
+		<!--<property name="commentParent"><null/></property> -->
+	</bean>
+
+	<!-- Comment 2 -->
+	<bean id="comment2" class="domain.Comment">
+		<property name="moment" value="23/02/2011 19:09" />
+		<property name="text" value="A comment" />
+		<property name="picture" value="" />
+		<property name="replies">
+			<list>
+				<ref bean="comment3" />
+			</list>
+		</property>
+		<property name="user" ref="user2" />
+		<property name="rendezvous" ref="rendezvous2" />
+		<!--<property name="commentParent"><null/></property> -->
+	</bean>
+
+	<!-- Comment 3 -->
+	<bean id="comment3" class="domain.Comment">
+		<property name="moment" value="22/03/2011 19:09" />
+		<property name="text" value="A comment ..." />
+		<property name="picture" value="" />
+		<property name="replies">
+			<list>
+			</list>
+		</property>
+		<property name="user" ref="user2" />
+		<property name="rendezvous" ref="rendezvous2" />
+		<property name="commentParent" ref="comment2" />
+	</bean>
+
+	<!-- Question -->
+	<!-- Question 1 -->
+	<!-- <bean id="question1" class="domain.Question"> <property name="content" 
+		value="Question 01?" /> <property name="answers"> <list> <ref bean="answer1" 
+		/> <ref bean="answer2" /> <ref bean="answer3" /> </list> </property> <property 
+		name="rendezvous" ref="rendezvous1" /> </bean> -->
+
+	<!-- Question 2 -->
+	<!-- <bean id="question2" class="domain.Question"> <property name="content" 
+		value="Question 02?" /> <property name="answers"> <list> <ref bean="answer4" 
+		/> <ref bean="answer5" /> </list> </property> <property name="rendezvous" 
+		ref="rendezvous1" /> </bean> -->
+
+	<!-- Question 3 -->
+	<!-- <bean id="question3" class="domain.Question"> <property name="content" 
+		value="Question 03?" /> <property name="answers"> <list> <ref bean="answer6" 
+		/> <ref bean="answer7" /> <ref bean="answer8" /> </list> </property> <property 
+		name="rendezvous" ref="rendezvous3" /> </bean> -->
+
+
+	<!-- Answer -->
+	<!-- Answer 01 -->
+	<!-- <bean id="answer1" class="domain.Answer"> <property name="content" 
+		value="Answer 1" /> <property name="question" ref="question1" /> <property 
+		name="user" ref="user1" /> </bean> -->
+
+	<!-- Answer 02 -->
+	<!-- <bean id="answer2" class="domain.Answer"> <property name="content" 
+		value="Answer 2" /> <property name="question" ref="question1" /> <property 
+		name="user" ref="user1" /> </bean> -->
+	<!-- Answer 03 -->
+	<!-- <bean id="answer3" class="domain.Answer"> <property name="content" 
+		value="Answer 3" /> <property name="question" ref="question1" /> <property 
+		name="user" ref="user1" /> </bean> -->
+
+	<!-- Answer 04 -->
+	<!-- <bean id="answer4" class="domain.Answer"> <property name="content" 
+		value="Answer 4" /> <property name="question" ref="question2" /> <property 
+		name="user" ref="user2" /> </bean> -->
+
+	<!-- Answer 05 -->
+	<!-- <bean id="answer5" class="domain.Answer"> <property name="content" 
+		value="Answer 5" /> <property name="question" ref="question2" /> <property 
+		name="user" ref="user2" /> </bean> -->
+
+	<!-- Answer 06 -->
+	<!-- <bean id="answer6" class="domain.Answer"> <property name="content" 
+		value="Answer 6" /> <property name="question" ref="question3" /> <property 
+		name="user" ref="user3" /> </bean> -->
+
+	<!-- Answer 07 -->
+	<!-- <bean id="answer7" class="domain.Answer"> <property name="content" 
+		value="Answer 7" /> <property name="question" ref="question3" /> <property 
+		name="user" ref="user3" /> </bean> -->
+
+	<!-- Answer 08 -->
+	<!-- <bean id="answer8" class="domain.Answer"> <property name="content" 
+		value="Answer 8" /> <property name="question" ref="question3" /> <property 
+		name="user" ref="user3" /> </bean> -->
+
+
+
+	<!-- Announcement -->
+	<!-- Announcement 1 -->
+	<bean id="announcement1" class="domain.Announcement">
+		<property name="moment" value="23/01/2013 19:09" />
+		<property name="title" value="Announcement 01" />
+		<property name="description" value="A description 1" />
+		<property name="rendezvous" ref="rendezvous1" />
+	</bean>
+
+	<!-- Announcement 2 -->
+	<bean id="announcement2" class="domain.Announcement">
+		<property name="moment" value="15/05/2013 20:09" />
+		<property name="title" value="Announcement 02" />
+		<property name="description" value="A description 2" />
+		<property name="rendezvous" ref="rendezvous2" />
+	</bean>
+
+	<!-- Announcement 3 -->
+	<bean id="announcement3" class="domain.Announcement">
+		<property name="moment" value="17/06/2013 20:30" />
+		<property name="title" value="Announcement 03" />
+		<property name="description" value="A description 3" />
+		<property name="rendezvous" ref="rendezvous3" />
+	</bean>
+
+	<!-- Announcement 4 -->
+	<bean id="announcement4" class="domain.Announcement">
+		<property name="moment" value="17/06/2012 20:30" />
+		<property name="title" value="Announcement 04" />
+		<property name="description" value="A description 4" />
+		<property name="rendezvous" ref="rendezvous1" />
+	</bean>
+	<!-- Announcement 5 -->
+	<bean id="announcement5" class="domain.Announcement">
+		<property name="moment" value="17/10/2012 20:30" />
+		<property name="title" value="Announcement 05" />
+		<property name="description" value="A description 5" />
+		<property name="rendezvous" ref="rendezvous1" />
+	</bean>
+
+	<!-- GpsCoordinate -->
+	<!-- GpsCoordinate 1 -->
+	<bean id="gpsCoordinate1" class="domain.GpsCoordinate">
+		<property name="latitude" value="89.0" />
+		<property name="longitude" value="179.0" />
+	</bean>
+
+
+
+</beans>
