@@ -17,8 +17,8 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <div>
-	<a href="/"><img src="images/logo.png"
-		alt="Acme-Newspaper-2.0 Co., Inc." /></a>
+	<a href="/Acme-Citizen"><img src="images/logo.png"
+		alt="Acme-Citizen Co., Inc." /></a>
 </div>
 
 <div>
