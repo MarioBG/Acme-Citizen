@@ -21,25 +21,23 @@ public class Citizen extends Actor {
 		super();
 	}
 
-
 	// Relationships
 
-	//private Collection<LotteryTicket> lotteryTickets;						//DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
-	private Collection<Petition>	petitions;
-	private Collection<Election>	elections;
-	private Collection<Candidate>	candidates;
+	private Collection<LotteryTicket> lotteryTickets; // DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
+	private Collection<Petition> petitions;
+	private Collection<Election> elections;
+	private Collection<Candidate> candidates;
 
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "citizen")
+	public Collection<LotteryTicket> getLotteryTickets() {
+		return this.lotteryTickets;
+	}
 
-	//	@Valid
-	//	@NotNull
-	//	@OneToMany(mappedBy = "citizen")
-	//	public Collection<LotteryTicket> getLotteryTickets() {
-	//		return this.lotteryTickets;
-	//	}
-
-	//	public void setLotteryTickets(final Collection<LotteryTicket> lotteryTickets) {
-	//		this.lotteryTickets = lotteryTickets;
-	//	}
+	public void setLotteryTickets(final Collection<LotteryTicket> lotteryTickets) {
+		this.lotteryTickets = lotteryTickets;
+	}
 
 	@Valid
 	@NotNull

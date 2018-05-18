@@ -17,16 +17,16 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Folder extends DomainEntity {
 
-	// Constructor ----------------------------------------------------------------------------
+	// Constructor
+	// ----------------------------------------------------------------------------
 	public Folder() {
 		super();
 	}
 
-
-	// Attributes ------------------------------------------------------------------------------
-	private String	name;
-	private boolean	predefined;
-
+	// Attributes
+	// ------------------------------------------------------------------------------
+	private String name;
+	private boolean predefined;
 
 	@NotBlank
 	public String getName() {
@@ -45,13 +45,12 @@ public class Folder extends DomainEntity {
 		this.predefined = predefined;
 	}
 
+	// RelashionShips
+	// ----------------------------------------------------------------
 
-	// RelashionShips ----------------------------------------------------------------
-
-	private Folder				parent;
-	private Collection<Folder>	children;
-	private Collection<Message>	messages;
-
+	private Folder parent;
+	private Collection<Folder> children;
+	private Collection<Message> messages;
 
 	@Valid
 	@ManyToOne(optional = true)
