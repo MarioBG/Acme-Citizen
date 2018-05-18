@@ -1,13 +1,20 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -22,16 +29,56 @@ public class Configuration extends DomainEntity {
 
 	// Attributes
 
-	private String tabooWords;
+	private String	defaultCountryCode;
+	private String	countryFlag;
+	private Integer	numberParliamentSeats;
 
-	@NotNull
+
+	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getTabooWords() {
-		return this.tabooWords;
+	public String getDefaultCountryCode() {
+		return this.defaultCountryCode;
 	}
 
-	public void setTabooWords(final String tabooWords) {
-		this.tabooWords = tabooWords;
+	public void setDefaultCountryCode(final String defaultCountryCode) {
+		this.defaultCountryCode = defaultCountryCode;
+	}
+
+	@NotBlank
+	@URL
+	public String getCountryFlag() {
+		return this.countryFlag;
+	}
+
+	public void setCountryFlag(final String countryFlag) {
+		this.countryFlag = countryFlag;
+	}
+
+	@NotNull
+	@Min(0)
+	public Integer getNumberParliamentSeats() {
+		return this.numberParliamentSeats;
+	}
+
+	public void setNumberParliamentSeats(final Integer numberParliamentSeats) {
+		this.numberParliamentSeats = numberParliamentSeats;
+	}
+
+
+	//Relationships
+
+	private Collection<WelcomeMessage>	welcomeMessages;
+
+
+	@Valid
+	@NotNull
+	@OneToMany
+	public Collection<WelcomeMessage> getWelcomeMessages() {
+		return this.welcomeMessages;
+	}
+
+	public void setWelcomeMessages(final Collection<WelcomeMessage> welcomeMessages) {
+		this.welcomeMessages = welcomeMessages;
 	}
 
 }

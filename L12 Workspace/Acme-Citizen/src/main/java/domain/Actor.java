@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -33,13 +34,17 @@ public abstract class Actor extends DomainEntity {
 		super();
 	}
 
+
 	// Attributes
 
-	private String name;
-	private String surname;
-	private String email;
-	private String phone;
-	private String address;
+	private String	name;
+	private String	surname;
+	private String	email;
+	private String	phone;
+	private String	address;
+	private String	nif;
+	private String	nickname;
+
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -51,7 +56,6 @@ public abstract class Actor extends DomainEntity {
 		this.name = name;
 	}
 
-	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurname() {
 		return this.surname;
@@ -62,7 +66,6 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@Email
-	@NotBlank
 	public String getEmail() {
 		return this.email;
 	}
@@ -89,10 +92,31 @@ public abstract class Actor extends DomainEntity {
 		this.address = address;
 	}
 
+	@Pattern(regexp = "^[a-zA-Z]{6}-\\d{8}[A-Z]$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getNif() {
+		return this.nif;
+	}
+
+	public void setNif(final String nif) {
+		this.nif = nif;
+	}
+
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getNickname() {
+		return this.nickname;
+	}
+
+	public void setNickname(final String nickname) {
+		this.nickname = nickname;
+	}
+
+
 	// Relationships
 
-	private UserAccount userAccount;
-	private Collection<Folder> folders;
+	private UserAccount			userAccount;
+	private Collection<Folder>	folders;
+
 
 	@Valid
 	@NotNull
@@ -109,7 +133,7 @@ public abstract class Actor extends DomainEntity {
 	@NotEmpty
 	@OneToMany
 	public Collection<Folder> getFolders() {
-		return folders;
+		return this.folders;
 	}
 
 	public void setFolders(Collection<Folder> folders) {
