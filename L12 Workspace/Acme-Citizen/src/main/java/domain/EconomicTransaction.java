@@ -24,7 +24,7 @@ public class EconomicTransaction extends DomainEntity {
 	private Date transactionMoment;
 	private String concept;
 
-	// Relationships
+	
 
 	@Digits(fraction = 2, integer = 12)
 	@NotNull
@@ -54,6 +54,8 @@ public class EconomicTransaction extends DomainEntity {
 	public void setConcept(String concept) {
 		this.concept = concept;
 	}
+	
+	// Relationships
 
 	private BankAccount creditor;
 	private BankAccount debtor;
