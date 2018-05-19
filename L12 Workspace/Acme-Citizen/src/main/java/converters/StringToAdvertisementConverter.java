@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import domain.Advertisement;
-import repositories.AdvertisementRepository;
+import repositories.WelcomeMessageRepository;
 
 @Component
 @Transactional
 public class StringToAdvertisementConverter implements Converter<String, Advertisement> {
 
 	@Autowired
-	AdvertisementRepository advertisementRepository;
+	WelcomeMessageRepository welcomeMessageRepository;
 
 	@Override
 	public Advertisement convert(final String text) {
@@ -27,7 +27,7 @@ public class StringToAdvertisementConverter implements Converter<String, Adverti
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.advertisementRepository.findOne(id);
+				result = this.welcomeMessageRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

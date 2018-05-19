@@ -18,8 +18,8 @@
 	
 	<!-- User accounts -->
 
-	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
+	<bean id="citizenAccount1" class="security.UserAccount">
+		<property name="citizenname" value="government" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
 			<list>
@@ -30,8 +30,8 @@
 		</property>
 	</bean>
 
-	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="bank" />
+	<bean id="citizenAccount2" class="security.UserAccount">
+		<property name="citizenname" value="bank" />
 		<property name="password" value="bd5af1f610a12434c9128e4a399cef8a" />
 		<property name="authorities">
 			<list>
@@ -42,8 +42,8 @@
 		</property>
 	</bean>
 
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="citizen" />
+	<bean id="citizenAccount3" class="security.UserAccount">
+		<property name="citizenname" value="citizen" />
 		<property name="password" value="801c07d82d0bce07de9c57fedd87a46f" />
 		<property name="authorities">
 			<list>
@@ -54,8 +54,8 @@
 		</property>
 	</bean>
 	
-	<bean id="userAccount4" class="security.UserAccount">
-		<property name="username" value="tvhisperia" />
+	<bean id="citizenAccount4" class="security.UserAccount">
+		<property name="citizenname" value="tvhisperia" />
 		<property name="password" value="d114d982010bc65ec4cf13e8ea778d50" />
 		<property name="authorities">
 			<list>
@@ -66,8 +66,8 @@
 		</property>
 	</bean>
 	
-	<bean id="userAccount5" class="security.UserAccount">
-		<property name="username" value="citizen2" />
+	<bean id="citizenAccount5" class="security.UserAccount">
+		<property name="citizenname" value="citizen2" />
 		<property name="password" value="77656a3c627fc61da117d13d86473361" />
 		<property name="authorities">
 			<list>
@@ -78,8 +78,8 @@
 		</property>
 	</bean>
 	
-	<bean id="userAccount6" class="security.UserAccount">
-		<property name="username" value="citizen3" />
+	<bean id="citizenAccount6" class="security.UserAccount">
+		<property name="citizenname" value="citizen3" />
 		<property name="password" value="3a16f3d63bc67d5b0d0b8e45c04f0aff" />
 		<property name="authorities">
 			<list>
@@ -98,7 +98,7 @@
 		<property name="canOrganiseElection" value="true" />
 		<property name="registerCode" value="HISGOB" />
 		<property name="nif" ref="HISGOB-00000000A" />
-		<property name="userAccount" ref="userAccount1" />
+		<property name="citizenAccount" ref="citizenAccount1" />
 		<property name="bankAccount" ref="bankAccount1" />
 		<property name="folders">
 			<list>
@@ -117,7 +117,7 @@
 		<property name="address" value="Plaza Nueva, 3, Mineville" />
 		<property name="canCreateMoney" value="true" />
 		<property name="nif" ref="HISGOB-00000001B" />
-		<property name="userAccount" ref="userAccount2" />
+		<property name="citizenAccount" ref="citizenAccount2" />
 		<property name="bankCode" ref="9000" />
 		<property name="bankAccount" ref="bankAccount2" />
 		<property name="folders">
@@ -138,7 +138,7 @@
 		<property name="email" value="bancohisperiano@gmail.com" />
 		<property name="address" value="Calle Fontenla, 3, Mineville" />
 		<property name="nif" ref="HISGOB-00000002C" />
-		<property name="userAccount" ref="userAccount3" />
+		<property name="citizenAccount" ref="citizenAccount3" />
 		<property name="folders">
 			<list>
 				<ref bean="folder11" />
@@ -156,7 +156,7 @@
 		<property name="email" value="evamrs91@gmail.com" />
 		<property name="address" value="Kita 17 Jonishi, Kita, Sapporo, Hokkaido 001-0017 (Japón)" />
 		<property name="nif" ref="HISMIN-00000001A" />
-		<property name="userAccount" ref="userAccount5" />
+		<property name="citizenAccount" ref="citizenAccount5" />
 		<property name="folders">
 			<list>
 				<ref bean="folder16" />
@@ -176,7 +176,7 @@
 		<property name="canOrganiseElection" value="false" />
 		<property name="registerCode" value="RTVH__" />
 		<property name="nif" ref="HISGOB-00000003D" />
-		<property name="userAccount" ref="userAccount4" />
+		<property name="citizenAccount" ref="citizenAccount4" />
 		<property name="folders">
 			<list>
 				<ref bean="folder21" />
@@ -195,7 +195,7 @@
 		<property name="email" value="tviltri@gmail.com" />
 		<property name="address" value="Avenida de la Constitución, 12, Minevile" />
 		<property name="nif" ref="HISGOB-00000004E" />
-		<property name="userAccount" ref="userAccount6" />
+		<property name="citizenAccount" ref="citizenAccount6" />
 		<property name="folders">
 			<list>
 				<ref bean="folder26" />
@@ -243,9 +243,6 @@
 				<ref bean="message6" />
 				<ref bean="message7" />
 				<ref bean="message8" />
-				<ref bean="message9" />
-				<ref bean="message10" />
-				<ref bean="message19" />
 			</list>
 		</property>
 		<property name="children">
@@ -264,7 +261,7 @@
 
 		<property name="messages">
 			<list>
-				<null />
+				<ref bean="message9" />
 			</list>
 		</property>
 		<property name="children">
@@ -537,7 +534,7 @@
 		</property>
 		<property name="messages">
 			<list>
-				<ref bean="message13" />
+				<null/>
 			</list>
 		</property>
 		<property name="children">
@@ -583,6 +580,357 @@
 		</property>
 	</bean>
 	
+	<!-- User4 folders -->
+	<bean id="folder21" class="domain.Folder">
+		<property name="name" value="in box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder22" class="domain.Folder">
+		<property name="name" value="out box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder23" class="domain.Folder">
+		<property name="name" value="notification box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder24" class="domain.Folder">
+		<property name="name" value="trash box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder25" class="domain.Folder">
+		<property name="name" value="spam box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Customer1 folders -->
+	<bean id="folder26" class="domain.Folder">
+		<property name="name" value="in box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder27" class="domain.Folder">
+		<property name="name" value="out box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder28" class="domain.Folder">
+		<property name="name" value="notification box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder29" class="domain.Folder">
+		<property name="name" value="trash box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="folder30" class="domain.Folder">
+		<property name="name" value="spam box" />
+		<property name="predefined" value="true" />
+		<property name="parent">
+			<null />
+		</property>
+		<property name="messages">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="children">
+			<list>
+				<null />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Message -->
+	
+	<bean id="message1" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Message from User1 to User2" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="LOW" />
+		<property name="sender" ref="citizen" />
+		<property name="recipient" ref="citizen2" />
+		<property name="folder" ref="folder7"/>
+	</bean>
+
+	<!-- Message 2 -->
+	<bean id="message2" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Message from User1 to User2" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="LOW" />
+		<property name="sender" ref="citizen" />
+		<property name="recipient" ref="citizen2" />
+		<property name="folder" ref="folder11"/>
+	</bean>
+
+	<!-- Message 3 -->
+	<bean id="message3" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="citizen" />
+		<property name="folder" ref="folder2"/>
+	</bean>
+
+	<!-- Message 4 -->
+	<bean id="message4" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="citizen2" />
+		<property name="folder" ref="folder2"/>
+	</bean>
+
+	<!-- Message 5 -->
+	<bean id="message5" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="citizen3" />
+		<property name="folder" ref="folder2"/>
+	</bean>
+
+	<!-- Message 6 -->
+	<bean id="message6" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="bank" />
+		<property name="folder" ref="folder2"/>
+	</bean>
+
+	<!-- Message 7 -->
+	<bean id="message7" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="tvhisperia" />
+		<property name="folder" ref="folder2"/>
+	</bean>
+
+	<!-- Message 8 -->
+	<bean id="message8" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="government" />
+		<property name="folder" ref="folder2"/>
+	</bean>
+
+	<!-- Message 9 -->
+	<bean id="message9" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="government" />
+		<property name="folder" ref="folder3"/>
+	</bean>
+
+	<!-- Message 10 -->
+	<bean id="message10" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="bank" />
+		<property name="folder" ref="folder8"/>
+	</bean>
+
+	<!-- Message 11 -->
+	<bean id="message11" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="citizen" />
+		<property name="folder" ref="folder13"/>
+	</bean>
+
+	<!-- Message 12 -->
+	<bean id="message12" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="citizen2" />
+		<property name="folder" ref="folder18"/>
+	</bean>
+
+	<!-- Message 13 -->
+	<bean id="message13" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="tvhisperia" />
+		<property name="folder" ref="folder23"/>
+	</bean>
+	
+	<!-- Message 14 -->
+	<bean id="message14" class="domain.Message">
+		<property name="moment" value="2018/04/01 12:00" />
+		<property name="subject" value="Notification message" />
+		<property name="body"
+			value="This is a body example of message." />
+		<property name="priority" value="HIGH" />
+		<property name="sender" ref="government" />
+		<property name="recipient" ref="citizen3" />
+		<property name="folder" ref="folder28"/>
+	</bean>
+	
 	<!--Chirp-->
 	
 	<bean id="chirp1" class="domain.Chirp">
@@ -607,7 +955,7 @@
 	
 	<bean id="bankAccount1" class="domain.BankAccount">
 		<property name="money" value="200"/>
-		<property name="accountNumber" value="2032939123021"/>
+		<property name="accountNumber" value="20329391230218"/>
 		<property name="actor" ref="government"/>
 		<property name="bankAgent" ref="bank"/>
 		<property name="debts">
@@ -624,7 +972,7 @@
 	
 	<bean id="bankAccount2" class="domain.BankAccount">
 		<property name="money" value="50.35"/>
-		<property name="accountNumber" value="2032939123021"/>
+		<property name="accountNumber" value="20329391230210"/>
 		<property name="actor" ref="bank"/>
 		<property name="bankAgent" ref="bank"/>
 		<property name="debts">
@@ -664,8 +1012,10 @@
 		<property name="countryFlag" value="http://republicadehisperia.16mb.com/Escudo_bandera/bandera_hires.png"/>
 		<property name="numberParliamentSeats" value="150"/>
 		<property name="welcomeMessages">
-			<ref bean="welcomeEs"/>
-			<ref bean="welcomeEn"/>
+			<list>
+				<ref bean="welcomeEs"/>
+				<ref bean="welcomeEn"/>
+			</list>
 		</property>
 	</bean>
 	
@@ -692,7 +1042,7 @@
 				<null />
 			</list>
 		</property>
-		<property name="user" ref="user1" />
+		<property name="citizen" ref="citizen" />
 		<property name="rendezvous" ref="rendezvous1" />
 		<property name="commentParent"><null/></property>
 	</bean>
@@ -722,8 +1072,10 @@
 	<bean id="candidature1" class="domain.Candidature">
 		<property name="election" ref="election1"/>
 		<property name="candidates">
-			<ref bean="candidate1"/>
-			<ref bean="candidate2"/>
+			<list>
+				<ref bean="candidate1"/>
+				<ref bean="candidate2"/>
+			</list>
 		</property>
 		<property name="comments">
 			<list>

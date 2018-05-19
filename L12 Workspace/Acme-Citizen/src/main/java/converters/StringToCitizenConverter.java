@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.ArticleRepository;
-import domain.Article;
+import repositories.CitizenRepository;
+import domain.Citizen;
 
 @Component
 @Transactional
-public class StringToArticleConverter implements Converter<String, Article> {
+public class StringToCitizenConverter implements Converter<String, Citizen> {
 
 	@Autowired
-	ArticleRepository	articleRepository;
+	CitizenRepository	articleRepository;
 
 
 	@Override
-	public Article convert(final String text) {
-		Article result;
+	public Citizen convert(final String text) {
+		Citizen result;
 		int id;
 
 		try {

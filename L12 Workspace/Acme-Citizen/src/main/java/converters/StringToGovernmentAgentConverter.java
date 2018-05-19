@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.AdminRepository;
-import domain.Admin;
+import repositories.GovernmentAgentRepository;
+import domain.GovernmentAgent;
 
 @Component
 @Transactional
-public class StringToAdminConverter implements Converter<String, Admin> {
+public class StringToGovernmentAgentConverter implements Converter<String, GovernmentAgent> {
 
 	@Autowired
-	AdminRepository	adminRepository;
+	GovernmentAgentRepository	governmentAgentRepository;
 
 
 	@Override
-	public Admin convert(final String text) {
-		Admin result;
+	public GovernmentAgent convert(final String text) {
+		GovernmentAgent result;
 		int id;
 
 		try {
@@ -28,7 +28,7 @@ public class StringToAdminConverter implements Converter<String, Admin> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.adminRepository.findOne(id);
+				result = this.governmentAgentRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

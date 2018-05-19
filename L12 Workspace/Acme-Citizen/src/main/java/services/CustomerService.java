@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.CustomerRepository;
+import repositories.CitizenRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
@@ -28,7 +28,7 @@ public class CustomerService {
 	// Managed repository
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CitizenRepository citizenRepository;
 
 	// Supporting services
 	
@@ -70,7 +70,7 @@ public class CustomerService {
 
 	public Collection<Customer> findAll() {
 		
-		Collection<Customer> result = this.customerRepository.findAll();
+		Collection<Customer> result = this.citizenRepository.findAll();
 		return result;
 	}
 
@@ -78,7 +78,7 @@ public class CustomerService {
 		
 		Assert.isTrue(customerId != 0);
 		
-		Customer result = this.customerRepository.findOne(customerId);
+		Customer result = this.citizenRepository.findOne(customerId);
 		return result;
 	}
 
@@ -93,7 +93,7 @@ public class CustomerService {
 			customer.getUserAccount().setPassword(pass);
 		}
 		
-		result = this.customerRepository.save(customer);
+		result = this.citizenRepository.save(customer);
 		return result;
 	}
 
@@ -107,7 +107,7 @@ public class CustomerService {
 		if (userAccount == null)
 			result = null;
 		else
-			result = this.customerRepository.findCustomerByUserAccountId(userAccount
+			result = this.citizenRepository.findCustomerByUserAccountId(userAccount
 					.getId());
 		return result;
 	}
@@ -128,7 +128,7 @@ public class CustomerService {
 	}
 
 	public void flush() {
-		this.customerRepository.flush();
+		this.citizenRepository.flush();
 	}
 
 	public Customer reconstruct(final CustomerForm customerForm, final BindingResult binding) {

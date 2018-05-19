@@ -34,15 +34,17 @@ public abstract class Actor extends DomainEntity {
 		super();
 	}
 
+
 	// Attributes
 
-	private String name;
-	private String surname;
-	private String email;
-	private String phone;
-	private String address;
-	private String nif;
-	private String nickname;
+	private String	name;
+	private String	surname;
+	private String	email;
+	private String	phone;
+	private String	address;
+	private String	nif;
+	private String	nickname;
+
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
@@ -109,11 +111,13 @@ public abstract class Actor extends DomainEntity {
 		this.nickname = nickname;
 	}
 
+
 	// Relationships
 
-	private UserAccount userAccount;
-	private Collection<Folder> folders;
-	private BankAccount bankAccount;
+	private UserAccount			userAccount;
+	private Collection<Folder>	folders;
+	private BankAccount			bankAccount;
+
 
 	@Valid
 	@NotNull
@@ -137,8 +141,9 @@ public abstract class Actor extends DomainEntity {
 		this.folders = folders;
 	}
 
+	@OneToOne(optional = true)
 	public BankAccount getBankAccount() {
-		return bankAccount;
+		return this.bankAccount;
 	}
 
 	public void setBankAccount(BankAccount bankAccount) {

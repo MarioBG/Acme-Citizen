@@ -17,7 +17,7 @@ import domain.Agent;
 import domain.Customer;
 import domain.Newspaper;
 import domain.User;
-import repositories.AdminRepository;
+import repositories.GovernmentAgentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
@@ -28,7 +28,7 @@ public class AdminService {
 
 	// Managed repository
 	@Autowired
-	private AdminRepository adminRepository;
+	private GovernmentAgentRepository governmentAgentRepository;
 	@Autowired
 	private ActorService actorService;
 	@Autowired
@@ -59,7 +59,7 @@ public class AdminService {
 
 	public Collection<Admin> findAll() {
 		Collection<Admin> res;
-		res = this.adminRepository.findAll();
+		res = this.governmentAgentRepository.findAll();
 		Assert.notNull(res);
 
 		return res;
@@ -68,7 +68,7 @@ public class AdminService {
 	public Admin findOne(final int adminid) {
 		Assert.isTrue(adminid != 0);
 		Admin res;
-		res = this.adminRepository.findOne(adminid);
+		res = this.governmentAgentRepository.findOne(adminid);
 		Assert.notNull(res);
 
 		return res;
@@ -87,7 +87,7 @@ public class AdminService {
 			admin.getUserAccount().setPassword(pass);
 		}
 
-		res = this.adminRepository.save(admin);
+		res = this.governmentAgentRepository.save(admin);
 		return res;
 	}
 
@@ -97,7 +97,7 @@ public class AdminService {
 		Admin res;
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
-		res = this.adminRepository.findAdminByUserAccountId(userAccount.getId());
+		res = this.governmentAgentRepository.findAdminByUserAccountId(userAccount.getId());
 		Assert.notNull(res);
 		return res;
 	}
@@ -117,7 +117,7 @@ public class AdminService {
 	}
 
 	public void flush() {
-		this.adminRepository.flush();
+		this.governmentAgentRepository.flush();
 	}
 
 	public boolean checkIsSpam(String text) {
@@ -154,7 +154,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		Object[] res;
-		res = this.adminRepository.avgSqtrUser();
+		res = this.governmentAgentRepository.avgSqtrUser();
 		return res;
 	}
 
@@ -164,7 +164,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		Object[] res;
-		res = this.adminRepository.avgSqtrArticlesByWriter();
+		res = this.governmentAgentRepository.avgSqtrArticlesByWriter();
 		return res;
 	}
 
@@ -174,7 +174,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		Object[] res;
-		res = this.adminRepository.avgSqtrArticlesByNewspaper();
+		res = this.governmentAgentRepository.avgSqtrArticlesByNewspaper();
 		return res;
 	}
 
@@ -183,7 +183,7 @@ public class AdminService {
 
 		Assert.isTrue(checkAuthority());
 
-		Collection<Newspaper> res = this.adminRepository.newspapersMoreAverage();
+		Collection<Newspaper> res = this.governmentAgentRepository.newspapersMoreAverage();
 		return res;
 	}
 
@@ -192,7 +192,7 @@ public class AdminService {
 
 		Assert.isTrue(checkAuthority());
 
-		Collection<Newspaper> res = this.adminRepository.newspapersFewerAverage();
+		Collection<Newspaper> res = this.governmentAgentRepository.newspapersFewerAverage();
 		return res;
 	}
 
@@ -202,7 +202,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		String res;
-		res = this.adminRepository.ratioUserCreatedNewspaper();
+		res = this.governmentAgentRepository.ratioUserCreatedNewspaper();
 		return res;
 	}
 
@@ -212,7 +212,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		String res;
-		res = this.adminRepository.ratioUserWrittenArticle();
+		res = this.governmentAgentRepository.ratioUserWrittenArticle();
 		return res;
 	}
 
@@ -222,7 +222,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		Double res;
-		res = this.adminRepository.avgFollowupsPerArticle();
+		res = this.governmentAgentRepository.avgFollowupsPerArticle();
 		return res;
 	}
 
@@ -234,7 +234,7 @@ public class AdminService {
 		Double res;
 		long oneWeek = TimeUnit.DAYS.toMillis(7);
 		Date f = new Date(System.currentTimeMillis() - oneWeek);
-		res = this.adminRepository.avgNumberOfFollowUpsPerArticleAfter1Week(f);
+		res = this.governmentAgentRepository.avgNumberOfFollowUpsPerArticleAfter1Week(f);
 		return res;
 	}
 
@@ -246,7 +246,7 @@ public class AdminService {
 		Double res;
 		long twoWeeks = TimeUnit.DAYS.toMillis(7);
 		Date f = new Date(System.currentTimeMillis() - twoWeeks);
-		res = this.adminRepository.avgNumberOfFollowUpsPerArticleAfter2Week(f);
+		res = this.governmentAgentRepository.avgNumberOfFollowUpsPerArticleAfter2Week(f);
 		return res;
 	}
 
@@ -256,7 +256,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		Object[] res;
-		res = this.adminRepository.avgStddevNumberOfChirpPerUser();
+		res = this.governmentAgentRepository.avgStddevNumberOfChirpPerUser();
 		return res;
 	}
 
@@ -266,7 +266,7 @@ public class AdminService {
 		Assert.isTrue(checkAuthority());
 
 		String res;
-		res = this.adminRepository.ratioUsersMorePostedChirpsOfAveragePerUser();
+		res = this.governmentAgentRepository.ratioUsersMorePostedChirpsOfAveragePerUser();
 		return res;
 	}
 
@@ -274,7 +274,7 @@ public class AdminService {
 	
 	// C-1
 	public Double ratioNewspapersAds() {
-		return this.adminRepository.ratioNewspapersWithVsWithoutAdvertisements();
+		return this.governmentAgentRepository.ratioNewspapersWithVsWithoutAdvertisements();
 	}
 	
 	// C-2
@@ -285,7 +285,7 @@ public class AdminService {
 	// B-1
 	public Double avgNumberOfNewspapersPerVolume() {
 
-		Double result = adminRepository.avgNumberOfNewspapersPerVolume();
+		Double result = governmentAgentRepository.avgNumberOfNewspapersPerVolume();
 		return result;
 	}
 
@@ -293,7 +293,7 @@ public class AdminService {
 	
 	public String ratioSubscriptionsVolumeVersusSubscriptionsNewspaper(){
 		
-		String result = adminRepository.ratioSubscriptionsVolumeVersusSubscriptionsNewspaper();
+		String result = governmentAgentRepository.ratioSubscriptionsVolumeVersusSubscriptionsNewspaper();
 		return result;
 	}
 

@@ -24,21 +24,21 @@ public class GovernmentAgent extends Actor {
 
 	// Relationships
 
-	//private Collection<Lottery> lotteries;						//DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
+	private Collection<Lottery>		lotteries;	//DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
 	private Collection<Petition>	petitions;
 	private Collection<Election>	elections;
 
 
-	//	@Valid
-	//	@NotNull
-	//	@OneToMany(mappedBy = "governmentAgent")
-	//	public Collection<Lottery> getLotteries() {
-	//		return this.lotteries;
-	//	}
-	//
-	//	public void setLotteries(final Collection<Lottery> lotteries) {
-	//		this.lotteries = lotteries;
-	//	}
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "governmentAgent")
+	public Collection<Lottery> getLotteries() {
+		return this.lotteries;
+	}
+
+	public void setLotteries(final Collection<Lottery> lotteries) {
+		this.lotteries = lotteries;
+	}
 
 	@Valid
 	@NotNull

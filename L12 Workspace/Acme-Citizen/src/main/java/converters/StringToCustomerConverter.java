@@ -7,7 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.CustomerRepository;
+import repositories.CitizenRepository;
 import domain.Customer;
 
 @Component
@@ -15,7 +15,7 @@ import domain.Customer;
 public class StringToCustomerConverter implements Converter<String, Customer> {
 
 	@Autowired
-	CustomerRepository	customerRepository;
+	CitizenRepository	citizenRepository;
 
 
 	@Override
@@ -28,7 +28,7 @@ public class StringToCustomerConverter implements Converter<String, Customer> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.customerRepository.findOne(id);
+				result = this.citizenRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

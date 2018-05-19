@@ -5,12 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import domain.Agent;
+import domain.Citizen;
 
 @Repository
-public interface AgentRepository extends JpaRepository<Agent, Integer> {
+public interface CitizenRepository extends JpaRepository<Citizen, Integer> {
 
-	@Query("select a from Agent a where a.userAccount.id=?1")
-	Agent findAgentByUserAccountId(int uA);
+	@Query("select c from Citizen c where c.userAccount.id=?1")
+	Citizen findCustomerByUserAccountId(int uA);
 
 }

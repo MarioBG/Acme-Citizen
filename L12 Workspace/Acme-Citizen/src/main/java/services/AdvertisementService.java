@@ -16,7 +16,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.AdvertisementRepository;
+import repositories.WelcomeMessageRepository;
 import domain.Advertisement;
 import domain.Agent;
 import domain.CreditCard;
@@ -29,7 +29,7 @@ public class AdvertisementService {
 
 	// Managed repository
 	@Autowired
-	private AdvertisementRepository	advertisementRepository;
+	private WelcomeMessageRepository	welcomeMessageRepository;
 
 	// Supporting services
 	@Autowired
@@ -75,7 +75,7 @@ public class AdvertisementService {
 		Assert.notNull(advertisement);
 		Assert.isTrue(this.checkExpiration(advertisement.getCreditCard()), "cardExpireError");
 		Advertisement res;
-		res = this.advertisementRepository.save(advertisement);
+		res = this.welcomeMessageRepository.save(advertisement);
 
 		return res;
 	}
@@ -91,14 +91,14 @@ public class AdvertisementService {
 		newspaper.setAdvertisements(ads);
 
 		//this.newspaperService.save(newspaper);
-		this.advertisementRepository.delete(ad);
+		this.welcomeMessageRepository.delete(ad);
 
 	}
 
 	public Collection<Advertisement> findAll() {
 		Collection<Advertisement> res = new ArrayList<Advertisement>();
 
-		res = this.advertisementRepository.findAll();
+		res = this.welcomeMessageRepository.findAll();
 
 		Assert.notNull(res);
 		return res;
@@ -108,7 +108,7 @@ public class AdvertisementService {
 		Assert.isTrue(advertisementId != 0);
 		Advertisement res;
 
-		res = this.advertisementRepository.findOne(advertisementId);
+		res = this.welcomeMessageRepository.findOne(advertisementId);
 
 		return res;
 	}
@@ -116,7 +116,7 @@ public class AdvertisementService {
 	public Advertisement getRandomForNewspaper(final int newspaperId) {
 		final Random rn = new Random();
 		Advertisement ans = null;
-		final Collection<Advertisement> ads = this.advertisementRepository.findRandomForNewspaper(newspaperId);
+		final Collection<Advertisement> ads = this.welcomeMessageRepository.findRandomForNewspaper(newspaperId);
 		if (ads.size() > 0)
 			ans = (Advertisement) ads.toArray()[rn.nextInt(ads.size())];
 		return ans;
@@ -133,7 +133,7 @@ public class AdvertisementService {
 		pattern += "$";
 
 		final List<Advertisement> ans = new ArrayList<Advertisement>();
-		for (final Advertisement a : this.advertisementRepository.findAll())
+		for (final Advertisement a : this.welcomeMessageRepository.findAll())
 			if (a.getTitle().matches(pattern))
 				ans.add(a);
 		return new HashSet<Advertisement>(ans);
@@ -167,7 +167,7 @@ public class AdvertisementService {
 
 	public Advertisement findOneToEdit(final int sponsorshipId) {
 		Advertisement result;
-		result = this.advertisementRepository.findOne(sponsorshipId);
+		result = this.welcomeMessageRepository.findOne(sponsorshipId);
 		this.checkPrincipal(result);
 		return result;
 	}
@@ -251,7 +251,7 @@ public class AdvertisementService {
 	}
 
 	public void flush() {
-		this.advertisementRepository.flush();
+		this.welcomeMessageRepository.flush();
 	}
 
 }
