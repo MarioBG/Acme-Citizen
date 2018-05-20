@@ -79,7 +79,7 @@ public class Petition extends Commentable {
 		this.creationMoment = creationMoment;
 	}
 
-	public boolean isFinalVersion() {
+	public boolean getFinalVersion() {
 		return this.finalVersion;
 	}
 
@@ -87,7 +87,7 @@ public class Petition extends Commentable {
 		this.finalVersion = finalVersion;
 	}
 
-	public boolean isResolved() {
+	public boolean getResolved() {
 		return this.resolved;
 	}
 

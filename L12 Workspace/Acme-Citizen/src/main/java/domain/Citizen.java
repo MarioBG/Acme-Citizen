@@ -21,12 +21,14 @@ public class Citizen extends Actor {
 		super();
 	}
 
+
 	// Relationships
 
-	private Collection<LotteryTicket> lotteryTickets; // DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
-	private Collection<Petition> petitions;
-	private Collection<Election> elections;
-	private Collection<Candidate> candidates;
+	private Collection<LotteryTicket>	lotteryTickets; // DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
+	private Collection<Petition>		petitions;
+	private Collection<Election>		elections;
+	private Collection<Candidate>		candidates;
+
 
 	@Valid
 	@NotNull
@@ -57,7 +59,7 @@ public class Citizen extends Actor {
 		return this.elections;
 	}
 
-	public void setElection(final Collection<Election> elections) {
+	public void setElections(final Collection<Election> elections) {
 		this.elections = elections;
 	}
 

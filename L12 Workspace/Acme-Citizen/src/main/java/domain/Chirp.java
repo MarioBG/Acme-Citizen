@@ -6,9 +6,7 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.Index;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -21,9 +19,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(indexes = {
-	@Index(columnList = "govermentAgent_id")
-})
+//@Table(indexes = {
+//	@Index(columnList = "govermentAgent_id")
+//})
 public class Chirp extends DomainEntity {
 
 	// Constructors
@@ -37,7 +35,7 @@ public class Chirp extends DomainEntity {
 
 	private String	title;
 	private String	content;
-	private Date	publicationDate;
+	private Date	publicationMoment;
 	private String	image;
 	private String	link;
 
@@ -62,14 +60,14 @@ public class Chirp extends DomainEntity {
 
 	@Past
 	@NotNull
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	public Date getPublicationDate() {
-		return this.publicationDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	public Date getPublicationMoment() {
+		return this.publicationMoment;
 	}
 
-	public void setPublicationDate(final Date publicationDate) {
-		this.publicationDate = publicationDate;
+	public void setPublicationMoment(final Date publicationMoment) {
+		this.publicationMoment = publicationMoment;
 	}
 
 	@URL

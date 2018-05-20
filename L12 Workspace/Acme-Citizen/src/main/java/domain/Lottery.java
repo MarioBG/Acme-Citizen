@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -26,17 +27,19 @@ public class Lottery extends DomainEntity {
 
 	}
 
-	private Double quantity;
-	private Double percentageForPrizes;
-	private Date celebrationDate;
-	private Double ticketCost;
-	private String lotteryName;
+
+	private Double	quantity;
+	private Double	percentageForPrizes;
+	private Date	celebrationDate;
+	private Double	ticketCost;
+	private String	lotteryName;
+
 
 	@NotNull
 	@Digits(fraction = 2, integer = 12)
 	@Min(0)
 	public Double getQuantity() {
-		return quantity;
+		return this.quantity;
 	}
 
 	public void setQuantity(Double quantity) {
@@ -47,7 +50,7 @@ public class Lottery extends DomainEntity {
 	@Range(min = 0, max = 100)
 	@Digits(fraction = 2, integer = 3)
 	public Double getPercentageForPrizes() {
-		return percentageForPrizes;
+		return this.percentageForPrizes;
 	}
 
 	public void setPercentageForPrizes(Double percentageForPrizes) {
@@ -57,7 +60,7 @@ public class Lottery extends DomainEntity {
 	@NotNull
 	@Past
 	public Date getCelebrationDate() {
-		return celebrationDate;
+		return this.celebrationDate;
 	}
 
 	public void setCelebrationDate(Date celebrationDate) {
@@ -68,7 +71,7 @@ public class Lottery extends DomainEntity {
 	@NotNull
 	@Digits(fraction = 2, integer = 12)
 	public Double getTicketCost() {
-		return ticketCost;
+		return this.ticketCost;
 	}
 
 	public void setTicketCost(Double ticketCost) {
@@ -77,33 +80,35 @@ public class Lottery extends DomainEntity {
 
 	@NotBlank
 	public String getLotteryName() {
-		return lotteryName;
+		return this.lotteryName;
 	}
 
 	public void setLotteryName(String lotteryName) {
 		this.lotteryName = lotteryName;
 	}
 
+
 	// Relationships
 
-	private Collection<LotteryTicket> lotteryTicket;
-	private GovernmentAgent governmentAgent;
-	private LotteryTicket winnerTicket;
+	private Collection<LotteryTicket>	lotteryTickets;
+	private GovernmentAgent				governmentAgent;
+	private LotteryTicket				winnerTicket;
+
 
 	@OneToMany
-	public Collection<LotteryTicket> getLotteryTicket() {
-		return lotteryTicket;
+	public Collection<LotteryTicket> getLotteryTickets() {
+		return this.lotteryTickets;
 	}
 
-	public void setLotteryTicket(Collection<LotteryTicket> lotteryTicket) {
-		this.lotteryTicket = lotteryTicket;
+	public void setLotteryTickets(Collection<LotteryTicket> lotteryTickets) {
+		this.lotteryTickets = lotteryTickets;
 	}
 
 	@ManyToOne
 	@Valid
 	@NotNull
 	public GovernmentAgent getGovernmentAgent() {
-		return governmentAgent;
+		return this.governmentAgent;
 	}
 
 	public void setGovernmentAgent(GovernmentAgent governmentAgent) {
@@ -112,7 +117,7 @@ public class Lottery extends DomainEntity {
 
 	@OneToOne(optional = false)
 	public LotteryTicket getWinnerTicket() {
-		return winnerTicket;
+		return this.winnerTicket;
 	}
 
 	public void setWinnerTicket(LotteryTicket winnerTicket) {

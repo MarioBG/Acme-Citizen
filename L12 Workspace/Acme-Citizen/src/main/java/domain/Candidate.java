@@ -10,7 +10,7 @@ import javax.validation.constraints.Min;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Candidate extends Commentable {
+public class Candidate extends DomainEntity {
 
 	// Constructor ----------------------------------------------------------------------------
 	public Candidate() {

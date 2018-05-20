@@ -117,6 +117,7 @@ public abstract class Actor extends DomainEntity {
 	private UserAccount			userAccount;
 	private Collection<Folder>	folders;
 	private BankAccount			bankAccount;
+	private Collection<Comment>	comments;
 
 
 	@Valid
@@ -139,6 +140,17 @@ public abstract class Actor extends DomainEntity {
 
 	public void setFolders(Collection<Folder> folders) {
 		this.folders = folders;
+	}
+
+	@Valid
+	@NotEmpty
+	@OneToMany
+	public Collection<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(Collection<Comment> comments) {
+		this.comments = comments;
 	}
 
 	@OneToOne(optional = true)

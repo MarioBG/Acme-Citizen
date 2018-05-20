@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -22,14 +23,16 @@ public class BankAccount extends DomainEntity {
 
 	}
 
-	private Double money;
-	private String accountNumber;
+
+	private Double	money;
+	private String	accountNumber;
+
 
 	@Digits(fraction = 2, integer = 12)
 	@NotNull
 	@Min(0)
 	public Double getMoney() {
-		return money;
+		return this.money;
 	}
 
 	public void setMoney(Double money) {
@@ -38,44 +41,46 @@ public class BankAccount extends DomainEntity {
 
 	@Pattern(regexp = "^\\d{14}$")
 	public String getAccountNumber() {
-		return accountNumber;
+		return this.accountNumber;
 	}
 
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
+
 	// Relationships
-	private Collection<EconomicTransaction> credit;
-	private Collection<EconomicTransaction> debt;
-	private BankAgent bankAgent;
-	private Actor actor;
+	private Collection<EconomicTransaction>	credits;
+	private Collection<EconomicTransaction>	debts;
+	private BankAgent						bankAgent;
+	private Actor							actor;
+
 
 	@OneToMany
 	@Valid
-	public Collection<EconomicTransaction> getCredit() {
-		return credit;
+	public Collection<EconomicTransaction> getCredits() {
+		return this.credits;
 	}
 
-	public void setCredit(Collection<EconomicTransaction> credit) {
-		this.credit = credit;
+	public void setCredits(Collection<EconomicTransaction> credits) {
+		this.credits = credits;
 	}
 
 	@Valid
 	@OneToMany
-	public Collection<EconomicTransaction> getDebt() {
-		return debt;
+	public Collection<EconomicTransaction> getDebts() {
+		return this.debts;
 	}
 
-	public void setDebt(Collection<EconomicTransaction> debt) {
-		this.debt = debt;
+	public void setDebts(Collection<EconomicTransaction> debts) {
+		this.debts = debts;
 	}
 
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
 	public BankAgent getBankAgent() {
-		return bankAgent;
+		return this.bankAgent;
 	}
 
 	public void setBankAgent(BankAgent bankAgent) {
@@ -84,7 +89,7 @@ public class BankAccount extends DomainEntity {
 
 	@OneToOne
 	public Actor getActor() {
-		return actor;
+		return this.actor;
 	}
 
 	public void setActor(Actor actor) {

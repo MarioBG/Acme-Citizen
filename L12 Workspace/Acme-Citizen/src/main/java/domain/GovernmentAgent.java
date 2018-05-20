@@ -10,6 +10,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -19,6 +22,40 @@ public class GovernmentAgent extends Actor {
 
 	public GovernmentAgent() {
 		super();
+	}
+
+
+	// Attributes
+
+	private Boolean	canOrganiseElection;
+	private Boolean	canCreateMoney;
+	private String	registerCode;
+
+
+	@NotBlank
+	@Pattern(regexp = "^[a-zA-Z]{6}$")
+	public String getRegisterCode() {
+		return this.registerCode;
+	}
+
+	public void setRegisterCode(String registerCode) {
+		this.registerCode = registerCode;
+	}
+
+	public Boolean getCanCreateMoney() {
+		return this.canCreateMoney;
+	}
+
+	public void setCanCreateMoney(Boolean canCreateMoney) {
+		this.canCreateMoney = canCreateMoney;
+	}
+
+	public Boolean getCanOrganiseElection() {
+		return this.canOrganiseElection;
+	}
+
+	public void setCanOrganiseElection(Boolean canOrganiseElection) {
+		this.canOrganiseElection = canOrganiseElection;
 	}
 
 
@@ -58,7 +95,7 @@ public class GovernmentAgent extends Actor {
 		return this.elections;
 	}
 
-	public void setElection(final Collection<Election> elections) {
+	public void setElections(final Collection<Election> elections) {
 		this.elections = elections;
 	}
 
