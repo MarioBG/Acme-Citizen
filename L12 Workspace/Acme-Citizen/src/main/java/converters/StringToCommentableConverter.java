@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.NewspaperRepository;
-import domain.Newspaper;
+import repositories.CommentableRepository;
+import domain.Commentable;
 
 @Component
 @Transactional
-public class StringToNewspaperConverter implements Converter<String, Newspaper> {
+public class StringToCommentableConverter implements Converter<String, Commentable> {
 
 	@Autowired
-	NewspaperRepository	newspaperRepository;
+	CommentableRepository	commentableRepository;
 
 
 	@Override
-	public Newspaper convert(final String text) {
-		Newspaper result;
+	public Commentable convert(final String text) {
+		Commentable result;
 		int id;
 
 		try {
@@ -28,7 +28,7 @@ public class StringToNewspaperConverter implements Converter<String, Newspaper> 
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.newspaperRepository.findOne(id);
+				result = this.commentableRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

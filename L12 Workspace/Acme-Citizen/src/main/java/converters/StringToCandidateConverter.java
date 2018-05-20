@@ -7,19 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Advertisement;
-import repositories.WelcomeMessageRepository;
+import repositories.CandidateRepository;
+import domain.Candidate;
 
 @Component
 @Transactional
-public class StringToAdvertisementConverter implements Converter<String, Advertisement> {
+public class StringToCandidateConverter implements Converter<String, Candidate> {
 
 	@Autowired
-	WelcomeMessageRepository welcomeMessageRepository;
+	CandidateRepository	candidateRepository;
+
 
 	@Override
-	public Advertisement convert(final String text) {
-		Advertisement result;
+	public Candidate convert(final String text) {
+		Candidate result;
 		int id;
 
 		try {
@@ -27,7 +28,7 @@ public class StringToAdvertisementConverter implements Converter<String, Adverti
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.welcomeMessageRepository.findOne(id);
+				result = this.candidateRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

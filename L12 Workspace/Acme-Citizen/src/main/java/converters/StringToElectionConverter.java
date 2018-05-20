@@ -7,19 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Volume;
-import repositories.VolumeRepository;
+import repositories.ElectionRepository;
+import domain.Election;
 
 @Component
 @Transactional
-public class StringToVolumeConverter implements Converter<String, Volume> {
+public class StringToElectionConverter implements Converter<String, Election> {
 
 	@Autowired
-	VolumeRepository volumeRepository;
+	ElectionRepository	electionRepository;
+
 
 	@Override
-	public Volume convert(final String text) {
-		Volume result;
+	public Election convert(final String text) {
+		Election result;
 		int id;
 
 		try {
@@ -27,7 +28,7 @@ public class StringToVolumeConverter implements Converter<String, Volume> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.volumeRepository.findOne(id);
+				result = this.electionRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);

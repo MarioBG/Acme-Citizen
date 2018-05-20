@@ -7,20 +7,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.FollowUpRepository;
-import domain.FollowUp;
+import repositories.CandidatureRepository;
+import domain.Candidature;
 
 @Component
 @Transactional
-public class StringToFollowUpConverter implements Converter<String, FollowUp> {
+public class StringToCandidatureConverter implements Converter<String, Candidature> {
 
 	@Autowired
-	FollowUpRepository	followUpRepository;
+	CandidatureRepository	candidatureRepository;
 
 
 	@Override
-	public FollowUp convert(final String text) {
-		FollowUp result;
+	public Candidature convert(final String text) {
+		Candidature result;
 		int id;
 
 		try {
@@ -28,7 +28,7 @@ public class StringToFollowUpConverter implements Converter<String, FollowUp> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.followUpRepository.findOne(id);
+				result = this.candidatureRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
