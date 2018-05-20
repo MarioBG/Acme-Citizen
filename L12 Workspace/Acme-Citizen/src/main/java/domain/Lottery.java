@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -18,6 +20,9 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -28,62 +33,62 @@ public class Lottery extends DomainEntity {
 	}
 
 
-	private Double	quantity;
-	private Double	percentageForPrizes;
+	private double	quantity;
+	private double	percentageForPrizes;
 	private Date	celebrationDate;
-	private Double	ticketCost;
+	private double	ticketCost;
 	private String	lotteryName;
 
 
-	@NotNull
 	@Digits(fraction = 2, integer = 12)
 	@Min(0)
-	public Double getQuantity() {
+	public double getQuantity() {
 		return this.quantity;
 	}
 
-	public void setQuantity(Double quantity) {
+	public void setQuantity(final double quantity) {
 		this.quantity = quantity;
 	}
 
-	@NotNull
 	@Range(min = 0, max = 100)
 	@Digits(fraction = 2, integer = 3)
-	public Double getPercentageForPrizes() {
+	public double getPercentageForPrizes() {
 		return this.percentageForPrizes;
 	}
 
-	public void setPercentageForPrizes(Double percentageForPrizes) {
+	public void setPercentageForPrizes(final double percentageForPrizes) {
 		this.percentageForPrizes = percentageForPrizes;
 	}
 
 	@NotNull
 	@Past
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getCelebrationDate() {
 		return this.celebrationDate;
 	}
 
-	public void setCelebrationDate(Date celebrationDate) {
+	public void setCelebrationDate(final Date celebrationDate) {
 		this.celebrationDate = celebrationDate;
 	}
 
 	@Min(0)
-	@NotNull
 	@Digits(fraction = 2, integer = 12)
-	public Double getTicketCost() {
+	public double getTicketCost() {
 		return this.ticketCost;
 	}
 
-	public void setTicketCost(Double ticketCost) {
+	public void setTicketCost(final double ticketCost) {
 		this.ticketCost = ticketCost;
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLotteryName() {
 		return this.lotteryName;
 	}
 
-	public void setLotteryName(String lotteryName) {
+	public void setLotteryName(final String lotteryName) {
 		this.lotteryName = lotteryName;
 	}
 
@@ -95,32 +100,34 @@ public class Lottery extends DomainEntity {
 	private LotteryTicket				winnerTicket;
 
 
-	@OneToMany
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "lottery")
 	public Collection<LotteryTicket> getLotteryTickets() {
 		return this.lotteryTickets;
 	}
 
-	public void setLotteryTickets(Collection<LotteryTicket> lotteryTickets) {
+	public void setLotteryTickets(final Collection<LotteryTicket> lotteryTickets) {
 		this.lotteryTickets = lotteryTickets;
 	}
 
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@Valid
-	@NotNull
 	public GovernmentAgent getGovernmentAgent() {
 		return this.governmentAgent;
 	}
 
-	public void setGovernmentAgent(GovernmentAgent governmentAgent) {
+	public void setGovernmentAgent(final GovernmentAgent governmentAgent) {
 		this.governmentAgent = governmentAgent;
 	}
 
-	@OneToOne(optional = false)
+	@Valid
+	@OneToOne(optional = true)
 	public LotteryTicket getWinnerTicket() {
 		return this.winnerTicket;
 	}
 
-	public void setWinnerTicket(LotteryTicket winnerTicket) {
+	public void setWinnerTicket(final LotteryTicket winnerTicket) {
 		this.winnerTicket = winnerTicket;
 	}
 

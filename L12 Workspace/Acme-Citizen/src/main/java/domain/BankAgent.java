@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -26,25 +28,26 @@ public class BankAgent extends Actor {
 
 	// Attributes
 
-	private Boolean	canCreateMoney;
+	private boolean	canCreateMoney;
 	private String	bankCode;
 
 
 	@NotBlank
 	@Pattern(regexp = "^\\d{4}$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getBankCode() {
 		return this.bankCode;
 	}
 
-	public void setBankCode(String bankCode) {
+	public void setBankCode(final String bankCode) {
 		this.bankCode = bankCode;
 	}
 
-	public Boolean getCanCreateMoney() {
+	public boolean getCanCreateMoney() {
 		return this.canCreateMoney;
 	}
 
-	public void setCanCreateMoney(Boolean canCreateMoney) {
+	public void setCanCreateMoney(final Boolean canCreateMoney) {
 		this.canCreateMoney = canCreateMoney;
 	}
 

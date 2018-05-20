@@ -24,7 +24,7 @@ public class Citizen extends Actor {
 
 	// Relationships
 
-	private Collection<LotteryTicket>	lotteryTickets; // DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
+	private Collection<LotteryTicket>	lotteryTickets;
 	private Collection<Petition>		petitions;
 	private Collection<Election>		elections;
 	private Collection<Candidate>		candidates;
@@ -70,7 +70,7 @@ public class Citizen extends Actor {
 		return this.candidates;
 	}
 
-	public void setCandidates(Collection<Candidate> candidates) {
+	public void setCandidates(final Collection<Candidate> candidates) {
 		this.candidates = candidates;
 	}
 

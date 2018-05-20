@@ -14,14 +14,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-//@Table(indexes = {
-//	@Index(columnList = "govermentAgent_id")
-//})
 public class Chirp extends DomainEntity {
 
 	// Constructors
@@ -41,6 +40,7 @@ public class Chirp extends DomainEntity {
 
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
 		return this.title;
 	}
@@ -50,6 +50,7 @@ public class Chirp extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getContent() {
 		return this.content;
 	}
@@ -71,6 +72,7 @@ public class Chirp extends DomainEntity {
 	}
 
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getImage() {
 		return this.image;
 	}
@@ -80,6 +82,7 @@ public class Chirp extends DomainEntity {
 	}
 
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLink() {
 		return this.link;
 	}

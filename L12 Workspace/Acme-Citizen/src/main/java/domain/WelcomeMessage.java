@@ -37,6 +37,7 @@ public class WelcomeMessage extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getContent() {
 		return this.content;
 	}

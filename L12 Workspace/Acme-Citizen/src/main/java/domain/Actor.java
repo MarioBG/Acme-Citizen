@@ -66,6 +66,7 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@Email
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getEmail() {
 		return this.email;
 	}
@@ -75,6 +76,7 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@Pattern(regexp = "^\\+?\\d+$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -83,6 +85,7 @@ public abstract class Actor extends DomainEntity {
 		this.phone = phone;
 	}
 
+	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;
@@ -92,6 +95,7 @@ public abstract class Actor extends DomainEntity {
 		this.address = address;
 	}
 
+	@NotBlank
 	@Pattern(regexp = "^[a-zA-Z]{6}-\\d{8}[A-Z]$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNif() {
@@ -138,27 +142,28 @@ public abstract class Actor extends DomainEntity {
 		return this.folders;
 	}
 
-	public void setFolders(Collection<Folder> folders) {
+	public void setFolders(final Collection<Folder> folders) {
 		this.folders = folders;
 	}
 
 	@Valid
-	@NotEmpty
-	@OneToMany
+	@NotNull
+	@OneToMany(mappedBy = "actor")
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}
 
-	public void setComments(Collection<Comment> comments) {
+	public void setComments(final Collection<Comment> comments) {
 		this.comments = comments;
 	}
 
+	@Valid
 	@OneToOne(optional = true)
 	public BankAccount getBankAccount() {
 		return this.bankAccount;
 	}
 
-	public void setBankAccount(BankAccount bankAccount) {
+	public void setBankAccount(final BankAccount bankAccount) {
 		this.bankAccount = bankAccount;
 	}
 

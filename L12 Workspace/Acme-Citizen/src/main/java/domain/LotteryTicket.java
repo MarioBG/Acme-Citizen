@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -8,6 +9,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class LotteryTicket extends DomainEntity {
@@ -16,39 +20,45 @@ public class LotteryTicket extends DomainEntity {
 
 	}
 
-	private String number;
+
+	private String	number;
+
 
 	@NotNull
 	@Pattern(regexp = "^\\d{6}$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(final String number) {
 		this.number = number;
 	}
 
+
 	// Relationships
 
-	private Citizen citizen;
-	private Lottery lottery;
+	private Citizen	citizen;
+	private Lottery	lottery;
+
 
 	@Valid
 	@ManyToOne(optional = false)
 	public Citizen getCitizen() {
-		return citizen;
+		return this.citizen;
 	}
 
-	public void setCitizen(Citizen citizen) {
+	public void setCitizen(final Citizen citizen) {
 		this.citizen = citizen;
 	}
 
-	@ManyToOne
+	@Valid
+	@ManyToOne(optional = false)
 	public Lottery getLottery() {
-		return lottery;
+		return this.lottery;
 	}
 
-	public void setLottery(Lottery lottery) {
+	public void setLottery(final Lottery lottery) {
 		this.lottery = lottery;
 	}
 

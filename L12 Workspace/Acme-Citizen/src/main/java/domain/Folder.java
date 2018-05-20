@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -23,12 +25,15 @@ public class Folder extends DomainEntity {
 		super();
 	}
 
+
 	// Attributes
 	// ------------------------------------------------------------------------------
-	private String name;
-	private boolean predefined;
+	private String	name;
+	private boolean	predefined;
+
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -45,12 +50,14 @@ public class Folder extends DomainEntity {
 		this.predefined = predefined;
 	}
 
+
 	// RelashionShips
 	// ----------------------------------------------------------------
 
-	private Folder parent;
-	private Collection<Folder> children;
-	private Collection<Message> messages;
+	private Folder				parent;
+	private Collection<Folder>	children;
+	private Collection<Message>	messages;
+
 
 	@Valid
 	@ManyToOne(optional = true)

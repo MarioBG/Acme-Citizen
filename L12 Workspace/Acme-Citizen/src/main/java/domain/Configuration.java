@@ -31,7 +31,7 @@ public class Configuration extends DomainEntity {
 
 	private String	defaultCountryCode;
 	private String	countryFlag;
-	private Integer	numberParliamentSeats;
+	private int		numberParliamentSeats;
 
 
 	@NotBlank
@@ -46,6 +46,7 @@ public class Configuration extends DomainEntity {
 
 	@NotBlank
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCountryFlag() {
 		return this.countryFlag;
 	}
@@ -54,13 +55,12 @@ public class Configuration extends DomainEntity {
 		this.countryFlag = countryFlag;
 	}
 
-	@NotNull
 	@Min(0)
-	public Integer getNumberParliamentSeats() {
+	public int getNumberParliamentSeats() {
 		return this.numberParliamentSeats;
 	}
 
-	public void setNumberParliamentSeats(final Integer numberParliamentSeats) {
+	public void setNumberParliamentSeats(final int numberParliamentSeats) {
 		this.numberParliamentSeats = numberParliamentSeats;
 	}
 

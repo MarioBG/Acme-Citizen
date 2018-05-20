@@ -13,6 +13,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -35,6 +37,7 @@ public class Candidature extends Commentable {
 
 	@NotBlank
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getElectoralProgram() {
 		return this.electoralProgram;
 	}
@@ -44,6 +47,7 @@ public class Candidature extends Commentable {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getDescription() {
 		return this.description;
 	}
@@ -54,6 +58,7 @@ public class Candidature extends Commentable {
 
 	@NotBlank
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPartyLogo() {
 		return this.partyLogo;
 	}

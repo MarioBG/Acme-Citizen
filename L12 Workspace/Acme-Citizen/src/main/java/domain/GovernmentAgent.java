@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -27,41 +29,42 @@ public class GovernmentAgent extends Actor {
 
 	// Attributes
 
-	private Boolean	canOrganiseElection;
-	private Boolean	canCreateMoney;
+	private boolean	canOrganiseElection;
+	private boolean	canCreateMoney;
 	private String	registerCode;
 
 
 	@NotBlank
 	@Pattern(regexp = "^[a-zA-Z]{6}$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getRegisterCode() {
 		return this.registerCode;
 	}
 
-	public void setRegisterCode(String registerCode) {
+	public void setRegisterCode(final String registerCode) {
 		this.registerCode = registerCode;
 	}
 
-	public Boolean getCanCreateMoney() {
+	public boolean getCanCreateMoney() {
 		return this.canCreateMoney;
 	}
 
-	public void setCanCreateMoney(Boolean canCreateMoney) {
+	public void setCanCreateMoney(final boolean canCreateMoney) {
 		this.canCreateMoney = canCreateMoney;
 	}
 
-	public Boolean getCanOrganiseElection() {
+	public boolean getCanOrganiseElection() {
 		return this.canOrganiseElection;
 	}
 
-	public void setCanOrganiseElection(Boolean canOrganiseElection) {
+	public void setCanOrganiseElection(final boolean canOrganiseElection) {
 		this.canOrganiseElection = canOrganiseElection;
 	}
 
 
 	// Relationships
 
-	private Collection<Lottery>		lotteries;	//DESCOMENTAR CUANDO SE HAGAN LAS CLASES DE DOMINIO
+	private Collection<Lottery>		lotteries;
 	private Collection<Petition>	petitions;
 	private Collection<Election>	elections;
 

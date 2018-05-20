@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -51,6 +53,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSubject() {
 		return this.subject;
 	}
@@ -60,6 +63,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getBody() {
 		return this.body;
 	}
@@ -87,7 +91,6 @@ public class Message extends DomainEntity {
 	private Folder	folder;
 
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	public Folder getFolder() {
@@ -98,7 +101,6 @@ public class Message extends DomainEntity {
 		this.folder = folder;
 	}
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "recipient_id", nullable = false)
@@ -110,7 +112,6 @@ public class Message extends DomainEntity {
 		this.recipient = recipient;
 	}
 
-	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "sender_id", nullable = false)
