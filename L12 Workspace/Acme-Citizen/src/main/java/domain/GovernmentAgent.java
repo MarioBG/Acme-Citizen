@@ -67,6 +67,7 @@ public class GovernmentAgent extends Actor {
 	private Collection<Lottery>		lotteries;
 	private Collection<Petition>	petitions;
 	private Collection<Election>	elections;
+	private Collection<Chirp>		chirps;
 
 
 	@Valid
@@ -100,6 +101,17 @@ public class GovernmentAgent extends Actor {
 
 	public void setElections(final Collection<Election> elections) {
 		this.elections = elections;
+	}
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "governmentAgent")
+	public Collection<Chirp> getChirps() {
+		return this.chirps;
+	}
+
+	public void setChirps(final Collection<Chirp> chrips) {
+		this.chirps = chrips;
 	}
 
 }

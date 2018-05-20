@@ -1,8 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -13,8 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.ChirpRepository;
 import domain.Chirp;
-import domain.Configuration;
-import domain.User;
 
 @Service
 @Transactional
@@ -23,18 +19,13 @@ public class ChirpService {
 	// Managed repository
 
 	@Autowired
-	private ChirpRepository	chirpRepository;
+	private ChirpRepository			chirpRepository;
 
 	// Supporting services
 
 	@Autowired
-	private UserService		userService;
-	
-	@Autowired
-	private ConfigurationService configurationService;
+	private GovernmentAgentService	governmentAgentService;
 
-	@Autowired
-	private GovernmentAgentService adminService;
 
 	// Constructors
 
@@ -45,19 +36,13 @@ public class ChirpService {
 	// Simple CRUD methods
 
 	public Chirp create() {
-		
-		Assert.notNull(userService.findByPrincipal());
-		
+
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
+
 		final Chirp res = new Chirp();
 
-		final Date publicationMoment;
-		final User user;
-
-		user = this.userService.findByPrincipal();
-		publicationMoment = new Date(System.currentTimeMillis() - 1);
-
-		res.setPublicationMoment(publicationMoment);
-		res.setUser(user);
+		res.setPublicationMoment(new Date(System.currentTimeMillis() - 1000));
+		res.setGovernmentAgent(this.governmentAgentService.findByPrincipal());
 
 		return res;
 	}
@@ -79,67 +64,25 @@ public class ChirpService {
 
 	public Chirp save(final Chirp chirp) {
 		Assert.notNull(chirp);
-		Chirp res;
 
-		final Date publicationMoment;
-		final User user;
-		Collection<Chirp> chirps;
+		if (chirp.getId() == 0)
+			chirp.setPublicationMoment(new Date(System.currentTimeMillis() - 1000));
 
-		user = this.userService.findByPrincipal();
-		publicationMoment = new Date(System.currentTimeMillis() - 1);
-		chirps = user.getChirps();
+		final Chirp res = this.chirpRepository.save(chirp);
 
-		chirp.setPublicationMoment(publicationMoment);
-		chirp.setUser(user);
-		res = this.chirpRepository.save(chirp);
-		chirps.add(res);
-		user.setChirps(chirps);
+		if (chirp.getId() == 0)
+			res.getGovernmentAgent().getChirps().add(res);
 
 		return res;
 	}
 
 	public void delete(final Chirp chirp) {
-		final User u = chirp.getUser();
-		final Collection<Chirp> chirps = u.getChirps();
-		chirps.remove(chirp);
-		u.setChirps(chirps);
 
+		chirp.getGovernmentAgent().getChirps().remove(chirp);
 		this.chirpRepository.delete(chirp);
 	}
 
 	// Other business methods
-
-	public Collection<Chirp> findChirpsByFollowedFromUser(final User u) {
-		return this.chirpRepository.findChirpsByFollowedFromUserId(u.getId());
-	}
-
-	public Collection<Chirp> findChirpsByUser(final User u) {
-		return this.chirpRepository.findChirpsByUserId(u.getId());
-	}
-	
-	public Collection<Chirp> chirpContainTabooWord(){
-		Assert.notNull(adminService.findByPrincipal());
-		Collection<Chirp> res = new ArrayList<>();
-		Configuration configuration;
-		Collection<String> tabooWords = new ArrayList<>();
-		Collection<Chirp> allChirp = new ArrayList<>();
-		
-		configuration = this.configurationService.findAll().iterator().next();
-		tabooWords = Arrays.asList(configuration.getTabooWords().split(","));
-		allChirp = this.findAll();
-		
-		for(Chirp chirp: allChirp){
-			for(String tabooWord: tabooWords){
-				String lowTabooWord = tabooWord.toLowerCase();
-				if(chirp.getTitle().toLowerCase().contains(lowTabooWord.trim()) || chirp.getDescription().toLowerCase().contains(lowTabooWord.trim())){
-					if(!res.contains(chirp)){
-						res.add(chirp);
-					}
-				}
-			}
-		}
-		return res;
-	}
 
 	public void flush() {
 		this.chirpRepository.flush();

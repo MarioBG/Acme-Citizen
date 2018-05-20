@@ -1,11 +1,12 @@
+
 package repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import domain.SubscriptionVolume;
+import domain.Election;
 
 @Repository
-public interface SubscriptionVolumeRepository extends JpaRepository<SubscriptionVolume, Integer> {
-	
+public interface ElectionRepository extends JpaRepository<Election, Integer> {
+
 }
