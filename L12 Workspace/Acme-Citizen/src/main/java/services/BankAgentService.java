@@ -60,13 +60,11 @@ public class BankAgentService {
 
 		final UserAccount agentAccount = new UserAccount();
 		final Authority authority = new Authority();
-		final Collection<Advertisement> advertisements = new ArrayList<Advertisement>();
 		Collection<Folder> folders = new ArrayList<Folder>();
-		authority.setAuthority(Authority.AGENT);
+		authority.setAuthority(Authority.BANKAGENT);
 		agentAccount.addAuthority(authority);
 		res.setUserAccount(agentAccount);
 
-		res.setAdvertisements(advertisements);
 		res.setFolders(folders);
 
 		return res;
@@ -115,12 +113,12 @@ public class BankAgentService {
 		return res;
 	}
 
-	public Agent reconstruct(final AgentForm agentForm, final BindingResult binding) {
+	public BankAgent reconstruct(final AgentForm agentForm, final BindingResult binding) {
 
 		Assert.notNull(agentForm);
 		Assert.isTrue(agentForm.getTermsAndConditions() == true);
 
-		Agent res = new Agent();
+		BankAgent res = new BankAgent();
 
 		if (agentForm.getId() != 0)
 			res = this.findOne(agentForm.getId());
@@ -142,7 +140,7 @@ public class BankAgentService {
 		return res;
 	}
 
-	public AgentForm construct(final Agent agent) {
+	public AgentForm construct(final BankAgent agent) {
 
 		Assert.notNull(agent);
 		final AgentForm editAgentForm = new AgentForm();
