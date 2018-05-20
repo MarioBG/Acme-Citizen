@@ -34,7 +34,7 @@ public class ChirpService {
 	private ConfigurationService configurationService;
 
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	// Constructors
 

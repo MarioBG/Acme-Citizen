@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -12,50 +13,50 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import domain.Actor;
-import domain.Advertisement;
-import domain.Agent;
-import domain.Folder;
-import forms.AgentForm;
-import repositories.AgentRepository;
+import repositories.BankAgentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.BankAgent;
+import domain.Folder;
+import forms.AgentForm;
 
 @Service
 @Transactional
-public class AgentService {
+public class BankAgentService {
 
 	// Managed repository
 
 	@Autowired
-	private AgentRepository agentRepository;
+	private BankAgentRepository	bankAgentRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private FolderService folderService;
+	private FolderService		folderService;
 
 	@Autowired
-	private Validator validator;
+	private Validator			validator;
+
 
 	// Constructors
 
-	public AgentService() {
+	public BankAgentService() {
 		super();
 	}
 
 	// Simple CRUD methods
 
-	public Agent create() {
+	public BankAgent create() {
 
 		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(principal == null);
 
-		final Agent res = new Agent();
+		final BankAgent res = new BankAgent();
 
 		final UserAccount agentAccount = new UserAccount();
 		final Authority authority = new Authority();
@@ -71,55 +72,50 @@ public class AgentService {
 		return res;
 	}
 
-	public Collection<Agent> findAll() {
-		Collection<Agent> res;
-		res = this.agentRepository.findAll();
+	public Collection<BankAgent> findAll() {
+		Collection<BankAgent> res;
+		res = this.bankAgentRepository.findAll();
 		Assert.notNull(res);
 		return res;
 	}
 
-	public Agent findOne(final int agentId) {
+	public BankAgent findOne(final int agentId) {
 		Assert.isTrue(agentId != 0);
-		Agent res;
-		res = this.agentRepository.findOne(agentId);
+		BankAgent res;
+		res = this.bankAgentRepository.findOne(agentId);
 		return res;
 	}
 
-	public Agent save(final Agent agent) {
-		Agent res;
+	public BankAgent save(final BankAgent agent) {
+		BankAgent res;
 		if (agent.getId() == 0) {
-			final Collection<Folder> folders = this.folderService
-					.save(this.folderService.defaultFolders());
+			final Collection<Folder> folders = this.folderService.save(this.folderService.defaultFolders());
 			agent.setFolders(folders);
-			agent.getUserAccount().setPassword(
-					new Md5PasswordEncoder().encodePassword(agent
-							.getUserAccount().getPassword(), null));
+			agent.getUserAccount().setPassword(new Md5PasswordEncoder().encodePassword(agent.getUserAccount().getPassword(), null));
 		}
-		res = this.agentRepository.save(agent);
+		res = this.bankAgentRepository.save(agent);
 
 		return res;
 	}
 
 	// Other business methods
 
-	public Agent findAgentByUserAccountId(final int uA) {
-		return this.agentRepository.findAgentByUserAccountId(uA);
+	public BankAgent findBankAgentByUserAccountId(final int uA) {
+		return this.bankAgentRepository.findBankAgentByUserAccountId(uA);
 	}
 
-	public Agent findByPrincipal() {
-		Agent res;
+	public BankAgent findByPrincipal() {
+		BankAgent res;
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
 		if (userAccount == null)
 			res = null;
 		else
-			res = this.agentRepository.findAgentByUserAccountId(userAccount
-					.getId());
+			res = this.bankAgentRepository.findBankAgentByUserAccountId(userAccount.getId());
 		return res;
 	}
 
-	public Agent reconstruct(final AgentForm agentForm,
-			final BindingResult binding) {
+	public Agent reconstruct(final AgentForm agentForm, final BindingResult binding) {
 
 		Assert.notNull(agentForm);
 		Assert.isTrue(agentForm.getTermsAndConditions() == true);
@@ -139,10 +135,10 @@ public class AgentService {
 		res.getUserAccount().setUsername(agentForm.getUsername());
 		res.getUserAccount().setPassword(agentForm.getPassword());
 
-		if(binding != null){
+		if (binding != null) {
 			this.validator.validate(res, binding);
 		}
-		
+
 		return res;
 	}
 
@@ -164,9 +160,9 @@ public class AgentService {
 
 		return editAgentForm;
 	}
-	
+
 	public void flush() {
-		this.agentRepository.flush();
+		this.bankAgentRepository.flush();
 	}
 
 }

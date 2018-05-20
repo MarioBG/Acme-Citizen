@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AgentService;
+import services.BankAgentService;
 import domain.Agent;
 import forms.AgentForm;
 
@@ -24,7 +24,7 @@ public class AgentController extends AbstractController {
 	// Services -------------------------------------------------------------
 
 	@Autowired
-	private AgentService	agentService;
+	private BankAgentService	agentService;
 
 
 	// Constructors ---------------------------------------------------------

@@ -39,7 +39,7 @@ public class MessageService {
 	private ActorService actorService;
 	
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	@Autowired
 	private ConfigurationService configurationService;

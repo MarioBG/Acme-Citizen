@@ -37,7 +37,7 @@ public class VolumeService {
 	private UserService userService;
 
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	@Autowired
 	private CustomerService customerService;

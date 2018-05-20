@@ -18,7 +18,7 @@ public class AdminServiceTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	// Tests ------------------------------------------------------------------
 

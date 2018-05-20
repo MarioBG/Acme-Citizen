@@ -38,7 +38,7 @@ public class ArticleService {
 	private UserService				userService;
 
 	@Autowired
-	private AdminService			adminService;
+	private GovernmentAgentService			adminService;
 
 	@Autowired
 	private FollowUpService			followUpService;

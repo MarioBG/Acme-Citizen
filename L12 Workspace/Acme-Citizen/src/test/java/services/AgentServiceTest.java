@@ -20,7 +20,7 @@ public class AgentServiceTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private AgentService agentService;
+	private BankAgentService agentService;
 
 	// Tests ------------------------------------------------------------------
 

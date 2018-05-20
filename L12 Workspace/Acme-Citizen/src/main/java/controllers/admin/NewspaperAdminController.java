@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AdminService;
+import services.GovernmentAgentService;
 import services.NewspaperService;
 import controllers.AbstractController;
 import domain.Newspaper;
@@ -24,7 +24,7 @@ public class NewspaperAdminController extends AbstractController {
 	private NewspaperService newspaperService;
 	
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	// Constructors --------------------------------------------------
 

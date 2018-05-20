@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AgentService;
+import services.BankAgentService;
 import services.NewspaperService;
 import controllers.AbstractController;
 import domain.Agent;
@@ -26,7 +26,7 @@ public class NewspaperAgentController extends AbstractController {
 	private NewspaperService	newspaperService;
 
 	@Autowired
-	private AgentService		agentService;
+	private BankAgentService		agentService;
 
 
 	// Constructors --------------------------------------------------

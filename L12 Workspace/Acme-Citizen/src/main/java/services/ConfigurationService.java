@@ -23,7 +23,7 @@ public class ConfigurationService {
 	private ConfigurationRepository configurationRepository;
 
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	// Constructors -----------------------------------------------------------
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AdminService;
+import services.GovernmentAgentService;
 import domain.Newspaper;
 
 @Controller
@@ -26,7 +26,7 @@ import domain.Newspaper;
 public class AdminController extends AbstractController {
 
 	@Autowired
-	private AdminService			adminService;
+	private GovernmentAgentService			adminService;
 
 	// Constructors -----------------------------------------------------------
 

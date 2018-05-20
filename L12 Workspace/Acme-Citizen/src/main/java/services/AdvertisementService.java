@@ -36,10 +36,10 @@ public class AdvertisementService {
 	private NewspaperService		newspaperService;
 
 	@Autowired
-	private AgentService			agentService;
+	private BankAgentService			agentService;
 
 	@Autowired
-	private AdminService			adminService;
+	private GovernmentAgentService			adminService;
 
 	@Autowired
 	private ConfigurationService	configService;

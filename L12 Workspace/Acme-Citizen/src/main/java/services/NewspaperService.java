@@ -36,7 +36,7 @@ public class NewspaperService {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	@Autowired
 	private UserService userService;

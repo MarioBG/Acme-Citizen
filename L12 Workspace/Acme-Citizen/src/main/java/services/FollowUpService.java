@@ -29,7 +29,7 @@ public class FollowUpService {
 	private ArticleService articleService;
 
 	@Autowired
-	private AdminService adminService;
+	private GovernmentAgentService adminService;
 
 	@Autowired
 	private UserService userService;

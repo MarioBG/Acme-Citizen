@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AdminService;
+import services.GovernmentAgentService;
 import services.AdvertisementService;
-import services.AgentService;
+import services.BankAgentService;
 import services.NewspaperService;
 import domain.Admin;
 import domain.Advertisement;
@@ -31,13 +31,13 @@ public class AdvertisementAgentController {
 	private AdvertisementService	advertisementService;
 
 	@Autowired
-	private AgentService			agentService;
+	private BankAgentService			agentService;
 
 	@Autowired
 	private NewspaperService		newspaperService;
 
 	@Autowired
-	private AdminService			adminService;
+	private GovernmentAgentService			adminService;
 
 
 	// Constructor
