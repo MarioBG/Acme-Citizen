@@ -26,9 +26,6 @@ public class ConfigurationService {
 	@Autowired
 	private GovernmentAgentService	governmentAgentService;
 
-	@Autowired
-	private WelcomeMessageService	welcomeMessageService;
-
 
 	// Constructors -----------------------------------------------------------
 

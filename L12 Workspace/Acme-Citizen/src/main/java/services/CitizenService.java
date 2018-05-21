@@ -23,8 +23,6 @@ public class CitizenService {
 	// Managed repository
 	@Autowired
 	private CitizenRepository	citizenRepository;
-	@Autowired
-	private ActorService		actorService;
 
 
 	// Constructors

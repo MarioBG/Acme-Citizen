@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -9,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.LotteryRepository;
 import domain.Actor;
 import domain.Lottery;
 import domain.LotteryTicket;
-import repositories.LotteryRepository;
 
 @Service
 @Transactional
@@ -21,12 +22,13 @@ public class LotteryService {
 	// Managed repository
 
 	@Autowired
-	private LotteryRepository lotteryRepository;
+	private LotteryRepository	lotteryRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
 
 	// Constructors
 
@@ -38,13 +40,13 @@ public class LotteryService {
 
 	public Lottery create() {
 
-		Actor principal = actorService.findByPrincipal();
+		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(principal == null);
 
 		final Lottery result = new Lottery();
 
-		Collection<LotteryTicket> lotterys = new ArrayList<LotteryTicket>();
-		result.setLotteryTicket(lotterys);
+		final Collection<LotteryTicket> lotterys = new ArrayList<LotteryTicket>();
+		result.setLotteryTickets(lotterys);
 
 		return result;
 	}
@@ -59,7 +61,7 @@ public class LotteryService {
 
 	public Collection<Lottery> findAll() {
 
-		Collection<Lottery> result = this.lotteryRepository.findAll();
+		final Collection<Lottery> result = this.lotteryRepository.findAll();
 		return result;
 	}
 
@@ -67,7 +69,7 @@ public class LotteryService {
 
 		Assert.isTrue(lotteryId != 0);
 
-		Lottery result = this.lotteryRepository.findOne(lotteryId);
+		final Lottery result = this.lotteryRepository.findOne(lotteryId);
 		return result;
 	}
 

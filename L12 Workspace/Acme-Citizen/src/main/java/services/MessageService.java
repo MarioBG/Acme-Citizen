@@ -40,9 +40,6 @@ public class MessageService {
 	private GovernmentAgentService	adminService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
-
-	@Autowired
 	private Validator				validator;
 
 

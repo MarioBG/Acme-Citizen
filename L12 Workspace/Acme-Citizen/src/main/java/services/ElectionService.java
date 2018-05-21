@@ -30,9 +30,6 @@ public class ElectionService {
 	private GovernmentAgentService	governmentAgentService;
 
 	@Autowired
-	private CitizenService			citizenService;
-
-	@Autowired
 	private CandidatureService		candidatureService;
 
 	@Autowired

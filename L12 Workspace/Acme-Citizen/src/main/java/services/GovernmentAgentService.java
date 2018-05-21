@@ -23,8 +23,6 @@ public class GovernmentAgentService {
 	// Managed repository
 	@Autowired
 	private GovernmentAgentRepository	governmentAgentRepository;
-	@Autowired
-	private ActorService				actorService;
 
 
 	// Constructors

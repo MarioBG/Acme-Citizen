@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -9,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.BankAccountRepository;
 import domain.Actor;
 import domain.BankAccount;
 import domain.EconomicTransaction;
-import repositories.BankAccountRepository;
 
 @Service
 @Transactional
@@ -21,12 +22,13 @@ public class BankAccountService {
 	// Managed repository
 
 	@Autowired
-	private BankAccountRepository bankAccountRepository;
+	private BankAccountRepository	bankAccountRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
+
 
 	// Constructors
 
@@ -38,18 +40,18 @@ public class BankAccountService {
 
 	public BankAccount create(final int actorId) {
 
-		Actor principal = actorService.findByPrincipal();
+		final Actor principal = this.actorService.findByPrincipal();
 		Assert.isTrue(principal == null);
 
 		final BankAccount result = new BankAccount();
 
-		Collection<EconomicTransaction> credit = new ArrayList<EconomicTransaction>();
-		Collection<EconomicTransaction> debt = new ArrayList<EconomicTransaction>();
+		final Collection<EconomicTransaction> credits = new ArrayList<EconomicTransaction>();
+		final Collection<EconomicTransaction> debts = new ArrayList<EconomicTransaction>();
 
-		Actor actor = this.actorService.findOne(actorId);
+		final Actor actor = this.actorService.findOne(actorId);
 		result.setActor(actor);
-		result.setCredit(credit);
-		result.setDebt(debt);
+		result.setCredits(credits);
+		result.setDebts(debts);
 
 		return result;
 	}
@@ -64,7 +66,7 @@ public class BankAccountService {
 
 	public Collection<BankAccount> findAll() {
 
-		Collection<BankAccount> result = this.bankAccountRepository.findAll();
+		final Collection<BankAccount> result = this.bankAccountRepository.findAll();
 		return result;
 	}
 
@@ -72,7 +74,7 @@ public class BankAccountService {
 
 		Assert.isTrue(bankAccountId != 0);
 
-		BankAccount result = this.bankAccountRepository.findOne(bankAccountId);
+		final BankAccount result = this.bankAccountRepository.findOne(bankAccountId);
 		return result;
 	}
 
