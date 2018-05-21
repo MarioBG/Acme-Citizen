@@ -75,7 +75,7 @@ public abstract class Actor extends DomainEntity {
 		this.email = email;
 	}
 
-	@Pattern(regexp = "^\\+?\\d+$")
+	@Pattern(regexp = "^(\\+[1-9][0-9]{2}|\\+[1-9][0-9]|\\+[1-9])(\\s\\([1-9][0-9]{2}\\)|\\ \\([1-9][0-9]\\)|\\ \\([1-9]\\))?(\\ \\d{4,})|(\\d{4,})|(\\d+)$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhone() {
 		return this.phone;
@@ -96,7 +96,7 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "^[a-zA-Z]{6}-\\d{8}[A-Z]$")
+	@Pattern(regexp = "^[a-zA-Z]{6}\\-\\d{8}[A-Z]$")
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getNif() {
 		return this.nif;

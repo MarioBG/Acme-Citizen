@@ -129,6 +129,11 @@
 				<ref bean="lottery1" />
 			</list>
 		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp2"/>
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="bank" class="domain.BankAgent">
@@ -286,6 +291,11 @@
 		<property name="petitions">
 			<list>
 				<null/>
+			</list>
+		</property>
+		<property name="chirps">
+			<list>
+				<ref bean="chirp1"/>
 			</list>
 		</property>
 	</bean>
