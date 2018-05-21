@@ -13,7 +13,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.User;
-import forms.UserForm;
+import forms.CitizenForm;
 
 @ContextConfiguration(locations = { "classpath:spring/junit.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -69,17 +69,17 @@ public class UserServiceTest extends AbstractTest {
 		try {
 			super.authenticate(authenticate);
 			User user = userService.create();
-			UserForm userForm = userService.construct(user);
-			userForm.setName("User name");
-			userForm.setSurname("User surname");
-			userForm.setAddress("User address");
-			userForm.setEmail("email@user.com");
-			userForm.setPhone("+1234");
-			userForm.setUsername("User username");
-			userForm.setPassword("User password");
-			userForm.setRepeatPassword("User password");
-			userForm.setTermsAndConditions(acceptTerms);
-			User user2 = userService.reconstruct(userForm, null);
+			CitizenForm citizenForm = userService.construct(user);
+			citizenForm.setName("User name");
+			citizenForm.setSurname("User surname");
+			citizenForm.setAddress("User address");
+			citizenForm.setEmail("email@user.com");
+			citizenForm.setPhone("+1234");
+			citizenForm.setUsername("User username");
+			citizenForm.setPassword("User password");
+			citizenForm.setRepeatPassword("User password");
+			citizenForm.setTermsAndConditions(acceptTerms);
+			User user2 = userService.reconstruct(citizenForm, null);
 			userService.save(user2);
 			userService.flush();
 			super.unauthenticate();

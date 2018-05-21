@@ -36,9 +36,9 @@ public class FolderService {
 
 	@Autowired
 	private MessageService		messageService;
-	
+
 	@Autowired
-	private Validator validator;
+	private Validator			validator;
 
 
 	// Constructors -----------------------------------------------------------
@@ -91,9 +91,8 @@ public class FolderService {
 	public Folder save(final Folder folder) {
 
 		Assert.notNull(folder);
-		if(folder.getParent() != null){
-			checkPrincipal(folder.getParent());
-		}
+		if (folder.getParent() != null)
+			this.checkPrincipal(folder.getParent());
 
 		Actor actor;
 		Folder saved, parent;
@@ -107,11 +106,9 @@ public class FolderService {
 				parent.getChildren().add(saved);
 		} else {
 			saved = this.folderRepository.save(folder);
-			if(saved.getParent() != null){
-				if(!saved.getParent().getChildren().contains(saved)){
+			if (saved.getParent() != null)
+				if (!saved.getParent().getChildren().contains(saved))
 					saved.getParent().getChildren().add(saved);
-				}
-			}
 		}
 		return saved;
 	}
@@ -135,7 +132,7 @@ public class FolderService {
 	}
 
 	// Other business methods -------------------------------------------------
-	
+
 	public FolderForm construct(final Folder folder) {
 
 		Assert.notNull(folder);
@@ -145,11 +142,10 @@ public class FolderService {
 		folderForm = new FolderForm();
 
 		folderForm.setId(folder.getId());
-		if(folder.getParent() == null){
+		if (folder.getParent() == null)
 			folderForm.setParentId(null);
-		}else{
+		else
 			folderForm.setParentId(folder.getParent().getId());
-		}
 		folderForm.setName(folder.getName());
 
 		return folderForm;
@@ -166,7 +162,7 @@ public class FolderService {
 		else
 			folder = this.create(false, null);
 
-		folder.setParent(findOne(folderForm.getParentId()));
+		folder.setParent(this.findOne(folderForm.getParentId()));
 		folder.setName(folderForm.getName());
 
 		if (binding != null)
@@ -178,12 +174,11 @@ public class FolderService {
 	public Collection<Folder> defaultFolders() {
 
 		final Collection<Folder> result = new ArrayList<Folder>();
-		Folder inbox, outbox, notificationbox, spambox, trashbox;
+		Folder inbox, outbox, notificationbox, trashbox;
 
 		inbox = this.create(true, null);
 		outbox = this.create(true, null);
 		notificationbox = this.create(true, null);
-		spambox = this.create(true, null);
 		trashbox = this.create(true, null);
 
 		inbox.setName("in box");
@@ -198,14 +193,10 @@ public class FolderService {
 		notificationbox.setName("notification box");
 		notificationbox.setMessages(new ArrayList<Message>());
 		notificationbox.setChildren(new ArrayList<Folder>());
-		spambox.setName("spam box");
-		spambox.setMessages(new ArrayList<Message>());
-		spambox.setChildren(new ArrayList<Folder>());
 
 		result.add(inbox);
 		result.add(outbox);
 		result.add(notificationbox);
-		result.add(spambox);
 		result.add(trashbox);
 
 		return result;
@@ -288,7 +279,7 @@ public class FolderService {
 		Assert.notNull(folder);
 
 		final Actor actor = this.actorService.findByPrincipal();
-		final Collection<Folder> foldersActor = actorService.findFoldersByUserAccountId(actor.getUserAccount().getId());
+		final Collection<Folder> foldersActor = this.actorService.findFoldersByUserAccountId(actor.getUserAccount().getId());
 		Assert.isTrue(foldersActor.contains(folder));
 	}
 

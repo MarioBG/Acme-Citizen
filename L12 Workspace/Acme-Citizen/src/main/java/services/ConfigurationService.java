@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.ConfigurationRepository;
 import domain.Configuration;
+import domain.WelcomeMessage;
 
 @Service
 @Transactional
@@ -20,10 +21,14 @@ public class ConfigurationService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private ConfigurationRepository configurationRepository;
+	private ConfigurationRepository	configurationRepository;
 
 	@Autowired
-	private GovernmentAgentService adminService;
+	private GovernmentAgentService	governmentAgentService;
+
+	@Autowired
+	private WelcomeMessageService	welcomeMessageService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -36,6 +41,7 @@ public class ConfigurationService {
 	public Configuration create() {
 		Configuration configuration;
 		configuration = new Configuration();
+		configuration.setWelcomeMessages(new ArrayList<WelcomeMessage>());
 		return configuration;
 	}
 
@@ -48,7 +54,7 @@ public class ConfigurationService {
 
 	public Configuration findOne(final int configuration) {
 		Assert.isTrue(configuration != 0);
-		Assert.notNull(this.adminService.findByPrincipal());
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
 		Configuration res;
 		res = this.configurationRepository.findOne(configuration);
 		Assert.notNull(res);
@@ -57,7 +63,7 @@ public class ConfigurationService {
 
 	public Configuration save(final Configuration configuration) {
 		Assert.notNull(configuration);
-		Assert.notNull(this.adminService.findByPrincipal());
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
 		Configuration res;
 		res = this.configurationRepository.save(configuration);
 		return res;
@@ -70,33 +76,26 @@ public class ConfigurationService {
 		this.configurationRepository.delete(configuration);
 	}
 
-	public Collection<String> getQuitarPosicionesVaciasTabooWords(final Collection<String> tabooWords) {
-		final Collection<String> res = new ArrayList<>();
-		for (final String word : tabooWords)
-			if (!word.isEmpty())
-				res.add(word);
-		return res;
-	}
-
-	public Collection<String> getTabooWordsFromConfiguration() {
-		Assert.notEmpty(this.configurationRepository.findAll());
-		final Collection<String> res = new ArrayList<String>();
-		for (final String s : this.configurationRepository.findAll().get(0).getTabooWords().split(","))
-			res.add(s.trim());
-		return res;
-	}
-
 	public void flush() {
 		this.configurationRepository.flush();
 	}
 
 	public Collection<Configuration> findAllByAdmin() {
 
-		Assert.notNull(this.adminService.findByPrincipal());
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
 
 		Collection<Configuration> res;
 		res = this.findAll();
 		Assert.notNull(res);
+		return res;
+	}
+
+	public Configuration findActive() {
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
+
+		Configuration res;
+		res = (Configuration) this.findAll().toArray()[0];
+
 		return res;
 	}
 

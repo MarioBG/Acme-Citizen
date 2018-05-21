@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.UserService;
 import domain.User;
-import forms.UserForm;
+import forms.CitizenForm;
 
 @Controller
 @RequestMapping("/user")
@@ -77,30 +77,30 @@ public class UserController extends AbstractController {
 		ModelAndView res;
 
 		User user = userService.create();
-		UserForm userForm = userService.construct(user);;
-		res = this.createEditModelAndView(userForm);
+		CitizenForm citizenForm = userService.construct(user);;
+		res = this.createEditModelAndView(citizenForm);
 
 		return res;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final UserForm userForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final CitizenForm citizenForm, final BindingResult binding) {
 		ModelAndView res;
 		User user;
 
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(userForm, "user.params.error");
-		else if (!userForm.getRepeatPassword().equals(userForm.getPassword()))
-			res = this.createEditModelAndView(userForm, "user.commit.errorPassword");
-		else if (userForm.getTermsAndConditions() == false) {
-			res = this.createEditModelAndView(userForm, "user.params.errorTerms");
+			res = this.createEditModelAndView(citizenForm, "user.params.error");
+		else if (!citizenForm.getRepeatPassword().equals(citizenForm.getPassword()))
+			res = this.createEditModelAndView(citizenForm, "user.commit.errorPassword");
+		else if (citizenForm.getTermsAndConditions() == false) {
+			res = this.createEditModelAndView(citizenForm, "user.params.errorTerms");
 		} else
 			try {
-				user = userService.reconstruct(userForm, binding);
+				user = userService.reconstruct(citizenForm, binding);
 				this.userService.save(user);
 				res = new ModelAndView("redirect:../");
 			} catch (final Throwable oops) {
-				res = this.createEditModelAndView(userForm, "user.commit.error");
+				res = this.createEditModelAndView(citizenForm, "user.commit.error");
 			}
 
 		return res;
@@ -108,19 +108,19 @@ public class UserController extends AbstractController {
 
 	// Ancillary methods ---------------------------------------------------------------
 	
-	protected ModelAndView createEditModelAndView(final UserForm userForm) {
+	protected ModelAndView createEditModelAndView(final CitizenForm citizenForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(userForm, null);
+		result = this.createEditModelAndView(citizenForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final UserForm userForm, final String message) {
+	protected ModelAndView createEditModelAndView(final CitizenForm citizenForm, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("user/register");
-		result.addObject("userForm", userForm);
+		result.addObject("userForm", citizenForm);
 		result.addObject("message", message);
 
 		return result;

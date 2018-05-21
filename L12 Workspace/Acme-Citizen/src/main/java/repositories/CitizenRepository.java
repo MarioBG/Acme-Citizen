@@ -11,6 +11,6 @@ import domain.Citizen;
 public interface CitizenRepository extends JpaRepository<Citizen, Integer> {
 
 	@Query("select c from Citizen c where c.userAccount.id=?1")
-	Citizen findCustomerByUserAccountId(int uA);
+	Citizen findCitizenByUserAccountId(int uA);
 
 }

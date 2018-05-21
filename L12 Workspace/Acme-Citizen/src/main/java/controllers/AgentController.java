@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BankAgentService;
 import domain.Agent;
-import forms.AgentForm;
+import forms.BankAgentForm;
 
 @Controller
 @RequestMapping("/agent")
@@ -76,31 +76,31 @@ public class AgentController extends AbstractController {
 		ModelAndView res;
 
 		final Agent agent = this.agentService.create();
-		final AgentForm agentForm = this.agentService.construct(agent);
+		final BankAgentForm bankAgentForm = this.agentService.construct(agent);
 
-		res = this.createEditModelAndView(agentForm);
+		res = this.createEditModelAndView(bankAgentForm);
 
 		return res;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final AgentForm agentForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final BankAgentForm bankAgentForm, final BindingResult binding) {
 		ModelAndView res;
 		Agent agent;
 
 		if (binding.hasErrors())
-			res = this.createEditModelAndView(agentForm, "user.params.error");
-		else if (!agentForm.getRepeatPassword().equals(agentForm.getPassword()))
-			res = this.createEditModelAndView(agentForm, "user.commit.errorPassword");
-		else if (agentForm.getTermsAndConditions() == false)
-			res = this.createEditModelAndView(agentForm, "user.params.errorTerms");
+			res = this.createEditModelAndView(bankAgentForm, "user.params.error");
+		else if (!bankAgentForm.getRepeatPassword().equals(bankAgentForm.getPassword()))
+			res = this.createEditModelAndView(bankAgentForm, "user.commit.errorPassword");
+		else if (bankAgentForm.getTermsAndConditions() == false)
+			res = this.createEditModelAndView(bankAgentForm, "user.params.errorTerms");
 		else
 			try {
-				agent = this.agentService.reconstruct(agentForm, binding);
+				agent = this.agentService.reconstruct(bankAgentForm, binding);
 				this.agentService.save(agent);
 				res = new ModelAndView("redirect:../");
 			} catch (final Throwable oops) {
-				res = this.createEditModelAndView(agentForm, "user.commit.error");
+				res = this.createEditModelAndView(bankAgentForm, "user.commit.error");
 			}
 
 		return res;
@@ -108,19 +108,19 @@ public class AgentController extends AbstractController {
 
 	// Ancillary methods ---------------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final AgentForm agentForm) {
+	protected ModelAndView createEditModelAndView(final BankAgentForm bankAgentForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(agentForm, null);
+		result = this.createEditModelAndView(bankAgentForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final AgentForm agentForm, final String message) {
+	protected ModelAndView createEditModelAndView(final BankAgentForm bankAgentForm, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("agent/register");
-		result.addObject("agentForm", agentForm);
+		result.addObject("agentForm", bankAgentForm);
 		result.addObject("message", message);
 
 		return result;

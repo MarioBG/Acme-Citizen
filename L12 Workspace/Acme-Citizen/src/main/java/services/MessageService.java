@@ -1,12 +1,10 @@
+
 package services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,24 +26,25 @@ public class MessageService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private MessageRepository messageRepository;
+	private MessageRepository		messageRepository;
 
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	private FolderService folderService;
+	private FolderService			folderService;
 
 	@Autowired
-	private ActorService actorService;
-	
-	@Autowired
-	private GovernmentAgentService adminService;
+	private ActorService			actorService;
 
 	@Autowired
-	private ConfigurationService configurationService;
+	private GovernmentAgentService	adminService;
 
 	@Autowired
-	private Validator validator;
+	private ConfigurationService	configurationService;
+
+	@Autowired
+	private Validator				validator;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -67,8 +66,7 @@ public class MessageService {
 		actor = this.actorService.findByPrincipal();
 		message.setSender(actor);
 
-		folder = this.folderService.findByFolderName(actor.getUserAccount()
-				.getId(), "out box");
+		folder = this.folderService.findByFolderName(actor.getUserAccount().getId(), "out box");
 		message.setFolder(folder);
 
 		return message;
@@ -83,8 +81,7 @@ public class MessageService {
 		Folder trashbox;
 
 		actor = this.actorService.findByPrincipal();
-		trashbox = this.folderService.findByFolderName(actor.getUserAccount()
-				.getId(), "trash box");
+		trashbox = this.folderService.findByFolderName(actor.getUserAccount().getId(), "trash box");
 
 		if (message.getFolder() != trashbox) {
 			message.setFolder(trashbox);
@@ -120,30 +117,21 @@ public class MessageService {
 	public Message save(final Message message) {
 
 		Assert.notNull(message);
-		folderService.checkPrincipal(message.getFolder());
+		this.folderService.checkPrincipal(message.getFolder());
 
 		Message saved, copy;
 		Message savedCopy = null;
-		Folder outboxSender, inboxRecipient, spamboxRecipient;
+		Folder outboxSender, inboxRecipient;
 
 		if (message.getId() == 0) {
 			final Date newMoment = new Date(System.currentTimeMillis() - 1000);
 			copy = this.copy(message);
-			if (this.isSpamMessage(message)) {
-				spamboxRecipient = this.folderService.findByFolderName(copy
-						.getRecipient().getUserAccount().getId(), "spam box");
-				copy.setFolder(spamboxRecipient);
-				savedCopy = this.messageRepository.save(copy);
-				savedCopy.setMoment(newMoment);
-				spamboxRecipient.getMessages().add(savedCopy);
-			} else {
-				inboxRecipient = this.folderService.findByFolderName(copy
-						.getRecipient().getUserAccount().getId(), "in box");
-				copy.setFolder(inboxRecipient);
-				savedCopy = this.messageRepository.save(copy);
-				savedCopy.setMoment(newMoment);
-				inboxRecipient.getMessages().add(savedCopy);
-			}
+
+			inboxRecipient = this.folderService.findByFolderName(copy.getRecipient().getUserAccount().getId(), "in box");
+			copy.setFolder(inboxRecipient);
+			savedCopy = this.messageRepository.save(copy);
+			savedCopy.setMoment(newMoment);
+			inboxRecipient.getMessages().add(savedCopy);
 
 			outboxSender = message.getFolder();
 			saved = this.messageRepository.save(message);
@@ -151,18 +139,16 @@ public class MessageService {
 			outboxSender.getMessages().add(saved);
 		} else
 			saved = this.messageRepository.save(message);
-			if(!saved.getFolder().getMessages().contains(saved)){
-				saved.getFolder().getMessages().add(saved);
-			}
+		if (!saved.getFolder().getMessages().contains(saved))
+			saved.getFolder().getMessages().add(saved);
 
 		return saved;
 	}
 
 	public Message notify(final Message message) {
 
-		Assert.isTrue(!this.isSpamMessage(message));
 		Assert.notNull(message);
-		Assert.notNull(adminService.findByPrincipal());
+		Assert.notNull(this.adminService.findByPrincipal());
 
 		Message saved = null;
 		Message copy, savedCopy;
@@ -170,8 +156,7 @@ public class MessageService {
 		Folder notificationboxRecipient;
 
 		message.setMoment(new Date(System.currentTimeMillis() - 1000));
-		outboxSender = this.folderService.findByFolderName(message.getSender()
-				.getUserAccount().getId(), "out box");
+		outboxSender = this.folderService.findByFolderName(message.getSender().getUserAccount().getId(), "out box");
 		message.setFolder(outboxSender);
 		final Collection<Actor> recipients = this.actorService.findAll();
 		recipients.remove(this.actorService.findByPrincipal());
@@ -179,8 +164,7 @@ public class MessageService {
 			message.setRecipient(recipient);
 			copy = this.copy(message);
 
-			notificationboxRecipient = this.folderService.findByFolderName(
-					recipient.getUserAccount().getId(), "notification box");
+			notificationboxRecipient = this.folderService.findByFolderName(recipient.getUserAccount().getId(), "notification box");
 			copy.setFolder(notificationboxRecipient);
 			saved = this.messageRepository.save(message);
 			outboxSender.getMessages().add(saved);
@@ -203,11 +187,10 @@ public class MessageService {
 
 		messageForm.setId(message.getId());
 		messageForm.setSenderId(message.getSender().getId());
-		if (message.getRecipient() == null) {
+		if (message.getRecipient() == null)
 			messageForm.setRecipientId(null);
-		} else {
+		else
 			messageForm.setRecipientId(message.getRecipient().getId());
-		}
 		messageForm.setFolderId(message.getFolder().getId());
 		messageForm.setMoment(message.getMoment());
 		messageForm.setSubject(message.getSubject());
@@ -217,8 +200,7 @@ public class MessageService {
 		return messageForm;
 	}
 
-	public Message reconstruct(final MessageForm messageForm,
-			final BindingResult binding) {
+	public Message reconstruct(final MessageForm messageForm, final BindingResult binding) {
 
 		Assert.notNull(messageForm);
 
@@ -233,14 +215,12 @@ public class MessageService {
 		message.setSubject(messageForm.getSubject());
 		message.setBody(messageForm.getBody());
 		message.setPriority(messageForm.getPriority());
-		message.setSender(actorService.findOne(messageForm.getSenderId()));
-		if (messageForm.getRecipientId() == null) {
-			message.setRecipient(actorService.findOne(messageForm.getSenderId()));
-		} else {
-			message.setRecipient(actorService.findOne(messageForm
-					.getRecipientId()));
-		}
-		message.setFolder(folderService.findOne(messageForm.getFolderId()));
+		message.setSender(this.actorService.findOne(messageForm.getSenderId()));
+		if (messageForm.getRecipientId() == null)
+			message.setRecipient(this.actorService.findOne(messageForm.getSenderId()));
+		else
+			message.setRecipient(this.actorService.findOne(messageForm.getRecipientId()));
+		message.setFolder(this.folderService.findOne(messageForm.getFolderId()));
 
 		if (binding != null)
 			this.validator.validate(message, binding);
@@ -292,11 +272,9 @@ public class MessageService {
 
 		Assert.isTrue(actor.getFolders().contains(message.getFolder()));
 
-		final List<Message> messages = new ArrayList<Message>(
-				folder.getMessages());
+		final List<Message> messages = new ArrayList<Message>(folder.getMessages());
 		final Folder folderSource = message.getFolder();
-		final List<Message> messages2 = new ArrayList<Message>(
-				folderSource.getMessages());
+		final List<Message> messages2 = new ArrayList<Message>(folderSource.getMessages());
 
 		messages.add(message);
 		folder.setMessages(messages);
@@ -313,48 +291,11 @@ public class MessageService {
 		Assert.notNull(message);
 
 		final Actor actor = this.actorService.findByPrincipal();
-		Assert.isTrue(message.getRecipient().equals(actor)
-				|| message.getSender().equals(actor));
-	}
-
-	private boolean isSpamMessage(final Message message) {
-		boolean result = false;
-		Pattern p;
-		Matcher isAnyMatcherBody;
-		Matcher isAnyMatcherSubject;
-
-		p = this.spamWords();
-		isAnyMatcherBody = p.matcher(message.getBody());
-		isAnyMatcherSubject = p.matcher(message.getSubject());
-
-		if (isAnyMatcherBody.find() || isAnyMatcherSubject.find())
-			result = true;
-
-		return result;
-	}
-
-	public Pattern spamWords() {
-		Pattern result;
-		List<String> spamWords;
-
-		final String spamlist = this.configurationService.findAll().iterator()
-				.next().getTabooWords();
-		spamWords = Arrays.asList(spamlist.split(","));
-
-		String str = ".*\\b(";
-		for (int i = 0; i <= spamWords.size(); i++)
-			if (i < spamWords.size())
-				str += spamWords.get(i) + "|";
-			else
-				str += spamWords.iterator().next() + ")\\b.*";
-
-		result = Pattern.compile(str, Pattern.CASE_INSENSITIVE);
-
-		return result;
+		Assert.isTrue(message.getRecipient().equals(actor) || message.getSender().equals(actor));
 	}
 
 	public void flush() {
-		messageRepository.flush();
+		this.messageRepository.flush();
 	}
 
 }

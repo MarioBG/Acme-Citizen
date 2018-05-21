@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
 import domain.Agent;
-import forms.AgentForm;
+import forms.BankAgentForm;
 
 @ContextConfiguration(locations = { "classpath:spring/junit.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,17 +66,17 @@ public class AgentServiceTest extends AbstractTest {
 		try {
 			super.authenticate(authenticate);
 			Agent agent = agentService.create();
-			AgentForm agentForm = agentService.construct(agent);
-			agentForm.setName("Agent name");
-			agentForm.setSurname("Agent surname");
-			agentForm.setAddress("Agent address");
-			agentForm.setEmail("email@agent.com");
-			agentForm.setPhone("+1234");
-			agentForm.setUsername("Agent username");
-			agentForm.setPassword("Agent password");
-			agentForm.setRepeatPassword("Agent password");
-			agentForm.setTermsAndConditions(acceptTerms);
-			Agent agent2 = agentService.reconstruct(agentForm, null);
+			BankAgentForm bankAgentForm = agentService.construct(agent);
+			bankAgentForm.setName("Agent name");
+			bankAgentForm.setSurname("Agent surname");
+			bankAgentForm.setAddress("Agent address");
+			bankAgentForm.setEmail("email@agent.com");
+			bankAgentForm.setPhone("+1234");
+			bankAgentForm.setUsername("Agent username");
+			bankAgentForm.setPassword("Agent password");
+			bankAgentForm.setRepeatPassword("Agent password");
+			bankAgentForm.setTermsAndConditions(acceptTerms);
+			Agent agent2 = agentService.reconstruct(bankAgentForm, null);
 			agentService.save(agent2);
 			agentService.flush();
 			super.unauthenticate();
