@@ -36,6 +36,10 @@
 		<value>/views/folder/messages</value>
 		<value>/views/message/messages</value>
 
+		<!-- ACME-CITIZEN -->
+		
+		<value>/views/petition/messages</value>
+
 	</util:list>
 
 </beans>

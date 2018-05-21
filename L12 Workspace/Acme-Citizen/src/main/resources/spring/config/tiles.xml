@@ -36,6 +36,11 @@
 		<value>/views/agent/tiles.xml</value>
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
+
+		<!-- ACME-CITIZEN -->
+		
+		<value>/views/petition/tiles.xml</value>
+		
 	</util:list>
 
 </beans>

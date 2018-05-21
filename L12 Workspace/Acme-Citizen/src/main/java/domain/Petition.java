@@ -100,7 +100,7 @@ public class Petition extends Commentable {
 		this.resolved = resolved;
 	}
 
-	public boolean isDeleted() {
+	public boolean getDeleted() {
 		return this.deleted;
 	}
 

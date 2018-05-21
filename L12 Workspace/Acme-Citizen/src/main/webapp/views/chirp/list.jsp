@@ -20,42 +20,78 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<h3>
+	<jstl:choose>
+		<jstl:when test="${requestURI == 'chirp/list.do'  }">
+			<spring:message code="chirp.systemChirps" />
+		</jstl:when>
+	</jstl:choose>
+</h3>
+
 <!-- displaying grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="chirps" requestURI="${requestURI }" id="row">
+	name="chirps" requestURI="${requestURI}" id="row">
 
 	<!-- Attributes -->
 
-	<spring:message code="chirp.showUser" var="userHeader" />
-	<display:column title="${userHeader}">
-		<a href="user/display.do?userId=${row.user.id}">
-			<spring:message code="user.display"/>
+	<security:authentication property="principal" var="loggedactor" />
+	<security:authorize access="hasRole('GOVERNMENTAGENT)">
+		<display:column>
+			<jstl:if
+				test="${row.governmentAgent.userAccount.id eq loggedactor.id}">
+				<a href="chirp/governmentAgent/edit.do?chirpId=${row.id}"><spring:message
+						code="chirp.edit" /></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+
+
+	<display:column>
+		<a href="chirp/display.do?chirpId=${row.id}"><spring:message
+				code="chirp.display" /></a>
+	</display:column>
+
+	<spring:message code="chirp.governmentAgent"
+		var="governmentAgentHeader" />
+	<display:column title="${governmentAgentHeader}">
+		<a
+			href="governmentAgent/display.do?governmentAgentId=${row.governmentAgent.id}">
+			<jstl:out value="${row.governmentAgent.name}" />
 		</a>
 	</display:column>
 
-	<spring:message code="chirp.title" var="nameHeader" />
-	<display:column property="title" title="${nameHeader}" sortable="true" />
+	<spring:message code="chirp.title" var="titleHeader" />
+	<display:column property="title" title="${titleHeader}" />
 
-	<spring:message code="chirp.description" var="emailHeader" />
-	<display:column property="description" title="${emailHeader}" sortable="true" />
-	
-	<security:authorize ifAllGranted="ADMIN">
-	<spring:message code="chirp.delChirp" var="deleteHeader"/>
-		<display:column title="${deleteHeader}">
-			<a href="chirp/admin/delete.do?chirpId=${row.id}">
-				<spring:message code="chirp.delete"/>
-			</a>
-		</display:column>
-	</security:authorize>
-	
+	<spring:message var="publicationMomentHeader"
+		code="chirp.publicationMoment" />
+	<spring:message var="formatDate" code="chirp.format.date" />
+	<display:column property="publicationMoment"
+		title="${publicationMomentHeader}" format="${formatDate}"
+		sortable="true" />
+
+	<%-- 	<security:authorize ifAllGranted="ADMIN"> --%>
+	<%-- 	<spring:message code="chirp.delChirp" var="deleteHeader"/> --%>
+	<%-- 		<display:column title="${deleteHeader}"> --%>
+	<%-- 			<a href="chirp/admin/delete.do?chirpId=${row.id}"> --%>
+	<%-- 				<spring:message code="chirp.delete"/> --%>
+	<!-- 			</a> -->
+	<%-- 		</display:column> --%>
+	<%-- 	</security:authorize> --%>
+
 </display:table>
 
-<security:authorize access="hasRole('USER')">
-	<p><a href="chirp/user/create.do"><spring:message code="chirp.publish"/></a></p>
+<security:authorize access="hasRole('GOVERNMENTAGENT')">
+	<p>
+		<a href="chirp/governmentAgent/create.do"><spring:message
+				code="chirp.create" /></a>
+	</p>
 </security:authorize>
 
-<a href="welcome/index.do">&laquo; <spring:message code="terms.back"/></a>
+<spring:message var="backValue" code="chirp.back" />
+<input type="button" name="back" value="${backValue}"
+	onclick="javascript: relativeRedir('welcome/index.do');" />
 
 
 
