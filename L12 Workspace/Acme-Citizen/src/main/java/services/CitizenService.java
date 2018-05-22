@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CitizenRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Citizen;
+import forms.CitizenForm;
 
 @Service
 @Transactional
@@ -23,6 +26,9 @@ public class CitizenService {
 	// Managed repository
 	@Autowired
 	private CitizenRepository	citizenRepository;
+
+	@Autowired
+	private Validator			validator;
 
 
 	// Constructors
@@ -107,6 +113,54 @@ public class CitizenService {
 
 	public void flush() {
 		this.citizenRepository.flush();
+	}
+
+	public Citizen reconstruct(final CitizenForm citizenForm, final BindingResult binding) {
+
+		Assert.notNull(citizenForm);
+		Assert.isTrue(citizenForm.getTermsAndConditions() == true);
+
+		Citizen res = new Citizen();
+
+		if (citizenForm.getId() != 0)
+			res = this.findOne(citizenForm.getId());
+		else
+			res = this.create();
+
+		res.setName(citizenForm.getName());
+		res.setSurname(citizenForm.getSurname());
+		res.setEmail(citizenForm.getEmail());
+		res.setPhone(citizenForm.getPhone());
+		res.setAddress(citizenForm.getAddress());
+		res.setNif(citizenForm.getNif());
+		res.setNickname(citizenForm.getNickname());
+		res.getUserAccount().setUsername(citizenForm.getUsername());
+		res.getUserAccount().setPassword(citizenForm.getPassword());
+
+		this.validator.validate(res, binding);
+
+		return res;
+	}
+
+	public CitizenForm construct(final Citizen citizen) {
+
+		Assert.notNull(citizen);
+		final CitizenForm editCitizenForm = new CitizenForm();
+
+		editCitizenForm.setId(citizen.getId());
+		editCitizenForm.setName(citizen.getName());
+		editCitizenForm.setSurname(citizen.getSurname());
+		editCitizenForm.setEmail(citizen.getEmail());
+		editCitizenForm.setPhone(citizen.getPhone());
+		editCitizenForm.setAddress(citizen.getAddress());
+		editCitizenForm.setNif(citizen.getNif());
+		editCitizenForm.setNickname(citizen.getNickname());
+		editCitizenForm.setUsername(citizen.getUserAccount().getUsername());
+		editCitizenForm.setPassword(citizen.getUserAccount().getPassword());
+		editCitizenForm.setRepeatPassword(citizen.getUserAccount().getPassword());
+		editCitizenForm.setTermsAndConditions(false);
+
+		return editCitizenForm;
 	}
 
 	//	public boolean checkIsSpam(String text) {

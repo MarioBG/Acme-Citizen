@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.GovernmentAgentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.GovernmentAgent;
+import forms.GovernmentAgentForm;
 
 @Service
 @Transactional
@@ -23,6 +26,9 @@ public class GovernmentAgentService {
 	// Managed repository
 	@Autowired
 	private GovernmentAgentRepository	governmentAgentRepository;
+
+	@Autowired
+	private Validator					validator;
 
 
 	// Constructors
@@ -103,6 +109,54 @@ public class GovernmentAgentService {
 			return true;
 		else
 			return false;
+	}
+
+	public GovernmentAgent reconstruct(final GovernmentAgentForm governmentAgentForm, final BindingResult binding) {
+
+		Assert.notNull(governmentAgentForm);
+		Assert.isTrue(governmentAgentForm.getTermsAndConditions() == true);
+
+		GovernmentAgent res = new GovernmentAgent();
+
+		if (governmentAgentForm.getId() != 0)
+			res = this.findOne(governmentAgentForm.getId());
+		else
+			res = this.create();
+
+		res.setName(governmentAgentForm.getName());
+		res.setSurname(governmentAgentForm.getSurname());
+		res.setEmail(governmentAgentForm.getEmail());
+		res.setPhone(governmentAgentForm.getPhone());
+		res.setAddress(governmentAgentForm.getAddress());
+		res.setRegisterCode(governmentAgentForm.getRegisterCode());
+		res.setCanCreateMoney(governmentAgentForm.getCanCreateMoney());
+		res.getUserAccount().setUsername(governmentAgentForm.getUsername());
+		res.getUserAccount().setPassword(governmentAgentForm.getPassword());
+
+		if (binding != null)
+			this.validator.validate(res, binding);
+
+		return res;
+	}
+	public GovernmentAgentForm construct(final GovernmentAgent governmentAgent) {
+
+		Assert.notNull(governmentAgent);
+		final GovernmentAgentForm editGovernmentAgentForm = new GovernmentAgentForm();
+
+		editGovernmentAgentForm.setId(governmentAgent.getId());
+		editGovernmentAgentForm.setName(governmentAgent.getName());
+		editGovernmentAgentForm.setSurname(governmentAgent.getSurname());
+		editGovernmentAgentForm.setEmail(governmentAgent.getEmail());
+		editGovernmentAgentForm.setPhone(governmentAgent.getPhone());
+		editGovernmentAgentForm.setAddress(governmentAgent.getAddress());
+		editGovernmentAgentForm.setRegisterCode(governmentAgent.getRegisterCode());
+		editGovernmentAgentForm.setCanCreateMoney(governmentAgent.getCanCreateMoney());
+		editGovernmentAgentForm.setUsername(governmentAgent.getUserAccount().getUsername());
+		editGovernmentAgentForm.setPassword(governmentAgent.getUserAccount().getPassword());
+		editGovernmentAgentForm.setRepeatPassword(governmentAgent.getUserAccount().getPassword());
+		editGovernmentAgentForm.setTermsAndConditions(false);
+
+		return editGovernmentAgentForm;
 	}
 
 	public void flush() {

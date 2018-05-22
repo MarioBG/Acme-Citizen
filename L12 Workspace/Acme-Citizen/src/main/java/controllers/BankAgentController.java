@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BankAgentService;
-import domain.Agent;
+import domain.BankAgent;
 import forms.BankAgentForm;
 
 @Controller
-@RequestMapping("/agent")
-public class AgentController extends AbstractController {
+@RequestMapping("/bankagent/governmentagent")
+public class BankAgentController extends AbstractController {
 
 	// Services -------------------------------------------------------------
 
@@ -29,7 +29,7 @@ public class AgentController extends AbstractController {
 
 	// Constructors ---------------------------------------------------------
 
-	public AgentController() {
+	public BankAgentController() {
 		super();
 	}
 
@@ -39,8 +39,8 @@ public class AgentController extends AbstractController {
 	public ModelAndView list() {
 
 		ModelAndView result;
-		Collection<Agent> agents;
-		Agent principal;
+		Collection<BankAgent> agents;
+		BankAgent principal;
 
 		agents = this.agentService.findAll();
 		principal = this.agentService.findByPrincipal();
@@ -58,7 +58,7 @@ public class AgentController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView listUser(@RequestParam final int agentId) {
 		ModelAndView result;
-		Agent agent;
+		BankAgent agent;
 
 		agent = this.agentService.findOne(agentId);
 
@@ -75,7 +75,7 @@ public class AgentController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView res;
 
-		final Agent agent = this.agentService.create();
+		final BankAgent agent = this.agentService.create();
 		final BankAgentForm bankAgentForm = this.agentService.construct(agent);
 
 		res = this.createEditModelAndView(bankAgentForm);
@@ -86,7 +86,7 @@ public class AgentController extends AbstractController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final BankAgentForm bankAgentForm, final BindingResult binding) {
 		ModelAndView res;
-		Agent agent;
+		BankAgent agent;
 
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(bankAgentForm, "user.params.error");

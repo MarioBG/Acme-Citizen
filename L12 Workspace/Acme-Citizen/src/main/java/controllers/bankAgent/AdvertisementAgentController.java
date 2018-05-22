@@ -1,5 +1,5 @@
 
-package controllers.agent;
+package controllers.bankAgent;
 
 import java.util.Collection;
 
