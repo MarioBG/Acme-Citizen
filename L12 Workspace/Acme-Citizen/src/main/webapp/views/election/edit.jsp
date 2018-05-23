@@ -11,33 +11,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="petition/citizen/edit.do" modelAttribute="petitionForm">
+<form:form action="election/governmentAgent/edit.do" modelAttribute="electionForm">
 
 	<form:hidden path="id"/>
-	<form:hidden path="citizenId"/>
-	<jstl:if test="${petitionForm.id == 0}">
-		<form:hidden path="creationMoment"/>
-	</jstl:if>
+	<form:hidden path="governmentAgentId"/>
 	
-	<acme:textbox code="petition.name" path="title"/>
+	<acme:textarea code="election.description" path="description"/>
 	<br/>
 	
-	<acme:textarea code="petition.description" path="description"/>
+	<acme:textbox code="election.candidatureDate" path="candidatureDate" placeholder="dd/MM/yyyy"/>
 	<br/>
 	
-	<acme:textbox code="petition.picture" path="picture"/>
+	<acme:textbox code="election.celebrationDate" path="celebrationDate" placeholder="dd/MM/yyyy"/>
 	<br/>
 	
-	<jstl:if test="${petitionForm != 0}">
-		<acme:textbox code="petition.creationMoment" path="creationMoment" readonly="readonly"/>
-	<br/>
-	</jstl:if>
-	
-	<acme:checkbox code="petition.isFinal" path="finalVersion"/>
-	<br/>
-	
-	<acme:submit name="save" code="petition.save"/>
+	<acme:submit name="save" code="election.save"/>
 	&nbsp;
-	<acme:cancel url="petition/list.do" code="petition.back"/>
+	<acme:cancel url="election/list.do" code="election.back"/>
 	
 </form:form>

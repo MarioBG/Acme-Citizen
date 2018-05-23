@@ -20,22 +20,44 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="user/display.do" modelAttribute="userForm">
+<h3>
+	<b><spring:message code="chirp.title" />:&nbsp;</b>
+	<jstl:out value="${chirp.title}" />
+	<br />
+</h3>
 
-<b><spring:message code="user.name"/>:&nbsp;</b><jstl:out value="${user.name}"/>
-<br/>
+<jstl:choose>
+	<jstl:when test="${chirp.image != null and chirp.link != null}">
+		<a href="<jstl:out value="${chirp.link}"/>"><img
+			src="<jstl:out value="${chirp.image}"/>" width="450" height="174">
+		</a>
+		<br />
+	</jstl:when>
+	<jstl:when test="${chirp.image != null and chirp.link == null}">
+		<img src="<jstl:out value="${chirp.image}"/>" width="450" height="174">
+		<br />
+	</jstl:when>
+	<jstl:when test="${chirp.image == null and chirp.link != null}">
+		<a href="<jstl:out value="${chirp.link}"/>"><spring:message code="chirp.link"/></a>
+	</jstl:when>
+</jstl:choose>
 
-<b><spring:message code="user.surname"/>:&nbsp;</b><jstl:out value="${user.surname}"/>
-<br/>
+<b><spring:message code="chirp.content" />:&nbsp;</b>
+<jstl:out value="${chirp.content}" />
+<br />
 
-<b><spring:message code="user.email"/>:&nbsp;</b><jstl:out value="${user.email}"/>
-<br/>
+<b><spring:message code="chirp.governmentAgent" />:&nbsp;</b>
+<a
+	href="governmentAgent/display.do?governmentAgentId=${chirp.governmentAgent.id}"><jstl:out
+		value="${chirp.governmentAgent.name}" /></a>
+<br />
 
-<b><spring:message code="user.phone"/>:&nbsp;</b><jstl:out value="${user.phone}"/>
-<br/>
+<spring:message var="patternDate" code="chirp.pattern.date" />
+<b><spring:message code="chirp.publicationMoment" />:&nbsp;</b>
+<fmt:formatDate value="${chirp.publicationDate}"
+	pattern="${patternDate}" />
+<br />
 
-<b><spring:message code="user.address"/>:&nbsp;</b><jstl:out value="${user.address}"/>
-<br/>
-
-</form:form>
-
+<spring:message var="backValue" code="chirp.back" />
+<input type="button" name="back" value="${backValue}"
+	onclick="javascript: relativeRedir('chirp/list.do?governmentAgentId=${chirp.governmentAgent.id}');" />

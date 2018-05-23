@@ -28,7 +28,6 @@
 		<value>/views/newspaper/messages</value>
 		<value>/views/article/messages</value>
 		<value>/views/configuration/messages</value>
-		<value>/views/chirp/messages</value>
 		<value>/views/volume/messages</value>
 		<value>/views/agent/messages</value>
 		<value>/views/advertisement/messages</value>
@@ -38,6 +37,8 @@
 
 		<!-- ACME-CITIZEN -->
 		
+		<value>/views/chirp/messages</value>
+		<value>/views/election/messages</value>
 		<value>/views/petition/messages</value>
 
 	</util:list>

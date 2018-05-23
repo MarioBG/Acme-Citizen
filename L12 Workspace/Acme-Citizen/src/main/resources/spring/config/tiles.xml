@@ -25,7 +25,6 @@
 		<value>/views/terms/tiles.xml</value>
 
 		<value>/views/user/tiles.xml</value>
-		<value>/views/chirp/tiles.xml</value>
 		<value>/views/followUp/tiles.xml</value>
 		<value>/views/newspaper/tiles.xml</value>
 		<value>/views/article/tiles.xml</value>
@@ -39,6 +38,8 @@
 
 		<!-- ACME-CITIZEN -->
 		
+		<value>/views/chirp/tiles.xml</value>
+		<value>/views/election/tiles.xml</value>
 		<value>/views/petition/tiles.xml</value>
 		
 	</util:list>

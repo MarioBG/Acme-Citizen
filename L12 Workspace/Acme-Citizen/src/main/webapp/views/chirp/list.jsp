@@ -22,8 +22,12 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'chirp/list.do'  }">
+		<jstl:when test="${requestURI == 'chirp/list.do'}">
 			<spring:message code="chirp.systemChirps" />
+		</jstl:when>
+		<jstl:when test="${governmentAgent != null}">
+			<spring:message code="chirp.chirpsOf" />
+			<jstl:out value="${governmentAgent.name}" />
 		</jstl:when>
 	</jstl:choose>
 </h3>
@@ -35,8 +39,8 @@
 
 	<!-- Attributes -->
 
-	<security:authentication property="principal" var="loggedactor" />
 	<security:authorize access="hasRole('GOVERNMENTAGENT)">
+		<security:authentication property="principal" var="loggedactor" />
 		<display:column>
 			<jstl:if
 				test="${row.governmentAgent.userAccount.id eq loggedactor.id}">
@@ -52,14 +56,16 @@
 				code="chirp.display" /></a>
 	</display:column>
 
-	<spring:message code="chirp.governmentAgent"
-		var="governmentAgentHeader" />
-	<display:column title="${governmentAgentHeader}">
-		<a
-			href="governmentAgent/display.do?governmentAgentId=${row.governmentAgent.id}">
-			<jstl:out value="${row.governmentAgent.name}" />
-		</a>
-	</display:column>
+	<jstl:if test="${governmentAgent == null}">
+		<spring:message code="chirp.governmentAgent"
+			var="governmentAgentHeader" />
+		<display:column title="${governmentAgentHeader}">
+			<a
+				href="governmentAgent/display.do?governmentAgentId=${row.governmentAgent.id}">
+				<jstl:out value="${row.governmentAgent.name}" />
+			</a>
+		</display:column>
+	</jstl:if>
 
 	<spring:message code="chirp.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" />
@@ -70,15 +76,6 @@
 	<display:column property="publicationMoment"
 		title="${publicationMomentHeader}" format="${formatDate}"
 		sortable="true" />
-
-	<%-- 	<security:authorize ifAllGranted="ADMIN"> --%>
-	<%-- 	<spring:message code="chirp.delChirp" var="deleteHeader"/> --%>
-	<%-- 		<display:column title="${deleteHeader}"> --%>
-	<%-- 			<a href="chirp/admin/delete.do?chirpId=${row.id}"> --%>
-	<%-- 				<spring:message code="chirp.delete"/> --%>
-	<!-- 			</a> -->
-	<%-- 		</display:column> --%>
-	<%-- 	</security:authorize> --%>
 
 </display:table>
 
@@ -92,8 +89,3 @@
 <spring:message var="backValue" code="chirp.back" />
 <input type="button" name="back" value="${backValue}"
 	onclick="javascript: relativeRedir('welcome/index.do');" />
-
-
-
-
-

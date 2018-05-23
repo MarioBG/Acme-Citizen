@@ -24,38 +24,17 @@
 <display:table name="petitions" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<%-- 	<security:authorize access="hasRole('ADMIN')"> --%>
-	<%-- 		<display:column> --%>
-	<%-- 			<a href="newspaper/admin/delete.do?newspaperId=${row.id}"><spring:message --%>
-	<%-- 					code="newspaper.delete" /></a> --%>
-	<%-- 		</display:column> --%>
-	<%-- 	</security:authorize> --%>
-
-	<%-- 	<security:authorize access="hasRole('USER')"> --%>
-	<%-- 		<jstl:if test="${requestURI == 'newspaper/user/listAddNewspapers.do'}"> --%>
-	<%-- 			<display:column> --%>
-	<%-- 				<jstl:choose> --%>
-	<%-- 					<jstl:when test="${!volume.newspapers.contains(row)}"> --%>
-	<!-- 						<a -->
-	<%-- 							href="volume/user/addNewspaper.do?newspaperId=${row.id}&volumeId=${volume.id}"><spring:message --%>
-	<%-- 								code="newspaper.addNewspaper" /></a> --%>
-	<%-- 					</jstl:when> --%>
-	<%-- 					<jstl:otherwise> --%>
-	<!-- 						<a -->
-	<%-- 							href="volume/user/removeNewspaper.do?newspaperId=${row.id}&volumeId=${volume.id}"><spring:message --%>
-	<%-- 								code="newspaper.removeNewspaper" /></a> --%>
-	<%-- 					</jstl:otherwise> --%>
-	<%-- 				</jstl:choose> --%>
-	<%-- 			</display:column> --%>
-	<%-- 		</jstl:if> --%>
-	<%-- 	</security:authorize> --%>
-	<%-- 	<security:authorize access="hasRole('AGENT')"> --%>
-	<%-- 			<display:column> --%>
-	<!-- 				<a -->
-	<%-- 					href="advertisement/agent/create.do?newspaperId=${row.id}"><spring:message --%>
-	<%-- 						code="newspaper.createAdvertisement" /></a> --%>
-	<%-- 			</display:column> --%>
-	<%-- 	</security:authorize> --%>
+	<security:authorize access="hasRole('CITIZEN')">
+		<display:column>
+			<security:authentication property="principal" var="loggedactor" />
+			<jstl:if test="${row.citizen.userAccount.id eq loggedactor.id}">
+				<jstl:if test="${row.finalVersion == true and row.resolved == true}">
+					<a href="petition/citizen/edit.do?petitionId=${row.id}"><spring:message
+							code="petition.edit" /></a>
+				</jstl:if>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 
 	<display:column>
 		<a href="petition/display.do?petitionId=${row.id}"><spring:message
@@ -79,7 +58,7 @@
 		title="${creationMomentHeader}" format="${formatDate}" sortable="true" />
 
 	<spring:message var="citizenHeader" code="petition.citizen" />
-	<display:column title="${nameHeader}">
+	<display:column title="${citizenHeader}">
 		<a href="citizen/display.do?citizenId=${row.citizen.id}"><jstl:out
 				value="${row.citizen.name}" /></a>
 	</display:column>

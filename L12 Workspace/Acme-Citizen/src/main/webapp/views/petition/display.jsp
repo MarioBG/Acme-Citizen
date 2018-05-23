@@ -13,89 +13,62 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<script>
-	function searchByKeyword(e, newspaperId) {
-		if (e.keyCode == 13) {
-			var keyword = document.getElementById("keyword").value;
-			window.location.assign("newspaper/display.do?newspaperId=" + newspaperId + "&keyword=" + keyword);
-			return false;
-		}
-	}
-</script>
-
 <h3>
-	<b><spring:message code="newspaper.title" />:&nbsp;</b>
-	<jstl:out value="${newspaper.title}" />
+	<b><spring:message code="petition.name" />:&nbsp;</b>
+	<jstl:out value="${petition.name}" />
 </h3>
 
-<b><spring:message code="newspaper.description" />:&nbsp;</b>
-<jstl:out value="${newspaper.description}" />
+<jstl:if test="${petition.picture != null}">
+	<img src="<jstl:out value="${petition.picture}"/>" width="450"
+		height="174">
+	<br />
+</jstl:if>
+
+<b><spring:message code="petition.description" />:&nbsp;</b>
+<jstl:out value="${petition.description}" />
 <br />
 
-<img src="<jstl:out value="${newspaper.picture}"/>" width="450"
-	height="174">
+<b><spring:message code="petition.citizen" />:&nbsp;</b>
+<a href="citizen/display.do?citizenId=${petition.citizen.id}"><jstl:out
+		value="${petition.citizen.name}" /></a>
 <br />
 
-<b><spring:message code="newspaper.publisher" />:&nbsp;</b>
-<a href="user/display.do?userId=${newspaper.publisher.id}"><jstl:out
-		value="${newspaper.publisher.name} ${newspaper.publisher.surname}" /></a>
-<br />
-
-<spring:message var="patternDate" code="newspaper.pattern.date" />
-<b><spring:message code="newspaper.publicationDate" />:&nbsp;</b>
-<fmt:formatDate value="${newspaper.publicationDate}"
+<spring:message var="patternDate" code="petition.pattern.date" />
+<b><spring:message code="petition.creationMoment" />:&nbsp;</b>
+<fmt:formatDate value="${petition.creationMoment}"
 	pattern="${patternDate}" />
 <br />
 
-<jstl:if test="${newspaper.isPrivate == true}">
+<jstl:if test="${petition.finalVerion == true}">
 	<h3 style="text-transform: uppercase; color: red;">
-		<b><spring:message code="newspaper.newspaperPrivate" /></b>
+		<b><spring:message code="petition.finalVersion" /></b>
 	</h3>
 </jstl:if>
 
-<jstl:if test="${newspaper.isPrivate == false or areSubscribe == true}">
-
-	<h3>
-		<spring:message code="newspaper.articles"/>
+<jstl:if test="${petition.resolved == true}">
+	<h3 style="text-transform: uppercase; color: green;">
+		<b><spring:message code="petition.resolved" /></b>
 	</h3>
-	
-	<input type="text" id="keyword"
-			placeholder="<spring:message code="newspaper.search"/>"
-			onkeypress="searchByKeyword(event,${newspaper.id})" />
-	<display:table name="${articles}" id="row"
-		requestURI="newspaper/display.do" pagesize="5" class="displaytag">
-		
-		<security:authorize access="hasRole('ADMIN')">
-			<display:column>
-				<a href="article/admin/delete.do?articleId=${row.id}"><spring:message
-						code="newspaper.delete" /></a>
-			</display:column>
-		</security:authorize>
-	
-		<spring:message var="titleHeader" code="newspaper.title" />
-		<display:column title="${titleHeader}">
-			<a href="article/display.do?articleId=${row.id}"><jstl:out
-					value="${row.title}" /></a>
-		</display:column>
-	
-		<spring:message var="writerHeader" code="newspaper.writer" />
-		<display:column title="${writerHeader}">
-			<a href="user/display.do?userId=${row.writer.id}"><jstl:out
-					value="${row.writer.name} ${row.writer.surname}" /></a>
-		</display:column>
-	
-		<spring:message var="summaryHeader" code="newspaper.summary" />
-		<display:column property="summary" title="${summaryHeader}" />
-	
-	</display:table>
 </jstl:if>
 
-<security:authorize access="hasRole('USER')">
-	<jstl:if test="${newspaper.publicationDate gt date}">
-		<a href="article/user/create.do?newspaperId=${newspaper.id}"><spring:message
-				code="newspaper.createArticle" /></a>
+<jstl:if test="${petition.governmentAgents not empty}">
+	<a href="governmentAgent/list.do?petitionId=${petition.id}"><jstl:out
+			value="petition.listGovernmentAgents" /></a>
+	<br />
+</jstl:if>
+
+<jstl:if test="${petition.comments not empty}">
+	<a href="comment/list.do?commentableId=${petition.id}"><jstl:out
+			value="petition.listComments" /></a>
+	<br />
+</jstl:if>
+
+<security:authorize access="hasRole('GOVERNMENTAGENT')">
+	<jstl:if test="${petition.resolved == false and petition.governmentAgents.contains(governmentAgent)}">
+		<a href="petition/governmentAgent/resolve.do?petitionId=${petition.id}"><spring:message
+				code="petition.resolve" /></a>
 		<br />
 	</jstl:if>
 </security:authorize>
 
-<acme:cancel url="newspaper/list.do" code="newspaper.back" />
+<acme:cancel url="petition/list.do" code="petition.back" />

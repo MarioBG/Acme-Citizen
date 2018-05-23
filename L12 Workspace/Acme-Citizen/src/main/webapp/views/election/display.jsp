@@ -1,0 +1,45 @@
+<%-- edit.jsp de Application --%>
+
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+<jsp:useBean id="date" class="java.util.Date" />
+
+<b><spring:message code="election.governmentAgent" />:&nbsp;</b>
+<a
+	href="governmentAgent/display.do?governmentAgentId=${election.governmentAgent.id}"><jstl:out
+		value="${election.governmentAgent.name}" /></a>
+<br />
+
+<b><spring:message code="election.description" />:&nbsp;</b>
+<jstl:out value="${election.description}" />
+<br />
+
+<spring:message var="patternDate" code="election.pattern.date" />
+<b><spring:message code="election.candidatureDate" />:&nbsp;</b>
+<fmt:formatDate value="${election.candidatureDate}"
+	pattern="${patternDate}" />
+<br />
+
+<b><spring:message code="election.celebrationDate" />:&nbsp;</b>
+<fmt:formatDate value="${election.celebrationDate}"
+	pattern="${patternDate}" />
+<br />
+
+<a href="candidature/list.do?candidatureId=${election.candidature.id}"><spring:message
+		code="election.listCandidatures" /></a>
+<br />
+
+<spring:message var="backValue" code="election.back" />
+<input type="button" name="back" value="${backValue}"
+	onclick="javascript: relativeRedir('election/list.do');" />
