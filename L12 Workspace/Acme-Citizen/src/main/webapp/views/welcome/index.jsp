@@ -47,7 +47,7 @@
 	name="chirps" requestURI="welcome/index.do" id="row">
 
 	<security:authentication property="principal" var="loggedactor" />
-	<security:authorize access="hasRole('GOVERNMENTAGENT)">
+	<security:authorize access="hasRole('GOVERNMENTAGENT')">
 		<display:column>
 			<jstl:if
 				test="${row.governmentAgent.userAccount.id eq loggedactor.id}">
