@@ -18,7 +18,7 @@ import domain.BankAgent;
 import forms.BankAgentForm;
 
 @Controller
-@RequestMapping("/bankagent/governmentagent")
+@RequestMapping("/bankagent")
 public class BankAgentController extends AbstractController {
 
 	// Services -------------------------------------------------------------
