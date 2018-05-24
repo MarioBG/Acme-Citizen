@@ -18,6 +18,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<script type="text/javascript">
+
+$(document).ready(function() {
+	 $("#bankAgentForm").submit(function(){
+	var m = document.getElementById("phone").value;
+	var expreg = /^(\+[1-9][0-9]{2}|\+[1-9][0-9]|\+[1-9])(\s\([1-9][0-9]{2}\)|\ \([1-9][0-9]\)|\ \([1-9]\))?(\ \d{4,})|(\d{4,})|(\d+)$/;
+	
+	if(!expreg.test(m)){
+		
+		return confirm("Are you sure you want to save this phone?");
+	}
+});
+});
+
+</script>
+
 <form:form action="bankagent/governmentagent/register.do" modelAttribute="bankAgentForm">
 
 	<form:hidden path="nif"/>

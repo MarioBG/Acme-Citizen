@@ -24,7 +24,7 @@
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<security:authorize access="hasRole('ADMIN')">
+		<security:authorize access="hasRole('GOVERNMENTAGENT')">
 			<li><a class="fNiv"><spring:message
 						code="master.page.administrator" /></a>
 				<ul>
@@ -38,6 +38,12 @@
 								code="master.page.chirp.list" /></a></li>
 					<li><a href="advertisement/admin/listTaboo.do"><spring:message
 								code="master.page.advertisement.suspicious" /></a></li>
+				</ul>
+				<li><a class="fNiv">Registrar (TO BE LOCALIZED)</a>
+				<ul>
+					<li><a href="governmentagent/governmentagent/register.do">Registrar governmentagent</a></li>
+					<li><a href="bankagent/governmentagent/register.do">Registrar bankagent</a></li>
+					<li><a href="citizen/governmentagent/register.do">Registrar ciudadano</a></li>
 				</ul>
 			<li><a href="configuration/admin/list.do"><spring:message
 						code="master.page.configuration" /></a>
