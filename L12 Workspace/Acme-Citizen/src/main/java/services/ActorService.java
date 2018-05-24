@@ -1,8 +1,10 @@
+
 package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -15,6 +17,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Folder;
+import domain.GovernmentAgent;
 
 @Service
 @Transactional
@@ -22,15 +25,16 @@ public class ActorService {
 
 	// Managed repository
 	@Autowired
-	private ActorRepository actorRepository;
-	
+	private ActorRepository	actorRepository;
+
+
 	// Constructors
 	public ActorService() {
 		super();
 	}
-	
+
 	// Simple CRUD methods ----------------------------------------------------
-	
+
 	public Actor findOne(final int actorId) {
 
 		Actor result = null;
@@ -56,9 +60,9 @@ public class ActorService {
 
 	// Ancillary methods
 
-	public Actor findActorByUserAccountId(int uA) {
+	public Actor findActorByUserAccountId(final int uA) {
 
-		Actor actor = actorRepository.findActorByUserAccountId(uA);
+		final Actor actor = this.actorRepository.findActorByUserAccountId(uA);
 		return actor;
 	}
 
@@ -66,22 +70,21 @@ public class ActorService {
 
 		Actor actor;
 
-		UserAccount principalUserAccount = LoginService.getPrincipal();
-		if (principalUserAccount == null) {
+		final UserAccount principalUserAccount = LoginService.getPrincipal();
+		if (principalUserAccount == null)
 			actor = null;
-		} else {
-			actor = actorRepository.findActorByUserAccountId(principalUserAccount.getId());
-		}
+		else
+			actor = this.actorRepository.findActorByUserAccountId(principalUserAccount.getId());
 
 		return actor;
 	}
 
-	public String getType(UserAccount userAccount) {
-		List<Authority> authorities = new ArrayList<Authority>(userAccount.getAuthorities());
+	public String getType(final UserAccount userAccount) {
+		final List<Authority> authorities = new ArrayList<Authority>(userAccount.getAuthorities());
 
 		return authorities.get(0).getAuthority();
 	}
-	
+
 	public Collection<Folder> findFoldersByUserAccountId(final int userAccountId) {
 		Collection<Folder> result = null;
 		result = this.actorRepository.findFoldersByUserAccountId(userAccountId);
@@ -104,6 +107,34 @@ public class ActorService {
 		result = this.actorRepository.findRecipientByMessageId(messageId);
 
 		return result;
+	}
+
+	public String generateNif(final GovernmentAgent creator) {
+		final Character[] letras = {
+			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+		};
+		final Random rand = new Random();
+		String nif = "";
+		nif += creator.getRegisterCode() + "-";
+		Integer num = rand.nextInt(99999999);
+		final Integer num2 = num;
+		Integer prod = num % 10;
+		if (prod == 0)
+			prod = 1;
+		while (num > 0) {
+			int next = num % 10;
+			if (next == 0)
+				next = 1;
+			prod = prod * next;
+			num = num / 10;
+			if (prod == 0)
+				prod = 1;
+		}
+		nif += String.format("%08d", num2);
+		nif += letras[prod % 26];
+		if (this.actorRepository.findActorByNif(nif) != null)
+			nif = this.generateNif(creator);
+		return nif;
 	}
 
 }

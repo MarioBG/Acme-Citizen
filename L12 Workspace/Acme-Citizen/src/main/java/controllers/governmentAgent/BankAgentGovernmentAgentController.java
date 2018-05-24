@@ -67,7 +67,7 @@ public class BankAgentGovernmentAgentController extends AbstractController {
 			try {
 				agent = this.bankAgentService.reconstruct(bankAgentForm, binding);
 				this.bankAgentService.save(agent);
-				res = new ModelAndView("redirect:../");
+				res = new ModelAndView("redirect:../../welcome/index.do");
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(bankAgentForm, "user.commit.error");
 			}

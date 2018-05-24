@@ -16,6 +16,7 @@
 		<!-- Add your own converters using entries of the following form: <bean 
 			class="converters.Class1ToClass2" /> -->
 		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.BankAgentToStringConverter" />
 		<bean class="converters.CandidateToStringConverter" />
 		<bean class="converters.CandidatureToStringConverter" />
 		<bean class="converters.ChirpToStringConverter" />
@@ -29,6 +30,7 @@
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.PetitionToStringConverter" />
 		<bean class="converters.StringToActorConverter" />
+		<bean class="converters.StringToBankAgentConverter" />
 		<bean class="converters.StringToCandidateConverter" />
 		<bean class="converters.StringToCandidatureConverter" />
 		<bean class="converters.StringToChirpConverter" />

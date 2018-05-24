@@ -18,13 +18,13 @@
 		<value>/views/security/tiles.xml</value>
 		<value>/views/welcome/tiles.xml</value>
 
-		<value>/views/admin/tiles.xml</value>
+		<value>/views/governmentAgent/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 
 		<value>/views/terms/tiles.xml</value>
 
-		<value>/views/user/tiles.xml</value>
+		<value>/views/citizen/tiles.xml</value>
 		<value>/views/followUp/tiles.xml</value>
 		<value>/views/newspaper/tiles.xml</value>
 		<value>/views/article/tiles.xml</value>
@@ -32,7 +32,7 @@
 		<value>/views/volume/tiles.xml</value>
 		<value>/views/advertisement/tiles.xml</value>
 		<value>/views/subscriptionVolume/tiles.xml</value>
-		<value>/views/agent/tiles.xml</value>
+		<value>/views/bankAgent/tiles.xml</value>
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
 

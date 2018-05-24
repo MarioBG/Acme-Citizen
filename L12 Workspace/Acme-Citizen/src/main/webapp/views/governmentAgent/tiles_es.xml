@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- 
- * tiles.xml
+ * tiles_es.xml
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -13,11 +13,13 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-       
+      
 <tiles-definitions>
 
 	<definition name="admin/display" extends="master.page">	
-		<put-attribute name="title" value="Administrator: Dashboard" />
-		<put-attribute name="body" value="/views/admin/display.jsp" />
+		<put-attribute name="title" value="Agente gubernamental: Panel de estadísticas" />
+		<put-attribute name="body" value="/views/governmentAgent/display.jsp" />
 	</definition>
+
+	
 </tiles-definitions>

@@ -17,11 +17,11 @@ import repositories.BankAgentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
 import domain.BankAccount;
 import domain.BankAgent;
 import domain.Comment;
 import domain.Folder;
+import domain.GovernmentAgent;
 import forms.BankAgentForm;
 
 @Service
@@ -31,18 +31,20 @@ public class BankAgentService {
 	// Managed repository
 
 	@Autowired
-	private BankAgentRepository	bankAgentRepository;
+	private BankAgentRepository		bankAgentRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
+	@Autowired
+	private GovernmentAgentService	governmentAgentService;
 
 	@Autowired
-	private FolderService		folderService;
+	private FolderService			folderService;
 
 	@Autowired
-	private Validator			validator;
+	private Validator				validator;
 
 
 	// Constructors
@@ -55,8 +57,7 @@ public class BankAgentService {
 
 	public BankAgent create() {
 
-		final Actor principal = this.actorService.findByPrincipal();
-		Assert.isTrue(principal == null);
+		final GovernmentAgent principal = this.governmentAgentService.findByPrincipal();
 
 		final BankAgent res = new BankAgent();
 
@@ -72,10 +73,10 @@ public class BankAgentService {
 		res.setFolders(folders);
 		res.setComments(comments);
 		res.setCarriedBankAccounts(bankAccounts);
+		res.setNif(this.actorService.generateNif(principal));
 
 		return res;
 	}
-
 	public Collection<BankAgent> findAll() {
 		Collection<BankAgent> res;
 		res = this.bankAgentRepository.findAll();

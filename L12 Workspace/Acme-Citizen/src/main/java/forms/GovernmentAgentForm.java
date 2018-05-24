@@ -23,6 +23,7 @@ public class GovernmentAgentForm {
 	private String	repeatPassword;
 	private String	registerCode;
 	private boolean	canCreateMoney;
+	private boolean	canOrganiseElection;
 	private boolean	termsAndConditions;
 
 
@@ -158,6 +159,14 @@ public class GovernmentAgentForm {
 
 	public void setPassword(final String password) {
 		this.password = password;
+	}
+
+	public boolean getCanOrganiseElection() {
+		return this.canOrganiseElection;
+	}
+
+	public void setCanOrganiseElection(final Boolean canOrganiseElection) {
+		this.canOrganiseElection = canOrganiseElection;
 	}
 
 }

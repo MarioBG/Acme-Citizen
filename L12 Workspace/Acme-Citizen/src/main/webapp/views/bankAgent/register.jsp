@@ -18,7 +18,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="agent/register.do" modelAttribute="agentForm">
+<form:form action="bankagent/governmentagent/register.do" modelAttribute="bankAgentForm">
+
+	<form:hidden path="nif"/>
 	
 	<acme:textbox code="agent.name" path="name"/>
 	<br/>
@@ -29,6 +31,12 @@
 	<acme:textbox code="agent.phone" path="phone"/>
 	<br/>
 	<acme:textbox code="agent.address" path="address"/>
+	<br/>
+	<acme:textbox code="agent.nickname" path="nickname"/>
+	<br/>
+	<acme:textbox code="agent.bankCode" path="bankCode"/>
+	<br/>
+	<acme:checkbox code="agent.canCreateMoney" disabled="${ !parentCanCreateMoney }" path="canCreateMoney"/>
 	<br/>
 	<acme:textbox code="agent.userName" path="username"/>
 	<br/>

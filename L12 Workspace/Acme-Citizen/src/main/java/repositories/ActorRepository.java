@@ -1,3 +1,4 @@
+
 package repositories;
 
 import java.util.Collection;
@@ -26,5 +27,8 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 
 	@Query("select a from Actor a where a.id =?1")
 	Actor findActor(int actorId);
+
+	@Query("select a from Actor a where a.nif =?1")
+	Actor findActorByNif(String actorNif);
 
 }

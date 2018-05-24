@@ -98,6 +98,25 @@
 		<security:intercept-url pattern="/notification/admin/**" access="hasRole('ADMIN')" />
 		
 		
+		<!-- Registers -->
+		<security:intercept-url pattern="/governmentAgent/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/bankAgent/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/citizen/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/actor/admin/ban.do"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/actor/admin/unban.do"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/legalText/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/notification/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/value/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
