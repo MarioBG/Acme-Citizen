@@ -105,7 +105,7 @@
 			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/citizen/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/actor/admin/ban.do"
+		<security:intercept-url pattern="/governmentagent/governmentagent/dashboard.do"
 			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/actor/admin/unban.do"
 			access="hasRole('GOVERNMENTAGENT')" />

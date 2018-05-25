@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -17,6 +18,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.GovernmentAgent;
+import domain.Petition;
 import forms.GovernmentAgentForm;
 
 @Service
@@ -163,43 +165,10 @@ public class GovernmentAgentService {
 		this.governmentAgentRepository.flush();
 	}
 
-	//	public boolean checkIsSpam(String text) {
-	//		Collection<String> spamWords;
-	//		Boolean isSpam = false;
-	//		Actor a = this.actorService.findByPrincipal();
-	//		String type = this.actorService.getType(a.getUserAccount());
-	//
-	//		if (type.equals("CUSTOMER")) {
-	//			a = (Customer) a;
-	//		} else if (type.equals("USER")) {
-	//			a = (User) a;
-	//		} else if (type.equals("AGENT")) {
-	//			a = (Agent) a;
-	//		}
-	//
-	//		if (text == null) {
-	//			return isSpam;
-	//		} else {
-	//			text = text.toLowerCase();
-	//			spamWords = configurationService.getTabooWordsFromConfiguration();
-	//			for (String spamword : spamWords) {
-	//				if (text.contains(spamword)) {
-	//					isSpam = true;
-	//				}
-	//			}
-	//		}
-	//		return isSpam;
-	//	}
+	public Collection<Petition> getTop3PetitionsByCommentSize() {
+		return this.governmentAgentRepository.getPetitionsByComments(new PageRequest(0, 3)).getContent();
+	}
 
-	//	// C-1
-	//	public Object[] avgSqtrUser() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Object[] res;
-	//		res = this.governmentAgentRepository.avgSqtrUser();
-	//		return res;
-	//	}
 	//
 	//	// C-2
 	//	public Object[] avgSqtrArticlesByWriter() {
