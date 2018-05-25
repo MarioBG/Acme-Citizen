@@ -1,8 +1,6 @@
 
 package forms;
 
-import javax.validation.constraints.Pattern;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -37,7 +35,6 @@ public class CitizenForm {
 		this.name = name;
 	}
 
-	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurname() {
 		return this.surname;
@@ -72,11 +69,11 @@ public class CitizenForm {
 		return this.phone;
 	}
 
-	@Pattern(regexp = "^\\+?\\d+$")
 	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
 
+	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;

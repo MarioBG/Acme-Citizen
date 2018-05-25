@@ -21,7 +21,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	 $("#citizenForm").submit(function(){
+	 $("#governmentAgentForm").submit(function(){
 	var m = document.getElementById("phone").value;
 	var expreg = /^(\+[1-9][0-9]{2}|\+[1-9][0-9]|\+[1-9])(\s\([1-9][0-9]{2}\)|\ \([1-9][0-9]\)|\ \([1-9]\))?(\ \d{4,})|(\d{4,})|(\d+)$/;
 	
@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 </script>
 
-<form:form action="citizen/governmentagent/register.do" modelAttribute="citizenForm">
+<form:form action="governmentagent/governmentagent/register.do" modelAttribute="governmentAgentForm">
 
 	<form:hidden path="nif"/>
 	
@@ -49,6 +49,12 @@ $(document).ready(function() {
 	<acme:textbox code="agent.address" path="address"/>
 	<br/>
 	<acme:textbox code="agent.nickname" path="nickname"/>
+	<br/>
+	<acme:textbox code="government.registerCode" path="registerCode"/>
+	<br/>
+	<acme:checkbox code="agent.canCreateMoney" disabled="${ !canCreateMoneyParent }" path="canCreateMoney"/>
+	<br/>
+	<acme:checkbox code="government.canOrganiseElection" disabled="${ !canOrganiseElectionParent }" path="canOrganiseElection"/>
 	<br/>
 	<acme:textbox code="agent.userName" path="username"/>
 	<br/>

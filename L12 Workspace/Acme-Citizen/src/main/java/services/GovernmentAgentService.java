@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -17,7 +18,12 @@ import repositories.GovernmentAgentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Chirp;
+import domain.Comment;
+import domain.Election;
+import domain.Folder;
 import domain.GovernmentAgent;
+import domain.Lottery;
 import domain.Petition;
 import forms.GovernmentAgentForm;
 
@@ -30,7 +36,13 @@ public class GovernmentAgentService {
 	private GovernmentAgentRepository	governmentAgentRepository;
 
 	@Autowired
+	private ActorService				actorService;
+
+	@Autowired
 	private Validator					validator;
+
+	@Autowired
+	private FolderService				folderService;
 
 
 	// Constructors
@@ -41,11 +53,25 @@ public class GovernmentAgentService {
 	// Simple CRUD methods
 
 	public GovernmentAgent create() {
+		String nif = this.actorService.generateNif(this.findByPrincipal());
 		final GovernmentAgent res = new GovernmentAgent();
+		final Collection<Folder> folders = new ArrayList<Folder>();
+		final Collection<Comment> comments = new ArrayList<Comment>();
+		final Collection<Election> elections = new ArrayList<Election>();
+		final Collection<Lottery> lotteries = new ArrayList<Lottery>();
+		final Collection<Petition> petitions = new ArrayList<Petition>();
+		final Collection<Chirp> chirps = new ArrayList<Chirp>();
 
 		final UserAccount userAccount = new UserAccount();
 		final Authority authority = new Authority();
 
+		res.setNif(nif);
+		res.setFolders(folders);
+		res.setComments(comments);
+		res.setChirps(chirps);
+		res.setElections(elections);
+		res.setLotteries(lotteries);
+		res.setPetitions(petitions);
 		authority.setAuthority(Authority.GOVERNMENTAGENT);
 		userAccount.addAuthority(authority);
 		res.setUserAccount(userAccount);
@@ -82,6 +108,9 @@ public class GovernmentAgentService {
 			pass = code.encodePassword(pass, null);
 
 			admin.getUserAccount().setPassword(pass);
+
+			final Collection<Folder> folders = this.folderService.save(this.folderService.defaultFolders());
+			admin.setFolders(folders);
 		}
 
 		res = this.governmentAgentRepository.save(admin);

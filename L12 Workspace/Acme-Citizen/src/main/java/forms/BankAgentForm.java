@@ -39,7 +39,6 @@ public class BankAgentForm {
 		this.name = name;
 	}
 
-	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSurname() {
 		return this.surname;
@@ -74,11 +73,11 @@ public class BankAgentForm {
 		return this.phone;
 	}
 
-	@Pattern(regexp = "^\\+?\\d+$")
 	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
 
+	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getAddress() {
 		return this.address;

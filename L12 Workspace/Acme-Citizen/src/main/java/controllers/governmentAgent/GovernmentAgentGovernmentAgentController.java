@@ -64,7 +64,7 @@ public class GovernmentAgentGovernmentAgentController extends AbstractController
 			try {
 				govAgent = this.governmentAgentService.reconstruct(governmentAgentForm, binding);
 				this.governmentAgentService.save(govAgent);
-				res = new ModelAndView("redirect:../");
+				res = new ModelAndView("redirect:../../");
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(governmentAgentForm, "user.commit.error");
 			}
@@ -89,7 +89,7 @@ public class GovernmentAgentGovernmentAgentController extends AbstractController
 		final Boolean canCreateMoney = gov.getCanCreateMoney();
 		final Boolean canElection = gov.getCanOrganiseElection();
 
-		result = new ModelAndView("bankagent/register");
+		result = new ModelAndView("governmentagent/register");
 		result.addObject("governmentAgentForm", govAgentForm);
 		result.addObject("message", message);
 		result.addObject("canCreateMoneyParent", canCreateMoney);

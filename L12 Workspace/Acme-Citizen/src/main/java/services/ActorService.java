@@ -131,7 +131,7 @@ public class ActorService {
 				prod = 1;
 		}
 		nif += String.format("%08d", num2);
-		nif += letras[prod % 26];
+		nif += letras[(prod - 1) % 26];
 		if (this.actorRepository.findActorByNif(nif) != null)
 			nif = this.generateNif(creator);
 		return nif;

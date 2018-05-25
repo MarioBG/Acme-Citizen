@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -16,7 +17,13 @@ import repositories.CitizenRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Candidate;
 import domain.Citizen;
+import domain.Comment;
+import domain.Election;
+import domain.Folder;
+import domain.LotteryTicket;
+import domain.Petition;
 import forms.CitizenForm;
 
 @Service
@@ -25,10 +32,19 @@ public class CitizenService {
 
 	// Managed repository
 	@Autowired
-	private CitizenRepository	citizenRepository;
+	private CitizenRepository		citizenRepository;
 
 	@Autowired
-	private Validator			validator;
+	private GovernmentAgentService	governmentAgentService;
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private Validator				validator;
+
+	@Autowired
+	private FolderService			folderService;
 
 
 	// Constructors
@@ -40,10 +56,24 @@ public class CitizenService {
 
 	public Citizen create() {
 		final Citizen res = new Citizen();
+		String nif = this.actorService.generateNif(this.governmentAgentService.findByPrincipal());
+		final Collection<Folder> folders = new ArrayList<Folder>();
+		final Collection<Candidate> candidates = new ArrayList<Candidate>();
+		final Collection<Comment> comments = new ArrayList<Comment>();
+		final Collection<Election> elections = new ArrayList<Election>();
+		final Collection<LotteryTicket> lotteryTickets = new ArrayList<LotteryTicket>();
+		final Collection<Petition> petitions = new ArrayList<Petition>();
 
 		final UserAccount userAccount = new UserAccount();
 		final Authority authority = new Authority();
 
+		res.setCandidates(candidates);
+		res.setComments(comments);
+		res.setElections(elections);
+		res.setFolders(folders);
+		res.setLotteryTickets(lotteryTickets);
+		res.setPetitions(petitions);
+		res.setNif(nif);
 		authority.setAuthority(Authority.CITIZEN);
 		userAccount.addAuthority(authority);
 		res.setUserAccount(userAccount);
@@ -51,7 +81,6 @@ public class CitizenService {
 		return res;
 
 	}
-
 	public Collection<Citizen> findAll() {
 		Collection<Citizen> res;
 		res = this.citizenRepository.findAll();
@@ -78,6 +107,9 @@ public class CitizenService {
 			final Md5PasswordEncoder code = new Md5PasswordEncoder();
 
 			pass = code.encodePassword(pass, null);
+
+			final Collection<Folder> folders = this.folderService.save(this.folderService.defaultFolders());
+			citizen.setFolders(folders);
 
 			citizen.getUserAccount().setPassword(pass);
 		}
