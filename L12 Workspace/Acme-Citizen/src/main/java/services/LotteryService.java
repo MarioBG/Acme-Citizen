@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.LotteryRepository;
 import domain.Actor;
 import domain.Lottery;
 import domain.LotteryTicket;
+import repositories.LotteryRepository;
 
 @Service
 @Transactional
@@ -22,13 +22,12 @@ public class LotteryService {
 	// Managed repository
 
 	@Autowired
-	private LotteryRepository	lotteryRepository;
+	private LotteryRepository lotteryRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService		actorService;
-
+	private ActorService actorService;
 
 	// Constructors
 
@@ -71,6 +70,20 @@ public class LotteryService {
 
 		final Lottery result = this.lotteryRepository.findOne(lotteryId);
 		return result;
+	}
+
+	public Collection<Lottery> findAllAfterToday() {
+		return this.lotteryRepository.findAllAfterToday();
+	}
+
+	public Collection<Lottery> getLotteryByGovernmentAgentId(int id) {
+		return this.lotteryRepository.getLotteryByGovernmentAgentId(id);
+	}
+
+	public void delete(Lottery lottery) {
+		Assert.notNull(lottery);
+		delete(lottery);
+
 	}
 
 }

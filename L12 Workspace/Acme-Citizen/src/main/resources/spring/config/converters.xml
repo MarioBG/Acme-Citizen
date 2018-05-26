@@ -16,6 +16,7 @@
 		<!-- Add your own converters using entries of the following form: <bean 
 			class="converters.Class1ToClass2" /> -->
 		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.BankAccountToStringConverter" />
 		<bean class="converters.BankAgentToStringConverter" />
 		<bean class="converters.CandidateToStringConverter" />
 		<bean class="converters.CandidatureToStringConverter" />
@@ -24,12 +25,17 @@
 		<bean class="converters.CommentableToStringConverter" />
 		<bean class="converters.CommentToStringConverter" />
 		<bean class="converters.ConfigurationToStringConverter" />
+		<bean class="converters.EconomicTransactionToStringConverter" />
 		<bean class="converters.ElectionToStringConverter" />
 		<bean class="converters.FolderToStringConverter" />
 		<bean class="converters.GovernmentAgentToStringConverter" />
+		<bean class="converters.LotteryToStringConverter" />
+		<bean class="converters.LotteryTicketToStringConverter" />
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.PetitionToStringConverter" />
+
 		<bean class="converters.StringToActorConverter" />
+		<bean class="converters.StringToBankAccountConverter" />
 		<bean class="converters.StringToBankAgentConverter" />
 		<bean class="converters.StringToCandidateConverter" />
 		<bean class="converters.StringToCandidatureConverter" />
@@ -37,9 +43,12 @@
 		<bean class="converters.StringToCitizenConverter" />
 		<bean class="converters.StringToCommentableConverter" />
 		<bean class="converters.StringToConfigurationConverter" />
+		<bean class="converters.StringToEconomicTransactionConverter" />
 		<bean class="converters.StringToElectionConverter" />
 		<bean class="converters.StringToFolderConverter" />
 		<bean class="converters.StringToGovernmentAgentConverter" />
+		<bean class="converters.StringToLotteryConverter" />
+		<bean class="converters.StringToLotteryTicketConverter" />
 		<bean class="converters.StringToMessageConverter" />
 		<bean class="converters.StringToPetitionConverter" />
 	</util:list>

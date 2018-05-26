@@ -72,4 +72,14 @@ public class EconomicTransactionService {
 		return result;
 	}
 
+	public Collection<EconomicTransaction> findCreditorTransactionByActorId(int actorId) {
+		return this.economicTransactionRepository.findCreditorTransactionByActorId(actorId);
+
+	}
+
+	public Collection<EconomicTransaction> findDebtorTransactionByActorId(int actorId) {
+		return this.economicTransactionRepository.findDebtorTransactionByActorId(actorId);
+
+	}
+
 }

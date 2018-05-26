@@ -24,8 +24,7 @@ public class FolderController extends AbstractController {
 	// Services ------------------------------------------------------
 
 	@Autowired
-	private FolderService	folderService;
-
+	private FolderService folderService;
 
 	// Constructors --------------------------------------------------
 

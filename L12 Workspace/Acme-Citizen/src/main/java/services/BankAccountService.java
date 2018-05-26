@@ -22,13 +22,12 @@ public class BankAccountService {
 	// Managed repository
 
 	@Autowired
-	private BankAccountRepository	bankAccountRepository;
+	private BankAccountRepository bankAccountRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService			actorService;
-
+	private ActorService actorService;
 
 	// Constructors
 
@@ -76,6 +75,12 @@ public class BankAccountService {
 
 		final BankAccount result = this.bankAccountRepository.findOne(bankAccountId);
 		return result;
+	}
+
+	public void delete(BankAccount bankAccount) {
+		Assert.notNull(bankAccount);
+		delete(bankAccount);
+
 	}
 
 }
