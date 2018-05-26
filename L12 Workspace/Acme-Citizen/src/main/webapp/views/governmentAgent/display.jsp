@@ -13,19 +13,31 @@
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('ADMIN')">
+<security:authorize access="hasRole('GOVERNMENTAGENT')">
 
-
-	<spring:message code="administrator.avgSqtrUserLabel" />
-	<jstl:out value="${avgSqtrUserLabel}"></jstl:out>
-	<table class="displaytag" name="avgSqtrUser">
+<h4>
+	<spring:message code="administrator.numberRegisteredActors" var="numberRegisteredActorsHead" />
+	<jstl:out value="${numberRegisteredActorsHead}"/> = <fmt:formatNumber value="${numberRegisteredActors}" maxFractionDigits="0"/>
+</h4>
+<h4>
+	<spring:message code="administrator.avgMinMaxStdvPerCitizen" var="avgMinMaxStdvPerCitizenHead" />
+	<jstl:out value="${avgMinMaxStdvPerCitizenHead}"></jstl:out>
+</h4>
+	<table class="displaytag" name="avgMinMaxStdvPerCitizen">
 		<tr>
+			<th><spring:message code="administrator.minimum"
+					var="minimumHeader" /> <jstl:out value="${minimumHeader}"></jstl:out>
+			</th>
+			<th><spring:message code="administrator.maximum"
+					var="maximumHeader" /> <jstl:out value="${maximumHeader}"></jstl:out>
+			</th>
 			<th><spring:message code="administrator.average"
 					var="averageHeader" /> <jstl:out value="${averageHeader}"></jstl:out>
 			</th>
@@ -35,16 +47,23 @@
 					value="${standardDeviationHeader}"></jstl:out></th>
 		</tr>
 		<tr>
-			<jstl:forEach var="datos" items="${avgSqtrUser}">
+			<jstl:forEach var="datos" items="${avgMinMaxStdvPerCitizen}">
 				<td><jstl:out value="${datos}"></jstl:out></td>
 			</jstl:forEach>
 		</tr>
 	</table>
-
-	<spring:message code="administrator.avgSqtrArticlesByWriterLabel" />
-	<jstl:out value="${avgSqtrUserLabel}"></jstl:out>
-	<table class="displaytag" name="avgSqtrArticlesByWriter">
+<h4>
+	<spring:message code="administrator.avgMinMaxStdvPerGovAgent" var="avgMinMaxStdvPerGovAgentHead" />
+	<jstl:out value="${avgMinMaxStdvPerGovAgentHead}"></jstl:out>
+</h4>
+	<table class="displaytag" name="avgMinMaxStdvPerGovAgent">
 		<tr>
+			<th><spring:message code="administrator.minimum"
+					var="minimumHeader" /> <jstl:out value="${minimumHeader}"></jstl:out>
+			</th>
+			<th><spring:message code="administrator.maximum"
+					var="maximumHeader" /> <jstl:out value="${maximumHeader}"></jstl:out>
+			</th>
 			<th><spring:message code="administrator.average"
 					var="averageHeader" /> <jstl:out value="${averageHeader}"></jstl:out>
 			</th>
@@ -54,13 +73,13 @@
 					value="${standardDeviationHeader}"></jstl:out></th>
 		</tr>
 		<tr>
-			<jstl:forEach var="datos" items="${avgSqtrArticlesByWriter}">
+			<jstl:forEach var="datos" items="${avgMinMaxStdvPerGovAgent}">
 				<td><jstl:out value="${datos}"></jstl:out></td>
 			</jstl:forEach>
 		</tr>
 	</table>
 
-	<spring:message code="administrator.avgSqtrArticlesByNewspaperLabel" />
+	<%-- <spring:message code="administrator.avgSqtrArticlesByNewspaperLabel" />
 	<jstl:out value="${avgSqtrUserLabel}"></jstl:out>
 	<table class="displaytag" name="avgSqtrArticlesByNewspaper">
 		<tr>
@@ -77,9 +96,9 @@
 				<td><jstl:out value="${datos}"></jstl:out></td>
 			</jstl:forEach>
 		</tr>
-	</table>
+	</table> --%>
 
-	<spring:message code="administrator.newspapersMoreAverageLabel" />
+	<%-- <spring:message code="administrator.newspapersMoreAverageLabel" />
 	<jstl:out value="${newspapersMoreAverageLabel	}"></jstl:out>
 	<table class="displaytag" name="newspapersMoreAverage">
 		<tr>
@@ -267,7 +286,7 @@
 
 			<td><jstl:out value="${ratioSubscriptionsVolumeVersusSubscriptionsNewspaper}"></jstl:out></td>
 		</tr>
-	</table>
+	</table> --%>
 
 
 </security:authorize>

@@ -1,6 +1,8 @@
 
 package controllers.governmentAgent;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.GovernmentAgentService;
 import controllers.AbstractController;
+import domain.Candidature;
+import domain.Citizen;
+import domain.Election;
 import domain.GovernmentAgent;
+import domain.Petition;
 import forms.GovernmentAgentForm;
 
 @Controller
@@ -72,6 +78,54 @@ public class GovernmentAgentGovernmentAgentController extends AbstractController
 		return res;
 	}
 
+	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		result = new ModelAndView("governmentagent/dashboard");
+
+		Double numberRegisteredActors;
+		Double[] avgMinMaxStdvPerCitizen;
+		final Double[] avgMinMaxStdvPerGovAgent;
+		Collection<Petition> petitionsByComments;
+		Collection<Election> electionsByComments;
+		String percentageElectionCandidates;
+		Collection<Citizen> citizensMoreLotteryTicketsAverage;
+		Collection<Candidature> candidaturesMoreVotesAverage;
+		Double[] avgMinMaxStdvVotesPerElection;
+		Double[] avgMinMaxStdvCandidaturesPerElection;
+		Double allMoneyInSystem;
+		Double[] avgMinMaxStdvMoneyPerActor;
+
+		petitionsByComments = this.governmentAgentService.getTop3PetitionsByCommentSize();
+		numberRegisteredActors = this.governmentAgentService.numberRegisteredActors();
+		avgMinMaxStdvPerGovAgent = this.governmentAgentService.computeAvgMinMaxStdvPerGovAgent();
+		avgMinMaxStdvPerCitizen = this.governmentAgentService.computeAvgMinMaxStdvPerCitizen();
+		petitionsByComments = this.governmentAgentService.getPetitionsByComments();
+		electionsByComments = this.governmentAgentService.getElectionsByComments();
+		percentageElectionCandidates = this.governmentAgentService.getPercentageElectionCandidates();
+		citizensMoreLotteryTicketsAverage = this.governmentAgentService.citizensMoreLotteryTicketsAverage();
+		candidaturesMoreVotesAverage = this.governmentAgentService.candidaturesMoreVotesAverage();
+		avgMinMaxStdvVotesPerElection = this.governmentAgentService.computeAvgMinMaxStdvVotesPerElection();
+		avgMinMaxStdvCandidaturesPerElection = this.governmentAgentService.computeAvgMinMaxStdvCandidaturesPerElection();
+		allMoneyInSystem = this.governmentAgentService.getAllMoneyInSystem();
+		avgMinMaxStdvMoneyPerActor = this.governmentAgentService.computeAvgMinMaxStdvMoneyPerActor();
+
+		result.addObject("petitionsByComments", petitionsByComments);
+		result.addObject("numberRegisteredActors", numberRegisteredActors);
+		result.addObject("avgMinMaxStdvPerGovAgent", avgMinMaxStdvPerGovAgent);
+		result.addObject("avgMinMaxStdvPerCitizen", avgMinMaxStdvPerCitizen);
+		result.addObject("petitionsByComments", petitionsByComments);
+		result.addObject("electionsByComments", electionsByComments);
+		result.addObject("percentageElectionCandidates", percentageElectionCandidates);
+		result.addObject("citizensMoreLotteryTicketsAverage", citizensMoreLotteryTicketsAverage);
+		result.addObject("candidaturesMoreVotesAverage", candidaturesMoreVotesAverage);
+		result.addObject("avgMinMaxStdvVotesPerElection", avgMinMaxStdvVotesPerElection);
+		result.addObject("avgMinMaxStdvCandidaturesPerElection", avgMinMaxStdvCandidaturesPerElection);
+		result.addObject("allMoneyInSystem", allMoneyInSystem);
+		result.addObject("avgMinMaxStdvMoneyPerActor", avgMinMaxStdvMoneyPerActor);
+
+		return result;
+	}
 	// Ancillary methods ---------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final GovernmentAgentForm govAgentForm) {

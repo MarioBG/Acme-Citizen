@@ -93,9 +93,9 @@
 		
 		<!-- Folders y messages -->
 		
-		<security:intercept-url pattern="/folder/**" access="hasAnyRole('CUSTOMER', 'AGENT','USER', 'ADMIN')" />
-		<security:intercept-url pattern="/message/**" access="hasAnyRole('CUSTOMER', 'AGENT','USER', 'ADMIN')" />
-		<security:intercept-url pattern="/notification/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/folder/**" access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
+		<security:intercept-url pattern="/message/**" access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
+		<security:intercept-url pattern="/notification/admin/**" access="hasRole('GOVERNMENTAGENT')" />
 		
 		
 		<!-- Registers -->

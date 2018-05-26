@@ -18,7 +18,9 @@ import repositories.GovernmentAgentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Candidature;
 import domain.Chirp;
+import domain.Citizen;
 import domain.Comment;
 import domain.Election;
 import domain.Folder;
@@ -53,7 +55,7 @@ public class GovernmentAgentService {
 	// Simple CRUD methods
 
 	public GovernmentAgent create() {
-		String nif = this.actorService.generateNif(this.findByPrincipal());
+		final String nif = this.actorService.generateNif(this.findByPrincipal());
 		final GovernmentAgent res = new GovernmentAgent();
 		final Collection<Folder> folders = new ArrayList<Folder>();
 		final Collection<Comment> comments = new ArrayList<Comment>();
@@ -198,144 +200,49 @@ public class GovernmentAgentService {
 		return this.governmentAgentRepository.getPetitionsByComments(new PageRequest(0, 3)).getContent();
 	}
 
-	//
-	//	// C-2
-	//	public Object[] avgSqtrArticlesByWriter() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Object[] res;
-	//		res = this.governmentAgentRepository.avgSqtrArticlesByWriter();
-	//		return res;
-	//	}
-	//
-	//	// C-3
-	//	public Object[] avgSqtrArticlesByNewspaper() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Object[] res;
-	//		res = this.governmentAgentRepository.avgSqtrArticlesByNewspaper();
-	//		return res;
-	//	}
-	//
-	//	// C-4
-	//	public Collection<Newspaper> newspapersMoreAverage() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Collection<Newspaper> res = this.governmentAgentRepository.newspapersMoreAverage();
-	//		return res;
-	//	}
-	//
-	//	// C-5
-	//	public Collection<Newspaper> newspapersFewerAverage() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Collection<Newspaper> res = this.governmentAgentRepository.newspapersFewerAverage();
-	//		return res;
-	//	}
-	//
-	//	// C-6
-	//	public String ratioUserCreatedNewspaper() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		String res;
-	//		res = this.governmentAgentRepository.ratioUserCreatedNewspaper();
-	//		return res;
-	//	}
-	//
-	//	// C-7
-	//	public String ratioUserWrittenArticle() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		String res;
-	//		res = this.governmentAgentRepository.ratioUserWrittenArticle();
-	//		return res;
-	//	}
-	//
-	//	// B-1
-	//	public Double avgFollowupsPerArticle() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Double res;
-	//		res = this.governmentAgentRepository.avgFollowupsPerArticle();
-	//		return res;
-	//	}
-	//
-	//	// B-2
-	//	public Double avgNumberOfFollowUpsPerArticleAfter1Week() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Double res;
-	//		long oneWeek = TimeUnit.DAYS.toMillis(7);
-	//		Date f = new Date(System.currentTimeMillis() - oneWeek);
-	//		res = this.governmentAgentRepository.avgNumberOfFollowUpsPerArticleAfter1Week(f);
-	//		return res;
-	//	}
-	//
-	//	// B-3
-	//	public Double avgNumberOfFollowUpsPerArticleAfter2Week() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Double res;
-	//		long twoWeeks = TimeUnit.DAYS.toMillis(7);
-	//		Date f = new Date(System.currentTimeMillis() - twoWeeks);
-	//		res = this.governmentAgentRepository.avgNumberOfFollowUpsPerArticleAfter2Week(f);
-	//		return res;
-	//	}
-	//
-	//	// B-4
-	//	public Object[] avgStddevNumberOfChirpPerUser() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		Object[] res;
-	//		res = this.governmentAgentRepository.avgStddevNumberOfChirpPerUser();
-	//		return res;
-	//	}
-	//
-	//	// B-5
-	//	public String ratioUsersMorePostedChirpsOfAveragePerUser() {
-	//
-	//		Assert.isTrue(this.checkAuthority());
-	//
-	//		String res;
-	//		res = this.governmentAgentRepository.ratioUsersMorePostedChirpsOfAveragePerUser();
-	//		return res;
-	//	}
-	//
-	//	// ACME-NEWSPAPER 2.0
-	//
-	//	// C-1
-	//	public Double ratioNewspapersAds() {
-	//		return this.governmentAgentRepository.ratioNewspapersWithVsWithoutAdvertisements();
-	//	}
-	//
-	//	// C-2
-	//	public Double ratioAdsTabooWords() {
-	//		return (double) this.advertisementService.getAdvertisementsTabooWords().size() / (double) this.advertisementService.findAll().size();
-	//	}
-	//
-	//	// B-1
-	//	public Double avgNumberOfNewspapersPerVolume() {
-	//
-	//		Double result = this.governmentAgentRepository.avgNumberOfNewspapersPerVolume();
-	//		return result;
-	//	}
-	//
-	//	// B-2
-	//
-	//	public String ratioSubscriptionsVolumeVersusSubscriptionsNewspaper() {
-	//
-	//		String result = this.governmentAgentRepository.ratioSubscriptionsVolumeVersusSubscriptionsNewspaper();
-	//		return result;
-	//	}
+	public Double numberRegisteredActors() {
+		return this.governmentAgentRepository.numberRegisteredActors();
+	}
+
+	public Double[] computeAvgMinMaxStdvPerCitizen() {
+		return this.governmentAgentRepository.computeAvgMinMaxStdvPerCitizen();
+	}
+	public Double[] computeAvgMinMaxStdvPerGovAgent() {
+		return this.governmentAgentRepository.computeAvgMinMaxStdvPerGovAgent();
+	}
+	public Collection<Petition> getPetitionsByComments() {
+		return this.governmentAgentRepository.getPetitionsByComments(new PageRequest(0, 3)).getContent();
+	}
+
+	public Collection<Election> getElectionsByComments() {
+		return this.governmentAgentRepository.getElectionsByComments(new PageRequest(0, 3)).getContent();
+	}
+
+	public String getPercentageElectionCandidates() {
+		return this.governmentAgentRepository.getPercentageElectionCandidates();
+	}
+
+	public Collection<Citizen> citizensMoreLotteryTicketsAverage() {
+		return this.governmentAgentRepository.citizensMoreLotteryTicketsAverage();
+	}
+
+	public Collection<Candidature> candidaturesMoreVotesAverage() {
+		return this.governmentAgentRepository.candidaturesMoreVotesAverage();
+	}
+
+	public Double[] computeAvgMinMaxStdvVotesPerElection() {
+		return this.governmentAgentRepository.computeAvgMinMaxStdvVotesPerElection();
+	}
+
+	public Double[] computeAvgMinMaxStdvCandidaturesPerElection() {
+		return this.governmentAgentRepository.computeAvgMinMaxStdvCandidaturesPerElection();
+	}
+	public Double getAllMoneyInSystem() {
+		return this.governmentAgentRepository.getAllMoneyInSystem();
+	}
+
+	public Double[] computeAvgMinMaxStdvMoneyPerActor() {
+		return this.governmentAgentRepository.computeAvgMinMaxStdvMoneyPerActor();
+	}
 
 }

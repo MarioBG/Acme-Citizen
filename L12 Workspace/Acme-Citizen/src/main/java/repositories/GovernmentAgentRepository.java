@@ -1,12 +1,17 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import domain.Candidature;
+import domain.Citizen;
+import domain.Election;
 import domain.GovernmentAgent;
 import domain.Petition;
 
@@ -29,8 +34,27 @@ public interface GovernmentAgentRepository extends JpaRepository<GovernmentAgent
 	Page<Petition> getPetitionsByComments(Pageable pageable);
 
 	@Query("select p from Election p group by p.comments.size")
-	Page<Petition> getElectionsByComments(Pageable pageable);
+	Page<Election> getElectionsByComments(Pageable pageable);
 
 	@Query(value = "select concat(100*(select count(u1) from Citizen u1 where u1.candidates.size>0)/ count(u2), '%') from Citizen u2")
 	String getPercentageElectionCandidates();
+
+	@Query("select n from Citizen n group by n having n.lotteryTickets.size > (select avg(n2.lotteryTickets.size)*1.2 from Citizen n2)")
+	Collection<Citizen> citizensMoreLotteryTicketsAverage();
+
+	@Query("select n from Candidature n group by n having n.voteNumber > (select avg(n2.voteNumber)*1.2 from Candidature n2)")
+	Collection<Candidature> candidaturesMoreVotesAverage();
+
+	@Query("select avg(m.citizens.size),min(m.citizens.size),max(m.citizens.size),sqrt(sum(m.citizens.size*m.citizens.size)/count(m.citizens.size)-(avg(m.citizens.size)*avg(m.citizens.size))) from Election m")
+	Double[] computeAvgMinMaxStdvVotesPerElection();
+
+	@Query("select avg(m.candidatures.size),min(m.candidatures.size),max(m.candidatures.size),sqrt(sum(m.candidatures.size*m.candidatures.size)/count(m.candidatures.size)-(avg(m.candidatures.size)*avg(m.candidatures.size))) from Election m")
+	Double[] computeAvgMinMaxStdvCandidaturesPerElection();
+
+	@Query("select sum(ba.money) from BankAccount ba")
+	Double getAllMoneyInSystem();
+
+	@Query("select avg(case when(m.bankAccount.id != 0) then m.bankAccount.money else 0 end),min(case when(m.bankAccount is not null) then m.bankAccount.money else 0 end),max(case when(m.bankAccount is not null) then m.bankAccount.money else 0 end),sqrt(sum(case when(m.bankAccount is not null) then m.bankAccount.money else 0 end*case when(m.bankAccount is not null) then m.bankAccount.money else 0 end)/count(m)-(avg(case when(m.bankAccount is not null) then m.bankAccount.money else 0 end)*avg(case when(m.bankAccount is not null) then m.bankAccount.money else 0 end))) from Actor m")
+	Double[] computeAvgMinMaxStdvMoneyPerActor();					//TODO NO FUNCIONA CORRECTAMENTE: No coge los 0 de cuando el Actor no tiene cuenta bancaria
+
 }
