@@ -36,8 +36,8 @@ public interface GovernmentAgentRepository extends JpaRepository<GovernmentAgent
 	@Query("select p from Election p group by p.comments.size")
 	Page<Election> getElectionsByComments(Pageable pageable);
 
-	@Query(value = "select concat(100*(select count(u1) from Citizen u1 where u1.candidates.size>0)/ count(u2), '%') from Citizen u2")
-	String getPercentageElectionCandidates();
+	@Query(value = "select 100*((select count(u1) from Citizen u1 where u1.candidates.size>0)/ count(u2)) from Citizen u2")
+	Double getPercentageElectionCandidates();
 
 	@Query("select n from Citizen n group by n having n.lotteryTickets.size > (select avg(n2.lotteryTickets.size)*1.2 from Citizen n2)")
 	Collection<Citizen> citizensMoreLotteryTicketsAverage();

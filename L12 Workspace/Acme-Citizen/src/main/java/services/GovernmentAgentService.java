@@ -218,7 +218,7 @@ public class GovernmentAgentService {
 		return this.governmentAgentRepository.getElectionsByComments(new PageRequest(0, 3)).getContent();
 	}
 
-	public String getPercentageElectionCandidates() {
+	public Double getPercentageElectionCandidates() {
 		return this.governmentAgentRepository.getPercentageElectionCandidates();
 	}
 
