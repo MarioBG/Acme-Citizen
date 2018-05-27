@@ -28,7 +28,7 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.administrator" /></a>
 				<ul>
-					<li><a href="admin/display.do"><spring:message
+					<li><a href="governmentagent/governmentagent/dashboard.do"><spring:message
 								code="master.page.administrator.information" /></a></li>
 					<li><a href="newspaper/admin/list.do"><spring:message
 								code="master.page.newspaper.list" /></a></li>

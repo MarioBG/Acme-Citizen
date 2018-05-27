@@ -15,7 +15,7 @@ public interface LotteryRepository extends JpaRepository<Lottery, Integer> {
 	@Query("select l from Lottery l where l.celebrationDate > CURRENT_DATE")
 	Collection<Lottery> findAllAfterToday();
 
-	@Query("select L from Lotter l where l.governmentAgent.id = ?1")
+	@Query("select l from Lottery l where l.governmentAgent.id = ?1")
 	Collection<Lottery> getLotteryByGovernmentAgentId(int id);
 
 }

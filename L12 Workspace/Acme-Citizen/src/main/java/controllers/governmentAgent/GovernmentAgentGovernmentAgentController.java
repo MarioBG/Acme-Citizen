@@ -88,7 +88,7 @@ public class GovernmentAgentGovernmentAgentController extends AbstractController
 		final Double[] avgMinMaxStdvPerGovAgent;
 		Collection<Petition> petitionsByComments;
 		Collection<Election> electionsByComments;
-		String percentageElectionCandidates;
+		Double percentageElectionCandidates;
 		Collection<Citizen> citizensMoreLotteryTicketsAverage;
 		Collection<Candidature> candidaturesMoreVotesAverage;
 		Double[] avgMinMaxStdvVotesPerElection;
