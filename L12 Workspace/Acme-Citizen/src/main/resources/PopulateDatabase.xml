@@ -1159,12 +1159,12 @@
 	<!-- WelcomeMessage-->
 	
 	<bean id="welcomeEs" class="domain.WelcomeMessage">
-		<property name="languageCode" value="es_ES"/>
+		<property name="languageCode" value="es"/>
 		<property name="content" value="Bienvenido a la plataforma de atención al ciudadano de la República de Hisperia. Seleccione una opción para continuar."/>
 	</bean>
 	
 	<bean id="welcomeEn" class="domain.WelcomeMessage">
-		<property name="languageCode" value="en_US"/>
+		<property name="languageCode" value="en"/>
 		<property name="content" value="Welcome to the Hisperian Republic's citizen platform. Please, choose an option to continue."/>
 	</bean>
 	

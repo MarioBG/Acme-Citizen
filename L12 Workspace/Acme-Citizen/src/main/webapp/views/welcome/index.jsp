@@ -39,6 +39,10 @@
 	<fmt:formatDate value="${moment}" pattern="${patternDate}" />
 </p>
 
+<p>
+	<jstl:out value="${ welcomeMessage }"/>
+</p>
+
 <h3>
 	<spring:message code="welcome.lastChirps" />
 </h3>

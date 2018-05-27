@@ -74,4 +74,8 @@ public class WelcomeMessageService {
 
 	// Ancillary methods
 
+	public String getWelcomeMessageForLocale(final String languageCode) {
+		return this.welcomeMessageRepository.getWelcomeMessageByLocale(languageCode).getContent();
+	}
+
 }
