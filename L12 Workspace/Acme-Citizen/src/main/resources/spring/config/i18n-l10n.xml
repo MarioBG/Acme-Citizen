@@ -37,6 +37,7 @@
 
 		<!-- ACME-CITIZEN -->
 		
+		<value>/views/candidature/messages</value>
 		<value>/views/chirp/messages</value>
 		<value>/views/election/messages</value>
 		<value>/views/petition/messages</value>
