@@ -71,4 +71,18 @@
 	</jstl:if>
 </security:authorize>
 
+<jstl:if test="${petition.comments not empty}">
+	<a href="comment/list.do?commentableId=${candidature.id}"><spring:message
+			code="petition.listComments" /></a>
+	<br />
+</jstl:if>
+
+<security:authorize access="hasRole('CITIZEN','GOVERNMENTAGENT')">
+	<jstl:if test="${petition.resolved == false}">
+		<a href="comment/actor/create.do?commentableId=${candidature.id}"><spring:message
+				code="petition.createComment" /></a>
+		<br />
+	</jstl:if>
+</security:authorize>
+
 <acme:cancel url="petition/list.do" code="petition.back" />

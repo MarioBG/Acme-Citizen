@@ -36,9 +36,25 @@
 	pattern="${patternDate}" />
 <br />
 
-<a href="candidature/list.do?candidatureId=${election.candidature.id}"><spring:message
-		code="election.listCandidatures" /></a>
-<br />
+<jstl:if test="${election.candidatures not empty}">
+	<a href="candidature/list.do?candidatureId=${election.candidature.id}"><spring:message
+			code="election.listCandidatures" /></a>
+	<br />
+</jstl:if>
+
+<jstl:if test="${election.comments not empty}">
+	<a href="comment/list.do?commentableId=${election.id}"><spring:message
+			code="election.listComments" /></a>
+	<br />
+</jstl:if>
+
+<security:authorize access="hasRole('CITIZEN','GOVERNMENTAGENT')">
+	<jstl:if test="${election.celebrationDate.before(date)}">
+		<a href="comment/actor/create.do?commentableId=${election.id}"><spring:message
+				code="election.createComment" /></a>
+		<br />
+	</jstl:if>
+</security:authorize>
 
 <spring:message var="backValue" code="election.back" />
 <input type="button" name="back" value="${backValue}"

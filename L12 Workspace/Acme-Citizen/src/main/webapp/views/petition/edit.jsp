@@ -28,7 +28,7 @@
 	<acme:textbox code="petition.picture" path="picture"/>
 	<br/>
 	
-	<jstl:if test="${petitionForm != 0}">
+	<jstl:if test="${petitionForm.id != 0}">
 		<acme:textbox code="petition.creationMoment" path="creationMoment" readonly="readonly"/>
 	<br/>
 	</jstl:if>
