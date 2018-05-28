@@ -31,4 +31,7 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query("select a from Actor a where a.nif =?1")
 	Actor findActorByNif(String actorNif);
 
+	@Query("select coalesce(a.money, 0) from Actor m left join m.bankAccount a where a.id = ?1")
+	Double getMoneyByActorId(int actorId);
+
 }

@@ -10,6 +10,7 @@
 
 package controllers;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.ChirpService;
 import services.WelcomeMessageService;
+import domain.Chirp;
 
 @Controller
 @RequestMapping("/welcome")
@@ -30,6 +33,9 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private ChirpService			chirpService;
 
 	@Autowired
 	private WelcomeMessageService	welcomeMessageService;
@@ -46,9 +52,11 @@ public class WelcomeController extends AbstractController {
 	@RequestMapping(value = "/index")
 	public ModelAndView index(@CookieValue("language") final String language, @RequestParam(required = false, defaultValue = "John Doe") String name) {
 		ModelAndView result;
+		Collection<Chirp> chirps;
 		String welcomeMessage;
 		name = "anonymous user";
 
+		chirps = this.chirpService.findAll();
 		if (this.actorService.findByPrincipal() != null)
 			name = this.actorService.findByPrincipal().getName();
 		if (this.welcomeMessageService.getWelcomeMessageForLocale(language) != null)
@@ -60,6 +68,7 @@ public class WelcomeController extends AbstractController {
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
+		result.addObject("chirps", chirps);
 		result.addObject("welcomeMessage", welcomeMessage);
 		result.addObject("moment", new Date());
 

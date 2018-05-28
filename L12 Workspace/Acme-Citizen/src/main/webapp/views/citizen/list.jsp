@@ -24,8 +24,8 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'user/list.do'  }">
-			<spring:message code="user.system"/>
+		<jstl:when test="${requestURI == 'citizen/list.do'  }">
+			<spring:message code="citizen.generalList"/>
 		</jstl:when>
 		<jstl:when test="${requestURI == 'user/user/list-followers.do'  }">
 			<spring:message code="user.followers"/>
@@ -37,27 +37,12 @@
 </h3>
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="users" requestURI="${requestURI }" id="row">
-
-	<security:authorize access="hasRole('USER')">
-		<jstl:if test="${requestURI != 'user/user/list-followers.do'}">
-			<display:column>
-				<jstl:choose>
-					<jstl:when test="${principal.followed.contains(row)}">
-						<a href="user/user/unfollow.do?userId=${row.id}"><spring:message code="user.unfollow"/></a>
-					</jstl:when>
-					<jstl:otherwise>
-						<a href="user/user/follow.do?userId=${row.id}"><spring:message code="user.follow"/></a>
-					</jstl:otherwise>
-				</jstl:choose>
-			</display:column>
-		</jstl:if>
-	</security:authorize>
+	name="citizens" requestURI="${requestURI }" id="row">
 
 	<!-- Attributes -->
-
-	<display:column title="${articlesHeader}">
-		<a href="user/display.do?userId=${row.id}"> <spring:message
+	<spring:message code="citizen.show" var="showHeader" />
+	<display:column title="${showHeader}">
+		<a href="citizen/display.do?citizenId=${row.id}"> <spring:message
 				code="user.display" />
 		</a>
 	</display:column>
@@ -67,14 +52,19 @@
 
 	<spring:message code="user.email" var="emailHeader" />
 	<display:column property="email" title="${emailHeader}" sortable="true" />
+	
+	<spring:message code="user.nickname" var="nicknameHeader" />
+	<display:column property="nickname" title="${nicknameHeader}" sortable="true" />
+	
+	<spring:message code="user.petitions" var="jorlHeader" />
+	<display:column title="${jorlHeader}">
+		<a href="petitions/list.do?citizenId=${row.id}"> <spring:message
+				code="user.display" />
+		</a>
+	</display:column>
 
 </display:table>
 
 <spring:message var="backValue" code="newspaper.back" />
 <input type="button" name="back" value="${backValue}"
 	onclick="javascript: relativeRedir('welcome/index.do');" />
-
-
-
-
-

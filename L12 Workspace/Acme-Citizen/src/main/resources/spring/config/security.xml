@@ -68,8 +68,8 @@
 		<security:intercept-url pattern="/chirp/**" access="hasAnyRole('USER', 'ADMIN')" />
 		
 		<!-- User -->
-		<security:intercept-url pattern="/user/user/**" access="hasRole('USER')" />
-		<security:intercept-url pattern="/user/**" access="permitAll" />
+		<security:intercept-url pattern="/citizen/citizen/**" access="hasRole('CITIZEN')" />
+		<security:intercept-url pattern="/citizen/**" access="permitAll" />
 		
 		<!-- Agent -->
 		<security:intercept-url pattern="/agent/agent/**" access="hasRole('AGENT')" />

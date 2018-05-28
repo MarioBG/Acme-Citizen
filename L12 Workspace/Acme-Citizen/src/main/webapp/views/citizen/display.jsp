@@ -23,31 +23,31 @@
 
 <h3>
 	<b><spring:message code="user.name" />:&nbsp;</b>
-	<jstl:out value="${user.name}" />
+	<jstl:out value="${citizen.name}" />
 </h3>
 
 <h3>
 	<b><spring:message code="user.surname" />:&nbsp;</b>
-	<jstl:out value="${user.surname}" />
+	<jstl:out value="${citizen.surname}" />
 </h3>
 
 <b><spring:message code="user.email" />:&nbsp;</b>
-<jstl:out value="${user.email}" />
+<jstl:out value="${citizen.email}" />
 <br />
 
 <b><spring:message code="user.phone" />:&nbsp;</b>
-<jstl:out value="${user.phone}" />
+<jstl:out value="${citizen.phone}" />
 <br />
 
 <b><spring:message code="user.address" />:&nbsp;</b>
-<jstl:out value="${user.address}" />
+<jstl:out value="${citizen.address}" />
 <br />
 
 <h3>
-	<spring:message code="user.articles" />
+	<spring:message code="citizen.candidatures" />
 </h3>
 
-<display:table name="${user.articles}" id="row"
+<display:table name="${candidatures}" id="row"
 	requestURI="user/display.do" pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('ADMIN')">
@@ -59,36 +59,20 @@
 
 	<spring:message var="titleHeader" code="user.title" />
 	<display:column title="${titleHeader}">
-		<a href="article/display.do?articleId=${row.id}"><jstl:out
-				value="${row.title}" /></a>
+		<a href="candidature/display.do?articleId=${row.id}"><jstl:out
+				value="${row.description}" /></a>
+	</display:column>
+	
+	<spring:message var="titleHeader" code="user.title" />
+	<display:column title="${titleHeader}">
+		<img src="${ row.partyLogo }" style="display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;"/>
 	</display:column>
 
-	<spring:message var="summaryHeader" code="user.summary" />
-	<display:column property="summary" title="${summaryHeader}" />
-
 </display:table>
 
-<h3>
-	<spring:message code="user.chirps" />
-</h3>
-
-<display:table name="${user.chirps}" id="row"
-	requestURI="user/display.do" pagesize="5" class="displaytag">
-
-	<spring:message var="titleHeader" code="chirp.title" />
-	<display:column property="description" title="${titleHeader}" />
-
-	<spring:message var="publicationMomentHeader"
-		code="user.publicationMoment" />
-	<spring:message var="formatDate" code="user.format.date" />
-	<display:column property="publicationMoment"
-		title="${publicationMomentHeader}" format="${formatDate}"
-		sortable="true" />
-
-	<spring:message var="descriptionHeader" code="chirp.description" />
-	<display:column property="description" title="${descriptionHeader}" />
-
-</display:table>
-
-<acme:cancel code="user.back" url="user/list.do" />
+<acme:cancel code="user.back" url="citizen/list.do" />
 

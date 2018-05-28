@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CandidateService;
 import services.CitizenService;
+import domain.Candidature;
 import domain.Citizen;
 
 @Controller
@@ -20,7 +22,10 @@ public class CitizenController extends AbstractController {
 	// Services -------------------------------------------------------------
 
 	@Autowired
-	private CitizenService	citizenService;
+	private CitizenService		citizenService;
+
+	@Autowired
+	private CandidateService	candidatureService;
 
 
 	// Constructors ---------------------------------------------------------
@@ -36,30 +41,28 @@ public class CitizenController extends AbstractController {
 
 		ModelAndView result;
 		Collection<Citizen> citizens;
-		Citizen principal;
 
 		citizens = this.citizenService.findAll();
-		principal = this.citizenService.findByPrincipal();
-		if (principal != null)
-			citizens.remove(principal);
 
 		result = new ModelAndView("citizen/list");
 		result.addObject("citizens", citizens);
-		result.addObject("principal", principal);
 		result.addObject("requestURI", "citizen/list.do");
 
 		return result;
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView listUser(@RequestParam final int userId) {
+	public ModelAndView listUser(@RequestParam final int citizenId) {
 		ModelAndView result;
 		Citizen citizen;
+		Collection<Candidature> candidatures;
 
-		citizen = this.citizenService.findOne(userId);
+		citizen = this.citizenService.findOne(citizenId);
+		candidatures = this.candidatureService.findByCitizenId(citizen.getId());
 
 		result = new ModelAndView("citizen/display");
 		result.addObject("citizen", citizen);
+		result.addObject("candidatures", candidatures);
 		result.addObject("requestURI", "citizen/display.do");
 
 		return result;
