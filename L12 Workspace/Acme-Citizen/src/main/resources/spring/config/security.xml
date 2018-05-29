@@ -37,6 +37,15 @@
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
+	<!-- Registers -->
+		<security:intercept-url pattern="/governmentAgent/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/bankAgent/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/citizen/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/governmentagent/governmentagent/dashboard.do"
+			access="hasRole('GOVERNMENTAGENT')" />
 
 		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
@@ -44,8 +53,6 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" />
 		 
 		<security:intercept-url pattern="/terms/**" access="permitAll" />
-		
-		<security:intercept-url pattern="/admin/display.do" access="hasRole('ADMIN')" />
 		
 		<!-- Article -->
 		<security:intercept-url pattern="/article/admin/**" access="hasRole('ADMIN')" />
@@ -97,25 +104,7 @@
 		<security:intercept-url pattern="/message/**" access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
 		<security:intercept-url pattern="/notification/admin/**" access="hasRole('GOVERNMENTAGENT')" />
 		
-		
-		<!-- Registers -->
-		<security:intercept-url pattern="/governmentAgent/governmentAgent/**"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/bankAgent/governmentAgent/**"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/citizen/governmentAgent/**"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/governmentagent/governmentagent/dashboard.do"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/actor/admin/unban.do"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/legalText/**"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/notification/**"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/value/**"
-			access="hasRole('GOVERNMENTAGENT')" />
-		
+		<security:intercept-url pattern="/governmentAgent/**" access="permitAll" />
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

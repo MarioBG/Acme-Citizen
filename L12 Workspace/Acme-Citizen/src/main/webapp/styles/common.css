@@ -17,3 +17,13 @@
 	color: red;
 	font-weight: bolder;
 }
+
+.goodThing {
+	color: green;
+	font-family: "Palatino Linotype", "Book Antiqua", Candara, serif;
+}
+
+.badThing {
+	color: red;
+	font-family: "Palatino Linotype", "Book Antiqua", Candara, serif;
+}

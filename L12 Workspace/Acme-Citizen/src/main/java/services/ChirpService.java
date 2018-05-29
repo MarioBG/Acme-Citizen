@@ -88,4 +88,8 @@ public class ChirpService {
 		this.chirpRepository.flush();
 	}
 
+	public Collection<Chirp> findByGovernmentAgentId(final int id) {
+		return this.chirpRepository.findByGovernmentAgentId(id);
+	}
+
 }

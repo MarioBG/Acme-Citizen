@@ -25,23 +25,48 @@
 	<b><spring:message code="user.name" />:&nbsp;</b>
 	<jstl:out value="${citizen.name}" />
 </h3>
+<jstl:if test="${ citizen.surname!=null }">
+	<h3>
+		<b><spring:message code="user.surname" />:&nbsp;</b>
+		<jstl:out value="${citizen.surname}" />
+	</h3>
+</jstl:if>
 
 <h3>
-	<b><spring:message code="user.surname" />:&nbsp;</b>
-	<jstl:out value="${citizen.surname}" />
+	<b><spring:message code="user.nif" />:&nbsp;</b>
+	<jstl:out value="${citizen.nif}" />
 </h3>
 
-<b><spring:message code="user.email" />:&nbsp;</b>
-<jstl:out value="${citizen.email}" />
-<br />
+<jstl:if test="${ citizen.email!=null }">
+	<b><spring:message code="user.email" />:&nbsp;</b>
+		<jstl:out value="${citizen.email}" />
+	<br />
+</jstl:if>
 
-<b><spring:message code="user.phone" />:&nbsp;</b>
-<jstl:out value="${citizen.phone}" />
-<br />
+<jstl:if test="${ citizen.phone!=null }">
+	<b><spring:message code="user.phone" />:&nbsp;</b>
+		<jstl:out value="${citizen.phone}" />
+	<br />
+</jstl:if>
+
+<jstl:if test="${ citizen.nickname!=null }">
+	<b><spring:message code="user.email" />:&nbsp;</b>
+		<jstl:out value="${citizen.nickname}" />
+	<br />
+</jstl:if>
 
 <b><spring:message code="user.address" />:&nbsp;</b>
 <jstl:out value="${citizen.address}" />
 <br />
+
+<jstl:choose>
+	<jstl:when test="${ citizen.bankAccount!=null }">
+		<p class="goodThing">Tiene cuenta bancaria</p>
+	</jstl:when>
+	<jstl:otherwise>
+		<p class="badThing">No tiene cuenta bancaria</p>	
+	</jstl:otherwise>
+</jstl:choose>
 
 <h3>
 	<spring:message code="citizen.candidatures" />
@@ -50,20 +75,13 @@
 <display:table name="${candidatures}" id="row"
 	requestURI="user/display.do" pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('ADMIN')">
-		<display:column>
-			<a href="article/admin/delete.do?articleId=${row.id}"><spring:message
-					code="user.delete" /></a>
-		</display:column>
-	</security:authorize>
-
 	<spring:message var="titleHeader" code="user.title" />
 	<display:column title="${titleHeader}">
-		<a href="candidature/display.do?articleId=${row.id}"><jstl:out
+		<a href="candidature/display.do?candidatureId=${row.id}"><jstl:out
 				value="${row.description}" /></a>
 	</display:column>
 	
-	<spring:message var="titleHeader" code="user.title" />
+	<spring:message var="titleHeader" code="citizen.imgHeader" />
 	<display:column title="${titleHeader}">
 		<img src="${ row.partyLogo }" style="display: block;
   max-width:230px;

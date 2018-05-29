@@ -54,7 +54,7 @@ public interface GovernmentAgentRepository extends JpaRepository<GovernmentAgent
 	@Query("select sum(ba.money) from BankAccount ba")
 	Double getAllMoneyInSystem();
 
-	@Query("select avg(coalesce(a.money, 0)),min(coalesce(a.money, 0)),max(coalesce(a.money, 0)),sqrt(sum(coalesce(a.money, 0)*coalesce(a.money, 0))/count(m)-(avg(coalesce(a.money, 0))*avg(coalesce(a.money, 0)))) from Actor m left join m.bankAccount a")
+	@Query("select min(coalesce(a.money, 0)),max(coalesce(a.money, 0)),avg(coalesce(a.money, 0)),sqrt(sum(coalesce(a.money, 0)*coalesce(a.money, 0))/count(m)-(avg(coalesce(a.money, 0))*avg(coalesce(a.money, 0)))) from Actor m left join m.bankAccount a")
 	Double[] computeAvgMinMaxStdvMoneyPerActor();					//TODO NO FUNCIONA CORRECTAMENTE: No coge los 0 de cuando el Actor no tiene cuenta bancaria
 
 }

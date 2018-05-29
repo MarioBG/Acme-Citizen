@@ -1,5 +1,5 @@
 <%--
- * action-1.jsp
+ * display.jsp
  *
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -12,242 +12,104 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<security:authorize access="hasRole('GOVERNMENTAGENT')">
+<h3>
+	<b><spring:message code="user.name" />:&nbsp;</b>
+	<jstl:out value="${governmentAgent.name}" />
+</h3>
+<jstl:if test="${ governmentAgent.surname!=null }">
+	<h3>
+		<b><spring:message code="user.surname" />:&nbsp;</b>
+		<jstl:out value="${governmentAgent.surname}" />
+	</h3>
+</jstl:if>
 
-	<h4>
-		<spring:message code="administrator.numberRegisteredActors"
-			var="numberRegisteredActorsHead" />
-		<jstl:out value="${numberRegisteredActorsHead}" />
-		=
-		<fmt:formatNumber value="${numberRegisteredActors}"
-			maxFractionDigits="0" />
-	</h4>
-	<h4>
-		<spring:message code="administrator.avgMinMaxStdvPerCitizen"
-			var="avgMinMaxStdvPerCitizenHead" />
-		<jstl:out value="${avgMinMaxStdvPerCitizenHead}"></jstl:out>
-	</h4>
-	<table class="displaytag" name="avgMinMaxStdvPerCitizen">
-		<tr>
-			<th><spring:message code="administrator.minimum"
-					var="minimumHeader" /> <jstl:out value="${minimumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.maximum"
-					var="maximumHeader" /> <jstl:out value="${maximumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.average"
-					var="averageHeader" /> <jstl:out value="${averageHeader}"></jstl:out>
-			</th>
+<h3>
+	<b><spring:message code="user.nif" />:&nbsp;</b>
+	<jstl:out value="${governmentAgent.nif}" />
+</h3>
 
-			<th><spring:message code="administrator.standardDeviation"
-					var="standardDeviationHeader" /> <jstl:out
-					value="${standardDeviationHeader}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos" items="${avgMinMaxStdvPerCitizen}">
-				<td><jstl:out value="${datos}"></jstl:out></td>
-			</jstl:forEach>
-		</tr>
-	</table>
-	<h4>
-		<spring:message code="administrator.avgMinMaxStdvPerGovAgent"
-			var="avgMinMaxStdvPerGovAgentHead" />
-		<jstl:out value="${avgMinMaxStdvPerGovAgentHead}"></jstl:out>
-	</h4>
-	<table class="displaytag" name="avgMinMaxStdvPerGovAgent">
-		<tr>
-			<th><spring:message code="administrator.minimum"
-					var="minimumHeader" /> <jstl:out value="${minimumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.maximum"
-					var="maximumHeader" /> <jstl:out value="${maximumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.average"
-					var="averageHeader" /> <jstl:out value="${averageHeader}"></jstl:out>
-			</th>
+<jstl:if test="${ governmentAgent.email!=null }">
+	<b><spring:message code="user.email" />:&nbsp;</b>
+		<jstl:out value="${governmentAgent.email}" />
+	<br />
+</jstl:if>
 
-			<th><spring:message code="administrator.standardDeviation"
-					var="standardDeviationHeader" /> <jstl:out
-					value="${standardDeviationHeader}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos" items="${avgMinMaxStdvPerGovAgent}">
-				<td><jstl:out value="${datos}"></jstl:out></td>
-			</jstl:forEach>
-		</tr>
-	</table>
+<jstl:if test="${ governmentAgent.nickname!=null }">
+	<b><spring:message code="user.email" />:&nbsp;</b>
+		<jstl:out value="${governmentAgent.nickname}" />
+	<br />
+</jstl:if>
 
-	<table class="displaytag" name="petitionsByComments">
-		<tr>
-			<th><spring:message code="administrator.petitionsByComments"
-					var="bestHeader" /> <jstl:out value="${bestHeader}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos" items="${petitionsByComments}">
-				<td><a
-					href="petitions/display.do?petitionId=<jstl:out value="${datos.id}"/>"><jstl:out
-							value="${datos.name}" /></a></td>
-			</jstl:forEach>
-		</tr>
+<jstl:if test="${ governmentAgent.phone!=null }">
+	<b><spring:message code="user.phone" />:&nbsp;</b>
+		<jstl:out value="${governmentAgent.phone}" />
+	<br />
+</jstl:if>
 
-	</table>
+<b><spring:message code="user.address" />:&nbsp;</b>
+<jstl:out value="${governmentAgent.address}" />
+<br />
 
-	<table class="displaytag" name="electionsByComments">
-		<tr>
-			<th><spring:message code="administrator.electionsByComments"
-					var="bestHeader2" /> <jstl:out value="${bestHeader2}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos" items="${electionsByComments}">
-				<td><a
-					href="elections/display.do?electionId=<jstl:out value="${datos.id}"/>"><spring:message
-							code="election.pattern.date" var="patternDate" /> <fmt:formatDate
-							value="${datos.celebrationDate}" pattern="${patternDate}" /></a></td>
-			</jstl:forEach>
-		</tr>
+<b><spring:message code="governmentAgent.registerCode" />:&nbsp;</b>
+<jstl:out value="${governmentAgent.registerCode}" />
+<br />
 
-	</table>
+<jstl:choose>
+	<jstl:when test="${ governmentAgent.canOrganiseElection }">
+		<p class="goodThing"><spring:message code="governmentAgent.canOrganiseElections" /></p>
+	</jstl:when>
+	<jstl:otherwise>
+		<p class="badThing"><spring:message code="governmentAgent.canNotOrganiseElections" /></p>	
+	</jstl:otherwise>
+</jstl:choose>
 
-	<h4>
-		<spring:message code="administrator.percentageElectionCandidates"
-			var="percentageElectionCandidatesHead" />
-		<jstl:out value="${percentageElectionCandidatesHead}" />
-		=
-		<fmt:formatNumber value="${percentageElectionCandidates}"
-			maxFractionDigits="0" />
-		%
-	</h4>
+<jstl:choose>
+	<jstl:when test="${ governmentAgent.canCreateMoney }">
+		<p class="goodThing"><spring:message code="governmentAgent.canCreateMoney" /></p>
+	</jstl:when>
+	<jstl:otherwise>
+		<p class="badThing"><spring:message code="governmentAgent.canNotCreateMoney" /></p>	
+	</jstl:otherwise>
+</jstl:choose>
 
-	<table class="displaytag" name="citizensLessLotteryTicketsAverage">
-		<tr>
-			<th><spring:message
-					code="administrator.citizensLessLotteryTicketsAverage"
-					var="bestHeader2" /> <jstl:out value="${bestHeader2}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos"
-				items="${citizensLessLotteryTicketsAverage}">
-				<td><a
-					href="citizens/display.do?citizenId=<jstl:out value="${datos.id}"/>"><jstl:out
-							value="${datos.name}" /> (<jstl:out value="${datos.nif}" />)</a></td>
-			</jstl:forEach>
-		</tr>
+<h3>
+	<spring:message code="governmentAgent.chirps" />
+</h3>
 
-	</table>
-	<table class="displaytag" name="candidaturesMoreVotesAverage">
-		<tr>
-			<th><spring:message
-					code="administrator.candidaturesMoreVotesAverage"
-					var="bestHeader3" /> <jstl:out value="${bestHeader3}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos"
-				items="${candidaturesMoreVotesAverage}">
-				<td><a
-					href="candidatures/display.do?candidatureId=<jstl:out value="${datos.id}"/>"><jstl:out
-							value="${datos.description}" /></a></td>
-			</jstl:forEach>
-		</tr>
+<display:table name="${chirps}" id="row"
+	requestURI="governmentagent/display.do" pagesize="5" class="displaytag">
 
-	</table>
+	<spring:message var="titleHeader" code="user.title" />
+	<display:column title="${titleHeader}">
+		<a href="chirp/display.do?chirpId=${row.id}"><jstl:out
+				value="${row.title}" /></a>
+	</display:column>
+
+	<spring:message var="titleHeader" code="governmentAgent.content" />
+	<display:column title="Contenido">
+		<jstl:out
+				value="${row.content}" />
+	</display:column>
 	
-	<h4>
-		<spring:message code="administrator.avgMinMaxStdvVotesPerElection"
-			var="avgMinMaxStdvVotesPerElectionHead" />
-		<jstl:out value="${avgMinMaxStdvVotesPerElectionHead}"></jstl:out>
-	</h4>
-	<table class="displaytag" name="avgMinMaxStdvVotesPerElection">
-		<tr>
-			<th><spring:message code="administrator.minimum"
-					var="minimumHeader" /> <jstl:out value="${minimumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.maximum"
-					var="maximumHeader" /> <jstl:out value="${maximumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.average"
-					var="averageHeader" /> <jstl:out value="${averageHeader}"></jstl:out>
-			</th>
+	<spring:message var="titleHeader" code="governmentAgent.image" />
+	<display:column title="Imagen">
+		<img src="${ row.image }" style="display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;"/>
+	</display:column>
 
-			<th><spring:message code="administrator.standardDeviation"
-					var="standardDeviationHeader" /> <jstl:out
-					value="${standardDeviationHeader}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos" items="${avgMinMaxStdvVotesPerElection}">
-				<td><jstl:out value="${datos}"></jstl:out></td>
-			</jstl:forEach>
-		</tr>
-	</table>
-	
-	<h4>
-		<spring:message code="administrator.avgMinMaxStdvCandidaturesPerElection"
-			var="avgMinMaxStdvCandidaturesPerElectionHead" />
-		<jstl:out value="${avgMinMaxStdvCandidaturesPerElectionHead}"></jstl:out>
-	</h4>
-	<table class="displaytag" name="avgMinMaxStdvCandidaturesPerElection">
-		<tr>
-			<th><spring:message code="administrator.minimum"
-					var="minimumHeader" /> <jstl:out value="${minimumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.maximum"
-					var="maximumHeader" /> <jstl:out value="${maximumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.average"
-					var="averageHeader" /> <jstl:out value="${averageHeader}"></jstl:out>
-			</th>
+</display:table>
 
-			<th><spring:message code="administrator.standardDeviation"
-					var="standardDeviationHeader" /> <jstl:out
-					value="${standardDeviationHeader}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos" items="${avgMinMaxStdvCandidaturesPerElection}">
-				<td><jstl:out value="${datos}"></jstl:out></td>
-			</jstl:forEach>
-		</tr>
-	</table>
-	
-	<h4>
-		<spring:message code="administrator.allMoneyInSystem"
-			var="allMoneyInSystemHead" />
-		<jstl:out value="${allMoneyInSystemHead}" />
-		= <fmt:formatNumber maxFractionDigits="2" value="${allMoneyInSystem}" pattern="#.00'Rb'"/>
-	</h4>
-	
-	<h4>
-		<spring:message code="administrator.avgMinMaxStdvMoneyPerActor"
-			var="avgMinMaxStdvMoneyPerActorHead" />
-		<jstl:out value="${avgMinMaxStdvMoneyPerActorHead}"></jstl:out>
-	</h4>
-	<table class="displaytag" name="avgMinMaxStdvMoneyPerActor">
-		<tr>
-			<th><spring:message code="administrator.minimum"
-					var="minimumHeader" /> <jstl:out value="${minimumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.maximum"
-					var="maximumHeader" /> <jstl:out value="${maximumHeader}"></jstl:out>
-			</th>
-			<th><spring:message code="administrator.average"
-					var="averageHeader" /> <jstl:out value="${averageHeader}"></jstl:out>
-			</th>
+<acme:cancel code="user.back" url="citizen/list.do" />
 
-			<th><spring:message code="administrator.standardDeviation"
-					var="standardDeviationHeader" /> <jstl:out
-					value="${standardDeviationHeader}"></jstl:out></th>
-		</tr>
-		<tr>
-			<jstl:forEach var="datos" items="${avgMinMaxStdvMoneyPerActor}">
-				<td><jstl:out value="${datos}"></jstl:out></td>
-			</jstl:forEach>
-		</tr>
-	</table>
-
-</security:authorize>
