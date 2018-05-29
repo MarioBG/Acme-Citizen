@@ -46,21 +46,16 @@
 		<security:intercept-url pattern="/terms/**" access="permitAll" />
 		
 		<security:intercept-url pattern="/admin/display.do" access="hasRole('ADMIN')" />
+				
+		<!-- Lottery -->
+		<security:intercept-url pattern="/lottery/list.do" access="hasRole('CITIZEN')" />
+		<security:intercept-url pattern="/lottery/governmentAgent/**" access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/lottery/buyTicket.do" access="hasRole('CITIZEN')" />
 		
-		<!-- Article -->
-		<security:intercept-url pattern="/article/admin/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/article/user/**" access="hasRole('USER')" />
-		<security:intercept-url pattern="/article/**" access="permitAll" />
-
-		<!-- FollowUp -->
-		<security:intercept-url pattern="/followUp/user/**" access="hasRole('USER')" />
 		
-		<!-- Newspaper -->
-		<security:intercept-url pattern="/newspaper/admin/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/newspaper/agent/**" access="hasRole('AGENT')" />
-		<security:intercept-url pattern="/newspaper/customer/**" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/newspaper/user/**" access="hasRole('USER')" />
-		<security:intercept-url pattern="/newspaper/**" access="permitAll" />
+		<!-- Bank account  -->
+		<security:intercept-url pattern="/bankagent/list.do" access="permitAll" />
+		<security:intercept-url pattern="/bankaccount/bankagent/**" access="hasRole('BANKAGENT')" />
 		
 		<!-- Chirp -->
 		<security:intercept-url pattern="/chirp/user/**" access="hasRole('USER')" />
@@ -71,25 +66,6 @@
 		<security:intercept-url pattern="/citizen/citizen/**" access="hasRole('CITIZEN')" />
 		<security:intercept-url pattern="/citizen/**" access="permitAll" />
 		
-		<!-- Agent -->
-		<security:intercept-url pattern="/agent/agent/**" access="hasRole('AGENT')" />
-		<security:intercept-url pattern="/agent/**" access="permitAll" />
-		
-		<!-- Advertisement -->
-		<security:intercept-url pattern="/advertisement/agent/**" access="hasRole('AGENT')" />
-		<security:intercept-url pattern="/advertisement/admin/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/advertisement/**" access="permitAll" />
-		
-		<!-- Configuration -->
-		<security:intercept-url pattern="/configuration/admin/**" access="hasRole('ADMIN')" />
-		
-		<!-- Volume -->
-		<security:intercept-url pattern="/volume/customer/**" access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/volume/user/**" access="hasRole('USER')" />
-		<security:intercept-url pattern="/volume/**" access="permitAll" />
-		
-		<!-- SubscriptionVolume -->
-		<security:intercept-url pattern="/subscriptionVolume/customer/**" access="hasRole('CUSTOMER')" />
 		
 		<!-- Folders y messages -->
 		

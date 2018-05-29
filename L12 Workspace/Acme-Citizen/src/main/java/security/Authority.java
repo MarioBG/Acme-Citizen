@@ -27,24 +27,21 @@ public class Authority implements GrantedAuthority {
 
 	// Constructors -----------------------------------------------------------
 
-	private static final long	serialVersionUID	= 1L;
-
+	private static final long serialVersionUID = 1L;
 
 	public Authority() {
 		super();
 	}
 
-
 	// Values -----------------------------------------------------------------
 
-	public static final String	GOVERNMENTAGENT	= "GOVERNMENTAGENT";
-	public static final String	BANKAGENT		= "BANKAGENT";
-	public static final String	CITIZEN			= "CITIZEN";
+	public static final String GOVERNMENTAGENT = "GOVERNMENTAGENT";
+	public static final String BANKAGENT = "BANKAGENT";
+	public static final String CITIZEN = "CITIZEN";
 
 	// Attributes -------------------------------------------------------------
 
-	private String				authority;
-
+	private String authority;
 
 	@NotBlank
 	@Pattern(regexp = "^" + Authority.GOVERNMENTAGENT + "|" + Authority.BANKAGENT + "|" + Authority.CITIZEN + "$")

@@ -46,7 +46,7 @@ public class LotteryTicketService {
 	public LotteryTicket create(final int lotteryId) {
 
 		final Actor principal = this.actorService.findByPrincipal();
-		Assert.isTrue(principal == null);
+		Assert.isTrue(principal != null);
 
 		final LotteryTicket result = new LotteryTicket();
 
@@ -106,6 +106,7 @@ public class LotteryTicketService {
 		final Citizen citizen = this.citizenService.findByPrincipal();
 		Assert.notNull(citizen);
 		Assert.notNull(ticket);
+		Assert.notNull(citizen.getBankAccount(), "No hay cuenta de banco");
 
 		final Double money = citizen.getBankAccount().getMoney();
 		if (money >= ticket.getLottery().getTicketCost()) {

@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -61,7 +62,7 @@ public class Lottery extends DomainEntity {
 	}
 
 	@NotNull
-	@Past
+	@Future
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getCelebrationDate() {
@@ -121,7 +122,7 @@ public class Lottery extends DomainEntity {
 		this.governmentAgent = governmentAgent;
 	}
 
-	@Valid
+	
 	@OneToOne(optional = true)
 	public LotteryTicket getWinnerTicket() {
 		return this.winnerTicket;

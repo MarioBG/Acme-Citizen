@@ -47,10 +47,10 @@ public class BankAgentController extends AbstractController {
 		if (principal != null)
 			agents.remove(principal);
 
-		result = new ModelAndView("agent/list");
+		result = new ModelAndView("bankagent/list");
 		result.addObject("agents", agents);
 		result.addObject("principal", principal);
-		result.addObject("requestURI", "agent/list.do");
+		result.addObject("requestURI", "bankagent/list.do");
 
 		return result;
 	}

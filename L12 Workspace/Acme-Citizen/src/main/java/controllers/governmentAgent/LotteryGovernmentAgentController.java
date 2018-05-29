@@ -19,31 +19,15 @@ import services.GovernmentAgentService;
 import services.LotteryService;
 
 @Controller
-@RequestMapping("/lottery/gouvernmentAgent")
-public class LotteryGouvernmentAgentController extends AbstractController {
+@RequestMapping("/lottery/governmentAgent")
+public class LotteryGovernmentAgentController extends AbstractController {
 
 	// Services ---------------------------------------
 	@Autowired
 	private LotteryService lotteryService;
-	
+
 	@Autowired
 	private GovernmentAgentService governmentAgentService;
-
-	// DISPLAY CUANDO ESTAS LOGEADO COMO GOUVERMENT AGENT
-	// ---------------------------
-
-	@RequestMapping(value = "/displayMyLottery", method = RequestMethod.GET)
-	public ModelAndView display() {
-		ModelAndView result;
-		GovernmentAgent ga = governmentAgentService.findByPrincipal();
-		Collection<Lottery> gaLottery;
-
-		gaLottery = lotteryService.getLotteryByGovernmentAgentId(ga.getId());
-		result = new ModelAndView("lottery/display");
-		result.addObject("gaLottery", gaLottery);
-
-		return result;
-	}
 
 	// Creation ---------------------------------------------------------------
 
@@ -82,7 +66,7 @@ public class LotteryGouvernmentAgentController extends AbstractController {
 		else
 			try {
 				this.lotteryService.save(lottery);
-				result = new ModelAndView("redirect:displayMyLottery.do");
+				result = new ModelAndView("redirect:MyLotterys.do");
 			} catch (final Throwable oops) {
 				String errorMessage = "lottery.commit.error";
 
@@ -95,22 +79,20 @@ public class LotteryGouvernmentAgentController extends AbstractController {
 		return result;
 	}
 
-	// DELETE --------------------------------------
+	// MIS LOTERIAS CREADAS (AGENTE GUBERNAMENTAL)
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(Lottery lottery, BindingResult bindingResult) {
+	@RequestMapping(value = "/MyLotterys", method = RequestMethod.GET)
+	public ModelAndView display() {
 		ModelAndView result;
+		GovernmentAgent ga = governmentAgentService.findByPrincipal();
+		Collection<Lottery> lotterys;
 
-		try {
-			lotteryService.delete(lottery);
-			result = new ModelAndView("redirect:/lottery/gouvernmentAgent/displayMyLottery.do");
-		} catch (Throwable oops) {
-			result = createEditModelAndView(lottery, "lottery.commit.error");
-		}
+		lotterys = lotteryService.getLotteryByGovernmentAgentId(ga.getId());
+		result = new ModelAndView("lottery/MyLotterys");
+		result.addObject("lotterys", lotterys);
 
 		return result;
 	}
-
 	// METODOS AUXILIARES -------------------------------------
 
 	protected ModelAndView createEditModelAndView(Lottery lottery) {

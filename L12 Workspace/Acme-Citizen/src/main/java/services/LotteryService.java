@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Actor;
+import domain.GovernmentAgent;
 import domain.Lottery;
 import domain.LotteryTicket;
 import repositories.LotteryRepository;
@@ -40,18 +41,19 @@ public class LotteryService {
 	public Lottery create() {
 
 		final Actor principal = this.actorService.findByPrincipal();
-		Assert.isTrue(principal == null);
+		Assert.isTrue(principal != null);
 
 		final Lottery result = new Lottery();
 
 		final Collection<LotteryTicket> lotterys = new ArrayList<LotteryTicket>();
 		result.setLotteryTickets(lotterys);
+		result.setGovernmentAgent((GovernmentAgent) principal);
 
 		return result;
 	}
 
 	public Lottery save(final Lottery lottery) {
-
+		Assert.notNull(lottery);
 		Lottery result;
 
 		result = this.lotteryRepository.save(lottery);
