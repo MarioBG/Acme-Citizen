@@ -24,7 +24,7 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'agent/list.do'  }">
+		<jstl:when test="${requestURI == 'bankagent/list.do'  }">
 			<spring:message code="agent.system"/>
 		</jstl:when>
 		<jstl:when test="${requestURI == 'user/user/list-followers.do'  }">

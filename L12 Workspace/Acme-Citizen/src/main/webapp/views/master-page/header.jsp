@@ -39,11 +39,21 @@
 					<li><a href="advertisement/admin/listTaboo.do"><spring:message
 								code="master.page.advertisement.suspicious" /></a></li>
 				</ul>
-				<li><a class="fNiv">Registrar (TO BE LOCALIZED)</a>
+			<li><a class="fNiv">Registrar (TO BE LOCALIZED)</a>
 				<ul>
-					<li><a href="governmentagent/governmentagent/register.do">Registrar governmentagent</a></li>
-					<li><a href="bankagent/governmentagent/register.do">Registrar bankagent</a></li>
-					<li><a href="citizen/governmentagent/register.do">Registrar ciudadano</a></li>
+					<li><a href="governmentagent/governmentagent/register.do">Registrar
+							governmentagent</a></li>
+					<li><a href="bankagent/governmentagent/register.do">Registrar
+							bankagent</a></li>
+					<li><a href="citizen/governmentagent/register.do">Registrar
+							ciudadano</a></li>
+				</ul>
+			<li><a class="fNiv">Lottos</a>
+				<ul>
+					<li><a href="lottery/governmentAgent/create.do"><spring:message
+								code="master.page.lottery.create" /></a></li>
+					<li><a href="lottery/governmentAgent/MyLotterys.do"><spring:message
+								code="master.page.lottery.MyLotterys" /></a></li>
 				</ul>
 			<li><a href="configuration/admin/list.do"><spring:message
 						code="master.page.configuration" /></a>
@@ -87,13 +97,12 @@
 				</ul></li>
 		</security:authorize>
 
-		<security:authorize access="hasRole('AGENT')">
-			<li><a class="fNiv"><spring:message code="master.page.agent" /></a>
+		<security:authorize access="hasRole('CITIZEN')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.citizen" /></a>
 				<ul>
-					<li><a href="newspaper/agent/listAdvertised.do"><spring:message
-								code="master.page.agent.listAdvertised" /></a></li>
-					<li><a href="newspaper/agent/listNotAdvertised.do"><spring:message
-								code="master.page.agent.listNotAdvertised" /></a></li>
+					<li><a href="lottery/list.do"><spring:message
+								code="master.page.lottery.list" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -141,12 +150,7 @@
 
 		</security:authorize>
 
-		<li><a class="fNiv" href="newspaper/list.do"><spring:message
-					code="master.page.availableNewspapers" /></a></li>
-		<li><a class="fNiv" href="volume/list.do"><spring:message
-					code="master.page.listVolumes" /></a></li>
-		<li><a class="fNiv" href="user/list.do"><spring:message
-					code="master.page.listUsers" /></a></li>
+
 		<li><a class="fNiv" href="terms/list.do"><spring:message
 					code="master.page.termsAndConditions" /></a></li>
 	</ul>

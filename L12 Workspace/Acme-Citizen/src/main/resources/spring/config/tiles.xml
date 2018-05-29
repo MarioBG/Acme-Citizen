@@ -25,25 +25,22 @@
 		<value>/views/terms/tiles.xml</value>
 
 		<value>/views/citizen/tiles.xml</value>
-		<value>/views/followUp/tiles.xml</value>
-		<value>/views/newspaper/tiles.xml</value>
-		<value>/views/article/tiles.xml</value>
 		<value>/views/configuration/tiles.xml</value>
-		<value>/views/volume/tiles.xml</value>
-		<value>/views/advertisement/tiles.xml</value>
-		<value>/views/subscriptionVolume/tiles.xml</value>
 		<value>/views/bankAgent/tiles.xml</value>
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>
 
 		<!-- ACME-CITIZEN -->
-		
+
 		<value>/views/candidature/tiles.xml</value>
 		<value>/views/chirp/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
 		<value>/views/election/tiles.xml</value>
 		<value>/views/petition/tiles.xml</value>
-		
+		<value>/views/economicTransaction/tiles.xml</value>
+		<value>/views/bankAccount/tiles.xml</value>
+		<value>/views/lottery/tiles.xml</value>
+
 	</util:list>
 
 </beans>
