@@ -22,24 +22,22 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'chirp/list.do'}">
+		<jstl:when test="${governmentAgent == null}">
 			<spring:message code="chirp.systemChirps" />
 		</jstl:when>
-		<jstl:when test="${governmentAgent != null}">
+		<jstl:otherwise>
 			<spring:message code="chirp.chirpsOf" />
 			<jstl:out value="${governmentAgent.name}" />
-		</jstl:when>
+		</jstl:otherwise>
 	</jstl:choose>
 </h3>
 
 <!-- displaying grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="chirps" requestURI="${requestURI}" id="row">
+	name="chirps" requestURI="chirp/list.do" id="row">
 
-	<!-- Attributes -->
-
-	<security:authorize access="hasRole('GOVERNMENTAGENT)">
+	<security:authorize access="hasRole('GOVERNMENTAGENT')">
 		<security:authentication property="principal" var="loggedactor" />
 		<display:column>
 			<jstl:if

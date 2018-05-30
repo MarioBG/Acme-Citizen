@@ -38,7 +38,7 @@
 		<value>/views/petition/messages</value>
 		<value>/views/lottery/messages</value>
 		<value>/views/economicTransaction/messages</value>
-		<value>/views/bankaccount/messages</value>
+		<value>/views/bankAccount/messages</value>
 	</util:list>
 
 </beans>

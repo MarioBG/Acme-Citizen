@@ -10,7 +10,8 @@
 
 package controllers;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +53,18 @@ public class WelcomeController extends AbstractController {
 	@RequestMapping(value = "/index")
 	public ModelAndView index(@CookieValue(value = "language", defaultValue = "es") final String language, @RequestParam(required = false, defaultValue = "John Doe") String name) {
 		ModelAndView result;
-		Collection<Chirp> chirps;
+		ArrayList<Chirp> chirps1;
 		String welcomeMessage;
 		name = "anonymous user";
 
-		chirps = this.chirpService.findAll();
+		chirps1 = (ArrayList<Chirp>) this.chirpService.findAll();
+		Collections.sort(chirps1);
+		ArrayList<Chirp> chirps2;
+		if (chirps1.size() > 3)
+			chirps2 = new ArrayList<Chirp>(chirps1.subList(0, 3));
+		else
+			chirps2 = new ArrayList<Chirp>(chirps1);
+
 		if (this.actorService.findByPrincipal() != null)
 			name = this.actorService.findByPrincipal().getName();
 		if (this.welcomeMessageService.getWelcomeMessageForLocale(language) != null)
@@ -68,7 +76,7 @@ public class WelcomeController extends AbstractController {
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
-		result.addObject("chirps", chirps);
+		result.addObject("chirps", chirps2);
 		result.addObject("welcomeMessage", welcomeMessage);
 		result.addObject("moment", new Date());
 

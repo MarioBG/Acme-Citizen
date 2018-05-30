@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Chirp extends DomainEntity {
+public class Chirp extends DomainEntity implements Comparable<Chirp> {
 
 	// Constructors
 
@@ -106,6 +106,15 @@ public class Chirp extends DomainEntity {
 
 	public void setGovernmentAgent(final GovernmentAgent governmentAgent) {
 		this.governmentAgent = governmentAgent;
+	}
+
+	// Compare to
+
+	@Override
+	public int compareTo(final Chirp chirp) {
+		final float chirpCompare = chirp.getPublicationMoment().getTime();
+
+		return Math.round(chirpCompare - this.publicationMoment.getTime());
 	}
 
 }

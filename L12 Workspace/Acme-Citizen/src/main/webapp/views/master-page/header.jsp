@@ -26,17 +26,17 @@
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('GOVERNMENTAGENT')">
 			<li><a class="fNiv"><spring:message
-						code="master.page.administrator" /></a>
+						code="master.page.governmentAgent" /></a>
 				<ul>
-					<li><a href="governmentagent/governmentagent/dashboard.do"><spring:message
-								code="master.page.administrator.information" /></a></li>
-					<li><a href="newspaper/admin/list.do"><spring:message
-								code="master.page.newspaper.list" /></a></li>
-					<li><a href="article/admin/list.do"><spring:message
-								code="master.page.article.list" /></a></li>
+<%-- 					<li><a href="governmentagent/governmentagent/dashboard.do"><spring:message --%>
+<%-- 								code="master.page.administrator.information" /></a></li> --%>
+<%-- 					<li><a href="newspaper/admin/list.do"><spring:message --%>
+<%-- 								code="master.page.newspaper.list" /></a></li> --%>
+<%-- 					<li><a href="article/admin/list.do"><spring:message --%>
+<%-- 								code="master.page.article.list" /></a></li> --%>
 
-					<li><a href="chirp/admin/list.do"><spring:message
-								code="master.page.chirp.list" /></a></li>
+<%-- 					<li><a href="chirp/admin/list.do"><spring:message --%>
+<%-- 								code="master.page.chirp.list" /></a></li> --%>
 
 				</ul>
 			<li><a class="fNiv"><spring:message
@@ -161,6 +161,8 @@
 				<li><a href="citizen/list.do"><spring:message
 							code="master.page.listActors.citizen" /></a></li>
 			</ul>
+		<li><a class="fNiv" href="chirp/list.do"><spring:message
+					code="master.page.listChirps" /></a></li>
 		<li><a class="fNiv" href="election/list.do"><spring:message
 					code="master.page.listElections" /></a></li>
 		<li><a class="fNiv" href="terms/list.do"><spring:message

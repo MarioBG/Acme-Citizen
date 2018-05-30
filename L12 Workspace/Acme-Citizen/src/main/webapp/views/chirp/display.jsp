@@ -27,18 +27,14 @@
 </h3>
 
 <jstl:choose>
-	<jstl:when test="${chirp.image != null and chirp.link != null}">
-		<a href="<jstl:out value="${chirp.link}"/>"><img
-			src="<jstl:out value="${chirp.image}"/>" width="450" height="174">
-		</a>
-		<br />
-	</jstl:when>
-	<jstl:when test="${chirp.image != null and chirp.link == null}">
+	<jstl:when test="${chirp.image != null}">
 		<img src="<jstl:out value="${chirp.image}"/>" width="450" height="174">
 		<br />
 	</jstl:when>
-	<jstl:when test="${chirp.image == null and chirp.link != null}">
-		<a href="<jstl:out value="${chirp.link}"/>"><spring:message code="chirp.link"/></a>
+	<jstl:when test="${chirp.link != null}">
+		<a href="<jstl:out value="${chirp.link}"/>"><spring:message
+				code="chirp.link" /></a>
+		<br />
 	</jstl:when>
 </jstl:choose>
 

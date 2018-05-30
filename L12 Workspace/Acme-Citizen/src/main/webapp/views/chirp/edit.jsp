@@ -40,6 +40,9 @@
 	<br />
 	
 	<acme:submit name="save" code="chirp.save" />
-	<acme:cancel url="chirp/list.do" code="chirp.back"/>
+	&nbsp;
+	<acme:submit name="delete" code="chirp.delete"/>
+	&nbsp;
+	<acme:cancel url="chirp/list.do?governmentAgentId=${chirpForm.governmentAgentId}" code="chirp.back"/>
 
 </form:form>
