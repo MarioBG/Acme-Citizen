@@ -39,19 +39,19 @@
 
 <jstl:if test="${ citizen.email!=null }">
 	<b><spring:message code="user.email" />:&nbsp;</b>
-		<jstl:out value="${citizen.email}" />
+	<jstl:out value="${citizen.email}" />
 	<br />
 </jstl:if>
 
 <jstl:if test="${ citizen.phone!=null }">
 	<b><spring:message code="user.phone" />:&nbsp;</b>
-		<jstl:out value="${citizen.phone}" />
+	<jstl:out value="${citizen.phone}" />
 	<br />
 </jstl:if>
 
 <jstl:if test="${ citizen.nickname!=null }">
 	<b><spring:message code="user.email" />:&nbsp;</b>
-		<jstl:out value="${citizen.nickname}" />
+	<jstl:out value="${citizen.nickname}" />
 	<br />
 </jstl:if>
 
@@ -60,11 +60,11 @@
 <br />
 
 <jstl:choose>
-	<jstl:when test="${ citizen.bankAccount!=null }">
+	<jstl:when test="${citizen.bankAccount!=null }">
 		<p class="goodThing">Tiene cuenta bancaria</p>
 	</jstl:when>
 	<jstl:otherwise>
-		<p class="badThing">No tiene cuenta bancaria</p>	
+		<p class="badThing">No tiene cuenta bancaria</p>
 	</jstl:otherwise>
 </jstl:choose>
 
@@ -80,14 +80,11 @@
 		<a href="candidature/display.do?candidatureId=${row.id}"><jstl:out
 				value="${row.description}" /></a>
 	</display:column>
-	
+
 	<spring:message var="titleHeader" code="citizen.imgHeader" />
 	<display:column title="${titleHeader}">
-		<img src="${ row.partyLogo }" style="display: block;
-  max-width:230px;
-  max-height:95px;
-  width: auto;
-  height: auto;"/>
+		<img src="${ row.partyLogo }"
+			style="display: block; max-width: 230px; max-height: 95px; width: auto; height: auto;" />
 	</display:column>
 
 </display:table>

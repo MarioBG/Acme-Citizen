@@ -67,7 +67,7 @@ public class LotteryController extends AbstractController {
 		lotteryTicketService.buyLottery(lotteryId);
 		Collection<Lottery> lotterys = lotteryService.findAll();
 
-		result = new ModelAndView("redirect:/lottery/list.do");
+		result = new ModelAndView("redirect:myTickets.do");
 
 		try {
 			// Chekear el principal para que se sepa cual es el

@@ -39,13 +39,16 @@
 	<spring:message code="agent.email" var="emailHeader" />
 	<display:column property="email" title="${emailHeader}" sortable="true" />
 	<spring:message code="agent.bankCode" var="codeHeader" />
-	<display:column property="bankCode" title="${codeHeader}" sortable="true" />
+	<display:column property="bankCode" title="${codeHeader}"
+		sortable="true" />
 
 	<display:column>
-		<jstl:if test="${principal.bankAccount == null}">
-			<input type="button"
-				value="<spring:message code="agent.createBankAccount" />"
-				onclick="javascript: window.location.assign('message/create.do')" />
+		<jstl:if test="${principal != null}">
+			<jstl:if test="${principal.bankAccount == null}">
+				<input type="button"
+					value="<spring:message code="agent.createBankAccount" />"
+					onclick="javascript: window.location.assign('message/create.do')" />
+			</jstl:if>
 		</jstl:if>
 	</display:column>
 

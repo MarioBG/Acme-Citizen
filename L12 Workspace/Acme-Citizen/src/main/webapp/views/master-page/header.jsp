@@ -34,9 +34,13 @@
 								code="master.page.newspaper.list" /></a></li>
 					<li><a href="article/admin/list.do"><spring:message
 								code="master.page.article.list" /></a></li>
+
+					<li><a href="chirp/admin/list.do"><spring:message
+								code="master.page.chirp.list" /></a></li>
+
 				</ul>
 			<li><a class="fNiv"><spring:message
-								code="master.page.register" /></a>
+						code="master.page.register" /></a>
 				<ul>
 					<li><a href="governmentagent/governmentagent/register.do"><spring:message
 								code="master.page.register.govAgent" /></a></li>
@@ -45,43 +49,11 @@
 					<li><a href="citizen/governmentagent/register.do"><spring:message
 								code="master.page.register.citizen" /></a></li>
 				</ul>
-			<li><a class="fNiv">Lottos</a>
-				<ul>
-					<li><a href="lottery/governmentAgent/create.do"><spring:message
-								code="master.page.lottery.create" /></a></li>
-					<li><a href="lottery/governmentAgent/MyLotterys.do"><spring:message
-								code="master.page.lottery.MyLotterys" /></a></li>
-				</ul>
 			<li><a href="configuration/governmentagent/edit.do"><spring:message
 						code="master.page.configuration" /></a>
 		</security:authorize>
 
-		<security:authorize access="hasRole('USER')">
-			<li><a class="fNiv"><spring:message code="master.page.user" /></a>
-				<ul>
-					<li><a href="newspaper/user/create.do"><spring:message
-								code="master.page.user.newspaperCreate" /></a></li>
-					<li><a href="newspaper/user/list.do"><spring:message
-								code="master.page.user.listNewspapers" /></a></li>
-					<li><a href="newspaper/user/list-nonPublished.do"><spring:message
-								code="master.page.user.listNewspapersNonPublished" /></a></li>
-					<li><a href="article/user/list.do"><spring:message
-								code="master.page.user.listArticles" /></a></li>
-					<li><a href="followUp/user/list.do"><spring:message
-								code="master.page.user.listFollowUps" /></a></li>
-					<li><a href="volume/user/list.do"><spring:message
-								code="master.page.user.yourVolumes" /></a></li>
-					<li><a href="user/user/list-followers.do"><spring:message
-								code="master.page.user.listFollowers" /></a></li>
-					<li><a href="user/user/list-followed.do"><spring:message
-								code="master.page.user.listFollowed" /></a></li>
-					<li><a href="chirp/user/create.do"><spring:message
-								code="master.page.chirp.publish" /></a></li>
-					<li><a href="chirp/user/list-timeline.do"><spring:message
-								code="master.page.chirp.timeline" /></a></li>
 
-				</ul></li>
-		</security:authorize>
 
 		<security:authorize access="hasRole('BANKAGENT')">
 			<li><a class="fNiv"><spring:message
@@ -102,8 +74,17 @@
 								code="master.page.lottery.list" /></a></li>
 					<li><a href="lottery/myTickets.do"><spring:message
 								code="master.page.citizen.myTickets" /></a></li>
-					<li><a href="bankagent/list.do"><spring:message
-								code="master.page.citizen.listBankAgent" /></a></li>
+
+				</ul></li>
+		</security:authorize>
+
+		<security:authorize access="hasRole('GOVERNMENTAGENT')">
+			<li><a class="fNiv">Lottos</a>
+				<ul>
+					<li><a href="lottery/governmentAgent/create.do"><spring:message
+								code="master.page.lottery.create" /></a></li>
+					<li><a href="lottery/governmentAgent/MyLotterys.do"><spring:message
+								code="master.page.lottery.MyLotterys" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -121,6 +102,21 @@
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv"> <spring:message
+						code="master.page.bankAccount" />
+			</a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="bankaccount/display.do"><spring:message
+								code="master.page.seeBankAccount" /></a></li>
+					<li><a href="transactions/create.do"><spring:message
+								code="master.page.sendMoney" /></a></li>
+					<li><a href="transactions/list.do"><spring:message
+								code="master.page.transactions" /></a></li>
+
+				</ul></li>
+
+
 			<li><a class="fNiv"> <spring:message
 						code="master.page.profile" /> (<security:authentication
 						property="principal.username" />)
@@ -149,20 +145,22 @@
 				</ul></li>
 
 
-		</security:authorize>
-		
-		<li><a class="fNiv"><spring:message
-								code="master.page.listActors" /></a>
-				<ul>
-					<li><a href="governmentagent/list.do"><spring:message
-								code="master.page.listActors.govAgent" /></a></li>
-					<li><a href="bankagent/list.do"><spring:message
-								code="master.page.listActors.bankAgent" /></a></li>
-					<li><a href="citizen/list.do"><spring:message
-								code="master.page.listActors.citizen" /></a></li>
-				</ul>
-		
 
+
+		</security:authorize>
+
+
+
+		<li><a class="fNiv"><spring:message
+					code="master.page.listActors" /></a>
+			<ul>
+				<li><a href="governmentagent/list.do"><spring:message
+							code="master.page.listActors.govAgent" /></a></li>
+				<li><a href="bankagent/list.do"><spring:message
+							code="master.page.listActors.bankAgent" /></a></li>
+				<li><a href="citizen/list.do"><spring:message
+							code="master.page.listActors.citizen" /></a></li>
+			</ul>
 		<li><a class="fNiv" href="election/list.do"><spring:message
 					code="master.page.listElections" /></a></li>
 		<li><a class="fNiv" href="terms/list.do"><spring:message

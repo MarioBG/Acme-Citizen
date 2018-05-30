@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
 import domain.Citizen;
 import domain.LotteryTicket;
 import services.CitizenService;
@@ -15,7 +16,7 @@ import services.LotteryTicketService;
 
 @Controller
 @RequestMapping("/lottery")
-public class LotteryTicketCitizenController {
+public class LotteryTicketCitizenController extends AbstractController{
 
 	// Services ---------------------------------------
 	@Autowired

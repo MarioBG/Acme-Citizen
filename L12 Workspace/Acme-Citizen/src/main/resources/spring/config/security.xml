@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * security.xml
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * security.xml * * Copyright (C) 2017 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
+	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
@@ -19,7 +14,7 @@
 
 	<!-- Security infrastructure -->
 
-	<bean id="loginService" class="security.LoginService" ></bean>
+	<bean id="loginService" class="security.LoginService"></bean>
 
 	<bean id="passwordEncoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
@@ -27,82 +22,124 @@
 	<!-- Access control -->
 
 	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url pattern="/" access="permitAll" /> 
+		<security:intercept-url pattern="/"
+			access="permitAll" />
 
-		<security:intercept-url pattern="/favicon.ico" access="permitAll" /> 
-		<security:intercept-url pattern="/images/**" access="permitAll" /> 
-		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
-		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
-		
+		<security:intercept-url pattern="/favicon.ico"
+			access="permitAll" />
+		<security:intercept-url pattern="/images/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/scripts/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/styles/**"
+			access="permitAll" />
 
-		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
-	<!-- Registers -->
-		<security:intercept-url pattern="/governmentAgent/governmentAgent/**"
+		<security:intercept-url
+			pattern="/views/misc/index.jsp" access="permitAll" />
+
+		<!-- Registers -->
+		<security:intercept-url
+			pattern="/governmentAgent/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/bankAgent/governmentAgent/**"
+		<security:intercept-url
+			pattern="/bankAgent/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/citizen/governmentAgent/**"
+		<security:intercept-url
+			pattern="/citizen/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/governmentagent/governmentagent/dashboard.do"
+		<security:intercept-url
+			pattern="/governmentagent/governmentagent/dashboard.do"
 			access="hasRole('GOVERNMENTAGENT')" />
 
-		<security:intercept-url pattern="/configuration/**" access="hasRole('GOVERNMENTAGENT')" /> 
-		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
-		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
+		<security:intercept-url
+			pattern="/configuration/**" access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url
+			pattern="/security/login.do" access="permitAll" />
+		<security:intercept-url
+			pattern="/security/loginFailure.do" access="permitAll" />
 
-		<security:intercept-url pattern="/welcome/index.do" access="permitAll" />
-		 
-		<security:intercept-url pattern="/terms/**" access="permitAll" />
-		
-		<security:intercept-url pattern="/admin/display.do" access="hasRole('ADMIN')" />
-				
+		<security:intercept-url
+			pattern="/welcome/index.do" access="permitAll" />
+
+		<security:intercept-url pattern="/terms/**"
+			access="permitAll" />
+
+		<security:intercept-url
+			pattern="/admin/display.do" access="hasRole('ADMIN')" />
+
 		<!-- Lottery -->
-		<security:intercept-url pattern="/lottery/list.do" access="hasRole('CITIZEN')" />
-		<security:intercept-url pattern="/lottery/governmentAgent/edit.do" access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/lottery/buyTicket.do" access="hasRole('CITIZEN')" />
-		<security:intercept-url pattern="/lottery/myTickets.do" access="hasRole('CITIZEN')" />
-		
-		
-		<!-- Bank account  -->
-		<security:intercept-url pattern="/bankagent/list.do" access="permitAll" />
-		<security:intercept-url pattern="/bankagent/display.do" access="permitAll" />
-		<security:intercept-url pattern="/bankaccount/bankagent/**" access="hasRole('BANKAGENT')" />
-		
-		<!-- Chirp -->
-		<security:intercept-url pattern="/chirp/user/**" access="hasRole('USER')" />
-		<security:intercept-url pattern="/chirp/admin/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/chirp/**" access="hasAnyRole('USER', 'ADMIN')" />
-		
-		<!-- Election -->
-		<security:intercept-url pattern="/election/**" access="permitAll" />
-		
-		<!-- Candidature -->
-		<security:intercept-url pattern="/candidature/**" access="permitAll" />
-		
-		<!-- User -->
-		<security:intercept-url pattern="/citizen/citizen/**" access="hasRole('CITIZEN')" />
-		<security:intercept-url pattern="/citizen/**" access="permitAll" />
-		
-		
-		<!-- Folders y messages -->
-		
-		<security:intercept-url pattern="/folder/**" access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
-		<security:intercept-url pattern="/message/**" access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
-		<security:intercept-url pattern="/notification/admin/**" access="hasRole('GOVERNMENTAGENT')" />
-		
-		<security:intercept-url pattern="/governmentAgent/**" access="permitAll" />
-		
-		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
+		<security:intercept-url
+			pattern="/lottery/list.do" access="hasRole('CITIZEN')" />
+		<security:intercept-url
+			pattern="/lottery/governmentAgent/create.do"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url
+			pattern="/lottery/buyTicket.do" access="hasRole('CITIZEN')" />
+		<security:intercept-url
+			pattern="/lottery/myTickets.do" access="hasRole('CITIZEN')" />
 
-		<security:form-login 
-			login-page="/security/login.do"
-			password-parameter="password" 
+
+		<!-- Bank account -->
+		<security:intercept-url
+			pattern="/bankagent/list.do" access="permitAll" />
+		<security:intercept-url
+			pattern="/bankagent/display.do" access="permitAll" />
+		<security:intercept-url
+			pattern="/bankaccount/bankagent/**" access="hasRole('BANKAGENT')" />
+		<security:intercept-url
+			pattern="/bankaccount/display.do" access="permitAll" />
+		<security:intercept-url
+			pattern="/transactions/list.do" access="permitAll" />
+		<security:intercept-url
+			pattern="/transactions/create.do" access="permitAll" />
+		<security:intercept-url
+			pattern="/transactions/edit.do" access="permitAll" />
+
+		<!-- Chirp -->
+		<security:intercept-url
+			pattern="/chirp/user/**" access="hasRole('USER')" />
+		<security:intercept-url
+			pattern="/chirp/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/chirp/**"
+			access="hasAnyRole('USER', 'ADMIN')" />
+
+		<!-- Election -->
+		<security:intercept-url pattern="/election/**"
+			access="permitAll" />
+
+		<!-- Candidature -->
+		<security:intercept-url
+			pattern="/candidature/**" access="permitAll" />
+
+		<!-- User -->
+		<security:intercept-url
+			pattern="/citizen/citizen/**" access="hasRole('CITIZEN')" />
+		<security:intercept-url pattern="/citizen/**"
+			access="permitAll" />
+
+
+		<!-- Folders y messages -->
+
+		<security:intercept-url pattern="/folder/**"
+			access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
+		<security:intercept-url pattern="/message/**"
+			access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
+		<security:intercept-url
+			pattern="/notification/admin/**" access="hasRole('GOVERNMENTAGENT')" />
+
+		<security:intercept-url
+			pattern="/governmentAgent/**" access="permitAll" />
+
+		<security:intercept-url pattern="/**"
+			access="hasRole('NONE')" />
+
+		<security:form-login
+			login-page="/security/login.do" password-parameter="password"
 			username-parameter="username"
 			authentication-failure-url="/security/loginFailure.do" />
 
-		<security:logout 
-			logout-success-url="/" 
+		<security:logout logout-success-url="/"
 			invalidate-session="true" />
 	</security:http>
 

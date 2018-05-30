@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.BankAgentService;
+import domain.Actor;
 import domain.BankAgent;
 import forms.BankAgentForm;
 
@@ -25,6 +27,8 @@ public class BankAgentController extends AbstractController {
 
 	@Autowired
 	private BankAgentService	agentService;
+	@Autowired
+	private ActorService	actorService;
 
 
 	// Constructors ---------------------------------------------------------
@@ -42,8 +46,17 @@ public class BankAgentController extends AbstractController {
 		Collection<BankAgent> agents;
 
 		agents = this.agentService.findAll();
-
 		result = new ModelAndView("bankagent/list");
+		
+		try {
+			Actor principal = this.actorService.findByPrincipal();
+			result.addObject("principal", principal);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		
 		result.addObject("agents", agents);
 		result.addObject("requestURI", "bankagent/list.do");
 
