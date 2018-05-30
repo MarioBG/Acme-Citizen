@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CandidateService;
+import services.CandidatureService;
 import services.CitizenService;
 import domain.Candidature;
 import domain.Citizen;
@@ -25,7 +25,7 @@ public class CitizenController extends AbstractController {
 	private CitizenService		citizenService;
 
 	@Autowired
-	private CandidateService	candidatureService;
+	private CandidatureService	candidatureService;
 
 
 	// Constructors ---------------------------------------------------------
