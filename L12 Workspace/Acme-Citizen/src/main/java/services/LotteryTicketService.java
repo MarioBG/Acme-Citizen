@@ -119,4 +119,8 @@ public class LotteryTicketService {
 
 	}
 
+	public Collection<LotteryTicket> findAllByCitizenId(int id) {
+		return this.lotteryTicketRepository.findAllByCitizenId(id);
+	}
+
 }

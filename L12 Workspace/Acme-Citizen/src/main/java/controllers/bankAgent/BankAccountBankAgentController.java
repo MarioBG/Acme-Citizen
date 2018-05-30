@@ -29,31 +29,17 @@ public class BankAccountBankAgentController extends AbstractController {
 	@Autowired
 	private ActorService actorService;
 
-	// List of all actors ----------------------------------------------
-
-	@RequestMapping(value = "/listActor", method = RequestMethod.GET)
-	public ModelAndView list() {
-
-		ModelAndView result;
-		Collection<Actor> actors;
-		actors = this.actorService.findAll();
-
-		result = new ModelAndView("/bankaccount/bankagent/listActor");
-		result.addObject("actors", actors);
-		result.addObject("requestURI", "/bankaccount/bankagent/listActor.do");
-
-		return result;
-	}
-
 	// Creation ---------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(final int actorId) {
+	public ModelAndView create() {
 		ModelAndView result;
 		BankAccount bankAccount;
+		Collection<Actor> actors = this.actorService.findAllWithoutBankAccount();
 
-		bankAccount = bankAccountService.create(actorId);
+		bankAccount = bankAccountService.create();
 		result = createEditModelAndView(bankAccount);
+		result.addObject("actors", actors);
 
 		return result;
 	}
@@ -82,7 +68,9 @@ public class BankAccountBankAgentController extends AbstractController {
 		else
 			try {
 				this.bankAccountService.save(bankAccount);
-				result = new ModelAndView("redirect:/bankaccount/bankagent/listActor.do");
+				bankAccount.getActor().setBankAccount(bankAccount);
+				this.actorService.save(bankAccount.getActor());
+				result = new ModelAndView("redirect:../../welcome/index.do");
 			} catch (final Throwable oops) {
 				String errorMessage = "bankAccount.commit.error";
 
@@ -91,22 +79,6 @@ public class BankAccountBankAgentController extends AbstractController {
 				}
 				result = this.createEditModelAndView(bankAccount, errorMessage);
 			}
-
-		return result;
-	}
-
-	// DELETE --------------------------------------
-
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(BankAccount bankAccount, BindingResult bindingResult) {
-		ModelAndView result;
-
-		try {
-			bankAccountService.delete(bankAccount);
-			result = new ModelAndView("redirect:/bankaccount/bankagent/listActor.do");
-		} catch (Throwable oops) {
-			result = createEditModelAndView(bankAccount, "bankAccount.commit.error");
-		}
 
 		return result;
 	}

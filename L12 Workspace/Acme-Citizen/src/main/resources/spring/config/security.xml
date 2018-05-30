@@ -49,13 +49,15 @@
 				
 		<!-- Lottery -->
 		<security:intercept-url pattern="/lottery/list.do" access="hasRole('CITIZEN')" />
-		<security:intercept-url pattern="/lottery/governmentAgent/**" access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/lottery/governmentAgent/edit.do" access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/lottery/buyTicket.do" access="hasRole('CITIZEN')" />
+		<security:intercept-url pattern="/lottery/myTickets.do" access="hasRole('CITIZEN')" />
 		
 		
 		<!-- Bank account  -->
 		<security:intercept-url pattern="/bankagent/list.do" access="permitAll" />
-		<security:intercept-url pattern="/bankaccount/bankagent/**" access="hasRole('BANKAGENT')" />
+		<security:intercept-url pattern="/bankaccount/bankagent/edit.do" access="hasRole('BANKAGENT')" />
+		<security:intercept-url pattern="/bankaccount/bankagent/create.do" access="hasRole('BANKAGENT')" />
 		
 		<!-- Chirp -->
 		<security:intercept-url pattern="/chirp/user/**" access="hasRole('USER')" />
@@ -77,7 +79,7 @@
 		<!-- Registers -->
 		<security:intercept-url pattern="/governmentAgent/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url pattern="/bankAgent/governmentAgent/**"
+		<security:intercept-url pattern="/bankagent/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/citizen/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
