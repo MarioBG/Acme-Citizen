@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.BankAccountRepository;
 import domain.Actor;
 import domain.BankAccount;
+import domain.BankAgent;
 import domain.EconomicTransaction;
+import repositories.BankAccountRepository;
 
 @Service
 @Transactional
@@ -27,6 +28,9 @@ public class BankAccountService {
 	// Supporting services
 
 	@Autowired
+	private BankAgentService bankAgentService;
+
+	@Autowired
 	private ActorService actorService;
 
 	// Constructors
@@ -37,20 +41,21 @@ public class BankAccountService {
 
 	// Simple CRUD methods
 
-	public BankAccount create(final int actorId) {
+	public BankAccount create() {
 
-		final Actor principal = this.actorService.findByPrincipal();
-		Assert.isTrue(principal == null);
+		final BankAgent principal = this.bankAgentService.findByPrincipal();
+		Assert.isTrue(principal != null);
 
 		final BankAccount result = new BankAccount();
 
 		final Collection<EconomicTransaction> credits = new ArrayList<EconomicTransaction>();
 		final Collection<EconomicTransaction> debts = new ArrayList<EconomicTransaction>();
 
-		final Actor actor = this.actorService.findOne(actorId);
-		result.setActor(actor);
 		result.setCredits(credits);
 		result.setDebts(debts);
+		result.setMoney(0.0);
+		result.setAccountNumber(getAccountNumber());
+		result.setBankAgent(principal);
 
 		return result;
 	}
@@ -60,6 +65,7 @@ public class BankAccountService {
 		BankAccount result;
 
 		result = this.bankAccountRepository.save(bankAccount);
+
 		return result;
 	}
 
@@ -80,6 +86,53 @@ public class BankAccountService {
 	public void delete(BankAccount bankAccount) {
 		Assert.notNull(bankAccount);
 		delete(bankAccount);
+
+	}
+
+	private String getAccountNumber() {
+		String numberAccount = asignNumber();
+
+		for (BankAccount bk : this.bankAccountRepository.findAll()) {
+			while (bk.getAccountNumber().equals(numberAccount)) {
+				numberAccount = asignNumber();
+			}
+
+		}
+		return numberAccount;
+
+	}
+
+	private String asignNumber() {
+		final BankAgent principal = this.bankAgentService.findByPrincipal();
+		String code = principal.getBankCode();
+		Integer num1 = (int) (Math.random() * 100000);
+		Integer num2 = (int) (Math.random() * 100000);
+
+		String part1 = num1.toString();
+		String part2 = num2.toString();
+
+		if (part1.length() == 1) {
+			part1 = "0000" + part1;
+		} else if (part1.length() == 2) {
+			part1 = "000" + part1;
+		} else if (part1.length() == 3) {
+			part1 = "00" + part1;
+		} else if (part1.length() == 4) {
+			part1 = "0" + part1;
+		}
+		if (part2.length() == 1) {
+			part2 = "0000" + part2;
+		} else if (part2.length() == 2) {
+			part2 = "000" + part2;
+		} else if (part2.length() == 3) {
+			part2 = "00" + part2;
+		} else if (part2.length() == 4) {
+			part2 = "0" + part2;
+		}
+		String numberAccount = code + part1 + part2;
+
+		System.out.println("NUMERO DE LOS COJONES: " + numberAccount);
+		return numberAccount;
 
 	}
 

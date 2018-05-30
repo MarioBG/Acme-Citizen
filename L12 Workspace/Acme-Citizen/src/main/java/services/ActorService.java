@@ -11,13 +11,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Actor;
+import domain.Folder;
+import domain.GovernmentAgent;
 import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
-import domain.Folder;
-import domain.GovernmentAgent;
 
 @Service
 @Transactional
@@ -25,8 +25,7 @@ public class ActorService {
 
 	// Managed repository
 	@Autowired
-	private ActorRepository	actorRepository;
-
+	private ActorRepository actorRepository;
 
 	// Constructors
 	public ActorService() {
@@ -51,7 +50,7 @@ public class ActorService {
 
 	public Actor save(final Actor actor) {
 
-		Actor result = null;
+		Actor result;
 
 		result = this.actorRepository.save(actor);
 
@@ -110,9 +109,8 @@ public class ActorService {
 	}
 
 	public String generateNif(final GovernmentAgent creator) {
-		final Character[] letras = {
-			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-		};
+		final Character[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+				'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
 		final Random rand = new Random();
 		String nif = "";
 		nif += creator.getRegisterCode() + "-";
@@ -135,6 +133,10 @@ public class ActorService {
 		if (this.actorRepository.findActorByNif(nif) != null)
 			nif = this.generateNif(creator);
 		return nif;
+	}
+
+	public Collection<Actor> findAllWithoutBankAccount() {
+		return this.actorRepository.findAllWithoutBankAccount();
 	}
 
 }

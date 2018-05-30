@@ -22,10 +22,16 @@
 			value="/views/lottery/edit.jsp" />
 	</definition>
 
-
 	<definition name="lottery/MyLotterys" extends="master.page">
 		<put-attribute name="title" value="My lottos" />
 		<put-attribute name="body"
 			value="/views/lottery/MyLotterys.jsp" />
 	</definition>
+
+	<definition name="lottery/myTickets" extends="master.page">
+		<put-attribute name="title" value="My tickets" />
+		<put-attribute name="body"
+			value="/views/lottery/myTickets.jsp" />
+	</definition>
+
 </tiles-definitions>

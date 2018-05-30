@@ -25,7 +25,7 @@
 		<value>/views/citizen/messages</value>
 
 		<value>/views/configuration/messages</value>
-		<value>/views/bankAgent/messages</value>
+		<value>/views/bankagent/messages</value>
 		<value>/views/folder/messages</value>
 		<value>/views/message/messages</value>
 
