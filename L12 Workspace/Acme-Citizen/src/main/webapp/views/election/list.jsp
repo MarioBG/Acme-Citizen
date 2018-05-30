@@ -54,7 +54,7 @@
 
 <security:authorize access="hasRole('GOVERNMENTAGENT')">
 	<jstl:if test="${governmentAgent.canOrganiseElection == true}">
-		<a href="election/governmentAgent/create.do"><spring:message
+		<a href="election/governmentagent/create.do"><spring:message
 			code="election.create" /></a>
 		<br />
 	</jstl:if>	

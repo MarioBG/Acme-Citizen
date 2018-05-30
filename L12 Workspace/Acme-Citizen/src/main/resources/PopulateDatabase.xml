@@ -1243,7 +1243,7 @@
 		</property>
 		<property name="electoralProgram" value="https://www5.csudh.edu/ccauthen/576f12/frankfurt__harry_-_on_bullshit.pdf"/>
 		<property name="description" value="La candidatura del Partido Irrelevante Surrealista para las Elecciones Generales de 2017"/>
-		<property name="partyLogo" value="https://st-listas.20minutos.es/images/2011-05/289239/3016674_640px.jpg?1306010747"/>
+		<property name="partyLogo" value="http://republicadehisperia.16mb.com/imgs/partido_irrelevante_surrealista.jpg"/>
 		<property name="voteNumber" value="2"/>
 	</bean>
 	

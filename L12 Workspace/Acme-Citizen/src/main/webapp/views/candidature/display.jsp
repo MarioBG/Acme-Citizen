@@ -13,7 +13,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<img src="<jstl:out value="${candidature.partyLogo}"/>" />
+<img src="<jstl:out value="${candidature.partyLogo}"/>" style="display: block;
+  max-width:230px;
+  max-height:95px;
+  width: auto;
+  height: auto;"/>
 <br />
 
 <b><spring:message code="candidature.electoralProgram" />:&nbsp;</b>
