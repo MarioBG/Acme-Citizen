@@ -1,32 +1,37 @@
 <%-- edit.jsp de Application --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="configuration/governmentagent/edit.do" modelAttribute="configuration">
+<form:form action="configuration/governmentagent/edit.do"
+	modelAttribute="configuration">
 
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	
-	<acme:textbox code="configuration.countryFlag" path="countryFlag"/>
-	<br/>
-	
-	<acme:textbox code="configuration.defaultCountryCode" path="defaultCountryCode"/>
-	<br/>
-	
-	<acme:textbox code="configuration.numberParliamentSeats" path="numberParliamentSeats"/>
-	<br/>
-	
-	<acme:submit name="save" code="configuration.save"/>
-	<acme:cancel url="welcome/index.do" code="configuration.cancel"/>
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+
+	<acme:textbox code="configuration.countryFlag" path="countryFlag" />
+	<br />
+
+	<acme:textbox code="configuration.defaultCountryCode"
+		path="defaultCountryCode" />
+	<br />
+
+	<acme:textbox code="configuration.numberParliamentSeats"
+		path="numberParliamentSeats" />
+	<br />
+
+	<acme:submit name="save" code="configuration.save" />
+	<acme:cancel url="welcome/index.do" code="configuration.cancel" />
 
 </form:form>
 
@@ -37,34 +42,25 @@
 </h4>
 <table class="displaytag" name="editWelcomeMessages">
 	<tr>
-		<th>
-			<spring:message code="configuration.langLocale"/>
-		</th>
-		<th>
-			<spring:message code="configuration.welcomeContent"/>
-		</th>
-		<th>
-			<spring:message code="configuration.editMessage"/>
-		</th>
+		<th><spring:message code="configuration.langLocale" /></th>
+		<th><spring:message code="configuration.welcomeContent" /></th>
+		<th><spring:message code="configuration.editMessage" /></th>
 	</tr>
 	<jstl:forEach var="welcomeMessage" items="${welcomeMessages}">
 		<tr>
 			<td><jstl:out value="${ welcomeMessage.languageCode }"></jstl:out></td>
 			<td><jstl:out value="${ welcomeMessage.content }"></jstl:out></td>
-			<td><a href="welcomemessage/governmentagent/edit.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message code="configuration.editMessage"/></a></td>
-			<%-- <form:form action="configuration/governmentagent/saveWelcomeMessage.do" modelAttribute="welcomeMessage">
-				<td>
-					<spring:message code="configuration.langLocaleTip" var="langtip"/>
-					<acme:textbox code="configuration.langLocale" path="languageCode" placeholder="${ langTip }"/>
-				</td>
-				<td>
-					<acme:textbox code="configuration.welcomeContentHead" path="welcomeContent"/>
-				</td>
-				<td>
-					<acme:submit name="save" code="configuration.save"/>
-				</td>
-			</form:form> --%>
+			<td><a
+				href="welcomemessage/governmentagent/edit.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
+						code="configuration.editMessage" /></a> <a
+				href="welcomemessage/governmentagent/delete.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
+						code="configuration.deleteMessage" /></a></td>
 		</tr>
 	</jstl:forEach>
-	<tr><td/><td/><td><a href="welcomemessage/governmentagent/create.do"><spring:message code="configuration.createMessage"/></a></td></tr>
+	<tr>
+		<td />
+		<td />
+		<td><a href="welcomemessage/governmentagent/create.do"><spring:message
+					code="configuration.createMessage" /></a></td>
+	</tr>
 </table>

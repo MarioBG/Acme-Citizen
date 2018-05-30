@@ -52,7 +52,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/security/loginFailure.do"
 			access="permitAll" />
-
+		<security:intercept-url pattern="/welcomemessage/**" access="hasRole('GOVERNMENTAGENT')" />  
+		
 		<security:intercept-url pattern="/welcome/index.do"
 			access="permitAll" />
 

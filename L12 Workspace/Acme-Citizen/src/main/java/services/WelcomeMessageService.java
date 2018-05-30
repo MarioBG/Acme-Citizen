@@ -68,7 +68,8 @@ public class WelcomeMessageService {
 	public WelcomeMessage save(final WelcomeMessage welcomeMessage) {
 
 		Assert.notNull(this.governmentAgentService.findByPrincipal());
-
+		if (welcomeMessage.getId() == 0)
+			Assert.isTrue(this.welcomeMessageRepository.getWelcomeMessageByLocale(welcomeMessage.getLanguageCode()) == null);
 		final WelcomeMessage result = this.welcomeMessageRepository.save(welcomeMessage);
 
 		if (welcomeMessage.getId() == 0) {
@@ -89,7 +90,10 @@ public class WelcomeMessageService {
 	// Ancillary methods
 
 	public String getWelcomeMessageForLocale(final String languageCode) {
-		return this.welcomeMessageRepository.getWelcomeMessageByLocale(languageCode).getContent();
+		String ans = this.welcomeMessageRepository.getWelcomeMessageByLocale(languageCode).getContent();
+		if (ans == null)
+			ans = "undefined";
+		return ans;
 	}
 
 	public WelcomeMessageForm construct(final WelcomeMessage welcomeMessage) {
