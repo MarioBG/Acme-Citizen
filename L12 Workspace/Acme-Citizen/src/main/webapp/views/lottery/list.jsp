@@ -49,14 +49,19 @@
 				</jstl:when>
 				<jstl:otherwise>
 					<jstl:if test="${principal.bankAccount == null}">
-					<a href="bankagent/list.do"><spring:message
-								code="lottery.bankAccount" /></a>			
+						<a href="bankagent/list.do"><spring:message
+								code="lottery.bankAccount" /></a>
 					</jstl:if>
 					<jstl:if test="${principal.bankAccount != null}">
-					<input type="button"
-						value="<spring:message code="lottery.buyTicket" />"
-						onclick="javascript: window.location.assign('lottery/buyTicket.do?lotteryId=${row.id}')" />
+						<jstl:if test="${principal.bankAccount.money >= row.ticketCost }">
+							<input type="button"
+								value="<spring:message code="lottery.buyTicket" />"
+								onclick="javascript: window.location.assign('lottery/buyTicket.do?lotteryId=${row.id}')" />
 						</jstl:if>
+						<jstl:if test="${principal.bankAccount.money < row.ticketCost }">
+							<spring:message code="lottery.NoMoney" />
+						</jstl:if>
+					</jstl:if>
 				</jstl:otherwise>
 			</jstl:choose>
 		</display:column>

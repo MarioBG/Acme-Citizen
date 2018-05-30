@@ -39,7 +39,7 @@
 		<value>/views/election/tiles.xml</value>
 		<value>/views/petition/tiles.xml</value>
 		<value>/views/economicTransaction/tiles.xml</value>
-		<value>/views/bankAccount/tiles.xml</value>
+		<value>/views/bankaccount/tiles.xml</value>
 		<value>/views/lottery/tiles.xml</value>
 
 	</util:list>

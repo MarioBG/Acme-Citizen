@@ -59,7 +59,7 @@ public class LotteryService {
 
 		Date date = new Date();
 		if (lottery.getCelebrationDate().before(date)) {
-			Assert.isTrue(lottery.getCelebrationDate().before(date), "commit.error.date");
+			Assert.isTrue(lottery.getCelebrationDate().after(date), "commit.error.date");
 
 		}
 		result = this.lotteryRepository.save(lottery);

@@ -68,8 +68,6 @@ public class BankAccountBankAgentController extends AbstractController {
 		else
 			try {
 				this.bankAccountService.save(bankAccount);
-				bankAccount.getActor().setBankAccount(bankAccount);
-				this.actorService.save(bankAccount.getActor());
 				result = new ModelAndView("redirect:../../welcome/index.do");
 			} catch (final Throwable oops) {
 				String errorMessage = "bankAccount.commit.error";
@@ -96,7 +94,7 @@ public class BankAccountBankAgentController extends AbstractController {
 	protected ModelAndView createEditModelAndView(BankAccount bankAccount, String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("bankAccount/edit");
+		result = new ModelAndView("bankaccount/bankagent/edit");
 
 		result.addObject("bankAccount", bankAccount);
 		result.addObject("message", message);

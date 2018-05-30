@@ -2,7 +2,6 @@
 package services;
 
 import java.util.Collection;
-import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -10,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.LotteryTicketRepository;
 import domain.Actor;
 import domain.Citizen;
 import domain.Lottery;
 import domain.LotteryTicket;
+import repositories.LotteryTicketRepository;
 
 @Service
 @Transactional
@@ -23,17 +22,16 @@ public class LotteryTicketService {
 	// Managed repository
 
 	@Autowired
-	private LotteryTicketRepository	lotteryTicketRepository;
+	private LotteryTicketRepository lotteryTicketRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService actorService;
 	@Autowired
-	private LotteryService			lotteryService;
+	private LotteryService lotteryService;
 	@Autowired
-	private CitizenService			citizenService;
-
+	private CitizenService citizenService;
 
 	// Constructors
 
@@ -54,8 +52,7 @@ public class LotteryTicketService {
 
 		result.setLottery(lottery);
 		result.setCitizen((Citizen) principal);
-		result.getLottery().getLotteryTickets().add(result);
-		result.setNumber(this.asignNumber(lotteryId));
+		result.setNumber(getNumberTicket(lotteryId));
 
 		return result;
 	}
@@ -81,29 +78,42 @@ public class LotteryTicketService {
 		return result;
 	}
 
-	public String asignNumber(final int lotteryId) {
+	private String getNumberTicket(int lotteryId) {
+		String numberTicket = asignNumberTicket();
+		Lottery lottery = this.lotteryService.findOne(lotteryId);
+		for (LotteryTicket ticket : lottery.getLotteryTickets()) {
+			while (ticket.getNumber().equals(numberTicket)) {
+				numberTicket = asignNumberTicket();
+			}
+		}
+		return numberTicket;
+	}
 
-		final Lottery lottery = this.lotteryService.findOne(lotteryId);
-		final Collection<LotteryTicket> tickets = lottery.getLotteryTickets();
+	private String asignNumberTicket() {
 
-		final Random random = new Random();
-		int randomIndex = 0;
+		Integer num1 = (int) (Math.random() * 1000000);
+		String numberTicket = num1.toString();
 
-		while (tickets.size() > 0 && tickets.size() < 1000000)
-			randomIndex = random.nextInt(tickets.size());
-
-		for (final LotteryTicket ticket : tickets) {
-			final String number = Integer.toString(randomIndex);
-			if (ticket.getNumber().equals(number))
-				randomIndex = random.nextInt(tickets.size());
+		if (numberTicket.length() == 1) {
+			numberTicket = "00000" + numberTicket;
+		} else if (numberTicket.length() == 2) {
+			numberTicket = "0000" + numberTicket;
+		} else if (numberTicket.length() == 3) {
+			numberTicket = "000" + numberTicket;
+		} else if (numberTicket.length() == 4) {
+			numberTicket = "00" + numberTicket;
+		} else if (numberTicket.length() == 5) {
+			numberTicket = "0" + numberTicket;
 		}
 
-		return Integer.toString(randomIndex);
+		return numberTicket;
+
 	}
 
 	public void buyLottery(final int lotteryId) {
 		final LotteryTicket ticket = this.create(lotteryId);
 		final Citizen citizen = this.citizenService.findByPrincipal();
+		final Lottery lottery = this.lotteryService.findOne(lotteryId);
 		Assert.notNull(citizen);
 		Assert.notNull(ticket);
 		Assert.notNull(citizen.getBankAccount(), "No hay cuenta de banco");
@@ -113,8 +123,10 @@ public class LotteryTicketService {
 			final Double newMoney = money - ticket.getLottery().getTicketCost();
 			citizen.getBankAccount().setMoney(newMoney);
 			citizen.getLotteryTickets().add(ticket);
+			lottery.getLotteryTickets().add(ticket);
 			this.save(ticket);
 			this.citizenService.save(citizen);
+			this.lotteryService.save(lottery);
 		}
 
 	}

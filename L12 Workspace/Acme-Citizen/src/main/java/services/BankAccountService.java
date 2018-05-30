@@ -30,9 +30,6 @@ public class BankAccountService {
 	@Autowired
 	private BankAgentService bankAgentService;
 
-	@Autowired
-	private ActorService actorService;
-
 	// Constructors
 
 	public BankAccountService() {
@@ -65,6 +62,12 @@ public class BankAccountService {
 		BankAccount result;
 
 		result = this.bankAccountRepository.save(bankAccount);
+		try {
+			Actor actor = bankAccount.getActor();
+			actor.setBankAccount(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		return result;
 	}
@@ -131,7 +134,6 @@ public class BankAccountService {
 		}
 		String numberAccount = code + part1 + part2;
 
-		System.out.println("NUMERO DE LOS COJONES: " + numberAccount);
 		return numberAccount;
 
 	}
