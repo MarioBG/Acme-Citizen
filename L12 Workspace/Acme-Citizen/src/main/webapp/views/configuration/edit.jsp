@@ -53,8 +53,8 @@
 			<td><a
 				href="welcomemessage/governmentagent/edit.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
 						code="configuration.editMessage" /></a> <a
-				href="welcomemessage/governmentagent/delete.do?welcomeMessageId=${ welcomeMessage.id }"><%-- <spring:message
-						code="configuration.editMessage" /> --%>delete</a></td>
+				href="welcomemessage/governmentagent/delete.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
+						code="configuration.deleteMessage" /></a></td>
 		</tr>
 	</jstl:forEach>
 	<tr>
