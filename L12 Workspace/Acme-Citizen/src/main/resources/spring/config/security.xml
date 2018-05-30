@@ -47,7 +47,8 @@
 		<security:intercept-url pattern="/governmentagent/governmentagent/dashboard.do"
 			access="hasRole('GOVERNMENTAGENT')" />
 
-		<security:intercept-url pattern="/configuration/**" access="hasRole('GOVERNMENTAGENT')" /> 
+		<security:intercept-url pattern="/configuration/**" access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/welcomemessage/**" access="hasRole('GOVERNMENTAGENT')" />  
 		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
 

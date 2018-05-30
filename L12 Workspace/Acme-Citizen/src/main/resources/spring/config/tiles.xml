@@ -34,6 +34,7 @@
 
 		<value>/views/candidature/tiles.xml</value>
 		<value>/views/chirp/tiles.xml</value>
+		<value>/views/welcomeMessage/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
 		<value>/views/election/tiles.xml</value>
 		<value>/views/petition/tiles.xml</value>
