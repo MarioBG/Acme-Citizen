@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import repositories.CandidateRepository;
 import domain.Candidate;
-import domain.Candidature;
+import domain.Citizen;
 
 @Service
 @Transactional
@@ -84,7 +84,16 @@ public class CandidateService {
 
 	// Ancillary methods
 
-	public Collection<Candidature> findByCitizenId(final int id) {
-		return this.candidateRepository.findByCitizenId(id);
+	public Candidate findByCitizenIdAndCandidatureId(final int citizenId, final int candidatureId) {
+
+		final Candidate candidate = this.candidateRepository.findByCitizenIdAndCandidatureId(citizenId, candidatureId);
+		return candidate;
+	}
+
+	public Candidate findByPrincipalAndCandidatureId(final int candidatureId) {
+
+		final Citizen citizen = this.citizenService.findByPrincipal();
+		final Candidate candidate = this.findByCitizenIdAndCandidatureId(citizen.getId(), candidatureId);
+		return candidate;
 	}
 }

@@ -15,7 +15,7 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'election/list.do'  }">
+		<jstl:when test="${requestURI == 'election/list.do'}">
 			<spring:message code="election.systemElections" />
 		</jstl:when>
 	</jstl:choose>
@@ -24,18 +24,6 @@
 <display:table name="elections" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('GOVERNMENTAGET)">
-		<security:authentication property="principal" var="loggedactor" />
-		<jsp:useBean id="date" class="java.util.Date" />
-		<display:column>
-			<jstl:if
-				test="${(row.governmentAgent.userAccount.id eq loggedactor.id) and row.candidatureDate.after(date)}">
-				<a href="election/governmentAgent/election.do?chirpId=${row.id}"><spring:message
-						code="election.edit" /></a>
-			</jstl:if>
-		</display:column>
-	</security:authorize>
-
 	<display:column>
 		<a href="election/display.do?electionId=${row.id}"><spring:message
 				code="election.display" /></a>
@@ -43,7 +31,7 @@
 
 	<spring:message var="governmentAgentHeader"
 		code="election.governmentAgent" />
-	<display:column title="${nameHeader}">
+	<display:column title="${governmentAgentHeader}">
 		<a
 			href="governmentAgent/display.do?governmentAgentId=${row.governmentAgent.id}"><jstl:out
 				value="${row.governmentAgent.name}" /></a>

@@ -16,19 +16,19 @@
        
 <tiles-definitions>
 
-	<definition name="article/list" extends="master.page">	
-		<put-attribute name="title" value="List articles" />
-		<put-attribute name="body" value="/views/article/list.jsp" />
+	<definition name="bankAccount/list" extends="master.page">	
+		<put-attribute name="title" value="List Bank Accounts" />
+		<put-attribute name="body" value="/views/bankAccount/list.jsp" />
 	</definition>
 	
-	<definition name="article/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit article" />
-		<put-attribute name="body" value="/views/article/edit.jsp" />
+	<definition name="bankAccount/edit" extends="master.page">	
+		<put-attribute name="title" value="Create Bank Account" />
+		<put-attribute name="body" value="/views/bankAccount/edit.jsp" />
 	</definition>
 	
-	<definition name="article/display" extends="master.page">	
-		<put-attribute name="title" value="Display article" />
-		<put-attribute name="body" value="/views/article/display.jsp" />
+	<definition name="bankAccount/display" extends="master.page">	
+		<put-attribute name="title" value="Display Bank Account" />
+		<put-attribute name="body" value="/views/bankAccount/display.jsp" />
 	</definition>
 	
 	

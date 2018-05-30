@@ -59,8 +59,9 @@
 				
 		<!-- Lottery -->
 		<security:intercept-url pattern="/lottery/list.do" access="hasRole('CITIZEN')" />
-		<security:intercept-url pattern="/lottery/governmentAgent/**" access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/lottery/governmentAgent/edit.do" access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/lottery/buyTicket.do" access="hasRole('CITIZEN')" />
+		<security:intercept-url pattern="/lottery/myTickets.do" access="hasRole('CITIZEN')" />
 		
 		
 		<!-- Bank account  -->
@@ -72,6 +73,12 @@
 		<security:intercept-url pattern="/chirp/user/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/chirp/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/chirp/**" access="hasAnyRole('USER', 'ADMIN')" />
+		
+		<!-- Election -->
+		<security:intercept-url pattern="/election/**" access="permitAll" />
+		
+		<!-- Candidature -->
+		<security:intercept-url pattern="/candidature/**" access="permitAll" />
 		
 		<!-- User -->
 		<security:intercept-url pattern="/citizen/citizen/**" access="hasRole('CITIZEN')" />

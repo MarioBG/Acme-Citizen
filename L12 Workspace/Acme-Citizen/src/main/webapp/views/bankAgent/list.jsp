@@ -22,37 +22,8 @@
 
 <!-- displaying grid -->
 
-<h3>
-	<jstl:choose>
-		<jstl:when test="${requestURI == 'bankagent/list.do'  }">
-			<spring:message code="agent.system"/>
-		</jstl:when>
-		<jstl:when test="${requestURI == 'user/user/list-followers.do'  }">
-			<spring:message code="agent.followers"/>
-		</jstl:when>
-		<jstl:when test="${requestURI == 'user/user/list-followed.do'  }">
-			<spring:message code="agent.followed"/>
-		</jstl:when>
-	</jstl:choose>
-</h3>
-
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="agents" requestURI="${requestURI }" id="row">
-
-	<security:authorize access="hasRole('AGENT')">
-		<jstl:if test="${requestURI != 'user/user/list-followers.do'}">
-			<display:column>
-				<jstl:choose>
-					<jstl:when test="${principal.followed.contains(row)}">
-						<a href="user/user/unfollow.do?userId=${row.id}"><spring:message code="agent.unfollow"/></a>
-					</jstl:when>
-					<jstl:otherwise>
-						<a href="user/user/follow.do?userId=${row.id}"><spring:message code="agent.follow"/></a>
-					</jstl:otherwise>
-				</jstl:choose>
-			</display:column>
-		</jstl:if>
-	</security:authorize>
+	name="agents" requestURI="bankagent/list.do" id="row">
 
 	<!-- Attributes -->
 
@@ -69,6 +40,14 @@
 	<display:column property="email" title="${emailHeader}" sortable="true" />
 	<spring:message code="agent.bankCode" var="codeHeader" />
 	<display:column property="bankCode" title="${codeHeader}" sortable="true" />
+
+	<display:column>
+		<jstl:if test="${principal.bankAccount == null}">
+			<input type="button"
+				value="<spring:message code="agent.createBankAccount" />"
+				onclick="javascript: window.location.assign('message/create.do')" />
+		</jstl:if>
+	</display:column>
 
 </display:table>
 

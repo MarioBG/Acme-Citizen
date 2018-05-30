@@ -1270,7 +1270,7 @@
 	<bean id="lottery1" class="domain.Lottery">
 		<property name="quantity" value="35"/>
 		<property name="percentageForPrizes" value="80"/>
-		<property name="celebrationDate" value="2018/05/16"/>
+		<property name="celebrationDate" value="2019/05/16"/>
 		<property name="ticketCost" value="5"/>
 		<property name="lotteryName" value="Lotería Nacional"/>
 		<property name="governmentAgent" ref="government"/>

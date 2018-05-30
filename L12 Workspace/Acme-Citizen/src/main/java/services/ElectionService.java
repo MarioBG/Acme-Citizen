@@ -9,12 +9,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ElectionRepository;
 import domain.Candidature;
 import domain.Citizen;
 import domain.Comment;
 import domain.Election;
+import forms.ElectionForm;
 
 @Service
 @Transactional
@@ -34,6 +37,9 @@ public class ElectionService {
 
 	@Autowired
 	private CommentService			commentService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Constructors
@@ -99,5 +105,44 @@ public class ElectionService {
 	}
 
 	// Ancillary methods
+
+	public ElectionForm construct(final Election election) {
+
+		Assert.notNull(election);
+
+		ElectionForm electionForm;
+
+		electionForm = new ElectionForm();
+
+		electionForm.setId(election.getId());
+		electionForm.setGovernmentAgentId(election.getGovernmentAgent().getId());
+		electionForm.setCandidatureDate(election.getCandidatureDate());
+		electionForm.setCelebrationDate(election.getCelebrationDate());
+		electionForm.setDescription(election.getDescription());
+
+		return electionForm;
+	}
+
+	public Election reconstruct(final ElectionForm electionForm, final BindingResult binding) {
+
+		Assert.notNull(electionForm);
+
+		Election election;
+
+		if (electionForm.getId() != 0)
+			election = this.findOne(electionForm.getId());
+		else
+			election = this.create();
+
+		election.setCandidatureDate(electionForm.getCandidatureDate());
+		election.setCelebrationDate(electionForm.getCelebrationDate());
+		election.setDescription(electionForm.getDescription());
+		election.setGovernmentAgent(this.governmentAgentService.findOne(electionForm.getGovernmentAgentId()));
+
+		if (binding != null)
+			this.validator.validate(election, binding);
+
+		return election;
+	}
 
 }

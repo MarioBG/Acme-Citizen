@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -56,6 +57,11 @@ public class LotteryService {
 		Assert.notNull(lottery);
 		Lottery result;
 
+		Date date = new Date();
+		if (lottery.getCelebrationDate().before(date)) {
+			Assert.isTrue(lottery.getCelebrationDate().before(date), "commit.error.date");
+
+		}
 		result = this.lotteryRepository.save(lottery);
 		return result;
 	}

@@ -33,6 +33,6 @@
 	
 	<definition name="candidature/display" extends="master.page">	
 		<put-attribute name="title" value="Mostrar candidatura" />
-		<put-attribute name="body" value="/views/canidature/display.jsp" />
+		<put-attribute name="body" value="/views/candidature/display.jsp" />
 	</definition>
 </tiles-definitions>

@@ -13,8 +13,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<jsp:useBean id="date" class="java.util.Date" />
-
 <b><spring:message code="election.governmentAgent" />:&nbsp;</b>
 <a
 	href="governmentAgent/display.do?governmentAgentId=${election.governmentAgent.id}"><jstl:out
@@ -36,20 +34,20 @@
 	pattern="${patternDate}" />
 <br />
 
-<jstl:if test="${election.candidatures not empty}">
-	<a href="candidature/list.do?candidatureId=${election.candidature.id}"><spring:message
+<jstl:if test="${not empty election.candidatures}">
+	<a href="candidature/list.do?electionId=${election.id}"><spring:message
 			code="election.listCandidatures" /></a>
 	<br />
 </jstl:if>
 
-<jstl:if test="${election.comments not empty}">
+<jstl:if test="${not empty election.comments}">
 	<a href="comment/list.do?commentableId=${election.id}"><spring:message
 			code="election.listComments" /></a>
 	<br />
 </jstl:if>
 
-<security:authorize access="hasRole('CITIZEN','GOVERNMENTAGENT')">
-	<jstl:if test="${election.celebrationDate.before(date)}">
+<security:authorize access="hasAnyRole('CITIZEN','GOVERNMENTAGENT')">
+	<jstl:if test="${election.celebrationDate.before(date) or election.celebrationDate.equals(date)}">
 		<a href="comment/actor/create.do?commentableId=${election.id}"><spring:message
 				code="election.createComment" /></a>
 		<br />

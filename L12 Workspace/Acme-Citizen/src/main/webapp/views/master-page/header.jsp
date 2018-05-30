@@ -87,14 +87,14 @@
 				</ul></li>
 		</security:authorize>
 
-		<security:authorize access="hasRole('CUSTOMER')">
+		<security:authorize access="hasRole('BANKAGENT')">
 			<li><a class="fNiv"><spring:message
-						code="master.page.customer" /></a>
+						code="master.page.bankagent" /></a>
 				<ul>
-					<li><a href="volume/customer/list.do"><spring:message
-								code="master.page.customer.subscribedVolumes" /></a></li>
-					<li><a href="newspaper/customer/list.do"><spring:message
-								code="master.page.customer.subscribedNewspapers" /></a></li>
+					<li><a href="bankaccount/bankagent/create.do"><spring:message
+								code="master.page.bankagent.createAccount" /></a></li>
+					<li><a href="citizen/list.do"><spring:message
+								code="master.page.bankagent.listActor" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -104,6 +104,10 @@
 				<ul>
 					<li><a href="lottery/list.do"><spring:message
 								code="master.page.lottery.list" /></a></li>
+					<li><a href="lottery/myTickets.do"><spring:message
+								code="master.page.citizen.myTickets" /></a></li>
+					<li><a href="bankagent/list.do"><spring:message
+								code="master.page.citizen.listBankAgent" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -162,6 +166,9 @@
 								code="master.page.listActors.citizen" /></a></li>
 				</ul>
 		
+
+		<li><a class="fNiv" href="election/list.do"><spring:message
+					code="master.page.listElections" /></a></li>
 		<li><a class="fNiv" href="terms/list.do"><spring:message
 					code="master.page.termsAndConditions" /></a></li>
 	</ul>

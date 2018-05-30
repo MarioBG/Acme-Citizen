@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.CandidatureRepository;
 import domain.Candidate;
@@ -93,5 +94,21 @@ public class CandidatureService {
 	}
 
 	// Ancillary methods
+
+	public Collection<Candidature> findByCitizenId(final int citizenId) {
+
+		Assert.isTrue(citizenId != 0);
+
+		final Collection<Candidature> candidatures = this.candidatureRepository.findByCitizenId(citizenId);
+		return candidatures;
+	}
+
+	public Collection<Candidature> findByElectionId(final int electionId) {
+
+		Assert.isTrue(electionId != 0);
+
+		final Collection<Candidature> candidatures = this.candidatureRepository.findByElectionId(electionId);
+		return candidatures;
+	}
 
 }
