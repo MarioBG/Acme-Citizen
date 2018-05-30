@@ -25,19 +25,19 @@
 <jstl:out value="${candidature.description}" />
 <br />
 
-<jstl:if test="${candidature.comments not empty}">
+<jstl:if test="${not empty candidature.comments}">
 	<a href="comment/list.do?commentableId=${candidature.id}"><spring:message
 			code="candidature.listComments" /></a>
 	<br />
 </jstl:if>
 
-<security:authorize access="hasRole('CITIZEN','GOVERNMENTAGENT')">
+<security:authorize access="hasAnyRole('CITIZEN','GOVERNMENTAGENT')">
 	<a href="comment/actor/create.do?commentableId=${candidature.id}"><spring:message
 			code="candidature.createComment" /></a>
 	<br />
 </security:authorize>
 
-<jstl:if test="${candidature.candidates not empty}">
+<jstl:if test="${not empty candidature.candidates}">
 
 	<h3>
 		<spring:message code="candidature.candidates" />
@@ -53,7 +53,7 @@
 
 		<spring:message code="candidature.citizen" var="citizenHeader" />
 		<display:column title="${citizenHeader}">
-			<a href="citizen/display.do?cistizenId=${row.cistizen.id}"><jstl:out
+			<a href="citizen/display.do?citizenId=${row.citizen.id}"><jstl:out
 					value="${row.citizen.name}" /></a>
 		</display:column>
 
@@ -61,7 +61,7 @@
 </jstl:if>
 
 <security:authorize access="hasRole('CITIZEN')">
-	<jstl:if test="${!candidature.candidates.contains(candidate) and dateOneDayBeforeCelebrationDay.after(date)}">
+	<jstl:if test="${isCandidate == false and dateOneDayBeforeCelebrationDate.after(date)}">
 		<a href="candidate/citizen/register.do?candidatureId=${candidature.id}"><spring:message code="candidature.registerAsCandidate"/></a>
 	</jstl:if>
 </security:authorize>

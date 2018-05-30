@@ -150,7 +150,8 @@
 
 		</security:authorize>
 
-
+		<li><a class="fNiv" href="election/list.do"><spring:message
+					code="master.page.listElections" /></a></li>
 		<li><a class="fNiv" href="terms/list.do"><spring:message
 					code="master.page.termsAndConditions" /></a></li>
 	</ul>

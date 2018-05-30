@@ -62,6 +62,12 @@
 		<security:intercept-url pattern="/chirp/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/chirp/**" access="hasAnyRole('USER', 'ADMIN')" />
 		
+		<!-- Election -->
+		<security:intercept-url pattern="/election/**" access="permitAll" />
+		
+		<!-- Candidature -->
+		<security:intercept-url pattern="/candidature/**" access="permitAll" />
+		
 		<!-- User -->
 		<security:intercept-url pattern="/citizen/citizen/**" access="hasRole('CITIZEN')" />
 		<security:intercept-url pattern="/citizen/**" access="permitAll" />

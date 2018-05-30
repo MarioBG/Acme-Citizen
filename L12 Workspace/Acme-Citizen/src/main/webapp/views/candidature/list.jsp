@@ -15,7 +15,7 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'petition/list.do?electionId'  }">
+		<jstl:when test="${requestURI == 'candidature/list.do'  }">
 			<spring:message code="candidature.candidaturesFromElection" />
 		</jstl:when>
 	</jstl:choose>

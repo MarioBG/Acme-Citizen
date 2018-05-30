@@ -125,8 +125,12 @@ public class GovernmentAgentService {
 		GovernmentAgent res;
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
-		res = this.governmentAgentRepository.findGovernmentAgentByUserAccountId(userAccount.getId());
-		Assert.notNull(res);
+
+		if (userAccount == null)
+			res = null;
+		else
+			res = this.governmentAgentRepository.findGovernmentAgentByUserAccountId(userAccount.getId());
+
 		return res;
 	}
 

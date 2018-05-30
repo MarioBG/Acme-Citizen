@@ -56,7 +56,7 @@ public class CitizenService {
 
 	public Citizen create() {
 		final Citizen res = new Citizen();
-		String nif = this.actorService.generateNif(this.governmentAgentService.findByPrincipal());
+		final String nif = this.actorService.generateNif(this.governmentAgentService.findByPrincipal());
 		final Collection<Folder> folders = new ArrayList<Folder>();
 		final Collection<Candidate> candidates = new ArrayList<Candidate>();
 		final Collection<Comment> comments = new ArrayList<Comment>();
@@ -124,8 +124,12 @@ public class CitizenService {
 		Citizen res;
 		UserAccount userAccount;
 		userAccount = LoginService.getPrincipal();
-		res = this.citizenRepository.findCitizenByUserAccountId(userAccount.getId());
-		Assert.notNull(res);
+
+		if (userAccount == null)
+			res = null;
+		else
+			res = this.citizenRepository.findCitizenByUserAccountId(userAccount.getId());
+
 		return res;
 	}
 
