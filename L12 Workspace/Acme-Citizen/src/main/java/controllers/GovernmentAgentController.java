@@ -34,6 +34,21 @@ public class GovernmentAgentController extends AbstractController {
 		super();
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+
+		ModelAndView result;
+		Collection<GovernmentAgent> agents;
+
+		agents = this.governmentAgentService.findAll();
+
+		result = new ModelAndView("governmentagent/list");
+		result.addObject("governmentAgents", agents);
+		result.addObject("requestURI", "governmentagent/list.do");
+
+		return result;
+	}
+
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int governmentAgentId) {
 		ModelAndView result;

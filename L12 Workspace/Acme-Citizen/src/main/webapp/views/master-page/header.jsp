@@ -39,14 +39,15 @@
 					<li><a href="advertisement/admin/listTaboo.do"><spring:message
 								code="master.page.advertisement.suspicious" /></a></li>
 				</ul>
-			<li><a class="fNiv">Registrar (TO BE LOCALIZED)</a>
+			<li><a class="fNiv"><spring:message
+								code="master.page.register" /></a>
 				<ul>
-					<li><a href="governmentagent/governmentagent/register.do">Registrar
-							governmentagent</a></li>
-					<li><a href="bankagent/governmentagent/register.do">Registrar
-							bankagent</a></li>
-					<li><a href="citizen/governmentagent/register.do">Registrar
-							ciudadano</a></li>
+					<li><a href="governmentagent/governmentagent/register.do"><spring:message
+								code="master.page.register.govAgent" /></a></li>
+					<li><a href="bankagent/governmentagent/register.do"><spring:message
+								code="master.page.register.bankAgent" /></a></li>
+					<li><a href="citizen/governmentagent/register.do"><spring:message
+								code="master.page.register.citizen" /></a></li>
 				</ul>
 			<li><a class="fNiv">Lottos</a>
 				<ul>
@@ -55,7 +56,7 @@
 					<li><a href="lottery/governmentAgent/MyLotterys.do"><spring:message
 								code="master.page.lottery.MyLotterys" /></a></li>
 				</ul>
-			<li><a href="configuration/admin/list.do"><spring:message
+			<li><a href="configuration/governmentagent/edit.do"><spring:message
 						code="master.page.configuration" /></a>
 		</security:authorize>
 
@@ -149,8 +150,18 @@
 
 
 		</security:authorize>
-
-
+		
+		<li><a class="fNiv"><spring:message
+								code="master.page.listActors" /></a>
+				<ul>
+					<li><a href="governmentagent/list.do"><spring:message
+								code="master.page.listActors.govAgent" /></a></li>
+					<li><a href="bankagent/list.do"><spring:message
+								code="master.page.listActors.bankAgent" /></a></li>
+					<li><a href="citizen/list.do"><spring:message
+								code="master.page.listActors.citizen" /></a></li>
+				</ul>
+		
 		<li><a class="fNiv" href="terms/list.do"><spring:message
 					code="master.page.termsAndConditions" /></a></li>
 	</ul>

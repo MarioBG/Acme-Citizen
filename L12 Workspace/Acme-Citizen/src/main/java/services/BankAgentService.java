@@ -88,6 +88,7 @@ public class BankAgentService {
 		Assert.isTrue(agentId != 0);
 		BankAgent res;
 		res = this.bankAgentRepository.findOne(agentId);
+		Assert.notNull(res);
 		return res;
 	}
 

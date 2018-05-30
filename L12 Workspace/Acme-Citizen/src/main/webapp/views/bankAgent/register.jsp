@@ -50,7 +50,7 @@ $(document).ready(function() {
 	<br/>
 	<acme:textbox code="agent.nickname" path="nickname"/>
 	<br/>
-	<acme:textbox code="agent.bankCode" path="bankCode"/>
+	<acme:textbox code="agent.bankCode" path="bankCode" placeholder="<spring:message code="agent.bankCodeTip"/>"/>
 	<br/>
 	<acme:checkbox code="agent.canCreateMoney" disabled="${ !parentCanCreateMoney }" path="canCreateMoney"/>
 	<br/>

@@ -111,5 +111,5 @@
 
 </display:table>
 
-<acme:cancel code="user.back" url="citizen/list.do" />
+<acme:cancel code="user.back" url="governmentagent/list.do" />
 

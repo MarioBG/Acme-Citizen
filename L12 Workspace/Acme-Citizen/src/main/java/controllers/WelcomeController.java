@@ -50,7 +50,7 @@ public class WelcomeController extends AbstractController {
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@CookieValue("language") final String language, @RequestParam(required = false, defaultValue = "John Doe") String name) {
+	public ModelAndView index(@CookieValue(value = "language", defaultValue = "es") final String language, @RequestParam(required = false, defaultValue = "John Doe") String name) {
 		ModelAndView result;
 		Collection<Chirp> chirps;
 		String welcomeMessage;

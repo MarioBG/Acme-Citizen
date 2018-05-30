@@ -40,16 +40,11 @@ public class BankAgentController extends AbstractController {
 
 		ModelAndView result;
 		Collection<BankAgent> agents;
-		BankAgent principal;
 
 		agents = this.agentService.findAll();
-		principal = this.agentService.findByPrincipal();
-		if (principal != null)
-			agents.remove(principal);
 
 		result = new ModelAndView("bankagent/list");
 		result.addObject("agents", agents);
-		result.addObject("principal", principal);
 		result.addObject("requestURI", "bankagent/list.do");
 
 		return result;
@@ -62,7 +57,7 @@ public class BankAgentController extends AbstractController {
 
 		agent = this.agentService.findOne(agentId);
 
-		result = new ModelAndView("agent/display");
+		result = new ModelAndView("bankagent/display");
 		result.addObject("agent", agent);
 		result.addObject("requestURI", "agent/display.do");
 

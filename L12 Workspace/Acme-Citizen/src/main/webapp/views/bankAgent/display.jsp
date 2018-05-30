@@ -23,72 +23,54 @@
 
 <h3>
 	<b><spring:message code="user.name" />:&nbsp;</b>
-	<jstl:out value="${user.name}" />
+	<jstl:out value="${agent.name}" />
 </h3>
+<jstl:if test="${ agent.surname!=null }">
+	<h3>
+		<b><spring:message code="user.surname" />:&nbsp;</b>
+		<jstl:out value="${agent.surname}" />
+	</h3>
+</jstl:if>
 
 <h3>
-	<b><spring:message code="user.surname" />:&nbsp;</b>
-	<jstl:out value="${user.surname}" />
+	<b><spring:message code="user.nif" />:&nbsp;</b>
+	<jstl:out value="${agent.nif}" />
 </h3>
 
-<b><spring:message code="user.email" />:&nbsp;</b>
-<jstl:out value="${user.email}" />
-<br />
+<jstl:if test="${ agent.email!=null }">
+	<b><spring:message code="user.email" />:&nbsp;</b>
+		<jstl:out value="${agent.email}" />
+	<br />
+</jstl:if>
 
-<b><spring:message code="user.phone" />:&nbsp;</b>
-<jstl:out value="${user.phone}" />
-<br />
+<jstl:if test="${ agent.nickname!=null }">
+	<b><spring:message code="user.email" />:&nbsp;</b>
+		<jstl:out value="${agent.nickname}" />
+	<br />
+</jstl:if>
+
+<jstl:if test="${ agent.phone!=null }">
+	<b><spring:message code="user.phone" />:&nbsp;</b>
+		<jstl:out value="${agent.phone}" />
+	<br />
+</jstl:if>
 
 <b><spring:message code="user.address" />:&nbsp;</b>
-<jstl:out value="${user.address}" />
+<jstl:out value="${agent.address}" />
 <br />
 
-<h3>
-	<spring:message code="user.articles" />
-</h3>
+<b><spring:message code="agent.bankCode" />:&nbsp;</b>
+<jstl:out value="${agent.bankCode}" />
+<br />
 
-<display:table name="${user.articles}" id="row"
-	requestURI="user/display.do" pagesize="5" class="displaytag">
+<jstl:choose>
+	<jstl:when test="${ agent.canCreateMoney }">
+		<p class="goodThing"><spring:message code="governmentAgent.canCreateMoney" /></p>
+	</jstl:when>
+	<jstl:otherwise>
+		<p class="badThing"><spring:message code="governmentAgent.canNotCreateMoney" /></p>	
+	</jstl:otherwise>
+</jstl:choose>
 
-	<security:authorize access="hasRole('ADMIN')">
-		<display:column>
-			<a href="article/admin/delete.do?articleId=${row.id}"><spring:message
-					code="user.delete" /></a>
-		</display:column>
-	</security:authorize>
-
-	<spring:message var="titleHeader" code="user.title" />
-	<display:column title="${titleHeader}">
-		<a href="article/display.do?articleId=${row.id}"><jstl:out
-				value="${row.title}" /></a>
-	</display:column>
-
-	<spring:message var="summaryHeader" code="user.summary" />
-	<display:column property="summary" title="${summaryHeader}" />
-
-</display:table>
-
-<h3>
-	<spring:message code="user.chirps" />
-</h3>
-
-<display:table name="${user.chirps}" id="row"
-	requestURI="user/display.do" pagesize="5" class="displaytag">
-
-	<spring:message var="titleHeader" code="chirp.title" />
-	<display:column property="description" title="${titleHeader}" />
-
-	<spring:message var="publicationMomentHeader"
-		code="user.publicationMoment" />
-	<spring:message var="formatDate" code="user.format.date" />
-	<display:column property="publicationMoment"
-		title="${publicationMomentHeader}" format="${formatDate}"
-		sortable="true" />
-
-	<spring:message var="descriptionHeader" code="chirp.description" />
-	<display:column property="description" title="${descriptionHeader}" />
-
-</display:table>
-
-<acme:cancel code="user.back" url="user/list.do" />
+<acme:cancel code="user.back" url="bankagent/list.do" />
 

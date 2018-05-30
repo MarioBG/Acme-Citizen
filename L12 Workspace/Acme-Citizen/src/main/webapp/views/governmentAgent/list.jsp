@@ -24,59 +24,47 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'bankagent/list.do'  }">
-			<spring:message code="agent.system"/>
+		<jstl:when test="${requestURI == 'governmentagent/list.do'  }">
+			<spring:message code="governmentAgent.generalList"/>
 		</jstl:when>
 		<jstl:when test="${requestURI == 'user/user/list-followers.do'  }">
-			<spring:message code="agent.followers"/>
+			<spring:message code="user.followers"/>
 		</jstl:when>
 		<jstl:when test="${requestURI == 'user/user/list-followed.do'  }">
-			<spring:message code="agent.followed"/>
+			<spring:message code="user.followed"/>
 		</jstl:when>
 	</jstl:choose>
 </h3>
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="agents" requestURI="${requestURI }" id="row">
-
-	<security:authorize access="hasRole('AGENT')">
-		<jstl:if test="${requestURI != 'user/user/list-followers.do'}">
-			<display:column>
-				<jstl:choose>
-					<jstl:when test="${principal.followed.contains(row)}">
-						<a href="user/user/unfollow.do?userId=${row.id}"><spring:message code="agent.unfollow"/></a>
-					</jstl:when>
-					<jstl:otherwise>
-						<a href="user/user/follow.do?userId=${row.id}"><spring:message code="agent.follow"/></a>
-					</jstl:otherwise>
-				</jstl:choose>
-			</display:column>
-		</jstl:if>
-	</security:authorize>
+	name="governmentAgents" requestURI="${ requestURI }" id="row">
 
 	<!-- Attributes -->
-
-	<display:column title="${articlesHeader}">
-		<a href="bankagent/display.do?agentId=${row.id}"> <spring:message
-				code="agent.display" />
+	<spring:message code="governmentAgent.show" var="showHeader" />
+	<display:column title="${showHeader}">
+		<a href="governmentagent/display.do?governmentAgentId=${row.id}"> <spring:message
+				code="user.display" />
 		</a>
 	</display:column>
 
-	<spring:message code="agent.name" var="nameHeader" />
+	<spring:message code="user.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" sortable="true" />
 
-	<spring:message code="agent.email" var="emailHeader" />
+	<spring:message code="user.email" var="emailHeader" />
 	<display:column property="email" title="${emailHeader}" sortable="true" />
-	<spring:message code="agent.bankCode" var="codeHeader" />
-	<display:column property="bankCode" title="${codeHeader}" sortable="true" />
+	
+	<spring:message code="user.nickname" var="nicknameHeader" />
+	<display:column property="nickname" title="${nicknameHeader}" sortable="true" />
+	
+	<spring:message code="user.petitions" var="jorlHeader" />
+	<display:column title="${jorlHeader}">
+		<a href="petitions/list.do?citizenId=${row.id}"> <spring:message
+				code="user.displayPetitions" />
+		</a>
+	</display:column>
 
 </display:table>
 
 <spring:message var="backValue" code="agent.back" />
 <input type="button" name="back" value="${backValue}"
 	onclick="javascript: relativeRedir('welcome/index.do');" />
-
-
-
-
-

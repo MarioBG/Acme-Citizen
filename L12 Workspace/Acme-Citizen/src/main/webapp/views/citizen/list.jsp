@@ -59,12 +59,12 @@
 	<spring:message code="user.petitions" var="jorlHeader" />
 	<display:column title="${jorlHeader}">
 		<a href="petitions/list.do?citizenId=${row.id}"> <spring:message
-				code="user.display" />
+				code="user.displayPetitions" />
 		</a>
 	</display:column>
 
 </display:table>
 
-<spring:message var="backValue" code="newspaper.back" />
+<spring:message var="backValue" code="agent.back" />
 <input type="button" name="back" value="${backValue}"
 	onclick="javascript: relativeRedir('welcome/index.do');" />
