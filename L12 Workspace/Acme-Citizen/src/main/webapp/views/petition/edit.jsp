@@ -38,6 +38,8 @@
 	
 	<acme:submit name="save" code="petition.save"/>
 	&nbsp;
+	<acme:submit name="delete" code="petition.delete"/>
+	&nbsp;
 	<acme:cancel url="petition/list.do" code="petition.back"/>
 	
 </form:form>

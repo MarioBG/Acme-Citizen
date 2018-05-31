@@ -39,7 +39,7 @@
 	pattern="${patternDate}" />
 <br />
 
-<jstl:if test="${petition.finalVerion == true}">
+<jstl:if test="${petition.finalVersion == true}">
 	<h3 style="text-transform: uppercase; color: red;">
 		<b><spring:message code="petition.finalVersion" /></b>
 	</h3>
@@ -51,16 +51,24 @@
 	</h3>
 </jstl:if>
 
-<jstl:if test="${petition.governmentAgents not empty}">
-	<a href="governmentAgent/list.do?petitionId=${petition.id}"><jstl:out
-			value="petition.listGovernmentAgents" /></a>
-	<br />
-</jstl:if>
+<jstl:if test="${not empty petition.governmentAgents}">
 
-<jstl:if test="${petition.comments not empty}">
-	<a href="comment/list.do?commentableId=${petition.id}"><jstl:out
-			value="petition.listComments" /></a>
-	<br />
+	<h3>
+		<spring:message code="petition.governmentAgents" />
+	</h3>
+
+	<display:table name="petition.governmentAgents" id="row"
+		requestURI="petition/display.do" pagesize="5" class="displaytag">
+
+		<spring:message code="petition.governmentAgent.name" var="nameHeader" />
+		<display:column title="${nameHeader}">
+			<a href="governmentAgent/display.do?governmentAgentId=${row.id}"><jstl:out value="${row.name}" /></a>
+		</display:column>
+
+		<spring:message code="petition.governmentAgent.registerCode" var="registerCodeHeader" />
+		<display:column title="${registerCodeHeader}" property="registerCode"/>
+
+	</display:table>
 </jstl:if>
 
 <security:authorize access="hasRole('GOVERNMENTAGENT')">
@@ -71,15 +79,15 @@
 	</jstl:if>
 </security:authorize>
 
-<jstl:if test="${petition.comments not empty}">
-	<a href="comment/list.do?commentableId=${candidature.id}"><spring:message
+<jstl:if test="${not empty petition.comments}">
+	<a href="comment/list.do?commentableId=${petition.id}"><spring:message
 			code="petition.listComments" /></a>
 	<br />
 </jstl:if>
 
-<security:authorize access="hasRole('CITIZEN','GOVERNMENTAGENT')">
+<security:authorize access="hasAnyRole('CITIZEN','GOVERNMENTAGENT')">
 	<jstl:if test="${petition.resolved == false}">
-		<a href="comment/actor/create.do?commentableId=${candidature.id}"><spring:message
+		<a href="comment/actor/create.do?commentableId=${petition.id}"><spring:message
 				code="petition.createComment" /></a>
 		<br />
 	</jstl:if>

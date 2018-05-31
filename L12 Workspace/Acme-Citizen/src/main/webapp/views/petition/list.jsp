@@ -15,8 +15,18 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'petition/list.do'  }">
-			<spring:message code="petition.systemPetitions" />
+		<jstl:when test="${citizen == null and requestURI == 'petition/list.do'}">
+			<spring:message code="petition.availablePetitions" />
+		</jstl:when>
+		<jstl:when test="${citizen != null and requestURI == 'petition/list.do'}">
+			<spring:message code="petition.petitionsOf" />
+			<jstl:out value="${citizen.name}" />
+		</jstl:when>
+		<jstl:when test="${requestURI == 'petition/citizen/list.do'}">
+			<spring:message code="petition.yourPetitions" />
+		</jstl:when>
+		<jstl:when test="${requestURI == 'petition//governmentAgent/list.do'}">
+			<spring:message code="petition.deletedPetitions" />
 		</jstl:when>
 	</jstl:choose>
 </h3>
@@ -24,11 +34,18 @@
 <display:table name="petitions" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
+	<security:authorize access="hasRole('GOVERNMENTAGENT')">
+		<display:column>
+			<a href="petition/governmentAgent/delete.do?petitionId=${row.id}"><spring:message
+					code="petition.delete" /></a>
+		</display:column>
+	</security:authorize>
+
 	<security:authorize access="hasRole('CITIZEN')">
 		<display:column>
 			<security:authentication property="principal" var="loggedactor" />
 			<jstl:if test="${row.citizen.userAccount.id eq loggedactor.id}">
-				<jstl:if test="${row.finalVersion == true and row.resolved == true}">
+				<jstl:if test="${row.finalVersion == false}">
 					<a href="petition/citizen/edit.do?petitionId=${row.id}"><spring:message
 							code="petition.edit" /></a>
 				</jstl:if>
@@ -39,13 +56,6 @@
 	<display:column>
 		<a href="petition/display.do?petitionId=${row.id}"><spring:message
 				code="petition.display" /></a>
-	</display:column>
-
-	<display:column>
-		<jstl:if test="${row.governmentAgents not empty}">
-			<a href="governmentAgent/list.do?petitionId=${row.id}"><spring:message
-					code="petition.listGovernmentAgents" /></a>
-		</jstl:if>
 	</display:column>
 
 	<spring:message var="nameHeader" code="petition.name" />

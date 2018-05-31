@@ -9,8 +9,10 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.PetitionRepository;
+import domain.Citizen;
 import domain.Comment;
 import domain.GovernmentAgent;
 import domain.Petition;
@@ -96,5 +98,32 @@ public class PetitionService {
 	}
 
 	// Ancillary methods
+
+	public Collection<Petition> findNonDeleted() {
+
+		final Collection<Petition> result = this.petitionRepository.findNonDeleted();
+		return result;
+	}
+
+	public Collection<Petition> findDeleted() {
+
+		final Collection<Petition> result = this.petitionRepository.findDeleted();
+		return result;
+	}
+
+	public Collection<Petition> findByCitizenId(final int citizenId) {
+
+		Assert.isTrue(citizenId != 0);
+
+		final Collection<Petition> result = this.petitionRepository.findByCitizenId(citizenId);
+		return result;
+	}
+
+	public Collection<Petition> findByPrincipal() {
+
+		final Citizen citizen = this.citizenService.findByPrincipal();
+		final Collection<Petition> result = this.findByCitizenId(citizen.getId());
+		return result;
+	}
 
 }
