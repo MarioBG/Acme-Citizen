@@ -9,11 +9,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CandidatureRepository;
 import domain.Candidate;
 import domain.Candidature;
 import domain.Comment;
+import forms.CandidatureForm;
 
 @Service
 @Transactional
@@ -33,6 +36,9 @@ public class CandidatureService {
 
 	@Autowired
 	private CommentService			commentService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Constructors
@@ -94,6 +100,46 @@ public class CandidatureService {
 	}
 
 	// Ancillary methods
+
+	public CandidatureForm construct(final Candidature candidature) {
+
+		Assert.notNull(candidature);
+
+		CandidatureForm candidatureForm;
+
+		candidatureForm = new CandidatureForm();
+
+		candidatureForm.setId(candidature.getId());
+		candidatureForm.setElectionId(candidature.getElection().getId());
+		candidatureForm.setElectoralProgram(candidature.getElectoralProgram());
+		candidatureForm.setDescription(candidature.getDescription());
+		candidatureForm.setPartyLogo(candidature.getPartyLogo());
+		candidatureForm.setVoteNumber(candidature.getVoteNumber());
+
+		return candidatureForm;
+	}
+
+	public Candidature reconstruct(final CandidatureForm candidatureForm, final BindingResult binding) {
+
+		Assert.notNull(candidatureForm);
+
+		Candidature candidature;
+
+		if (candidatureForm.getId() != 0)
+			candidature = this.findOne(candidatureForm.getId());
+		else
+			candidature = this.create(candidatureForm.getElectionId());
+
+		candidature.setElectoralProgram(candidatureForm.getElectoralProgram());
+		candidature.setDescription(candidatureForm.getDescription());
+		candidature.setPartyLogo(candidatureForm.getPartyLogo());
+		candidature.setVoteNumber(candidatureForm.getVoteNumber());
+
+		if (binding != null)
+			this.validator.validate(candidature, binding);
+
+		return candidature;
+	}
 
 	public Collection<Candidature> findByCitizenId(final int citizenId) {
 

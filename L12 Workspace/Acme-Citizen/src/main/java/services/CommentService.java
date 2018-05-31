@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CommentRepository;
 import domain.Comment;
+import forms.CommentForm;
 
 @Service
 @Transactional
@@ -29,6 +32,9 @@ public class CommentService {
 
 	@Autowired
 	private CommentableService	commentableService;
+
+	@Autowired
+	private Validator			validator;
 
 
 	// Constructors
@@ -102,6 +108,46 @@ public class CommentService {
 	}
 
 	// Other business methods
+
+	public CommentForm construct(final Comment comment) {
+
+		Assert.notNull(comment);
+
+		CommentForm commentForm;
+
+		commentForm = new CommentForm();
+
+		commentForm.setId(comment.getId());
+		commentForm.setParentCommentId(comment.getParentComment().getId());
+		commentForm.setActorId(comment.getActor().getId());
+		commentForm.setCommentableId(comment.getCommentable().getId());
+		commentForm.setMoment(comment.getMoment());
+		commentForm.setText(comment.getText());
+		commentForm.setPicture(comment.getPicture());
+
+		return commentForm;
+	}
+
+	public Comment reconstruct(final CommentForm commentForm, final BindingResult binding) {
+
+		Assert.notNull(commentForm);
+
+		Comment comment;
+
+		if (commentForm.getId() != 0)
+			comment = this.findOne(commentForm.getId());
+		else
+			comment = this.create(commentForm.getCommentableId(), commentForm.getParentCommentId());
+
+		comment.setMoment(commentForm.getMoment());
+		comment.setText(commentForm.getText());
+		comment.setPicture(commentForm.getPicture());
+
+		if (binding != null)
+			this.validator.validate(comment, binding);
+
+		return comment;
+	}
 
 	public void flush() {
 		this.commentRepository.flush();
