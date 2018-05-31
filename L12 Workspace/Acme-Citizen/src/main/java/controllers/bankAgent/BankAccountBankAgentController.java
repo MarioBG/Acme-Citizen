@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
@@ -46,18 +45,18 @@ public class BankAccountBankAgentController extends AbstractController {
 
 	// Edition ----------------------------------------------------------------
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int bankAccountId) {
-		ModelAndView result;
-		BankAccount bankAccount;
-
-		bankAccount = bankAccountService.findOne(bankAccountId);
-
-		result = this.createEditModelAndView(bankAccount);
-		result.addObject("bankAccount", bankAccount);
-
-		return result;
-	}
+	// @RequestMapping(value = "/edit", method = RequestMethod.GET)
+	// public ModelAndView edit(@RequestParam final int bankAccountId) {
+	// ModelAndView result;
+	// BankAccount bankAccount;
+	//
+	// bankAccount = bankAccountService.findOne(bankAccountId);
+	//
+	// result = this.createEditModelAndView(bankAccount);
+	// result.addObject("bankAccount", bankAccount);
+	//
+	// return result;
+	// }
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final BankAccount bankAccount, final BindingResult binding) {
@@ -94,7 +93,7 @@ public class BankAccountBankAgentController extends AbstractController {
 	protected ModelAndView createEditModelAndView(BankAccount bankAccount, String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("bankaccount/bankagent/edit");
+		result = new ModelAndView("bankAccount/edit");
 
 		result.addObject("bankAccount", bankAccount);
 		result.addObject("message", message);

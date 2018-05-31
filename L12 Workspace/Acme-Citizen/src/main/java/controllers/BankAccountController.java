@@ -12,7 +12,7 @@ import services.ActorService;
 import services.BankAccountService;
 
 @Controller
-@RequestMapping("/bankaccount")
+@RequestMapping("/bankAccount")
 public class BankAccountController extends AbstractController {
 
 	// Services -------------------------------------------------------------
@@ -35,7 +35,7 @@ public class BankAccountController extends AbstractController {
 		BankAccount bankAccount;
 
 		Actor principal = actorService.findByPrincipal();
-		result = new ModelAndView("bankaccount/display");
+		result = new ModelAndView("bankAccount/display");
 		try {
 			bankAccount = bankAccountService.findOne(principal.getBankAccount().getId());
 			result.addObject("bankAccount", bankAccount);

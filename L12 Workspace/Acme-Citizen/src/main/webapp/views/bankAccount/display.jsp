@@ -21,51 +21,43 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<jstl:forEach var="picture" items="${pictures}">
-	<img src="<jstl:out value="${picture}"/>" width="450" height="174">
-	<br />
-</jstl:forEach>
+<jstl:choose>
+	<jstl:when test="${principal.bankAccount == null}">
 
-<h2>
-	<b><spring:message code="article.title" />:&nbsp;</b>
-	<jstl:out value="${article.title}" />
-</h2>
+		<h3>
+			<spring:message code="bankAccount.badthing"></spring:message>
+		</h3>
+		<br>
+		<a href="bankagent/list.do"><spring:message
+				code="lottery.bankAccount" /></a>
 
-<h3>
-	<b><spring:message code="article.summary" />:&nbsp;</b>
-	<jstl:out value="${article.summary}" />
-</h3>
+	</jstl:when>
+	<jstl:otherwise>
 
-<spring:message var="patternDate" code="newspaper.pattern.date" />
-<b><spring:message code="article.publicationMoment" />:&nbsp;</b>
-<fmt:formatDate value="${article.publicationMoment}"
-	pattern="${patternDate}" />
-<br />
 
-<b><spring:message code="article.writer" />:&nbsp;</b>
-<a href="user/display.do?userId=${article.writer.id}"> <jstl:out
-		value="${article.writer.name} ${article.writer.surname}" /></a>
-<br />
+		<h2>
+			<b><spring:message code="bankAccount.accountNumber" />:&nbsp;</b>
+			<jstl:out value="${bankAccount.accountNumber}" />
+		</h2>
 
-<b><spring:message code="article.body" />:&nbsp;</b>
-<jstl:out value="${article.body}" />
-<br />
+		<h3>
+			<b><spring:message code="bankAccount.money" />:&nbsp;</b> <font
+				color="green"> <jstl:out value="${bankAccount.money}" />
+			</font>
+		</h3>
 
-<b><spring:message code="article.newspaper" />:&nbsp;</b>
-<a href="newspaper/display.do?newspaperId=${article.newspaper.id}">
-	<jstl:out value="${article.newspaper.title}" />
-</a>
-<br />
 
-<security:authorize access="hasRole('USER')">
-	<security:authentication property="principal" var="loggedactor"/>
-	<jstl:if test="${article.isFinal == true and article.newspaper.publicationDate lt date and article.writer.userAccount.id eq loggedactor.id}">
-		<a href="followUp/user/create.do?articleId=${article.id}"> <spring:message
-				code="article.createFollowUp" /></a>
-	</jstl:if>
-</security:authorize>
 
-<jstl:if test="${advertisement!=null}">
-	<a href="${advertisement.page}"> <img src="${advertisement.banner}"/></a>
-</jstl:if>
+		<b><spring:message code="bankAccount.bankAgent" />:&nbsp;</b>
+		<a href="bankagent/display.do?agentId=${bankAccount.bankAgent.id}">
+			<jstl:out
+				value="${bankAccount.bankAgent.name} ${bankAccount.bankAgent.surname}" />
+		</a>
+		<br />
+	</jstl:otherwise>
+</jstl:choose>
+
+
+
+
 
