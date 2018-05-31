@@ -28,15 +28,15 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.governmentAgent" /></a>
 				<ul>
-<%-- 					<li><a href="governmentagent/governmentagent/dashboard.do"><spring:message --%>
-<%-- 								code="master.page.administrator.information" /></a></li> --%>
-<%-- 					<li><a href="newspaper/admin/list.do"><spring:message --%>
-<%-- 								code="master.page.newspaper.list" /></a></li> --%>
-<%-- 					<li><a href="article/admin/list.do"><spring:message --%>
-<%-- 								code="master.page.article.list" /></a></li> --%>
+					<%-- 					<li><a href="governmentagent/governmentagent/dashboard.do"><spring:message --%>
+					<%-- 								code="master.page.administrator.information" /></a></li> --%>
+					<%-- 					<li><a href="newspaper/admin/list.do"><spring:message --%>
+					<%-- 								code="master.page.newspaper.list" /></a></li> --%>
+					<%-- 					<li><a href="article/admin/list.do"><spring:message --%>
+					<%-- 								code="master.page.article.list" /></a></li> --%>
 
-<%-- 					<li><a href="chirp/admin/list.do"><spring:message --%>
-<%-- 								code="master.page.chirp.list" /></a></li> --%>
+					<%-- 					<li><a href="chirp/admin/list.do"><spring:message --%>
+					<%-- 								code="master.page.chirp.list" /></a></li> --%>
 
 				</ul>
 			<li><a class="fNiv"><spring:message
@@ -107,7 +107,7 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="bankaccount/display.do"><spring:message
+					<li><a href="bankAccount/display.do"><spring:message
 								code="master.page.seeBankAccount" /></a></li>
 					<li><a href="transactions/create.do"><spring:message
 								code="master.page.sendMoney" /></a></li>

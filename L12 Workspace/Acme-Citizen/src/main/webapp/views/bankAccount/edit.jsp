@@ -32,7 +32,7 @@
 	<form:label path="actor">
 		<spring:message code="bankAccount.actor" />:
 	</form:label>
-	<form:select id="actors" path="actor">
+	<form:select id="actor" path="actor">
 		<form:option value="0" label="----" />
 		<form:options items="${actors}" itemValue="id" itemLabel="name" />
 	</form:select>
