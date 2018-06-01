@@ -153,6 +153,9 @@
 				<li><a href="citizen/list.do"><spring:message
 							code="master.page.listActors.citizen" /></a></li>
 			</ul>
+			
+		<li><a class="fNiv" href="petition/list.do"><spring:message
+					code="master.page.listPetitions" /></a></li>
 		<li><a class="fNiv" href="chirp/list.do"><spring:message
 					code="master.page.listChirps" /></a></li>
 		<li><a class="fNiv" href="election/list.do"><spring:message

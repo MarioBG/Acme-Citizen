@@ -89,5 +89,11 @@
 
 </display:table>
 
+<jstl:if test="${not empty citizen.petition}">
+	<a href="petition/list.do?citizenId=${citizen.id}"><spring:message
+			code="citizen.listPetitions" /></a>
+	<br />
+</jstl:if>
+
 <acme:cancel code="user.back" url="citizen/list.do" />
 

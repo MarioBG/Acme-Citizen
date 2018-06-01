@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ChirpRepository;
 import domain.Chirp;
+import forms.ChirpForm;
 
 @Service
 @Transactional
@@ -25,6 +28,9 @@ public class ChirpService {
 
 	@Autowired
 	private GovernmentAgentService	governmentAgentService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Constructors
@@ -83,6 +89,48 @@ public class ChirpService {
 	}
 
 	// Other business methods
+
+	public ChirpForm construct(final Chirp chirp) {
+
+		Assert.notNull(chirp);
+
+		ChirpForm chirpForm;
+
+		chirpForm = new ChirpForm();
+
+		chirpForm.setId(chirp.getId());
+		chirpForm.setGovernmentAgentId(chirp.getGovernmentAgent().getId());
+		chirpForm.setTitle(chirp.getTitle());
+		chirpForm.setContent(chirp.getContent());
+		chirpForm.setPublicationMoment(chirp.getPublicationMoment());
+		chirpForm.setImage(chirp.getImage());
+		chirpForm.setLink(chirp.getLink());
+
+		return chirpForm;
+	}
+
+	public Chirp reconstruct(final ChirpForm chirpForm, final BindingResult binding) {
+
+		Assert.notNull(chirpForm);
+
+		Chirp chirp;
+
+		if (chirpForm.getId() != 0)
+			chirp = this.findOne(chirpForm.getId());
+		else
+			chirp = this.create();
+
+		chirp.setTitle(chirpForm.getTitle());
+		chirp.setContent(chirpForm.getContent());
+		chirp.setPublicationMoment(chirpForm.getPublicationMoment());
+		chirp.setImage(chirpForm.getImage());
+		chirp.setLink(chirpForm.getLink());
+
+		if (binding != null)
+			this.validator.validate(chirp, binding);
+
+		return chirp;
+	}
 
 	public void flush() {
 		this.chirpRepository.flush();
