@@ -25,7 +25,7 @@ import domain.Priority;
 import forms.MessageForm;
 
 @Controller
-@RequestMapping("/message/admin")
+@RequestMapping("/message/governmentagent")
 public class MessageAdminController extends AbstractController {
 
 	// Services ------------------------------------------------------
@@ -55,7 +55,7 @@ public class MessageAdminController extends AbstractController {
 		Message message;
 
 		message = this.messageService.create();
-		MessageForm messageForm = messageService.construct(message);
+		final MessageForm messageForm = this.messageService.construct(message);
 
 		result = this.createEditModelAndView(messageForm);
 
@@ -73,7 +73,7 @@ public class MessageAdminController extends AbstractController {
 			result = this.createEditModelAndView(messageForm);
 		else
 			try {
-				Message message = messageService.reconstruct(messageForm, binding);
+				final Message message = this.messageService.reconstruct(messageForm, binding);
 				final Message saved = this.messageService.notify(message);
 				result = new ModelAndView("redirect:list.do?folderId=" + saved.getFolder().getId());
 			} catch (final Throwable oops) {
@@ -91,9 +91,9 @@ public class MessageAdminController extends AbstractController {
 		Message message = null;
 
 		message = this.messageService.create();
-		MessageForm messageForm = messageService.construct(message);
+		final MessageForm messageForm = this.messageService.construct(message);
 		message.setRecipient(this.actorService.findByPrincipal());
-		
+
 		result = this.createNotificationModelAndView(messageForm);
 
 		return result;
@@ -110,7 +110,7 @@ public class MessageAdminController extends AbstractController {
 			result = this.createNotificationModelAndView(messageForm);
 		else
 			try {
-				Message message = messageService.reconstruct(messageForm, binding);
+				final Message message = this.messageService.reconstruct(messageForm, binding);
 				final Message saved = this.messageService.notify(message);
 				result = new ModelAndView("redirect:../list.do?folderId=" + saved.getFolder().getId());
 			} catch (final Throwable oops) {
@@ -154,7 +154,7 @@ public class MessageAdminController extends AbstractController {
 		result.addObject("priorities", priorities);
 		result.addObject("folders", folders);
 		result.addObject("message", messageCode);
-		result.addObject("actionURI", "message/admin/edit.do");
+		result.addObject("actionURI", "message/governmentagent/edit.do");
 
 		return result;
 	}
@@ -184,7 +184,7 @@ public class MessageAdminController extends AbstractController {
 		result = new ModelAndView("message/notify");
 		result.addObject("messageForm", messageForm);
 		result.addObject("priorities", priorities);
-		result.addObject("actionURI", "message/admin/notification.do");
+		result.addObject("actionURI", "message/governmentagent/notification.do");
 
 		return result;
 	}

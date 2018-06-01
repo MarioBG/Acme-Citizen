@@ -60,7 +60,7 @@
 
 	<spring:message var="partyLogoHeader" code="candidature.partyLogo" />
 	<display:column title="${partyLogoHeader}">
-		<img src="${row.partyLogo}" />
+		<img src="${row.partyLogo}" style="display: block; max-width: 230px; max-height: 95px; width: auto; height: auto;" />
 	</display:column>
 
 	<spring:message var="electoralProgramHeader"

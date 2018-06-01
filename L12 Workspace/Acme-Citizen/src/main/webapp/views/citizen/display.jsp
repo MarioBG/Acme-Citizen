@@ -89,7 +89,7 @@
 
 </display:table>
 
-<jstl:if test="${not empty citizen.petition}">
+<jstl:if test="${not empty citizen.petitions}">
 	<a href="petition/list.do?citizenId=${citizen.id}"><spring:message
 			code="citizen.listPetitions" /></a>
 	<br />

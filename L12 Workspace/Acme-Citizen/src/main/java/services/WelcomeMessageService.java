@@ -90,9 +90,12 @@ public class WelcomeMessageService {
 	// Ancillary methods
 
 	public String getWelcomeMessageForLocale(final String languageCode) {
-		String ans = this.welcomeMessageRepository.getWelcomeMessageByLocale(languageCode).getContent();
-		if (ans == null)
-			ans = "undefined";
+		String ans = "";
+		final WelcomeMessage wm = this.welcomeMessageRepository.getWelcomeMessageByLocale(languageCode);
+		if (wm == null)
+			ans = null;
+		else
+			ans = wm.getContent();
 		return ans;
 	}
 
