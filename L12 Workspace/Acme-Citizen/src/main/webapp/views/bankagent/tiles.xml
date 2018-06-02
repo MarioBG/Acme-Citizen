@@ -16,24 +16,24 @@
       
 <tiles-definitions>
 
-	<definition name="bankagent/register" extends="master.page">	
+	<definition name="bankAgent/register" extends="master.page">	
 		<put-attribute name="title" value="Register as bank agent" />
-		<put-attribute name="body" value="/views/bankagent/register.jsp" />
+		<put-attribute name="body" value="/views/bankAgent/register.jsp" />
 	</definition>
 	
-	<definition name="bankagent/list" extends="master.page">	
+	<definition name="bankAgent/list" extends="master.page">	
 		<put-attribute name="title" value="Bank agent list" />
-		<put-attribute name="body" value="/views/bankagent/list.jsp" />
+		<put-attribute name="body" value="/views/bankAgent/list.jsp" />
 	</definition>
 	
-	<definition name="bankagent/edit" extends="master.page">	
+	<definition name="bankAgent/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit a bank agent" />
-		<put-attribute name="body" value="/views/bankagent/edit.jsp" />
+		<put-attribute name="body" value="/views/bankAgent/edit.jsp" />
 	</definition>
 	
-	<definition name="bankagent/display" extends="master.page">	
+	<definition name="bankAgent/display" extends="master.page">	
 		<put-attribute name="title" value="Display bank agent" />
-		<put-attribute name="body" value="/views/bankagent/display.jsp" />
+		<put-attribute name="body" value="/views/bankAgent/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

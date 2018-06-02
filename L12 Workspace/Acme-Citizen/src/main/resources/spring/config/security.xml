@@ -44,7 +44,7 @@
 		<security:intercept-url pattern="/citizen/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url
-			pattern="/governmentagent/governmentagent/dashboard.do" access="hasRole('GOVERNMENTAGENT')" />
+			pattern="/governmentAgent/governmentAgent/dashboard.do" access="hasRole('GOVERNMENTAGENT')" />
 
 		<security:intercept-url pattern="/configuration/**"
 			access="hasRole('GOVERNMENTAGENT')" />
@@ -76,11 +76,11 @@
 
 
 		<!-- Bank account -->
-		<security:intercept-url pattern="/bankagent/list.do"
+		<security:intercept-url pattern="/bankAgent/list.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/bankagent/display.do"
+		<security:intercept-url pattern="/bankAgent/display.do"
 			access="permitAll" />
-		<security:intercept-url pattern="/bankaccount/bankagent/**"
+		<security:intercept-url pattern="/bankaccount/bankAgent/**"
 			access="hasRole('BANKAGENT')" />
 		<security:intercept-url pattern="/bankAccount/display.do"
 			access="permitAll" />

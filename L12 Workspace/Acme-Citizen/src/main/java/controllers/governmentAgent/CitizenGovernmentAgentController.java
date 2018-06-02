@@ -16,7 +16,7 @@ import domain.Citizen;
 import forms.CitizenForm;
 
 @Controller
-@RequestMapping("/citizen/governmentagent")
+@RequestMapping("/citizen/governmentAgent")
 public class CitizenGovernmentAgentController extends AbstractController {
 
 	// Services -------------------------------------------------------------

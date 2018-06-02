@@ -25,7 +25,7 @@ import domain.Priority;
 import forms.MessageForm;
 
 @Controller
-@RequestMapping("/message/governmentagent")
+@RequestMapping("/message/governmentAgent")
 public class MessageAdminController extends AbstractController {
 
 	// Services ------------------------------------------------------
@@ -154,7 +154,7 @@ public class MessageAdminController extends AbstractController {
 		result.addObject("priorities", priorities);
 		result.addObject("folders", folders);
 		result.addObject("message", messageCode);
-		result.addObject("actionURI", "message/governmentagent/edit.do");
+		result.addObject("actionURI", "message/governmentAgent/edit.do");
 
 		return result;
 	}
@@ -184,7 +184,7 @@ public class MessageAdminController extends AbstractController {
 		result = new ModelAndView("message/notify");
 		result.addObject("messageForm", messageForm);
 		result.addObject("priorities", priorities);
-		result.addObject("actionURI", "message/governmentagent/notification.do");
+		result.addObject("actionURI", "message/governmentAgent/notification.do");
 
 		return result;
 	}

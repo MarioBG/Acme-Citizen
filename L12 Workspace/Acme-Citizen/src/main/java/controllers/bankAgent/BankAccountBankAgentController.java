@@ -1,3 +1,4 @@
+
 package controllers.bankAgent;
 
 import java.util.Collection;
@@ -11,22 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.BankAccountService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.BankAccount;
-import services.ActorService;
-import services.BankAccountService;
 
 @Controller
-@RequestMapping("/bankaccount/bankagent")
+@RequestMapping("/bankaccount/bankAgent")
 public class BankAccountBankAgentController extends AbstractController {
 
 	// Services ---------------------------------------
 	@Autowired
-	private BankAccountService bankAccountService;
+	private BankAccountService	bankAccountService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
 
 	// Creation ---------------------------------------------------------------
 
@@ -34,10 +36,10 @@ public class BankAccountBankAgentController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		BankAccount bankAccount;
-		Collection<Actor> actors = this.actorService.findAllWithoutBankAccount();
+		final Collection<Actor> actors = this.actorService.findAllWithoutBankAccount();
 
-		bankAccount = bankAccountService.create();
-		result = createEditModelAndView(bankAccount);
+		bankAccount = this.bankAccountService.create();
+		result = this.createEditModelAndView(bankAccount);
 		result.addObject("actors", actors);
 
 		return result;
@@ -71,9 +73,8 @@ public class BankAccountBankAgentController extends AbstractController {
 			} catch (final Throwable oops) {
 				String errorMessage = "bankAccount.commit.error";
 
-				if (oops.getMessage().contains("message.error")) {
+				if (oops.getMessage().contains("message.error"))
 					errorMessage = oops.getMessage();
-				}
 				result = this.createEditModelAndView(bankAccount, errorMessage);
 			}
 
@@ -82,15 +83,15 @@ public class BankAccountBankAgentController extends AbstractController {
 
 	// METODOS AUXILIARES -------------------------------------
 
-	protected ModelAndView createEditModelAndView(BankAccount bankAccount) {
+	protected ModelAndView createEditModelAndView(final BankAccount bankAccount) {
 		ModelAndView result;
 
-		result = createEditModelAndView(bankAccount, null);
+		result = this.createEditModelAndView(bankAccount, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(BankAccount bankAccount, String message) {
+	protected ModelAndView createEditModelAndView(final BankAccount bankAccount, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("bankAccount/edit");

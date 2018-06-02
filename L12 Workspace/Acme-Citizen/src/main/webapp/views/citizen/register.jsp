@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 </script>
 
-<form:form action="citizen/governmentagent/register.do" modelAttribute="citizenForm">
+<form:form action="citizen/governmentAgent/register.do" modelAttribute="citizenForm">
 
 	<form:hidden path="nif"/>
 	

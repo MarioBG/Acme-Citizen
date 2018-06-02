@@ -72,5 +72,5 @@
 	</jstl:otherwise>
 </jstl:choose>
 
-<acme:cancel code="user.back" url="bankagent/list.do" />
+<acme:cancel code="user.back" url="bankAgent/list.do" />
 

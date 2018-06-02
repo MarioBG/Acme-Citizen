@@ -28,9 +28,9 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.governmentAgent" /></a>
 				<ul>
-					<li><a href="governmentagent/governmentagent/dashboard.do"><spring:message
+					<li><a href="governmentAgent/governmentAgent/dashboard.do"><spring:message
 								code="master.page.governmentAgent.information" /></a></li>
-					<li><a href="configuration/governmentagent/edit.do"><spring:message
+					<li><a href="configuration/governmentAgent/edit.do"><spring:message
 								code="master.page.configuration" /></a> <%-- 					<li><a href="newspaper/admin/list.do"><spring:message --%>
 						<%-- 								code="master.page.newspaper.list" /></a></li> --%> <%-- 					<li><a href="article/admin/list.do"><spring:message --%>
 						<%-- 								code="master.page.article.list" /></a></li> --%>
@@ -41,11 +41,11 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>
-					<li><a href="governmentagent/governmentagent/register.do"><spring:message
+					<li><a href="governmentAgent/governmentAgent/register.do"><spring:message
 								code="master.page.register.govAgent" /></a></li>
-					<li><a href="bankagent/governmentagent/register.do"><spring:message
+					<li><a href="bankAgent/governmentAgent/register.do"><spring:message
 								code="master.page.register.bankAgent" /></a></li>
-					<li><a href="citizen/governmentagent/register.do"><spring:message
+					<li><a href="citizen/governmentAgent/register.do"><spring:message
 								code="master.page.register.citizen" /></a></li>
 				</ul>
 		</security:authorize>
@@ -54,12 +54,12 @@
 
 		<security:authorize access="hasRole('BANKAGENT')">
 			<li><a class="fNiv"><spring:message
-						code="master.page.bankagent" /></a>
+						code="master.page.bankAgent" /></a>
 				<ul>
-					<li><a href="bankaccount/bankagent/create.do"><spring:message
-								code="master.page.bankagent.createAccount" /></a></li>
+					<li><a href="bankaccount/bankAgent/create.do"><spring:message
+								code="master.page.bankAgent.createAccount" /></a></li>
 					<li><a href="citizen/list.do"><spring:message
-								code="master.page.bankagent.listActor" /></a></li>
+								code="master.page.bankAgent.listActor" /></a></li>
 				</ul></li>
 		</security:authorize>
 
@@ -125,7 +125,7 @@
 					<li><a href="message/create.do"><spring:message
 								code="master.page.newmessage" /> </a></li>
 					<security:authorize access="hasRole('GOVERNMENTAGENT')">
-						<li><a href="message/governmentagent/create-notification.do"><spring:message
+						<li><a href="message/governmentAgent/create-notification.do"><spring:message
 									code="master.page.newnotification" /></a></li>
 					</security:authorize>
 					<li><a href="folder/list.do"><spring:message
@@ -143,9 +143,9 @@
 		<li><a class="fNiv"><spring:message
 					code="master.page.listActors" /></a>
 			<ul>
-				<li><a href="governmentagent/list.do"><spring:message
+				<li><a href="governmentAgent/list.do"><spring:message
 							code="master.page.listActors.govAgent" /></a></li>
-				<li><a href="bankagent/list.do"><spring:message
+				<li><a href="bankAgent/list.do"><spring:message
 							code="master.page.listActors.bankAgent" /></a></li>
 				<li><a href="citizen/list.do"><spring:message
 							code="master.page.listActors.citizen" /></a></li>

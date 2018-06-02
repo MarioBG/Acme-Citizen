@@ -49,7 +49,7 @@
 				</jstl:when>
 				<jstl:otherwise>
 					<jstl:if test="${principal.bankAccount == null}">
-						<a href="bankagent/list.do"><spring:message
+						<a href="bankAgent/list.do"><spring:message
 								code="lottery.bankAccount" /></a>
 					</jstl:if>
 					<jstl:if test="${principal.bankAccount != null}">

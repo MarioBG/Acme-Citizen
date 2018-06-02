@@ -23,12 +23,12 @@
 <!-- displaying grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="agents" requestURI="bankagent/list.do" id="row">
+	name="agents" requestURI="bankAgent/list.do" id="row">
 
 	<!-- Attributes -->
 
 	<display:column title="${articlesHeader}">
-		<a href="bankagent/display.do?agentId=${row.id}"> <spring:message
+		<a href="bankAgent/display.do?agentId=${row.id}"> <spring:message
 				code="agent.display" />
 		</a>
 	</display:column>

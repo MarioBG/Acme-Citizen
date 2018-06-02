@@ -20,7 +20,7 @@ import domain.BankAgent;
 import forms.BankAgentForm;
 
 @Controller
-@RequestMapping("/bankagent")
+@RequestMapping("/bankAgent")
 public class BankAgentController extends AbstractController {
 
 	// Services -------------------------------------------------------------
@@ -28,7 +28,7 @@ public class BankAgentController extends AbstractController {
 	@Autowired
 	private BankAgentService	agentService;
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 
 	// Constructors ---------------------------------------------------------
@@ -46,19 +46,18 @@ public class BankAgentController extends AbstractController {
 		Collection<BankAgent> agents;
 
 		agents = this.agentService.findAll();
-		result = new ModelAndView("bankagent/list");
-		
+		result = new ModelAndView("bankAgent/list");
+
 		try {
-			Actor principal = this.actorService.findByPrincipal();
+			final Actor principal = this.actorService.findByPrincipal();
 			result.addObject("principal", principal);
-			
-		} catch (Exception e) {
+
+		} catch (final Exception e) {
 			// TODO: handle exception
 		}
 
-		
 		result.addObject("agents", agents);
-		result.addObject("requestURI", "bankagent/list.do");
+		result.addObject("requestURI", "bankAgent/list.do");
 
 		return result;
 	}
@@ -70,7 +69,7 @@ public class BankAgentController extends AbstractController {
 
 		agent = this.agentService.findOne(agentId);
 
-		result = new ModelAndView("bankagent/display");
+		result = new ModelAndView("bankAgent/display");
 		result.addObject("agent", agent);
 		result.addObject("requestURI", "agent/display.do");
 

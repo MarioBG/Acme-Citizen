@@ -16,7 +16,7 @@ import domain.Chirp;
 import domain.GovernmentAgent;
 
 @Controller
-@RequestMapping("/governmentagent")
+@RequestMapping("/governmentAgent")
 public class GovernmentAgentController extends AbstractController {
 
 	// Services -------------------------------------------------------------
@@ -42,9 +42,9 @@ public class GovernmentAgentController extends AbstractController {
 
 		agents = this.governmentAgentService.findAll();
 
-		result = new ModelAndView("governmentagent/list");
+		result = new ModelAndView("governmentAgent/list");
 		result.addObject("governmentAgents", agents);
-		result.addObject("requestURI", "governmentagent/list.do");
+		result.addObject("requestURI", "governmentAgent/list.do");
 
 		return result;
 	}
@@ -58,10 +58,10 @@ public class GovernmentAgentController extends AbstractController {
 		govAgent = this.governmentAgentService.findOne(governmentAgentId);
 		chirps = this.chirpService.findByGovernmentAgentId(govAgent.getId());
 
-		result = new ModelAndView("governmentagent/display");
+		result = new ModelAndView("governmentAgent/display");
 		result.addObject("governmentAgent", govAgent);
 		result.addObject("chirps", chirps);
-		result.addObject("requestURI", "governmentagent/display.do");
+		result.addObject("requestURI", "governmentAgent/display.do");
 
 		return result;
 	}

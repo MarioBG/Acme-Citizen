@@ -24,7 +24,7 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${requestURI == 'governmentagent/list.do'  }">
+		<jstl:when test="${requestURI == 'governmentAgent/list.do'  }">
 			<spring:message code="governmentAgent.generalList"/>
 		</jstl:when>
 		<jstl:when test="${requestURI == 'user/user/list-followers.do'  }">
@@ -42,7 +42,7 @@
 	<!-- Attributes -->
 	<spring:message code="governmentAgent.show" var="showHeader" />
 	<display:column title="${showHeader}">
-		<a href="governmentagent/display.do?governmentAgentId=${row.id}"> <spring:message
+		<a href="governmentAgent/display.do?governmentAgentId=${row.id}"> <spring:message
 				code="user.display" />
 		</a>
 	</display:column>

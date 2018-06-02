@@ -28,7 +28,7 @@
 			<spring:message code="bankAccount.badthing"></spring:message>
 		</h3>
 		<br>
-		<a href="bankagent/list.do"><spring:message
+		<a href="bankAgent/list.do"><spring:message
 				code="lottery.bankAccount" /></a>
 
 	</jstl:when>
@@ -49,7 +49,7 @@
 
 
 		<b><spring:message code="bankAccount.bankAgent" />:&nbsp;</b>
-		<a href="bankagent/display.do?agentId=${bankAccount.bankAgent.id}">
+		<a href="bankAgent/display.do?agentId=${bankAccount.bankAgent.id}">
 			<jstl:out
 				value="${bankAccount.bankAgent.name} ${bankAccount.bankAgent.surname}" />
 		</a>

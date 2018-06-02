@@ -18,7 +18,7 @@ import domain.WelcomeMessage;
 import forms.WelcomeMessageForm;
 
 @Controller
-@RequestMapping("/welcomemessage/governmentagent")
+@RequestMapping("/welcomemessage/governmentAgent")
 public class WelcomeMessageGovernmentAgentController extends AbstractController {
 
 	// Services ------------------------------------------------------
@@ -80,7 +80,7 @@ public class WelcomeMessageGovernmentAgentController extends AbstractController 
 			try {
 				final WelcomeMessage welcomeMessage = this.welcomeMessageService.reconstruct(welcomeMessageForm, binding);
 				this.welcomeMessageService.save(welcomeMessage);
-				result = new ModelAndView("redirect:/configuration/governmentagent/edit.do");
+				result = new ModelAndView("redirect:/configuration/governmentAgent/edit.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(welcomeMessageForm, "folder.commit.error");
 			}
@@ -98,7 +98,7 @@ public class WelcomeMessageGovernmentAgentController extends AbstractController 
 			this.welcomeMessageService.delete(welcomeMessage);
 			result = new ModelAndView("redirect:/welcome/index.do");
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/configuration/governmentagent/edit.do");
+			result = new ModelAndView("redirect:/configuration/governmentAgent/edit.do");
 		}
 
 		return result;
