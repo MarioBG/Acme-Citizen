@@ -46,6 +46,9 @@ public class GovernmentAgentService {
 	@Autowired
 	private FolderService				folderService;
 
+	@Autowired
+	private ConfigurationService		configurationService;
+
 
 	// Constructors
 	public GovernmentAgentService() {
@@ -113,6 +116,8 @@ public class GovernmentAgentService {
 
 			final Collection<Folder> folders = this.folderService.save(this.folderService.defaultFolders());
 			admin.setFolders(folders);
+			if (admin.getPhone().matches("^\\d+$"))
+				admin.setPhone(this.configurationService.findActive().getDefaultCountryCode() + admin.getPhone());
 		}
 
 		res = this.governmentAgentRepository.save(admin);

@@ -34,8 +34,6 @@
 								code="master.page.configuration" /></a> <%-- 					<li><a href="newspaper/admin/list.do"><spring:message --%>
 						<%-- 								code="master.page.newspaper.list" /></a></li> --%> <%-- 					<li><a href="article/admin/list.do"><spring:message --%>
 						<%-- 								code="master.page.article.list" /></a></li> --%>
-					<li><a href="chirp/list.do"><spring:message
-								code="master.page.chirp.list" /></a></li>
 
 				</ul>
 			<li><a class="fNiv"><spring:message
@@ -138,7 +136,8 @@
 
 		</security:authorize>
 
-
+		<li><a href="chirp/list.do"><spring:message
+			code="master.page.chirp.list" /></a></li>
 
 		<li><a class="fNiv"><spring:message
 					code="master.page.listActors" /></a>

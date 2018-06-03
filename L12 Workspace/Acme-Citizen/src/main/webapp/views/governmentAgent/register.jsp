@@ -50,7 +50,8 @@ $(document).ready(function() {
 	<br/>
 	<acme:textbox code="agent.nickname" path="nickname"/>
 	<br/>
-	<acme:textbox code="government.registerCode" path="registerCode"/>
+	<spring:message code="governmentAgent.registerCodeTip" var="registerCodeTip"/>
+	<acme:textbox code="government.registerCode" path="registerCode" placeholder="${ registerCodeTip }"/>
 	<br/>
 	<acme:checkbox code="agent.canCreateMoney" disabled="${ !canCreateMoneyParent }" path="canCreateMoney"/>
 	<br/>
