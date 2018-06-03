@@ -86,7 +86,7 @@
 </h3>
 
 <display:table name="${chirps}" id="row"
-	requestURI="governmentagent/display.do" pagesize="5" class="displaytag">
+	requestURI="governmentAgent/display.do" pagesize="5" class="displaytag">
 
 	<spring:message var="titleHeader" code="user.title" />
 	<display:column title="${titleHeader}">
@@ -111,5 +111,5 @@
 
 </display:table>
 
-<acme:cancel code="user.back" url="governmentagent/list.do" />
+<acme:cancel code="user.back" url="governmentAgent/list.do" />
 

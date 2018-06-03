@@ -71,7 +71,7 @@
 		var="governmentAgentHeader" />
 	<display:column title="${governmentAgentHeader}">
 		<a
-			href="governmentagent/display.do?governmentAgentId=${row.governmentAgent.id}">
+			href="governmentAgent/display.do?governmentAgentId=${row.governmentAgent.id}">
 			<jstl:out value="${row.governmentAgent.name}" />
 		</a>
 	</display:column>

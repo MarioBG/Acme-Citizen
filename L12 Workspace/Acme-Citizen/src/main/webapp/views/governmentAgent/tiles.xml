@@ -16,19 +16,19 @@
        
 <tiles-definitions>
 
-	<definition name="governmentagent/dashboard" extends="master.page">	
+	<definition name="governmentAgent/dashboard" extends="master.page">	
 		<put-attribute name="title" value="Government Agent: Dashboard" />
 		<put-attribute name="body" value="/views/governmentAgent/dashboard.jsp" />
 	</definition>
-	<definition name="governmentagent/register" extends="master.page">	
+	<definition name="governmentAgent/register" extends="master.page">	
 		<put-attribute name="title" value="Register as government agent" />
 		<put-attribute name="body" value="/views/governmentAgent/register.jsp" />
 	</definition>
-	<definition name="governmentagent/display" extends="master.page">	
+	<definition name="governmentAgent/display" extends="master.page">	
 		<put-attribute name="title" value="Display a government agent" />
 		<put-attribute name="body" value="/views/governmentAgent/display.jsp" />
 	</definition>
-	<definition name="governmentagent/list" extends="master.page">	
+	<definition name="governmentAgent/list" extends="master.page">	
 		<put-attribute name="title" value="List government agents" />
 		<put-attribute name="body" value="/views/governmentAgent/list.jsp" />
 	</definition>

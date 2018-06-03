@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="bankaccount/bankagent/edit.do"
+<form:form action="bankaccount/bankAgent/edit.do"
 	modelAttribute="bankAccount">
 
 	<form:hidden path="id" />

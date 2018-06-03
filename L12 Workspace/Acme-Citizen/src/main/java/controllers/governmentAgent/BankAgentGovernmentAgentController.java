@@ -18,7 +18,7 @@ import domain.GovernmentAgent;
 import forms.BankAgentForm;
 
 @Controller
-@RequestMapping("/bankagent/governmentagent")
+@RequestMapping("/bankAgent/governmentAgent")
 public class BankAgentGovernmentAgentController extends AbstractController {
 
 	// Services -------------------------------------------------------------
@@ -91,7 +91,7 @@ public class BankAgentGovernmentAgentController extends AbstractController {
 		final GovernmentAgent gov = this.governmentAgentService.findByPrincipal();
 		final Boolean canCreateMoney = gov.getCanCreateMoney();
 
-		result = new ModelAndView("bankagent/register");
+		result = new ModelAndView("bankAgent/register");
 		result.addObject("bankAgentForm", bankAgentForm);
 		result.addObject("message", message);
 		result.addObject("canCreateMoneyParent", canCreateMoney);

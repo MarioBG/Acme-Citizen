@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 </script>
 
-<form:form action="bankagent/governmentagent/register.do" modelAttribute="bankAgentForm">
+<form:form action="bankAgent/governmentAgent/register.do" modelAttribute="bankAgentForm">
 
 	<form:hidden path="nif"/>
 	
@@ -50,9 +50,10 @@ $(document).ready(function() {
 	<br/>
 	<acme:textbox code="agent.nickname" path="nickname"/>
 	<br/>
-	<acme:textbox code="agent.bankCode" path="bankCode" placeholder="<spring:message code="agent.bankCodeTip"/>"/>
+	<spring:message code="agent.bankCodeTip" var="bankCodeTip"/>
+	<acme:textbox code="agent.bankCode" path="bankCode" placeholder="${ bankCodeTip }"/>
 	<br/>
-	<acme:checkbox code="agent.canCreateMoney" disabled="${ !parentCanCreateMoney }" path="canCreateMoney"/>
+	<acme:checkbox code="agent.canCreateMoney" disabled="${ !canCreateMoneyParent }" path="canCreateMoney"/>
 	<br/>
 	<acme:textbox code="agent.userName" path="username"/>
 	<br/>

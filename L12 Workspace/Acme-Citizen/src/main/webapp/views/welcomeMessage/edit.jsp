@@ -13,7 +13,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="welcomemessage/governmentagent/edit.do"
+<form:form action="welcomemessage/governmentAgent/edit.do"
 	modelAttribute="welcomeMessageForm">
 
 	<form:hidden path="id" />
@@ -24,6 +24,6 @@
 
 	<acme:submit name="save" code="welcomeMessage.save" />
 	&nbsp;
-	<acme:cancel url="configuration/governmentagent/edit.do" code="welcomeMessage.back" />
+	<acme:cancel url="configuration/governmentAgent/edit.do" code="welcomeMessage.back" />
 
 </form:form>

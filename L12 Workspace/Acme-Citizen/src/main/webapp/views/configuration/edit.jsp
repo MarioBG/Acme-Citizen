@@ -13,7 +13,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="configuration/governmentagent/edit.do"
+<form:form action="configuration/governmentAgent/edit.do"
 	modelAttribute="configuration">
 
 	<form:hidden path="id" />
@@ -51,16 +51,16 @@
 			<td><jstl:out value="${ welcomeMessage.languageCode }"></jstl:out></td>
 			<td><jstl:out value="${ welcomeMessage.content }"></jstl:out></td>
 			<td><a
-				href="welcomemessage/governmentagent/edit.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
+				href="welcomemessage/governmentAgent/edit.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
 						code="configuration.editMessage" /></a> <a
-				href="welcomemessage/governmentagent/delete.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
+				href="welcomemessage/governmentAgent/delete.do?welcomeMessageId=${ welcomeMessage.id }"><spring:message
 						code="configuration.deleteMessage" /></a></td>
 		</tr>
 	</jstl:forEach>
 	<tr>
 		<td />
 		<td />
-		<td><a href="welcomemessage/governmentagent/create.do"><spring:message
+		<td><a href="welcomemessage/governmentAgent/create.do"><spring:message
 					code="configuration.createMessage" /></a></td>
 	</tr>
 </table>

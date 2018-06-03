@@ -22,7 +22,7 @@ import domain.Petition;
 import forms.GovernmentAgentForm;
 
 @Controller
-@RequestMapping("/governmentagent/governmentagent")
+@RequestMapping("/governmentAgent/governmentAgent")
 public class GovernmentAgentGovernmentAgentController extends AbstractController {
 
 	// Services -------------------------------------------------------------
@@ -81,7 +81,7 @@ public class GovernmentAgentGovernmentAgentController extends AbstractController
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		result = new ModelAndView("governmentagent/dashboard");
+		result = new ModelAndView("governmentAgent/dashboard");
 
 		Double numberRegisteredActors;
 		Double[] avgMinMaxStdvPerCitizen;
@@ -143,7 +143,7 @@ public class GovernmentAgentGovernmentAgentController extends AbstractController
 		final Boolean canCreateMoney = gov.getCanCreateMoney();
 		final Boolean canElection = gov.getCanOrganiseElection();
 
-		result = new ModelAndView("governmentagent/register");
+		result = new ModelAndView("governmentAgent/register");
 		result.addObject("governmentAgentForm", govAgentForm);
 		result.addObject("message", message);
 		result.addObject("canCreateMoneyParent", canCreateMoney);

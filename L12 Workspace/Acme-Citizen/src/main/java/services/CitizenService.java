@@ -46,6 +46,9 @@ public class CitizenService {
 	@Autowired
 	private FolderService			folderService;
 
+	@Autowired
+	private ConfigurationService	configurationService;
+
 
 	// Constructors
 	public CitizenService() {
@@ -112,6 +115,9 @@ public class CitizenService {
 			citizen.setFolders(folders);
 
 			citizen.getUserAccount().setPassword(pass);
+
+			if (citizen.getPhone().matches("^\\d+$"))
+				citizen.setPhone(this.configurationService.findActive().getDefaultCountryCode() + citizen.getPhone());
 		}
 
 		res = this.citizenRepository.save(citizen);

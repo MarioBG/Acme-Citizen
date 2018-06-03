@@ -44,6 +44,9 @@ public class BankAgentService {
 	private FolderService			folderService;
 
 	@Autowired
+	private ConfigurationService	configurationService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -95,6 +98,8 @@ public class BankAgentService {
 	public BankAgent save(final BankAgent agent) {
 		BankAgent res;
 		if (agent.getId() == 0) {
+			if (agent.getPhone().matches("^\\d+$"))
+				agent.setPhone(this.configurationService.findActive().getDefaultCountryCode() + agent.getPhone());
 			final Collection<Folder> folders = this.folderService.save(this.folderService.defaultFolders());
 			agent.setFolders(folders);
 			agent.getUserAccount().setPassword(new Md5PasswordEncoder().encodePassword(agent.getUserAccount().getPassword(), null));

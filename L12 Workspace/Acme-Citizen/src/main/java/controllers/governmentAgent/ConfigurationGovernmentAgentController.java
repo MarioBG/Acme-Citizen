@@ -19,7 +19,7 @@ import domain.Configuration;
 import domain.WelcomeMessage;
 
 @Controller
-@RequestMapping("/configuration/governmentagent")
+@RequestMapping("/configuration/governmentAgent")
 public class ConfigurationGovernmentAgentController extends AbstractController {
 
 	// Services --------------------------------
