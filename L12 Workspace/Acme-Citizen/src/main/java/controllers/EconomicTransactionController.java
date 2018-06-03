@@ -2,23 +2,33 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.BankAccount;
 import domain.EconomicTransaction;
+import services.ActorService;
+import services.BankAccountService;
 import services.EconomicTransactionService;
 
 @Controller
-@RequestMapping("/transactions")
+@RequestMapping("/transaction")
 public class EconomicTransactionController extends AbstractController {
 
 	// Services -------------------------------------------------------------
 
-	// @Autowired
-	// private UserService userService;
+	@Autowired
+	private BankAccountService bankAccountService;
+
+	@Autowired
+	private ActorService actorService;
 
 	@Autowired
 	private EconomicTransactionService economicTransactionService;
@@ -37,9 +47,36 @@ public class EconomicTransactionController extends AbstractController {
 		ModelAndView result;
 		EconomicTransaction economicTransaction;
 
+		Collection<BankAccount> bankAccounts = this.bankAccountService.findAll();
+
 		economicTransaction = this.economicTransactionService.create();
 
 		result = createEditModelAndView(economicTransaction);
+		result.addObject("bankAccounts", bankAccounts);
+
+		return result;
+	}
+
+	// Editing --------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final EconomicTransaction economicTransaction, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(economicTransaction);
+		else
+			try {
+				this.economicTransactionService.save(economicTransaction);
+				result = new ModelAndView("redirect:../../welcome/index.do");
+			} catch (final Throwable oops) {
+				String errorMessage = "economicTransaction.commit.error";
+
+				if (oops.getMessage().contains("message.error")) {
+					errorMessage = oops.getMessage();
+				}
+				result = this.createEditModelAndView(economicTransaction, errorMessage);
+			}
 
 		return result;
 	}
@@ -47,37 +84,41 @@ public class EconomicTransactionController extends AbstractController {
 	// Listing --------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(final int actorId) {
+	public ModelAndView list() {
 		ModelAndView result;
+		Actor principal = this.actorService.findByPrincipal();
 		Collection<EconomicTransaction> debtorTransactions = economicTransactionService
-				.findDebtorTransactionByActorId(actorId);
+				.findDebtorTransactionByActorId(principal.getId());
 		Collection<EconomicTransaction> creditorTransactions = economicTransactionService
-				.findCreditorTransactionByActorId(actorId);
+				.findCreditorTransactionByActorId(principal.getId());
 
-		result = new ModelAndView("economicTransaction/list");
+		result = new ModelAndView("transaction/list");
 		result.addObject("debtorTransactions", debtorTransactions);
 		result.addObject("creditorTransactions", creditorTransactions);
+		result.addObject("principal", principal);
 
 		return result;
 	}
 
 	// Ancillary methods ---------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final EconomicTransaction economicTransacion) {
+	protected ModelAndView createEditModelAndView(final EconomicTransaction economicTransaction) {
 
 		ModelAndView result;
 
-		result = this.createEditModelAndView(economicTransacion, null);
+		result = this.createEditModelAndView(economicTransaction, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final EconomicTransaction economicTransacion,
-			final String messageCode) {
+	protected ModelAndView createEditModelAndView(final EconomicTransaction economicTransaction,
+			final String message) {
 
 		ModelAndView result;
 
-		result = new ModelAndView("economicTransacion/edit");
+		result = new ModelAndView("transaction/edit");
+		result.addObject("economicTransaction", economicTransaction);
+		result.addObject("message", message);
 
 		return result;
 	}

@@ -98,9 +98,9 @@
 					<li class="arrow"></li>
 					<li><a href="bankAccount/display.do"><spring:message
 								code="master.page.seeBankAccount" /></a></li>
-					<li><a href="transactions/create.do"><spring:message
+					<li><a href="transaction/create.do"><spring:message
 								code="master.page.sendMoney" /></a></li>
-					<li><a href="transactions/list.do"><spring:message
+					<li><a href="transaction/list.do"><spring:message
 								code="master.page.transactions" /></a></li>
 
 				</ul></li>

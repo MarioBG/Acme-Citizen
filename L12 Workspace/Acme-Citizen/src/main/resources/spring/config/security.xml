@@ -74,6 +74,11 @@
 		<security:intercept-url pattern="/lottery/myTickets.do"
 			access="hasRole('CITIZEN')" />
 
+		<!-- Transactions -->
+
+		<security:intercept-url
+			pattern="/transaction/**" access="permitAll" />
+
 
 		<!-- Bank account -->
 		<security:intercept-url pattern="/bankagent/list.do"

@@ -12,7 +12,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
@@ -25,11 +24,9 @@ public class EconomicTransaction extends DomainEntity {
 
 	}
 
-
-	private double	quantity;
-	private Date	transactionMoment;
-	private String	concept;
-
+	private double quantity;
+	private Date transactionMoment;
+	private String concept;
 
 	@Digits(fraction = 2, integer = 12)
 	@Min(0)
@@ -41,7 +38,6 @@ public class EconomicTransaction extends DomainEntity {
 		this.quantity = quantity;
 	}
 
-	@Past
 	@NotNull
 	public Date getTransactionMoment() {
 		return this.transactionMoment;
@@ -60,12 +56,10 @@ public class EconomicTransaction extends DomainEntity {
 		this.concept = concept;
 	}
 
-
 	// Relationships
 
-	private BankAccount	creditor;
-	private BankAccount	debtor;
-
+	private BankAccount creditor;
+	private BankAccount debtor;
 
 	@ManyToOne(optional = true)
 	@Valid
