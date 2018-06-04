@@ -5,8 +5,7 @@
 	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd 
@@ -25,12 +24,12 @@
 		<value>/views/citizen/messages</value>
 
 		<value>/views/configuration/messages</value>
-		<value>/views/bankAgent/messages</value>
 		<value>/views/folder/messages</value>
 		<value>/views/message/messages</value>
 
 		<!-- ACME-CITIZEN -->
 
+		<value>/views/bankAgent/messages</value>
 		<value>/views/candidature/messages</value>
 		<value>/views/welcomeMessage/messages</value>
 		<value>/views/chirp/messages</value>
