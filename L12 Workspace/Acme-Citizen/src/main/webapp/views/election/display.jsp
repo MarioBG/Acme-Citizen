@@ -14,6 +14,21 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="scripts/chart.js"></script>
+<!-- <script type="text/javascript">
+	$(document).ready(function() {
+		var chartData=[];
+		for (var i=0; i<election.candidatures.length; i++){
+			chartData.push({"party":election.candidatures[i].description, "votes":election.candidatures[i].votes});
+		}
+		makeVoteDiagram(chartData);
+	});
+</script> -->
+
+
+
 <b><spring:message code="election.governmentAgent" />:&nbsp;</b>
 <a
 	href="governmentAgent/display.do?governmentAgentId=${election.governmentAgent.id}"><jstl:out
@@ -105,7 +120,9 @@
 			<display:column property="voteNumber" title="${voteNumberHeader}" sortable="true"/>
 		</jstl:if>
 	</display:table>
-
+	
+	<!-- <div id="chartdiv"></div>
+ -->
 <div class="middle"><img src="${countryFlag}" style="display: block; max-width: 500px; max-height: 200px; width: auto; height: auto;" /></div>
 <spring:message var="backValue" code="election.back" />
 <input type="button" name="back" value="${backValue}"
