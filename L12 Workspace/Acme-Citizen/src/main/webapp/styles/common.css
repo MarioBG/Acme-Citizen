@@ -18,6 +18,12 @@
 	font-weight: bolder;
 }
 
+.middle{
+	margin: auto;
+	width: 50%;
+	padding: 10px;
+}
+
 .goodThing {
 	color: green;
 	font-family: "Palatino Linotype", "Book Antiqua", Candara, serif;

@@ -17,6 +17,7 @@ import repositories.CitizenRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
 import domain.Candidate;
 import domain.Citizen;
 import domain.Comment;
@@ -45,6 +46,9 @@ public class CitizenService {
 
 	@Autowired
 	private FolderService			folderService;
+
+	@Autowired
+	private UserAccountService		userAccountService;
 
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -118,6 +122,7 @@ public class CitizenService {
 
 			if (citizen.getPhone().matches("^\\d+$"))
 				citizen.setPhone(this.configurationService.findActive().getDefaultCountryCode() + citizen.getPhone());
+			Assert.isTrue(this.userAccountService.findByUsername(citizen.getUserAccount().getUsername()) == null, "message.error.duplicatedUser");
 		}
 
 		res = this.citizenRepository.save(citizen);

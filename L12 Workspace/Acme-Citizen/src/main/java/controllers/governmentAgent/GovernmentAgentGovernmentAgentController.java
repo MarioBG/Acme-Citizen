@@ -72,12 +72,14 @@ public class GovernmentAgentGovernmentAgentController extends AbstractController
 				this.governmentAgentService.save(govAgent);
 				res = new ModelAndView("redirect:../../");
 			} catch (final Throwable oops) {
-				res = this.createEditModelAndView(governmentAgentForm, "user.commit.error");
+				if (oops.getMessage() == null)
+					res = this.createEditModelAndView(governmentAgentForm, "user.commit.error");
+				else
+					res = this.createEditModelAndView(governmentAgentForm, oops.getMessage());
 			}
 
 		return res;
 	}
-
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;

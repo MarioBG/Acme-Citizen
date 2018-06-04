@@ -62,12 +62,14 @@ public class CitizenGovernmentAgentController extends AbstractController {
 				this.citizenService.save(citizen);
 				res = new ModelAndView("redirect:../../");
 			} catch (final Throwable oops) {
-				res = this.createEditModelAndView(citizenForm, "user.commit.error");
+				if (oops.getMessage() == null)
+					res = this.createEditModelAndView(citizenForm, "user.commit.error");
+				else
+					res = this.createEditModelAndView(citizenForm, oops.getMessage());
 			}
 
 		return res;
 	}
-
 	// Ancillary methods ---------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final CitizenForm citizenForm) {

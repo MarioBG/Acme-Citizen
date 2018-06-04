@@ -31,23 +31,25 @@ public class BankAgentService {
 	// Managed repository
 
 	@Autowired
-	private BankAgentRepository		bankAgentRepository;
+	private BankAgentRepository			bankAgentRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService			actorService;
+	private security.UserAccountService	userAccountService;
 	@Autowired
-	private GovernmentAgentService	governmentAgentService;
+	private ActorService				actorService;
+	@Autowired
+	private GovernmentAgentService		governmentAgentService;
 
 	@Autowired
-	private FolderService			folderService;
+	private FolderService				folderService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
+	private ConfigurationService		configurationService;
 
 	@Autowired
-	private Validator				validator;
+	private Validator					validator;
 
 
 	// Constructors
@@ -103,6 +105,7 @@ public class BankAgentService {
 			final Collection<Folder> folders = this.folderService.save(this.folderService.defaultFolders());
 			agent.setFolders(folders);
 			agent.getUserAccount().setPassword(new Md5PasswordEncoder().encodePassword(agent.getUserAccount().getPassword(), null));
+			Assert.isTrue(this.userAccountService.findByUsername(agent.getUserAccount().getUsername()) == null, "message.error.duplicatedUser");
 		}
 		res = this.bankAgentRepository.save(agent);
 

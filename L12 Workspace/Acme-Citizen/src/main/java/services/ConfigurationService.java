@@ -88,8 +88,6 @@ public class ConfigurationService {
 	}
 
 	public Configuration findActive() {
-		Assert.notNull(this.governmentAgentService.findByPrincipal());
-
 		Configuration res;
 		res = (Configuration) this.findAll().toArray()[0];
 

@@ -18,6 +18,7 @@ import repositories.GovernmentAgentRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
 import domain.Candidature;
 import domain.Chirp;
 import domain.Citizen;
@@ -48,6 +49,9 @@ public class GovernmentAgentService {
 
 	@Autowired
 	private ConfigurationService		configurationService;
+
+	@Autowired
+	private UserAccountService			userAccountService;
 
 
 	// Constructors
@@ -118,6 +122,7 @@ public class GovernmentAgentService {
 			admin.setFolders(folders);
 			if (admin.getPhone().matches("^\\d+$"))
 				admin.setPhone(this.configurationService.findActive().getDefaultCountryCode() + admin.getPhone());
+			Assert.isTrue(this.userAccountService.findByUsername(admin.getUserAccount().getUsername()) == null, "message.error.duplicatedUser");
 		}
 
 		res = this.governmentAgentRepository.save(admin);
