@@ -8,6 +8,8 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -27,6 +30,7 @@ public class EconomicTransaction extends DomainEntity {
 	private double quantity;
 	private Date transactionMoment;
 	private String concept;
+	private Boolean doMoney;
 
 	@Digits(fraction = 2, integer = 12)
 	@Min(0)
@@ -39,6 +43,8 @@ public class EconomicTransaction extends DomainEntity {
 	}
 
 	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getTransactionMoment() {
 		return this.transactionMoment;
 	}
@@ -54,6 +60,14 @@ public class EconomicTransaction extends DomainEntity {
 
 	public void setConcept(final String concept) {
 		this.concept = concept;
+	}
+
+	public Boolean getDoMoney() {
+		return this.doMoney;
+		}
+
+	public void setDoMoney(final Boolean doMoney) {
+		this.doMoney = doMoney;
 	}
 
 	// Relationships

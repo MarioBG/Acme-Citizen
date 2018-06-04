@@ -15,11 +15,9 @@
 
 
 
-<h2>
-	<spring:message code="economicTransaction.To"></spring:message>
-</h2>
-<display:table name="debtorTransactions" id="row"
-	requestURI="transaction/list.do" pagesize="5" class="displaytag">
+<display:table name="moneyMade" id="row"
+	requestURI="transaction/listMoneyCreate.do" pagesize="5"
+	class="displaytag">
 
 
 	<spring:message var="quantityHeader"
@@ -39,40 +37,18 @@
 	<spring:message var="conceptHeader" code="economicTransaction.concept" />
 	<display:column property="concept" title="${conceptHeader}" />
 
+	<spring:message var="agentHeader" code="economicTransaction.agent" />
+	<display:column>
+		<jstl:out value="${row.debtor.actor.name} ${row.debtor.actor.surname}" />
+	</display:column>
 
 </display:table>
 
-<h2>
-	<spring:message code="economicTransaction.From"></spring:message>
-</h2>
-<display:table name="creditorTransactions" id="row"
-	requestURI="transaction/list.do" pagesize="5" class="displaytag">
-
-	<spring:message var="quantityHeader"
-		code="economicTransaction.quantity" />
-	<display:column property="quantity" title="${quantityHeader}" />
-
-	<spring:message var="transactionMomentHeader"
-		code="economicTransaction.transactionMoment" />
-	<display:column property="transactionMoment"
-		title="${transactionMomentHeader}" sortable="true" />
-
-	<spring:message var="creditorHeader"
-		code="economicTransaction.creditorBankFrom" />
-	<display:column property="creditor.accountNumber"
-		title="${creditorHeader}" />
-
-	<spring:message var="conceptHeader" code="economicTransaction.concept" />
-	<display:column property="concept" title="${conceptHeader}" />
-
-
-</display:table>
-
-
-
-<a href="transaction/create.do"><spring:message
-		code="economicTransaction.create" /></a>
-<br />
+<security:authorize access="hasAnyRole('BANKAGENT', 'GOVERNMENTAGENT')">
+	<a href="transaction/create.do"><spring:message
+			code="economicTransaction.createMoney" /></a>
+	<br />
+</security:authorize>
 
 <spring:message var="backValue" code="economicTransaction.back" />
 <input type="button" name="back" value="${backValue}"

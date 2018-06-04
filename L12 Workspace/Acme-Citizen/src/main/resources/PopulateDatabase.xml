@@ -1133,6 +1133,7 @@
 		<property name="concept" value="Compra de deuda pública"/>
 		<property name="debtor" ref="bankAccount1"/>
 		<property name="creditor" ref="bankAccount2"/>
+		<property name="doMoney" value="false"></property>
 	</bean>
 	
 	<bean id="economicTransaction2" class="domain.EconomicTransaction">
@@ -1140,6 +1141,8 @@
 		<property name="transactionMoment" value="2018/04/01 13:37:00"/>
 		<property name="concept" value="Medida contra la Inflación num. 1"/>
 		<property name="creditor" ref="bankAccount2"/>
+		<property name="debtor" ref="bankAccount1"/>
+		<property name="doMoney" value="true"></property>
 	</bean>
 	
 	<!-- Configuration -->

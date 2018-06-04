@@ -24,5 +24,20 @@
 		<put-attribute name="body"
 			value="/views/transaction/edit.jsp" />
 	</definition>
+	
+	<definition name="transaction/createMoney" extends="master.page">
+		<put-attribute name="title"
+			value="Crear dinero a una cuenta" />
+		<put-attribute name="body"
+			value="/views/transaction/createMoney.jsp" />
+	</definition>
+
+	<definition name="transaction/listMoneyCreate"
+		extends="master.page">
+		<put-attribute name="title"
+			value="Crear dinero a una cuenta" />
+		<put-attribute name="body"
+			value="/views/transaction/listMoneyCreate.jsp" />
+	</definition>
 
 </tiles-definitions>

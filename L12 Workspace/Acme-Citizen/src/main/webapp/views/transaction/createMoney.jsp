@@ -14,22 +14,21 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
+<jstl:if test="${principal.canCreateMoney == false }">
 
+	<spring:message code="economicTransaction.noCreteMoney"></spring:message>
 
-<jstl:if test="${principal.bankAccount == null}">
-	<a href="bankAgent/list.do"><spring:message
-			code="lottery.bankAccount" /></a>
 </jstl:if>
 
-<jstl:if test="${principal.bankAccount != null}">
+<jstl:if test="${principal.canCreateMoney == true }">
 
-	<form:form action="transaction/edit.do"
+	<form:form action="transaction/createMoney.do"
 		modelAttribute="economicTransaction">
 
 		<form:hidden path="id" />
-		<form:hidden path="debtor" />
 		<form:hidden path="transactionMoment" />
 		<form:hidden path="doMoney" />
+		<form:hidden path="debtor" />
 
 		<acme:textbox code="economicTransaction.quantity" path="quantity" />
 		<br />
@@ -52,4 +51,5 @@
 	<acme:cancel url="welcome/index.do" code="economicTransaction.back" />
 
 	</form:form>
+
 </jstl:if>

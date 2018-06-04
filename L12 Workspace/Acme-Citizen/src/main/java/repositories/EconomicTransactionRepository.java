@@ -18,4 +18,7 @@ public interface EconomicTransactionRepository extends JpaRepository<EconomicTra
 	@Query("select e from EconomicTransaction e where e.debtor.actor.id = ?1")
 	Collection<EconomicTransaction> findDebtorTransactionByActorId(int actorId);
 
+	@Query("select e from EconomicTransaction e where e.doMoney = true")
+	Collection<EconomicTransaction> findCreatedMoneyTransaction();
+
 }

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
+import domain.Actor;
 import domain.GovernmentAgent;
 import domain.Lottery;
+import services.ActorService;
 import services.GovernmentAgentService;
 import services.LotteryService;
 
@@ -28,6 +30,9 @@ public class LotteryGovernmentAgentController extends AbstractController {
 
 	@Autowired
 	private GovernmentAgentService governmentAgentService;
+
+	@Autowired
+	private ActorService actorService;
 
 	// Creation ---------------------------------------------------------------
 
@@ -107,9 +112,11 @@ public class LotteryGovernmentAgentController extends AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("lottery/edit");
+		Actor principal = this.actorService.findByPrincipal();
 
 		result.addObject("lottery", lottery);
 		result.addObject("message", message);
+		result.addObject("principal", principal);
 
 		return result;
 	}

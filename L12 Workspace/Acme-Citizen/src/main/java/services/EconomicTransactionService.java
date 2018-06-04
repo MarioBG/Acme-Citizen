@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Actor;
+import domain.BankAccount;
+import domain.BankAgent;
 import domain.EconomicTransaction;
+import domain.GovernmentAgent;
 import repositories.EconomicTransactionRepository;
 
 @Service
@@ -41,25 +44,54 @@ public class EconomicTransactionService {
 		Assert.isTrue(principal != null);
 
 		final EconomicTransaction result = new EconomicTransaction();
+		Date date = new Date(System.currentTimeMillis() - 1);
 
-		Date date = new Date();
 		result.setTransactionMoment(date);
 		result.setDebtor(principal.getBankAccount());
+		result.setDoMoney(false);
 
 		return result;
 	}
 
-	public EconomicTransaction save(final EconomicTransaction economicTransaction) {
+	public EconomicTransaction createMoney() {
+
+		Actor principal = actorService.findByPrincipal();
+		Assert.isTrue(principal != null);
+
+		final EconomicTransaction result = new EconomicTransaction();
+		Date date = new Date(System.currentTimeMillis() - 1);
+
+		result.setTransactionMoment(date);
+		result.setDebtor(principal.getBankAccount());
+		result.setDoMoney(true);
+
+		return result;
+	}
+
+	public EconomicTransaction save(EconomicTransaction economicTransaction) {
+
+		Assert.notNull(economicTransaction);
+
+		EconomicTransaction result;
+
+		result = this.economicTransactionRepository.save(economicTransaction);
+		Assert.notNull(result.getDebtor(), "economicTransaction.commit.error");
+
+		doTransaction(result);
+
+		return result;
+	}
+
+	public EconomicTransaction save2(EconomicTransaction economicTransaction) {
+
+		Assert.notNull(economicTransaction);
 
 		EconomicTransaction result;
 
 		result = this.economicTransactionRepository.save(economicTransaction);
 
-		try {
-			Assert.isTrue(doTransaction(result), "economicTransaction.commit.error");
-		} catch (Exception e) {
+		doMoney(result);
 
-		}
 		return result;
 	}
 
@@ -87,8 +119,7 @@ public class EconomicTransactionService {
 
 	}
 
-	private boolean doTransaction(EconomicTransaction result) {
-		boolean done = false;
+	private void doTransaction(EconomicTransaction result) {
 		Double transfer = result.getQuantity();
 		Actor creditor = result.getCreditor().getActor();
 		Actor debtor = result.getDebtor().getActor();
@@ -98,11 +129,54 @@ public class EconomicTransactionService {
 		if (moneySender >= 0) {
 			creditor.getBankAccount().setMoney(moneyReceived);
 			debtor.getBankAccount().setMoney(moneySender);
-			done = true;
-
+		} else {
+			this.economicTransactionRepository.delete(result);
 		}
-		return done;
 
+	}
+
+	private void doMoney(EconomicTransaction result) {
+		Double transfer = result.getQuantity();
+		BankAccount creditor = result.getCreditor();
+		BankAgent bankAgent = null;
+		GovernmentAgent ga = null;
+		try {
+			bankAgent = (BankAgent) this.actorService.findByPrincipal();
+			ga = (GovernmentAgent) this.actorService.findByPrincipal();
+
+		} catch (Exception e) {
+		}
+
+		Double moneyReceived = creditor.getMoney() + transfer;
+		if (bankAgent != null) {
+			if (bankAgent.getCanCreateMoney()) {
+				creditor.setMoney(moneyReceived);
+			}
+
+		} else if (ga != null) {
+			if (ga.getCanCreateMoney()) {
+				creditor.setMoney(moneyReceived);
+
+			}
+		} else {
+
+			this.economicTransactionRepository.delete(result);
+		}
+
+	}
+
+	public boolean checkMoney(EconomicTransaction economicTransaction) {
+		if (economicTransaction.getDebtor().getMoney() >= economicTransaction.getQuantity()) {
+			return true;
+
+		} else {
+			return false;
+		}
+
+	}
+
+	public Collection<EconomicTransaction> findCreatedMoneyTransaction() {
+		return this.economicTransactionRepository.findCreatedMoneyTransaction();
 	}
 
 }

@@ -21,10 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Chirp;
 import services.ActorService;
 import services.ChirpService;
 import services.WelcomeMessageService;
-import domain.Chirp;
 
 @Controller
 @RequestMapping("/welcome")
@@ -33,14 +34,13 @@ public class WelcomeController extends AbstractController {
 	// Support services -------------------------------------------------------
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private ChirpService			chirpService;
+	private ChirpService chirpService;
 
 	@Autowired
-	private WelcomeMessageService	welcomeMessageService;
-
+	private WelcomeMessageService welcomeMessageService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -48,10 +48,11 @@ public class WelcomeController extends AbstractController {
 		super();
 	}
 
-	// Index ------------------------------------------------------------------		
+	// Index ------------------------------------------------------------------
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@CookieValue(value = "language", defaultValue = "es") final String language, @RequestParam(required = false, defaultValue = "John Doe") String name) {
+	public ModelAndView index(@CookieValue(value = "language", defaultValue = "es") final String language,
+			@RequestParam(required = false, defaultValue = "John Doe") String name) {
 		ModelAndView result;
 		ArrayList<Chirp> chirps1;
 		String welcomeMessage;
@@ -67,6 +68,7 @@ public class WelcomeController extends AbstractController {
 
 		if (this.actorService.findByPrincipal() != null)
 			name = this.actorService.findByPrincipal().getName();
+		Actor principal = this.actorService.findByPrincipal();
 		if (this.welcomeMessageService.getWelcomeMessageForLocale(language) != null)
 			welcomeMessage = this.welcomeMessageService.getWelcomeMessageForLocale(language);
 		else if (this.welcomeMessageService.getWelcomeMessageForLocale("en") != null)
@@ -76,6 +78,7 @@ public class WelcomeController extends AbstractController {
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
+		result.addObject("principal", principal);
 		result.addObject("chirps", chirps2);
 		result.addObject("welcomeMessage", welcomeMessage);
 		result.addObject("moment", new Date());
