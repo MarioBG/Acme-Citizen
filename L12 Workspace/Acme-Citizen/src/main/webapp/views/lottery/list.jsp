@@ -40,14 +40,17 @@
 	<spring:message var="ticketCostHeader" code="lottery.ticketCost" />
 	<display:column title="${ticketCostHeader}" property="ticketCost" />
 
-	<security:authorize access="hasRole('CITIZEN')">
-		<display:column>
-			<jstl:choose>
-				<jstl:when test="${row.celebrationDate.before(date)}">
-					<jstl:out
-						value="${row.winnerTicket.citizen.name} ${row.winnerTicket.citizen.surname}" />
-				</jstl:when>
-				<jstl:otherwise>
+
+	<spring:message var="winnerTicketHeader" code="lottery.winner" />
+	<display:column>
+		<jstl:choose>
+			<jstl:when test="${row.celebrationDate.before(date)}">
+				<jstl:out
+					value="${row.winnerTicket.citizen.name} ${row.winnerTicket.citizen.surname}" />
+			</jstl:when>
+
+			<jstl:otherwise>
+				<security:authorize access="hasRole('CITIZEN')">
 					<jstl:if test="${principal.bankAccount == null}">
 						<a href="bankAgent/list.do"><spring:message
 								code="lottery.bankAccount" /></a>
@@ -62,10 +65,11 @@
 							<spring:message code="lottery.NoMoney" />
 						</jstl:if>
 					</jstl:if>
-				</jstl:otherwise>
-			</jstl:choose>
-		</display:column>
-	</security:authorize>
+				</security:authorize>
+			</jstl:otherwise>
+		</jstl:choose>
+	</display:column>
+
 
 </display:table>
 

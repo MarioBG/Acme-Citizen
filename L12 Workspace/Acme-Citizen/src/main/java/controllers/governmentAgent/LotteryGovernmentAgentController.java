@@ -1,6 +1,7 @@
 package controllers.governmentAgent;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -86,13 +87,29 @@ public class LotteryGovernmentAgentController extends AbstractController {
 		ModelAndView result;
 		GovernmentAgent ga = governmentAgentService.findByPrincipal();
 		Collection<Lottery> lotterys;
+		Date date = new Date();
 
 		lotterys = lotteryService.getLotteryByGovernmentAgentId(ga.getId());
 		result = new ModelAndView("lottery/MyLotterys");
 		result.addObject("lotterys", lotterys);
+		result.addObject("date", date);
 
 		return result;
 	}
+
+	@RequestMapping(value = "/makeWinner", method = RequestMethod.GET)
+	public ModelAndView makeWinner(int lotteryId) {
+
+		ModelAndView result;
+
+		lotteryService.lotteryWinner(lotteryId);
+
+		result = new ModelAndView("redirect:MyLotterys.do");
+
+		return result;
+
+	}
+
 	// METODOS AUXILIARES -------------------------------------
 
 	protected ModelAndView createEditModelAndView(Lottery lottery) {

@@ -18,4 +18,7 @@ public interface LotteryRepository extends JpaRepository<Lottery, Integer> {
 	@Query("select l from Lottery l where l.governmentAgent.id = ?1")
 	Collection<Lottery> getLotteryByGovernmentAgentId(int id);
 
+	@Query("select l from Lottery l where l.governmentAgent.id = ?1")
+	Collection<Lottery> getLotteryWinner(int id);
+
 }
