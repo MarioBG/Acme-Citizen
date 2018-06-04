@@ -86,7 +86,7 @@
 	</display:column>
 
 	<spring:message var="isResolvedHeader" code="petition.isResolved" />
-	<display:column title="${isFinalHeader}" sortable="true">
+	<display:column title="${isResolvedHeader}" sortable="true">
 		<jstl:choose>
 			<jstl:when test="${row.resolved == true}">
 				<spring:message code="petition.yes" />

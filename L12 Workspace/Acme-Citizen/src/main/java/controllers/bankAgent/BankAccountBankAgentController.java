@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.BankAccountService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.BankAccount;
+import services.ActorService;
+import services.BankAccountService;
 
 @Controller
 @RequestMapping("/bankaccount/bankAgent")
@@ -24,11 +24,10 @@ public class BankAccountBankAgentController extends AbstractController {
 
 	// Services ---------------------------------------
 	@Autowired
-	private BankAccountService	bankAccountService;
+	private BankAccountService bankAccountService;
 
 	@Autowired
-	private ActorService		actorService;
-
+	private ActorService actorService;
 
 	// Creation ---------------------------------------------------------------
 
@@ -93,11 +92,13 @@ public class BankAccountBankAgentController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final BankAccount bankAccount, final String message) {
 		ModelAndView result;
+		final Collection<Actor> actors = this.actorService.findAllWithoutBankAccount();
 
 		result = new ModelAndView("bankAccount/edit");
 
 		result.addObject("bankAccount", bankAccount);
 		result.addObject("message", message);
+		result.addObject("actors", actors);
 
 		return result;
 	}

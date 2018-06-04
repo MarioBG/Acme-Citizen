@@ -38,7 +38,7 @@
 		<value>/views/election/messages</value>
 		<value>/views/petition/messages</value>
 		<value>/views/lottery/messages</value>
-		<value>/views/economicTransaction/messages</value>
+		<value>/views/transaction/messages</value>
 		<value>/views/bankAccount/messages</value>
 	</util:list>
 

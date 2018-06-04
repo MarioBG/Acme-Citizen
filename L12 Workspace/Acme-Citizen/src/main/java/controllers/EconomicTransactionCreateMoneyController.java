@@ -24,7 +24,7 @@ import services.GovernmentAgentService;
 
 @Controller
 @RequestMapping("/transaction")
-public class EconomicTransactionController extends AbstractController {
+public class EconomicTransactionCreateMoneyController extends AbstractController {
 
 	// Services -------------------------------------------------------------
 
@@ -43,39 +43,43 @@ public class EconomicTransactionController extends AbstractController {
 	@Autowired
 	private EconomicTransactionService economicTransactionService;
 
-	// Create --------------------------------------------------------
+	// Create Money --------------------------------
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	@RequestMapping(value = "/createMoney", method = RequestMethod.GET)
+	public ModelAndView createMoney() {
 
 		ModelAndView result;
 		EconomicTransaction economicTransaction;
+		economicTransaction = this.economicTransactionService.createMoney();
 
 		Collection<BankAccount> bankAccounts = this.bankAccountService.findAll();
-		Actor principal = this.actorService.findByPrincipal();
-		bankAccounts.remove(principal.getBankAccount());
-
-		economicTransaction = this.economicTransactionService.create();
-
 		result = createEditModelAndView(economicTransaction);
 		result.addObject("bankAccounts", bankAccounts);
-		result.addObject("principal", principal);
+
+		try {
+			BankAgent bankAgent = this.bankAgentService.findByPrincipal();
+			GovernmentAgent ga = this.governmentAgentService.findByPrincipal();
+			if (bankAgent != null) {
+				result.addObject("principal", bankAgent);
+			} else if (ga != null) {
+				result.addObject("principal", ga);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		return result;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/createMoney", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final EconomicTransaction economicTransaction, final BindingResult binding) {
 		ModelAndView result;
-		Collection<BankAccount> bankAccounts = this.bankAccountService.findAll();
-		Actor principal = this.actorService.findByPrincipal();
-		bankAccounts.remove(principal.getBankAccount());
-
-		if (binding.hasErrors() || !(this.economicTransactionService.checkMoney(economicTransaction))) {
-			result = this.createEditModelAndView(economicTransaction, "economicTransaction.commit.error");
-		} else
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(economicTransaction);
+		else
 			try {
-				this.economicTransactionService.save(economicTransaction);
+				this.economicTransactionService.save2(economicTransaction);
 				result = new ModelAndView("redirect:../welcome/index.do");
 			} catch (final Throwable oops) {
 				String errorMessage = "economicTransaction.commit.error";
@@ -86,43 +90,24 @@ public class EconomicTransactionController extends AbstractController {
 				result = this.createEditModelAndView(economicTransaction, errorMessage);
 			}
 
-		result.addObject("bankAccounts", bankAccounts);
-		result.addObject("principal", principal);
 		return result;
 	}
 
-	// Listing --------------------------------------------------------------
+	// Listing money
+	// made--------------------------------------------------------------
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/listMoneyCreate", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		Actor principal = this.actorService.findByPrincipal();
-		Collection<EconomicTransaction> debtorTransactions = economicTransactionService
-				.findDebtorTransactionByActorId(principal.getId());
-		Collection<EconomicTransaction> creditorTransactions = economicTransactionService
-				.findCreditorTransactionByActorId(principal.getId());
+		Collection<EconomicTransaction> moneyMade = economicTransactionService.findCreatedMoneyTransaction();
 
-		result = new ModelAndView("transaction/list");
-		result.addObject("debtorTransactions", debtorTransactions);
-		result.addObject("creditorTransactions", creditorTransactions);
+		result = new ModelAndView("transaction/listMoneyCreate");
+		result.addObject("moneyMade", moneyMade);
 		result.addObject("principal", principal);
-
-		try {
-			BankAgent bankAgent = this.bankAgentService.findByPrincipal();
-			GovernmentAgent ga = this.governmentAgentService.findByPrincipal();
-			if (bankAgent != null) {
-				result.addObject("bankAgent", bankAgent);
-			} else if (ga != null) {
-				result.addObject("ga", ga);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 
 		return result;
 	}
-
-	// Ancillary methods ---------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final EconomicTransaction economicTransaction) {
 
@@ -136,12 +121,13 @@ public class EconomicTransactionController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final EconomicTransaction economicTransaction, final String message) {
 
 		ModelAndView result;
+		Actor principal = this.actorService.findByPrincipal();
 
-		result = new ModelAndView("transaction/edit");
+		result = new ModelAndView("transaction/createMoney");
+
+		result.addObject("principal", principal);
 		result.addObject("economicTransaction", economicTransaction);
 		result.addObject("message", message);
-		Actor principal = this.actorService.findByPrincipal();
-		result.addObject("principal", principal);
 
 		return result;
 	}
