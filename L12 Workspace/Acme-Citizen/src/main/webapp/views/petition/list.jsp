@@ -25,9 +25,6 @@
 		<jstl:when test="${requestURI == 'petition/citizen/list.do'}">
 			<spring:message code="petition.yourPetitions" />
 		</jstl:when>
-		<jstl:when test="${requestURI == 'petition//governmentAgent/list.do'}">
-			<spring:message code="petition.deletedPetitions" />
-		</jstl:when>
 	</jstl:choose>
 </h3>
 

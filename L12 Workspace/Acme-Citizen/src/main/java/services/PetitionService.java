@@ -163,6 +163,14 @@ public class PetitionService {
 		return result;
 	}
 
+	public Collection<Petition> findByCitizenIdNonDeleted(final int citizenId) {
+
+		Assert.isTrue(citizenId != 0);
+
+		final Collection<Petition> result = this.petitionRepository.findByCitizenIdNonDeleted(citizenId);
+		return result;
+	}
+
 	public Collection<Petition> findByCitizenId(final int citizenId) {
 
 		Assert.isTrue(citizenId != 0);
@@ -174,7 +182,7 @@ public class PetitionService {
 	public Collection<Petition> findByPrincipal() {
 
 		final Citizen citizen = this.citizenService.findByPrincipal();
-		final Collection<Petition> result = this.findByCitizenId(citizen.getId());
+		final Collection<Petition> result = this.findByCitizenIdNonDeleted(citizen.getId());
 		return result;
 	}
 
