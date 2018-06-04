@@ -24,6 +24,14 @@
 	padding: 10px;
 }
 
+#chartdiv {
+  width: 400px;
+  height: 200px;
+  	margin: auto;
+	padding: 10px;
+  border: 1px dotted #ccc;
+}
+
 .goodThing {
 	color: green;
 	font-family: "Palatino Linotype", "Book Antiqua", Candara, serif;
