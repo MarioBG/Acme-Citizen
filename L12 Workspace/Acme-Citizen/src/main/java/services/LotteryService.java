@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -12,13 +13,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Actor;
+import domain.Citizen;
 import domain.GovernmentAgent;
 import domain.Lottery;
 import domain.LotteryTicket;
 import repositories.LotteryRepository;
 
 @Service
-@Transactional
+@Transactional()
 public class LotteryService {
 
 	// Managed repository
@@ -49,6 +51,7 @@ public class LotteryService {
 		final Collection<LotteryTicket> lotterys = new ArrayList<LotteryTicket>();
 		result.setLotteryTickets(lotterys);
 		result.setGovernmentAgent((GovernmentAgent) principal);
+		result.setQuantity(0);
 
 		return result;
 	}
@@ -88,9 +91,49 @@ public class LotteryService {
 		return this.lotteryRepository.getLotteryByGovernmentAgentId(id);
 	}
 
+	public Collection<Lottery> getLotteryWinner(int id) {
+		return this.lotteryRepository.getLotteryWinner(id);
+	}
+
 	public void delete(Lottery lottery) {
 		Assert.notNull(lottery);
 		delete(lottery);
+
+	}
+
+	public void lotteryWinner(int lotteryId) {
+		Lottery lottery = this.findOne(lotteryId);
+		Collection<Lottery> lottos = this.getLotteryByGovernmentAgentId(lottery.getGovernmentAgent().getId());
+		List<LotteryTicket> lista = new ArrayList<LotteryTicket>(lottery.getLotteryTickets());
+		System.out.println("tamaño loco-> " + lista.size());
+
+		if (lottery.getWinnerTicket() == null && lottos.contains(lottery)) {
+			Integer num1 = (int) (Math.random() * lista.size());
+
+			LotteryTicket winner = lista.get(num1);
+			lottery.setWinnerTicket(winner);
+			moneyWon(lottery, winner);
+
+		}
+
+	}
+
+	public void moneyWon(Lottery lotto, LotteryTicket lt) {
+		double winCitizen = 0.0;
+		double winAgent = 0.0;
+		int tam = lotto.getLotteryTickets().size();
+		double precio = lotto.getTicketCost();
+		double cantidad = precio * tam;
+		double percentage = lotto.getPercentageForPrizes();
+
+		winCitizen = (cantidad * percentage) / 100;
+		winAgent = cantidad - winCitizen;
+
+		Citizen citizen = (Citizen) this.actorService.findOne(lt.getCitizen().getId());
+		GovernmentAgent ga = (GovernmentAgent) this.actorService.findOne(lotto.getGovernmentAgent().getId());
+
+		citizen.getBankAccount().setMoney(citizen.getBankAccount().getMoney() + winCitizen);
+		ga.getBankAccount().setMoney(ga.getBankAccount().getMoney() + winAgent);
 
 	}
 

@@ -114,16 +114,18 @@ public class LotteryTicketService {
 		final LotteryTicket ticket = this.create(lotteryId);
 		final Citizen citizen = this.citizenService.findByPrincipal();
 		final Lottery lottery = this.lotteryService.findOne(lotteryId);
+		final double cost = ticket.getLottery().getTicketCost();
 		Assert.notNull(citizen);
 		Assert.notNull(ticket);
 		Assert.notNull(citizen.getBankAccount(), "No hay cuenta de banco");
 
 		final Double money = citizen.getBankAccount().getMoney();
-		if (money >= ticket.getLottery().getTicketCost()) {
+		if (money >= cost) {
 			final Double newMoney = money - ticket.getLottery().getTicketCost();
 			citizen.getBankAccount().setMoney(newMoney);
 			citizen.getLotteryTickets().add(ticket);
 			lottery.getLotteryTickets().add(ticket);
+			lottery.setQuantity(lottery.getQuantity() + cost);
 			this.save(ticket);
 			this.citizenService.save(citizen);
 			this.lotteryService.save(lottery);

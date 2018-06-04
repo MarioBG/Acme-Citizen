@@ -38,6 +38,21 @@
 	<spring:message var="ticketCostHeader" code="lottery.ticketCost" />
 	<display:column title="${ticketCostHeader}" property="ticketCost" />
 
+
+	<security:authorize access="hasRole('GOVERNMENTAGENT')">
+		<display:column>
+			<jstl:if
+				test="${ row.winnerTicket == null && row.celebrationDate.before(date) }">
+				<input type="button"
+					value="<spring:message code="lottery.makeWinner" />"
+					onclick="javascript: window.location.assign('lottery/governmentAgent/makeWinner.do?lotteryId=${row.id}')" />
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+
+
+
+
 </display:table>
 
 <security:authorize access="hasRole('GOVERNMENTAGENT')">

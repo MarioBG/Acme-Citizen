@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Actor;
 import domain.Citizen;
 import domain.Lottery;
-import services.ActorService;
 import services.CitizenService;
 import services.LotteryService;
 import services.LotteryTicketService;

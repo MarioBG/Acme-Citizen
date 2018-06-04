@@ -77,9 +77,6 @@
 			pattern="/lottery/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url
-			pattern="/lottery/governmentAgent/MyLotterys.do"
-			access="hasRole('GOVERNMENTAGENT')" />
-		<security:intercept-url
 			pattern="/lottery/buyTicket.do" access="hasRole('CITIZEN')" />
 		<security:intercept-url
 			pattern="/lottery/myTickets.do" access="hasRole('CITIZEN')" />
