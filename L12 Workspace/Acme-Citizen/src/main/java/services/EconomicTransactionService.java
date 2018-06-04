@@ -142,8 +142,12 @@ public class EconomicTransactionService {
 		GovernmentAgent ga = null;
 		try {
 			bankAgent = (BankAgent) this.actorService.findByPrincipal();
-			ga = (GovernmentAgent) this.actorService.findByPrincipal();
 
+		} catch (Exception e) {
+		}
+
+		try {
+			ga = (GovernmentAgent) this.actorService.findByPrincipal();
 		} catch (Exception e) {
 		}
 
@@ -152,14 +156,11 @@ public class EconomicTransactionService {
 			if (bankAgent.getCanCreateMoney()) {
 				creditor.setMoney(moneyReceived);
 			}
-
 		} else if (ga != null) {
 			if (ga.getCanCreateMoney()) {
 				creditor.setMoney(moneyReceived);
-
-			}
+			}			
 		} else {
-
 			this.economicTransactionRepository.delete(result);
 		}
 
