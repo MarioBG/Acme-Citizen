@@ -1,4 +1,4 @@
-package controllers.Citizen;
+package controllers.citizen;
 
 import java.util.Collection;
 
