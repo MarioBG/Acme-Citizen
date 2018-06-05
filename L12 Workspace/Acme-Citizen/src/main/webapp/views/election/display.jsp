@@ -63,7 +63,7 @@
 </jstl:if>
 
 <security:authorize access="hasAnyRole('CITIZEN','GOVERNMENTAGENT')">
-	<jstl:if test="${election.celebrationDate.before(date) or election.celebrationDate.equals(date)}">
+	<jstl:if test="${daysCelebration<=0}">
 		<a href="comment/actor/create.do?commentableId=${election.id}"><spring:message
 				code="election.createComment" /></a>
 		<br />
