@@ -50,13 +50,7 @@
 	pattern="${patternDate}" />
 <br />
 
-<jstl:if test="${not empty election.candidatures}">
-	<a href="candidature/list.do?electionId=${election.id}"><spring:message
-			code="election.listCandidatures" /></a>
-	<br />
-</jstl:if>
-
-<jstl:if test="${not empty election.comments}">
+<jstl:if test="${not empty election.comments and daysCelebration > 0}">
 	<a href="comment/list.do?commentableId=${election.id}"><spring:message
 			code="election.listComments" /></a>
 	<br />
@@ -64,7 +58,7 @@
 
 <security:authorize access="hasAnyRole('CITIZEN','GOVERNMENTAGENT')">
 	<jstl:if
-		test="${daysCelebration <= 0}">
+		test="${daysCelebration > 0}">
 		<a href="comment/actor/create.do?commentableId=${election.id}"><spring:message
 				code="election.createComment" /></a>
 		<br />

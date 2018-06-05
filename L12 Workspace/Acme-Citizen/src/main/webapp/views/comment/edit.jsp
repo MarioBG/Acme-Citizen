@@ -18,9 +18,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="commentableId" />
 	<form:hidden path="parentCommentId" />
-	<jstl:if test="${commentForm.id == 0}">
-		<form:hidden path="comment" />
-	</jstl:if>
+	<form:hidden path="moment" />
 
 	<acme:textbox code="comment.picture" path="picture" />
 	<br />
@@ -29,7 +27,10 @@
 	<br />
 
 	<jstl:if test="${commentForm.id != 0}">
-		<acme:textbox code="comment.moment" path="moment" readonly="readonly" />
+		<spring:message var="patternDate" code="comment.pattern.date" />
+		<b><spring:message code="comment.moment" />:&nbsp;</b>
+		<fmt:formatDate value="${commentForm.moment}"
+			pattern="${patternDate}" />
 		<br />
 	</jstl:if>
 
@@ -41,9 +42,9 @@
 	</jstl:if>
 	
 	<jstl:choose>
-		<jstl:when test="${parentCommentId != null}">
+		<jstl:when test="${commentForm.parentCommentId != null}">
 			<acme:cancel
-				url="comment/list.do?commentableId=${commentForm.commentableId}&parentCommentId=${commentForm.parentCommentId}"
+				url="comment/list.do?commentId=${commentForm.parentCommentId}"
 				code="comment.back" />
 		</jstl:when>
 		<jstl:otherwise>

@@ -170,7 +170,10 @@ public class PetitionCitizenController extends AbstractController {
 
 		ModelAndView result;
 
-		result = new ModelAndView("petition/edit");
+		if (petitionForm.getId() == 0)
+			result = new ModelAndView("petition/create");
+		else
+			result = new ModelAndView("petition/edit");
 		result.addObject("petitionForm", petitionForm);
 		result.addObject("message", messageCode);
 

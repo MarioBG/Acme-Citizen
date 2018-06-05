@@ -113,6 +113,13 @@
 		<security:intercept-url pattern="/chirp/**"
 			access="permitAll" />
 
+		<!-- Comment -->
+		<security:intercept-url
+			pattern="/comment/actor/**"
+			access="hasAnyRole('CITIZEN', 'GOVERNMENTAGENT')" />
+		<security:intercept-url pattern="/comment/**"
+			access="permitAll" />
+
 		<!-- Election -->
 		<security:intercept-url pattern="/election/**"
 			access="permitAll" />

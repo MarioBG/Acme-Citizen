@@ -13,7 +13,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.CommentRepository;
+import domain.Actor;
+import domain.Citizen;
 import domain.Comment;
+import domain.Commentable;
+import domain.GovernmentAgent;
 import forms.CommentForm;
 
 @Service
@@ -52,7 +56,7 @@ public class CommentService {
 		res.setMoment(new Date(System.currentTimeMillis() - 1000));
 
 		res.setActor(this.actorService.findByPrincipal());
-		res.setCommentable(this.commentableService.findOne(commentableId));
+		res.setCommentable(this.commentableService.findByCommentableId(commentableId));
 		if (parentCommentId != null)
 			res.setParentComment(this.findOne(parentCommentId));
 		res.setReplies(new ArrayList<Comment>());
@@ -118,7 +122,8 @@ public class CommentService {
 		commentForm = new CommentForm();
 
 		commentForm.setId(comment.getId());
-		commentForm.setParentCommentId(comment.getParentComment().getId());
+		if (comment.getParentComment() != null)
+			commentForm.setParentCommentId(comment.getParentComment().getId());
 		commentForm.setActorId(comment.getActor().getId());
 		commentForm.setCommentableId(comment.getCommentable().getId());
 		commentForm.setMoment(comment.getMoment());
@@ -147,6 +152,30 @@ public class CommentService {
 			this.validator.validate(comment, binding);
 
 		return comment;
+	}
+
+	public Collection<Comment> findByPrincipal() {
+
+		final Actor actor = this.actorService.findByPrincipal();
+
+		Assert.isTrue(actor instanceof Citizen || actor instanceof GovernmentAgent);
+
+		final Collection<Comment> result = actor.getComments();
+		return result;
+	}
+
+	public Collection<Comment> findByCommentableId(final int commentableId) {
+
+		Assert.isTrue(commentableId != 0);
+
+		final Collection<Comment> result = new ArrayList<Comment>();
+
+		final Commentable commentable = this.commentableService.findByCommentableId(commentableId);
+		final Collection<Comment> comments = commentable.getComments();
+		for (final Comment c : comments)
+			if (c.getParentComment() == null)
+				result.add(c);
+		return result;
 	}
 
 	public void flush() {

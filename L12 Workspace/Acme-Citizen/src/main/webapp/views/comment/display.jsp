@@ -19,8 +19,16 @@
 </jstl:if>
 
 <b><spring:message code="comment.actor" />:&nbsp;</b>
-<a href="actor/display.do?actorId=${comment.actor.id}"><jstl:out
-		value="${comment.actor.name}" /></a>
+<jstl:choose>
+	<jstl:when test="${role == 'citizen' }">
+		<a href="citizen/display.do?citizenId=${comment.actor.id}"><jstl:out
+				value="${comment.actor.name}" /></a>
+	</jstl:when>
+	<jstl:when test="${role == 'governmentAgent' }">
+		<a href="governmentAgent/display.do?governmentAgentId=${comment.actor.id}"><jstl:out
+				value="${comment.actor.name}" /></a>
+	</jstl:when>
+</jstl:choose>
 <br />
 
 <spring:message var="patternDate" code="comment.pattern.date" />
@@ -32,10 +40,20 @@
 <jstl:out value="${comment.text}" />
 <br />
 
+<jstl:if test="${not empty comment.replies}">
+	<a href="comment/list.do?commentId=${comment.id}"><spring:message code="comment.replies"/></a>
+	<br/>
+</jstl:if>
+
+<security:authorize access="hasAnyRole('CITIZEN', 'GOVERNMENTAGENT')">
+	<a href="comment/actor/create.do?commentId=${comment.id}"><spring:message code="comment.reply"/></a>
+	<br/>
+</security:authorize>
+
 <jstl:choose>
 	<jstl:when test="${comment.parentComment != null}">
 		<acme:cancel
-			url="comment/list.do?commentableId=${comment.commentable.id}&parentComment=${comment.parentComment.id}"
+			url="comment/list.do?commentId=${comment.parentComment.id}"
 			code="comment.back" />
 	</jstl:when>
 	<jstl:otherwise>

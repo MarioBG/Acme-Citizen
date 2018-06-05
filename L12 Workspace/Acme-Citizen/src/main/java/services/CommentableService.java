@@ -7,9 +7,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.CommentableRepository;
-import domain.Comment;
 import domain.Commentable;
 
 @Service
@@ -53,16 +53,20 @@ public class CommentableService {
 
 	// Ancillary methods
 
+	public Commentable findByCommentableId(final int commentableId) {
+
+		Assert.isTrue(commentableId != 0);
+
+		final Commentable result = this.commentableRepository.findByCommentableId(commentableId);
+		return result;
+	}
+
 	public Commentable findCommentableByCommentId(final int commentId) {
+
+		Assert.isTrue(commentId != 0);
 
 		final Commentable commentable = this.commentableRepository.findCommentableByCommentId(commentId);
 		return commentable;
-	}
-
-	public Collection<Comment> findCommentsByCommentableId(final int commentableId) {
-		Collection<Comment> result = null;
-		result = this.commentableRepository.findCommentsByCommentableId(commentableId);
-		return result;
 	}
 
 }
