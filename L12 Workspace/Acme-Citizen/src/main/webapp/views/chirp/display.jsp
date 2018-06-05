@@ -50,10 +50,10 @@
 
 <spring:message var="patternDate" code="chirp.pattern.date" />
 <b><spring:message code="chirp.publicationMoment" />:&nbsp;</b>
-<fmt:formatDate value="${chirp.publicationDate}"
+<fmt:formatDate value="${chirp.publicationMoment}"
 	pattern="${patternDate}" />
 <br />
 
 <spring:message var="backValue" code="chirp.back" />
 <input type="button" name="back" value="${backValue}"
-	onclick="javascript: relativeRedir('chirp/list.do?governmentAgentId=${chirp.governmentAgent.id}');" />
+	onclick="javascript: relativeRedir('chirp/list.do');" />

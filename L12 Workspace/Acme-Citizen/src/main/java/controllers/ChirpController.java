@@ -57,19 +57,20 @@ public class ChirpController extends AbstractController {
 
 		return result;
 	}
-	//	@RequestMapping(value = "/user/display", method = RequestMethod.GET)
-	//	public ModelAndView listUser(@RequestParam final int chirpId) {
-	//		ModelAndView result;
-	//		Chirp chirp;
-	//
-	//		chirp = this.chirpService.findOne(chirpId);
-	//
-	//		result = new ModelAndView("chirp/display");
-	//		result.addObject("chirp", chirp);
-	//		result.addObject("requestURI", "chirp/display.do");
-	//
-	//		return result;
-	//	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int chirpId) {
+
+		ModelAndView result;
+		Chirp chirp;
+
+		chirp = this.chirpService.findOne(chirpId);
+
+		result = new ModelAndView("chirp/display");
+		result.addObject("chirp", chirp);
+
+		return result;
+	}
 
 	// Editing ---------------------------------------------------------------
 
