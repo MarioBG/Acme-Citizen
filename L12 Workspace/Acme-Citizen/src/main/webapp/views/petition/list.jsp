@@ -15,18 +15,17 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${citizen == null and requestURI == 'petition/list.do'}">
+		<jstl:when
+			test="${citizen == null and requestURI == 'petition/list.do'}">
 			<spring:message code="petition.availablePetitions" />
 		</jstl:when>
-		<jstl:when test="${citizen != null and requestURI == 'petition/list.do'}">
+		<jstl:when
+			test="${citizen != null and requestURI == 'petition/list.do'}">
 			<spring:message code="petition.petitionsOf" />
 			<jstl:out value="${citizen.name}" />
 		</jstl:when>
 		<jstl:when test="${requestURI == 'petition/citizen/list.do'}">
 			<spring:message code="petition.yourPetitions" />
-		</jstl:when>
-		<jstl:when test="${requestURI == 'petition//governmentAgent/list.do'}">
-			<spring:message code="petition.deletedPetitions" />
 		</jstl:when>
 	</jstl:choose>
 </h3>
@@ -67,11 +66,13 @@
 	<display:column property="creationMoment"
 		title="${creationMomentHeader}" format="${formatDate}" sortable="true" />
 
-	<spring:message var="citizenHeader" code="petition.citizen" />
-	<display:column title="${citizenHeader}">
-		<a href="citizen/display.do?citizenId=${row.citizen.id}"><jstl:out
-				value="${row.citizen.name}" /></a>
-	</display:column>
+	<jstl:if test="${requestURI != 'petition/citizen/list.do' }">
+		<spring:message var="citizenHeader" code="petition.citizen" />
+		<display:column title="${citizenHeader}">
+			<a href="citizen/display.do?citizenId=${row.citizen.id}"><jstl:out
+					value="${row.citizen.name}" /></a>
+		</display:column>
+	</jstl:if>
 
 	<spring:message var="isFinalHeader" code="petition.isFinal" />
 	<display:column title="${isFinalHeader}" sortable="true">

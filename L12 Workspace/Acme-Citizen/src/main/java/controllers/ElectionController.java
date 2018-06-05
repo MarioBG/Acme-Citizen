@@ -100,6 +100,7 @@ public class ElectionController extends AbstractController {
 		result.addObject("hasVoted", hasVoted);
 		result.addObject("daysCelebration", daysCelebration);
 		result.addObject("daysCandidature", daysCandidature);
+		result.addObject("participatingCandidatures", participatingCandidatures);
 		result.addObject("countryFlag", countryFlag);
 
 		return result;

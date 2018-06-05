@@ -19,6 +19,8 @@ public interface PetitionRepository extends JpaRepository<Petition, Integer> {
 	Collection<Petition> findDeleted();
 
 	@Query("select p from Petition p where p.citizen.id = ?1 and p.deleted = false")
-	Collection<Petition> findByCitizenId(int citizenId);
+	Collection<Petition> findByCitizenIdNonDeleted(int citizenId);
 
+	@Query("select p from Petition p where p.citizen.id = ?1")
+	Collection<Petition> findByCitizenId(int citizenId);
 }

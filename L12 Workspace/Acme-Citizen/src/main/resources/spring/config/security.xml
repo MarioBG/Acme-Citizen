@@ -127,6 +127,12 @@
 		<security:intercept-url pattern="/citizen/**"
 			access="permitAll" />
 
+		<!-- Government agent -->
+		<security:intercept-url
+			pattern="/governmentAgent/citizen/**" access="hasRole('CITIZEN')" />
+		<security:intercept-url pattern="/governmentAgent/**"
+			access="permitAll" />
+
 
 		<!-- Folders y messages -->
 
@@ -136,10 +142,6 @@
 			access="hasAnyRole('GOVERNMENTAGENT', 'BANKAGENT','CITIZEN')" />
 		<security:intercept-url
 			pattern="/notification/admin/**" access="hasRole('GOVERNMENTAGENT')" />
-
-		<!-- Government agent -->
-		<security:intercept-url
-			pattern="/governmentAgent/**" access="permitAll" />
 
 		<!-- Petition -->
 		<security:intercept-url

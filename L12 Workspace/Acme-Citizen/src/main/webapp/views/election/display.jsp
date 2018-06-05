@@ -63,67 +63,73 @@
 </jstl:if>
 
 <security:authorize access="hasAnyRole('CITIZEN','GOVERNMENTAGENT')">
-	<jstl:if test="${daysCelebration<=0}">
+	<jstl:if
+		test="${daysCelebration <= 0}">
 		<a href="comment/actor/create.do?commentableId=${election.id}"><spring:message
 				code="election.createComment" /></a>
 		<br />
 	</jstl:if>
 </security:authorize>
 
-	<display:table pagesize="5" class="displaytag" keepStatus="true"
-		name="election.candidatures" requestURI="election/display.do?electionId=${election.id}" id="row">
-		<security:authorize access="hasRole('CITIZEN')">
-			<jstl:if test="${daysCelebration == 0 and hasVoted == false}">
-				<display:column>
-					<a href="candidature/citizen/vote.do?candidatureId=${row.id}"><spring:message
-							code="candidature.vote" /></a>
-				</display:column>
-			</jstl:if>
-			<jstl:if test="${daysCelebration<-1}">
-				<display:column>
-					<jstl:if test="${participatingCandidatures.contains(row)}">
-						<a href="candidature/citizen/edit.do?candidatureId=${row.id}"><spring:message
-								code="candidature.edit" /></a>
-					</jstl:if>
-				</display:column>
-			</jstl:if>
-			<jstl:if test="${daysCelebration<0}">
-				<display:column>
-					<jstl:if test="${participatingCandidatures.contains(row)}">
-						<a href="candidature/citizen/delete.do?candidatureId=${row.id}"><spring:message
-								code="candidature.delete" /></a>
-					</jstl:if>
-				</display:column>
-			</jstl:if>
-		</security:authorize>
-		<spring:message code="candidature.description"
-		var="candidatureDesc" />
-		<display:column title="${candidatureDesc}">
-			<a
-				href="candidature/display.do?candidatureId=${row.id}">
-				<jstl:out value="${row.description}" />
-			</a>
-		</display:column>
-		<spring:message var="partyLogoHeader" code="candidature.partyLogo" />
-		<display:column title="${partyLogoHeader}">
-			<img src="${row.partyLogo}" style="display: block; max-width: 230px; max-height: 95px; width: auto; height: auto;" />
-		</display:column>
-	
-		<spring:message var="electoralProgramHeader"
-			code="candidature.electoralProgram" />
-		<display:column title="${electoralProgramHeader}">
-			<a href="${row.electoralProgram}"><spring:message
-					code="candidature.link" /></a>
-		</display:column>
-		<jstl:if test="${ daysCelebration>0 }">
-			<spring:message var="voteNumberHeader" code="candidature.voteNumber" />
-			<display:column property="voteNumber" title="${voteNumberHeader}" sortable="true"/>
+<display:table pagesize="5" class="displaytag" keepStatus="true"
+	name="election.candidatures"
+	requestURI="election/display.do?electionId=${election.id}" id="row">
+	<security:authorize access="hasRole('CITIZEN')">
+		<jstl:if test="${daysCelebration == 0 and hasVoted == false}">
+			<display:column>
+				<a href="candidature/citizen/vote.do?candidatureId=${row.id}"><spring:message
+						code="candidature.vote" /></a>
+			</display:column>
 		</jstl:if>
-	</display:table>
-	
-	<!-- <div id="chartdiv"></div>
+		<jstl:if test="${daysCelebration<-1}">
+			<display:column>
+				<jstl:if test="${participatingCandidatures.contains(row)}">
+					<a href="candidature/citizen/edit.do?candidatureId=${row.id}"><spring:message
+							code="candidature.edit" /></a>
+				</jstl:if>
+			</display:column>
+		</jstl:if>
+		<jstl:if test="${daysCelebration<0}">
+			<display:column>
+				<jstl:if test="${participatingCandidatures.contains(row)}">
+					<a href="candidature/citizen/delete.do?candidatureId=${row.id}"><spring:message
+							code="candidature.delete" /></a>
+				</jstl:if>
+			</display:column>
+		</jstl:if>
+	</security:authorize>
+	<spring:message code="candidature.description" var="candidatureDesc" />
+	<display:column title="${candidatureDesc}">
+		<a href="candidature/display.do?candidatureId=${row.id}"> <jstl:out
+				value="${row.description}" />
+		</a>
+	</display:column>
+	<spring:message var="partyLogoHeader" code="candidature.partyLogo" />
+	<display:column title="${partyLogoHeader}">
+		<img src="${row.partyLogo}"
+			style="display: block; max-width: 230px; max-height: 95px; width: auto; height: auto;" />
+	</display:column>
+
+	<spring:message var="electoralProgramHeader"
+		code="candidature.electoralProgram" />
+	<display:column title="${electoralProgramHeader}">
+		<a href="${row.electoralProgram}"><spring:message
+				code="candidature.link" /></a>
+	</display:column>
+
+	<jstl:if test="${ daysCelebration>0 }">
+		<spring:message var="voteNumberHeader" code="candidature.voteNumber" />
+		<display:column property="voteNumber" title="${voteNumberHeader}"
+			sortable="true" />
+	</jstl:if>
+</display:table>
+
+<!-- <div id="chartdiv"></div>
  -->
-<div class="middle"><img src="${countryFlag}" style="display: block; max-width: 500px; max-height: 200px; width: auto; height: auto;" /></div>
+<div class="middle">
+	<img src="${countryFlag}"
+		style="display: block; max-width: 500px; max-height: 200px; width: auto; height: auto;" />
+</div>
 <spring:message var="backValue" code="election.back" />
 <input type="button" name="back" value="${backValue}"
 	onclick="javascript: relativeRedir('election/list.do');" />

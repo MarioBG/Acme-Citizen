@@ -148,7 +148,17 @@
 							code="master.page.listActors.citizen" /></a></li>
 			</ul>
 		<li><a class="fNiv" href="petition/list.do"><spring:message
-					code="master.page.listPetitions" /></a></li>
+					code="master.page.listPetitions" /></a> <security:authorize
+				access="hasRole('CITIZEN')">
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="petition/citizen/list.do"><spring:message
+								code="master.page.yourPetitions" /> </a></li>
+					<li><a href="petition/citizen/create.do"><spring:message
+								code="master.page.createPetition" /></a></li>
+				</ul>
+
+			</security:authorize></li>
 		<li><a class="fNiv" href="election/list.do"><spring:message
 					code="master.page.listElections" /></a></li>
 		<li><a class="fNiv" href="terms/list.do"><spring:message

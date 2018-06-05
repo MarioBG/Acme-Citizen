@@ -1,10 +1,12 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,14 +47,23 @@ public class PetitionController extends AbstractController {
 	public ModelAndView list(@RequestParam(required = false) final Integer citizenId) {
 
 		final ModelAndView result;
-		Collection<Petition> petitions;
+		Collection<Petition> petitions = new ArrayList<Petition>();
 		Citizen citizen = null;
 
-		if (citizenId != null) {
-			citizen = this.citizenService.findOne(citizenId);
-			petitions = this.petitionService.findByCitizenId(citizenId);
-		} else
-			petitions = this.petitionService.findNonDeleted();
+		if (this.governmentAgentService.findByPrincipal() == null) {
+			if (citizenId != null) {
+				Assert.notNull(this.citizenService.findOne(citizenId));
+				citizen = this.citizenService.findOne(citizenId);
+				petitions = this.petitionService.findByCitizenIdNonDeleted(citizenId);
+			} else
+				petitions = this.petitionService.findNonDeleted();
+		} else if (this.governmentAgentService.findByPrincipal() != null)
+			if (citizenId != null) {
+				Assert.notNull(this.citizenService.findOne(citizenId));
+				citizen = this.citizenService.findOne(citizenId);
+				petitions = this.petitionService.findByCitizenId(citizenId);
+			} else
+				petitions = this.petitionService.findAll();
 
 		result = new ModelAndView("petition/list");
 		result.addObject("petitions", petitions);
