@@ -86,7 +86,7 @@
 </display:table>
 
 <security:authorize access="hasAnyRole('BANKAGENT', 'GOVERNMENTAGENT')">
-	<a href="transaction/create.do"><spring:message
+	<a href="transaction/createMoney.do"><spring:message
 			code="economicTransaction.createMoney" /></a>
 	<br />
 </security:authorize>
