@@ -27,16 +27,18 @@
 		title="${celebrationDateHeader}" format="${formatDate}"
 		sortable="true" />
 
+	<spring:message var="formatPrice" code="lottery.format.price" />
 	<spring:message var="quantityHeader" code="lottery.quantity" />
-	<display:column title="${quantityHeader}" property="quantity" />
+	<display:column title="${quantityHeader}" property="quantity" format="${formatPrice}" />
 
 	<spring:message var="percentageForPrizesHeader"
 		code="lottery.percentageForPrizes" />
 	<display:column title="${percentageForPrizesHeader}"
 		property="percentageForPrizes" />
 
+	<spring:message var="formatPrice" code="lottery.format.price" />
 	<spring:message var="ticketCostHeader" code="lottery.ticketCost" />
-	<display:column title="${ticketCostHeader}" property="ticketCost" />
+	<display:column title="${ticketCostHeader}" property="ticketCost" format="${formatPrice}" />
 
 
 	<security:authorize access="hasRole('GOVERNMENTAGENT')">

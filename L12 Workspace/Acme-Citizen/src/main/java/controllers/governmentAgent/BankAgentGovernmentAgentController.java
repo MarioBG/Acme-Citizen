@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BankAgentService;
-import services.GovernmentAgentService;
 import controllers.AbstractController;
 import domain.BankAgent;
 import domain.GovernmentAgent;
 import forms.BankAgentForm;
+import services.BankAgentService;
+import services.GovernmentAgentService;
 
 @Controller
 @RequestMapping("/bankAgent/governmentAgent")
@@ -24,11 +24,10 @@ public class BankAgentGovernmentAgentController extends AbstractController {
 	// Services -------------------------------------------------------------
 
 	@Autowired
-	private BankAgentService		bankAgentService;
+	private BankAgentService bankAgentService;
 
 	@Autowired
-	private GovernmentAgentService	governmentAgentService;
-
+	private GovernmentAgentService governmentAgentService;
 
 	// Constructors ---------------------------------------------------------
 
@@ -61,7 +60,8 @@ public class BankAgentGovernmentAgentController extends AbstractController {
 			res = this.createEditModelAndView(bankAgentForm, "user.commit.errorPassword");
 		else if (bankAgentForm.getTermsAndConditions() == false)
 			res = this.createEditModelAndView(bankAgentForm, "user.params.errorTerms");
-		else if (!this.governmentAgentService.findByPrincipal().getCanCreateMoney() && bankAgentForm.getCanCreateMoney())
+		else if (!this.governmentAgentService.findByPrincipal().getCanCreateMoney()
+				&& bankAgentForm.getCanCreateMoney())
 			res = this.createEditModelAndView(bankAgentForm, "user.commit.errorNoCanCreateMoney");
 		else
 			try {
@@ -78,7 +78,20 @@ public class BankAgentGovernmentAgentController extends AbstractController {
 		return res;
 	}
 
-	// Ancillary methods ---------------------------------------------------------------
+	@RequestMapping(value = "/denied", method = RequestMethod.GET)
+	public ModelAndView denied(int agentId) {
+
+		ModelAndView result;
+		bankAgentService.stopCreateMoney(agentId);
+
+		result = new ModelAndView("redirect:../../welcome/index.do");
+
+		return result;
+
+	}
+
+	// Ancillary methods
+	// ---------------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final BankAgentForm bankAgentForm) {
 		ModelAndView result;

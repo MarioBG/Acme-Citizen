@@ -13,16 +13,16 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.BankAgentRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.BankAccount;
 import domain.BankAgent;
 import domain.Comment;
 import domain.Folder;
 import domain.GovernmentAgent;
 import forms.BankAgentForm;
+import repositories.BankAgentRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -31,26 +31,25 @@ public class BankAgentService {
 	// Managed repository
 
 	@Autowired
-	private BankAgentRepository			bankAgentRepository;
+	private BankAgentRepository bankAgentRepository;
 
 	// Supporting services
 
 	@Autowired
-	private security.UserAccountService	userAccountService;
+	private security.UserAccountService userAccountService;
 	@Autowired
-	private ActorService				actorService;
+	private ActorService actorService;
 	@Autowired
-	private GovernmentAgentService		governmentAgentService;
+	private GovernmentAgentService governmentAgentService;
 
 	@Autowired
-	private FolderService				folderService;
+	private FolderService folderService;
 
 	@Autowired
-	private ConfigurationService		configurationService;
+	private ConfigurationService configurationService;
 
 	@Autowired
-	private Validator					validator;
-
+	private Validator validator;
 
 	// Constructors
 
@@ -82,6 +81,7 @@ public class BankAgentService {
 
 		return res;
 	}
+
 	public Collection<BankAgent> findAll() {
 		Collection<BankAgent> res;
 		res = this.bankAgentRepository.findAll();
@@ -104,8 +104,10 @@ public class BankAgentService {
 				agent.setPhone(this.configurationService.findActive().getDefaultCountryCode() + agent.getPhone());
 			final Collection<Folder> folders = this.folderService.save(this.folderService.defaultFolders());
 			agent.setFolders(folders);
-			agent.getUserAccount().setPassword(new Md5PasswordEncoder().encodePassword(agent.getUserAccount().getPassword(), null));
-			Assert.isTrue(this.userAccountService.findByUsername(agent.getUserAccount().getUsername()) == null, "message.error.duplicatedUser");
+			agent.getUserAccount()
+					.setPassword(new Md5PasswordEncoder().encodePassword(agent.getUserAccount().getPassword(), null));
+			Assert.isTrue(this.userAccountService.findByUsername(agent.getUserAccount().getUsername()) == null,
+					"message.error.duplicatedUser");
 		}
 		res = this.bankAgentRepository.save(agent);
 
@@ -156,6 +158,7 @@ public class BankAgentService {
 
 		return res;
 	}
+
 	public BankAgentForm construct(final BankAgent agent) {
 
 		Assert.notNull(agent);
@@ -179,6 +182,16 @@ public class BankAgentService {
 
 	public void flush() {
 		this.bankAgentRepository.flush();
+	}
+
+	public void stopCreateMoney(int agentId) {
+		GovernmentAgent governmentAgent = (GovernmentAgent) actorService.findByPrincipal();
+		Assert.notNull(governmentAgent);
+		BankAgent agent = this.bankAgentRepository.findOne(agentId);
+		if (agent.getCanCreateMoney()) {
+			agent.setCanCreateMoney(false);
+		}
+
 	}
 
 }

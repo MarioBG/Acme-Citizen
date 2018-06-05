@@ -28,9 +28,13 @@
 				<jstl:when test="${principal.bankAccount != null }">
 
 					<h3>
+						<spring:message var="formatGeneralPrice"
+							code="master.page.format.general.price" />
+
 						<b><spring:message code="bankAccount.money" />:&nbsp;</b> <font
 							color="green"> <jstl:out
-								value="${principal.bankAccount.money}" />
+								value="${principal.bankAccount.money}" /> ${formatGeneralPrice}
+
 						</font>
 					</h3>
 				</jstl:when>

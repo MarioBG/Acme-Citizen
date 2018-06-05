@@ -39,19 +39,19 @@
 
 <jstl:if test="${ agent.email!=null }">
 	<b><spring:message code="user.email" />:&nbsp;</b>
-		<jstl:out value="${agent.email}" />
+	<jstl:out value="${agent.email}" />
 	<br />
 </jstl:if>
 
 <jstl:if test="${ agent.nickname!=null }">
 	<b><spring:message code="user.email" />:&nbsp;</b>
-		<jstl:out value="${agent.nickname}" />
+	<jstl:out value="${agent.nickname}" />
 	<br />
 </jstl:if>
 
 <jstl:if test="${ agent.phone!=null }">
 	<b><spring:message code="user.phone" />:&nbsp;</b>
-		<jstl:out value="${agent.phone}" />
+	<jstl:out value="${agent.phone}" />
 	<br />
 </jstl:if>
 
@@ -64,11 +64,21 @@
 <br />
 
 <jstl:choose>
-	<jstl:when test="${ agent.canCreateMoney }">
-		<p class="goodThing"><spring:message code="governmentAgent.canCreateMoney" /></p>
+	<jstl:when test="${agent.canCreateMoney }">
+		<p class="goodThing">
+			<spring:message code="governmentAgent.canCreateMoney" />
+		</p>
+		<security:authorize access="hasRole('GOVERNMENTAGENT')">
+			<input type="button"
+				value="<spring:message code="governmentAgent.denied" />"
+				onclick="javascript: window.location.assign('bankAgent/governmentAgent/denied.do?agentId=${agent.id}')" />
+		</security:authorize>
+
 	</jstl:when>
 	<jstl:otherwise>
-		<p class="badThing"><spring:message code="governmentAgent.canNotCreateMoney" /></p>	
+		<p class="badThing">
+			<spring:message code="governmentAgent.canNotCreateMoney" />
+		</p>
 	</jstl:otherwise>
 </jstl:choose>
 

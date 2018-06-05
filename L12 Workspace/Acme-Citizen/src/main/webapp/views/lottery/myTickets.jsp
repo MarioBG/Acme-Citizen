@@ -27,8 +27,9 @@
 		title="${celebrationDateHeader}" format="${formatDate}"
 		sortable="true" />
 
+<spring:message var="formatPrice" code="lottery.format.price" />
 	<spring:message var="ticketCostHeader" code="lottery.ticketCost" />
-	<display:column title="${ticketCostHeader}" property="lottery.ticketCost" />
+	<display:column title="${ticketCostHeader}" property="lottery.ticketCost" format="${formatPrice}"/>
 	
 	<spring:message var="numberHeader" code="lotteryTicket.number" />
 	<display:column title="${numberHeader}" property="number" />

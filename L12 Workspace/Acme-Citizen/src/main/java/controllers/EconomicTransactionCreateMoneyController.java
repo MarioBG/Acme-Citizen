@@ -100,10 +100,13 @@ public class EconomicTransactionCreateMoneyController extends AbstractController
 	public ModelAndView list() {
 		ModelAndView result;
 		Actor principal = this.actorService.findByPrincipal();
-		Collection<EconomicTransaction> moneyMade = economicTransactionService.findCreatedMoneyTransaction();
+		Collection<EconomicTransaction> bankAgentMoney = economicTransactionService.findBankAgentDoMoney();
+		Collection<EconomicTransaction> governmentAgentMoney = economicTransactionService.findGovernmentAgentDoMoney();
 
 		result = new ModelAndView("transaction/listMoneyCreate");
-		result.addObject("moneyMade", moneyMade);
+
+		result.addObject("bankAgentMoney", bankAgentMoney);
+		result.addObject("governmentAgentMoney", governmentAgentMoney);
 		result.addObject("principal", principal);
 
 		return result;

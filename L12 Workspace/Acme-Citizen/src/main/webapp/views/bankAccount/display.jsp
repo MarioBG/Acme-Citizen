@@ -41,8 +41,11 @@
 		</h2>
 
 		<h3>
-			<b><spring:message code="bankAccount.money" />:&nbsp;</b> <font
-				color="green"> <jstl:out value="${bankAccount.money}" />
+			<b> <spring:message var="formatGeneralPrice"
+					code="master.page.format.general.price" /> <spring:message
+					code="bankAccount.money" />:&nbsp;
+			</b> <font color="green"> <jstl:out value="${bankAccount.money}" />
+				${formatGeneralPrice}
 			</font>
 		</h3>
 

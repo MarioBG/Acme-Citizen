@@ -22,9 +22,11 @@
 	requestURI="transaction/list.do" pagesize="5" class="displaytag">
 
 
+	<spring:message var="formatPrice" code="lottery.format.price" />
 	<spring:message var="quantityHeader"
 		code="economicTransaction.quantity" />
-	<display:column property="quantity" title="${quantityHeader}" />
+	<display:column property="quantity" title="${quantityHeader}"
+		format="${formatPrice}" />
 
 	<spring:message var="transactionMomentHeader"
 		code="economicTransaction.transactionMoment" />
@@ -48,9 +50,11 @@
 <display:table name="creditorTransactions" id="row"
 	requestURI="transaction/list.do" pagesize="5" class="displaytag">
 
+	<spring:message var="formatPrice" code="lottery.format.price" />
 	<spring:message var="quantityHeader"
 		code="economicTransaction.quantity" />
-	<display:column property="quantity" title="${quantityHeader}" />
+	<display:column property="quantity" title="${quantityHeader}"
+		format="${formatPrice}" />
 
 	<spring:message var="transactionMomentHeader"
 		code="economicTransaction.transactionMoment" />

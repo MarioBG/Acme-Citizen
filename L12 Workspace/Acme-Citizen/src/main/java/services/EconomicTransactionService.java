@@ -159,7 +159,7 @@ public class EconomicTransactionService {
 		} else if (ga != null) {
 			if (ga.getCanCreateMoney()) {
 				creditor.setMoney(moneyReceived);
-			}			
+			}
 		} else {
 			this.economicTransactionRepository.delete(result);
 		}
@@ -176,8 +176,12 @@ public class EconomicTransactionService {
 
 	}
 
-	public Collection<EconomicTransaction> findCreatedMoneyTransaction() {
-		return this.economicTransactionRepository.findCreatedMoneyTransaction();
+	public Collection<EconomicTransaction> findBankAgentDoMoney() {
+		return this.economicTransactionRepository.findBankAgentDoMoney();
+	}
+
+	public Collection<EconomicTransaction> findGovernmentAgentDoMoney() {
+		return this.economicTransactionRepository.findGovernmentAgentDoMoney();
 	}
 
 }
