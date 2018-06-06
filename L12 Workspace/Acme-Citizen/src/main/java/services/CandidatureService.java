@@ -15,7 +15,9 @@ import org.springframework.validation.Validator;
 import repositories.CandidatureRepository;
 import domain.Candidate;
 import domain.Candidature;
+import domain.Citizen;
 import domain.Comment;
+import domain.Election;
 import forms.CandidatureForm;
 
 @Service
@@ -36,6 +38,9 @@ public class CandidatureService {
 
 	@Autowired
 	private CommentService			commentService;
+
+	@Autowired
+	private CitizenService			citizenService;
 
 	@Autowired
 	private Validator				validator;
@@ -79,8 +84,11 @@ public class CandidatureService {
 
 		final Candidature result = this.candidatureRepository.save(candidature);
 
-		if (candidature.getId() == 0)
+		if (candidature.getId() == 0) {
 			result.getElection().getCandidatures().add(result);
+			final Candidate candidate = this.candidateService.create(result.getId());
+			this.candidateService.save(candidate);
+		}
 
 		return result;
 	}
@@ -101,6 +109,17 @@ public class CandidatureService {
 
 	// Ancillary methods
 
+	public void vote(final Candidature candidature) {
+
+		final Citizen principal = this.citizenService.findByPrincipal();
+		Assert.notNull(principal);
+		final Election election = candidature.getElection();
+		Assert.isTrue(!principal.getElections().contains(election));
+		candidature.setVoteNumber(candidature.getVoteNumber() + 1);
+		principal.getElections().add(election);
+		election.getCitizens().add(principal);
+		this.save(candidature);
+	}
 	public CandidatureForm construct(final Candidature candidature) {
 
 		Assert.notNull(candidature);

@@ -67,7 +67,7 @@
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="election.candidatures"
-	requestURI="election/display.do?electionId=${election.id}" id="row">
+	requestURI="election/display.do" id="row">
 	<security:authorize access="hasRole('CITIZEN')">
 		<jstl:if test="${daysCelebration == 0 and hasVoted == false}">
 			<display:column>
@@ -117,6 +117,12 @@
 			sortable="true" />
 	</jstl:if>
 </display:table>
+
+<security:authorize access="hasRole('CITIZEN')">
+	<jstl:if test="${daysCandidature >= 0 and daysCelebration < 0}">
+		<a href="candidature/citizen/create.do?electionId=${election.id}"><spring:message code="election.createCandidature"/></a>
+	</jstl:if>
+</security:authorize>
 
 <!-- <div id="chartdiv"></div>
  -->
