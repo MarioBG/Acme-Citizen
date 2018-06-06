@@ -1,5 +1,7 @@
 package services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -9,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import domain.Lottery;
 import utilities.AbstractTest;
 
@@ -24,33 +25,64 @@ public class LotteryServiceTest extends AbstractTest {
 	@Test
 	public void driverLottery() {
 
-		Object testingData[][] = { { "government", null }, { null, IllegalArgumentException.class },
-				{ "bank1", IllegalArgumentException.class }, { "citizen1", IllegalArgumentException.class } };
+		Object testingData[][] = { { "government", "12/12/2018", "loteria nacional", 1.1, 10.0, null }, // Test positivo
+				// Casos negativos
+				{ null, "12/12/2018", "loteria nacional", 1.1, 10.0, IllegalArgumentException.class }, // Se intenta
+																										// crear sin
+																										// usuario
+				{ "bank1", "12/12/2018", "loteria nacional", 1.1, 10.0, IllegalArgumentException.class }, // Se intenta
+																											// crear con
+																											// un
+																											// usuario
+																											// no
+																											// autorizado
+				{ "tvhisperia", "12/12/2018", "loteria nacional", null, 10.0, IllegalArgumentException.class } }; // Se
+																													// intenta
+																													// crear
+																													// con
+																													// el
+																													// precio
+																													// del
+																													// boleto
+																													// a
+																													// null
 
 		for (int i = 0; i < testingData.length; i++) {
-			template((String) testingData[i][0], (Class<?>) testingData[i][1]);
+			this.templateCreateAndEdit((String) testingData[i][0], (String) testingData[i][1],
+					(String) testingData[i][2], (Double) testingData[i][3], (Double) testingData[i][4],
+					(Class<?>) testingData[i][5]);
 		}
 
 	}
 
-	protected void template(String username, Class<?> expected) {
+	private void templateCreateAndEdit(final String username, final String date, final String lotteryName,
+			final Double percentage, final Double ticketCost, final Class<?> expected) {
 		Class<?> caught;
 
 		caught = null;
+		Lottery lottery;
 
+		Date celebrationDate = null;
 		try {
-			authenticate(username);
-			Lottery lottery = lotteryService.create();
-			lottery.setCelebrationDate(new Date());
-			lottery.setLotteryName("loteria nacional");
-			lottery.setPercentageForPrizes(2.2);
-			lottery.setTicketCost(3.2);
-			unauthenticate();
-		} catch (Exception e) {
-			caught = e.getClass();
+			celebrationDate = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 
-		checkExceptions(expected, caught);
+		try {
+			super.authenticate(username);
+			lottery = lotteryService.create();
+			lottery.setCelebrationDate(celebrationDate);
+			lottery.setLotteryName(lotteryName);
+			lottery.setPercentageForPrizes(percentage);
+			lottery.setTicketCost(ticketCost);
+		} catch (Exception e) {
+			caught = e.getClass();
+			this.lotteryService.flush();
+		}
+
+		this.checkExceptions(expected, caught);
 	}
 
 }

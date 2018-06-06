@@ -11,9 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import utilities.AbstractTest;
 
-@ContextConfiguration(locations = {
-	"classpath:spring/junit.xml"
-})
+@ContextConfiguration(locations = { "classpath:spring/junit.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class GovernmentAgentServiceTest extends AbstractTest {
@@ -21,8 +19,7 @@ public class GovernmentAgentServiceTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private GovernmentAgentService	adminService;
-
+	private GovernmentAgentService adminService;
 
 	// Tests ------------------------------------------------------------------
 
@@ -35,23 +32,14 @@ public class GovernmentAgentServiceTest extends AbstractTest {
 	public void driverDashboard() {
 		final Object testingDashboardData[][] = {
 
-			// Casos positivos
-			{
-				"government", null
-			},
+				// Casos positivos
+				{ "government", null },
 
-			// Casos negativos
-			{
-				null, IllegalArgumentException.class
-			}, {
-				"citizen1", IllegalArgumentException.class
-			}
-		/*
-		 * Solamente el
-		 * admin puede
-		 * mostrar el
-		 * dashboard.
-		 */
+				// Casos negativos
+				{ null, IllegalArgumentException.class }, { "citizen1", IllegalArgumentException.class }
+				/*
+				 * Solamente el admin puede mostrar el dashboard.
+				 */
 		};
 
 		for (int i = 0; i < testingDashboardData.length; i++)

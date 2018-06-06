@@ -29,9 +29,9 @@ public class BankAccountServiceTest extends AbstractTest {
 	public void driver() {
 		final Object testingCreate[][] = {
 				// Casos positivos
-				{ "bank1", "151", "98746544654487", 0.0, null },
+				{ "bank1", 151, "98746544654487", 0.0, null },
 				// Casos negativos
-				{ "citizen1", "151", "98746544654487", 10.0, IllegalArgumentException.class }, // Un
+				{ "citizen1", 151, "98746544654487", 10.0, IllegalArgumentException.class }, // Un
 																								// ciudadano
 																								// no
 																								// puede
@@ -42,7 +42,7 @@ public class BankAccountServiceTest extends AbstractTest {
 																						// actor al que crearle la
 																						// cuenta
 																						// del banco
-				{ "bank1", "151", null, 0.0, NullPointerException.class }, // Tiene que tener el numero de cuenta para
+				{ "bank1", 151, null, 0.0, NullPointerException.class }, // Tiene que tener el numero de cuenta para
 																			// poder crear la cuenta
 		};
 

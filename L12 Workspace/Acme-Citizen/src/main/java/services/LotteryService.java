@@ -137,4 +137,8 @@ public class LotteryService {
 
 	}
 
+	public void flush() {
+		this.lotteryRepository.flush();
+	}
+
 }
