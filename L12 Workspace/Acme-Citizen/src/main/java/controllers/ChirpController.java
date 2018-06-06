@@ -54,6 +54,7 @@ public class ChirpController extends AbstractController {
 		result = new ModelAndView("chirp/list");
 		result.addObject("chirps", chirps);
 		result.addObject("governmentAgent", governmentAgent);
+		result.addObject("requestURI", "chirp/list.do");
 
 		return result;
 	}

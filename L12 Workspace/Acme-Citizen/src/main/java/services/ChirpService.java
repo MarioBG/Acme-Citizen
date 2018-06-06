@@ -140,4 +140,8 @@ public class ChirpService {
 		return this.chirpRepository.findByGovernmentAgentId(id);
 	}
 
+	public Collection<Chirp> findByPrincipal() {
+		return this.findByGovernmentAgentId(this.governmentAgentService.findByPrincipal().getId());
+	}
+
 }

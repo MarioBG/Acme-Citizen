@@ -18,31 +18,36 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="governmentAgentId" />
-	<jstl:if test="${chirpForm.id == 0}">
-		<form:hidden path="publicationMoment" />
-	</jstl:if>
+	<form:hidden path="publicationMoment" />
 
 	<acme:textbox code="chirp.title" path="title" />
 	<br />
-	
+
 	<acme:textarea code="chirp.content" path="content" />
 	<br />
-	
+
 	<jstl:if test="${chirpForm.id != 0}">
-		<acme:textbox code="chirp.publicationMoment" path="publicationMoment" readonly="readonly"/>
-		<br/>
+		<spring:message var="patternDate" code="chirp.pattern.date" />
+		<b><spring:message code="chirp.publicationMoment" />:&nbsp;</b>
+		<fmt:formatDate value="${chirpForm.publicationMoment}"
+			pattern="${patternDate}" />
+		<br />
 	</jstl:if>
-	
+
 	<acme:textbox code="chirp.image" path="image" />
 	<br />
-	
+
 	<acme:textbox code="chirp.link" path="link" />
 	<br />
-	
+
 	<acme:submit name="save" code="chirp.save" />
 	&nbsp;
-	<acme:submit name="delete" code="chirp.delete"/>
-	&nbsp;
-	<acme:cancel url="chirp/list.do?governmentAgentId=${chirpForm.governmentAgentId}" code="chirp.back"/>
+	<jstl:if test="${chirpForm.id != 0 }">
+		<acme:submit name="delete" code="chirp.delete" />
+		&nbsp;
+	</jstl:if>
+	<acme:cancel
+		url="chirp/list.do?governmentAgentId=${chirpForm.governmentAgentId}"
+		code="chirp.back" />
 
 </form:form>

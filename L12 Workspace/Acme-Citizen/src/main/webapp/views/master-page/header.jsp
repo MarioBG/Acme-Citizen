@@ -139,7 +139,17 @@
 		</security:authorize>
 
 		<li><a href="chirp/list.do"><spring:message
-					code="master.page.chirp.list" /></a></li>
+					code="master.page.listChirps" /></a> <security:authorize
+				access="hasRole('GOVERNMENTAGENT')">
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="chirp/governmentAgent/list.do"><spring:message
+								code="master.page.yourChirps" /> </a></li>
+					<li><a href="chirp/governmentAgent/create.do"><spring:message
+								code="master.page.createChirp" /></a></li>
+				</ul>
+
+			</security:authorize></li>
 
 		<li><a class="fNiv"><spring:message
 					code="master.page.listActors" /></a>

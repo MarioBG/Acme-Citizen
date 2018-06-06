@@ -22,20 +22,25 @@
 
 <h3>
 	<jstl:choose>
-		<jstl:when test="${governmentAgent == null}">
+		<jstl:when
+			test="${requestURI == 'chirp/list.do' and governmentAgent == null}">
 			<spring:message code="chirp.systemChirps" />
 		</jstl:when>
-		<jstl:otherwise>
+		<jstl:when
+			test="${requestURI == 'chirp/list.do' and governmentAgent != null}">
 			<spring:message code="chirp.chirpsOf" />
 			<jstl:out value="${governmentAgent.name}" />
-		</jstl:otherwise>
+		</jstl:when>
+		<jstl:when test="${requestURI == 'chirp/governmentAgent/list.do'}">
+			<spring:message code="chirp.yourChirps"/>
+		</jstl:when>
 	</jstl:choose>
 </h3>
 
 <!-- displaying grid -->
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="chirps" requestURI="chirp/list.do" id="row">
+	name="chirps" requestURI="${requestURI}" id="row">
 
 	<security:authorize access="hasRole('GOVERNMENTAGENT')">
 		<security:authentication property="principal" var="loggedactor" />
@@ -54,7 +59,7 @@
 				code="chirp.display" /></a>
 	</display:column>
 
-	<jstl:if test="${governmentAgent == null}">
+	<jstl:if test="${requestURI == 'chirp/list.do' and governmentAgent == null}">
 		<spring:message code="chirp.governmentAgent"
 			var="governmentAgentHeader" />
 		<display:column title="${governmentAgentHeader}">
