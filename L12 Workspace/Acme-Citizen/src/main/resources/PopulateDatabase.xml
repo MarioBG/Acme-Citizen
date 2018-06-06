@@ -192,7 +192,7 @@
 		</property>
 		<property name="elections">
 			<list>
-<!-- 				<ref bean="election1"/> -->
+				<ref bean="election1"/>
 			</list>
 		</property>
 		<property name="lotteryTickets">
@@ -1204,7 +1204,7 @@
 		</property>
 		<property name="citizens">
 			<list>
-<!-- 				<ref bean="citizen1" /> -->
+				<ref bean="citizen1" />
 				<ref bean="citizen2" />
 				<ref bean="citizen3" />
 			</list>
