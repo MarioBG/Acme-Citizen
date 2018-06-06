@@ -98,6 +98,20 @@
 		</jstl:choose>
 	</display:column>
 
+	<security:authorize access="hasRole('GOVERNMENTAGENT')">
+		<spring:message var="isDeletedHeader" code="petition.isDeleted" />
+		<display:column title="${isDeletedHeader}" sortable="true">
+			<jstl:choose>
+				<jstl:when test="${row.deleted == true}">
+					<spring:message code="petition.yes" />
+				</jstl:when>
+				<jstl:when test="${row.deleted == false}">
+					<spring:message code="petition.no" />
+				</jstl:when>
+			</jstl:choose>
+		</display:column>
+	</security:authorize>
+
 </display:table>
 
 <security:authorize access="hasRole('CITIZEN')">

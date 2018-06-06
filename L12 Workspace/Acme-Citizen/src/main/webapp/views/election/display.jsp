@@ -57,8 +57,7 @@
 </jstl:if>
 
 <security:authorize access="hasAnyRole('CITIZEN','GOVERNMENTAGENT')">
-	<jstl:if
-		test="${daysCelebration > 0}">
+	<jstl:if test="${daysCelebration > 0}">
 		<a href="comment/actor/create.do?commentableId=${election.id}"><spring:message
 				code="election.createComment" /></a>
 		<br />
@@ -66,8 +65,18 @@
 </security:authorize>
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="election.candidatures"
-	requestURI="election/display.do" id="row">
+	name="election.candidatures" requestURI="election/display.do" id="row">
+
+	<security:authorize access="hasRole('GOVERNMENTAGENT')">
+		<jstl:if test="${daysCelebration < 0}">
+			<display:column>
+				<a
+					href="candidature/governmentAgent/delete.do?candidatureId=${row.id}"><spring:message
+						code="election.delete" /></a>
+			</display:column>
+		</jstl:if>
+	</security:authorize>
+
 	<security:authorize access="hasRole('CITIZEN')">
 		<jstl:if test="${daysCelebration == 0 and hasVoted == false}">
 			<display:column>
@@ -120,7 +129,8 @@
 
 <security:authorize access="hasRole('CITIZEN')">
 	<jstl:if test="${daysCandidature >= 0 and daysCelebration < 0}">
-		<a href="candidature/citizen/create.do?electionId=${election.id}"><spring:message code="election.createCandidature"/></a>
+		<a href="candidature/citizen/create.do?electionId=${election.id}"><spring:message
+				code="election.createCandidature" /></a>
 	</jstl:if>
 </security:authorize>
 

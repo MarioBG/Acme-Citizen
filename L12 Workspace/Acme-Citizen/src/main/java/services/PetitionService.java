@@ -26,18 +26,21 @@ public class PetitionService {
 
 	// Managed repository
 	@Autowired
-	private PetitionRepository	petitionRepository;
+	private PetitionRepository		petitionRepository;
 
 	// Supported services
 
 	@Autowired
-	private CitizenService		citizenService;
+	private CitizenService			citizenService;
 
 	@Autowired
-	private CommentService		commentService;
+	private GovernmentAgentService	governmentAgentService;
 
 	@Autowired
-	private Validator			validator;
+	private CommentService			commentService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Constructors
@@ -90,6 +93,8 @@ public class PetitionService {
 		return result;
 	}
 	public void delete(final Petition petition) {
+
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
 
 		petition.getCitizen().getPetitions().remove(petition);
 

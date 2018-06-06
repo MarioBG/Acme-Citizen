@@ -43,6 +43,9 @@ public class CandidatureService {
 	private CitizenService			citizenService;
 
 	@Autowired
+	private GovernmentAgentService	governmentAgentService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -95,6 +98,8 @@ public class CandidatureService {
 
 	public void delete(final Candidature candidature) {
 
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
+
 		candidature.getElection().getCandidatures().remove(candidature);
 
 		final Collection<Candidate> candidates = new ArrayList<Candidate>(candidature.getCandidates());
@@ -106,7 +111,6 @@ public class CandidatureService {
 
 		this.candidatureRepository.delete(candidature);
 	}
-
 	// Ancillary methods
 
 	public void vote(final Candidature candidature) {

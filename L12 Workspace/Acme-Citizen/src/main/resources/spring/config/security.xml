@@ -112,6 +112,8 @@
 		
 		<!-- Candidature -->
 		<security:intercept-url
+			pattern="/candidature/governmentAgent/**" access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url
 			pattern="/candidature/citizen/**" access="hasRole('CITIZEN')" />
 		<security:intercept-url
 			pattern="/candidature/**" access="permitAll" />
@@ -125,12 +127,17 @@
 
 		<!-- Comment -->
 		<security:intercept-url
+			pattern="/comment/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url
 			pattern="/comment/actor/**"
 			access="hasAnyRole('CITIZEN', 'GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/comment/**"
 			access="permitAll" />
 
 		<!-- Election -->
+		<security:intercept-url pattern="/election/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/election/**"
 			access="permitAll" />
 
