@@ -25,7 +25,7 @@ public class BankAccountServiceTest extends AbstractTest {
 
 	// Test ------------------------------------------
 
-	@Test()
+	@Test(expected = NullPointerException.class)
 	public void driver() {
 		final Object testingCreate[][] = {
 				// Casos positivos
