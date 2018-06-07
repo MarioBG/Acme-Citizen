@@ -85,6 +85,12 @@ public class CandidateService {
 
 	// Ancillary methods
 
+	public Collection<Candidate> findByCandidatureId(final int candidatureId) {
+
+		final Collection<Candidate> candidates = this.candidateRepository.findByCandidatureId(candidatureId);
+		return candidates;
+	}
+
 	public Candidate findByCitizenIdAndCandidatureId(final int citizenId, final int candidatureId) {
 
 		final Candidate candidate = this.candidateRepository.findByCitizenIdAndCandidatureId(citizenId, candidatureId);

@@ -35,6 +35,9 @@ public class CommentService {
 	private ActorService			actorService;
 
 	@Autowired
+	private CitizenService			citizenService;
+
+	@Autowired
 	private GovernmentAgentService	governmentAgentService;
 
 	@Autowired
@@ -53,6 +56,8 @@ public class CommentService {
 	// Simple CRUD methods
 
 	public Comment create(final int commentableId, final Integer parentCommentId) {
+
+		Assert.isTrue(this.citizenService.findByPrincipal() != null || this.governmentAgentService.findByPrincipal() != null);
 
 		final Comment res = new Comment();
 
@@ -84,6 +89,7 @@ public class CommentService {
 	public Comment save(final Comment comment) {
 
 		Assert.notNull(comment);
+		Assert.isTrue(comment.getText() != "" && comment.getText() != null);
 
 		if (comment.getId() == 0)
 			comment.setMoment(new Date(System.currentTimeMillis() - 1000));

@@ -117,6 +117,7 @@
 		<property name="elections">
 			<list>
 				<ref bean="election1" />
+				<ref bean="election2" />
 			</list>
 		</property>
 		<property name="petitions">
@@ -1247,6 +1248,29 @@
 		<property name="celebrationDate" value="2017/11/16" />
 		<property name="description"
 			value="Elecciones Generales de 2017." />
+	</bean>
+	
+	<bean id="election2" class="domain.Election">
+		<property name="governmentAgent" ref="government" />
+		<property name="candidatures">
+			<list>
+				<null/>
+			</list>
+		</property>
+		<property name="comments">
+			<list>
+				<null />
+			</list>
+		</property>
+		<property name="citizens">
+			<list>
+				<null/>
+			</list>
+		</property>
+		<property name="candidatureDate" value="2017/11/01" />
+		<property name="celebrationDate" value="2018/11/16" />
+		<property name="description"
+			value="Elección para tests." />
 	</bean>
 
 	<!--Candidature -->

@@ -52,6 +52,8 @@ public class PetitionService {
 
 	public Petition create() {
 
+		Assert.notNull(this.citizenService.findByPrincipal());
+
 		final Petition petition = new Petition();
 
 		petition.setCreationMoment(new Date(System.currentTimeMillis() - 1000));
@@ -82,6 +84,10 @@ public class PetitionService {
 
 	public Petition save(final Petition petition) {
 
+		Assert.isTrue(petition.getName() != null && petition.getName() != "");
+		Assert.isTrue(petition.getDescription() != null && petition.getDescription() != "");
+		Assert.notNull(petition.getCreationMoment());
+
 		if (petition.getId() == 0)
 			petition.setCreationMoment(new Date(System.currentTimeMillis() - 1000));
 
@@ -106,6 +112,17 @@ public class PetitionService {
 			this.commentService.delete(c);
 
 		this.petitionRepository.delete(petition);
+	}
+
+	public void virtualDelete(final Petition petition) {
+
+		Assert.notNull(petition);
+		Assert.isTrue(petition.getId() != 0);
+		Assert.notNull(this.citizenService.findByPrincipal());
+		Assert.isTrue(petition.getFinalVersion() == false);
+
+		petition.setDeleted(true);
+		this.save(petition);
 	}
 
 	// Ancillary methods
@@ -156,6 +173,32 @@ public class PetitionService {
 		return petition;
 	}
 
+	public void addGovernmentAgent(final int petitionId, final int governmentAgentId) {
+
+		final Petition petition = this.findOne(petitionId);
+		Assert.isTrue(petition.getFinalVersion() == false);
+		Assert.isTrue(petition.getCitizen() == this.citizenService.findByPrincipal());
+		final GovernmentAgent governmentAgent = this.governmentAgentService.findOne(governmentAgentId);
+		Assert.isTrue(governmentAgent != null && !petition.getGovernmentAgents().contains(governmentAgent));
+		petition.getGovernmentAgents().add(governmentAgent);
+		governmentAgent.getPetitions().add(petition);
+		this.save(petition);
+		this.governmentAgentService.save(governmentAgent);
+	}
+
+	public void removeGovernmentAgent(final int petitionId, final int governmentAgentId) {
+
+		final Petition petition = this.findOne(petitionId);
+		Assert.isTrue(petition.getFinalVersion() == false);
+		Assert.isTrue(petition.getCitizen() == this.citizenService.findByPrincipal());
+		final GovernmentAgent governmentAgent = this.governmentAgentService.findOne(governmentAgentId);
+		Assert.isTrue(governmentAgent != null && petition.getGovernmentAgents().contains(governmentAgent));
+		petition.getGovernmentAgents().remove(governmentAgent);
+		governmentAgent.getPetitions().remove(petition);
+		this.save(petition);
+		this.governmentAgentService.save(governmentAgent);
+	}
+
 	public Collection<Petition> findNonDeleted() {
 
 		final Collection<Petition> result = this.petitionRepository.findNonDeleted();
@@ -179,6 +222,7 @@ public class PetitionService {
 	public Collection<Petition> findByCitizenId(final int citizenId) {
 
 		Assert.isTrue(citizenId != 0);
+		Assert.notNull(this.citizenService.findOne(citizenId));
 
 		final Collection<Petition> result = this.petitionRepository.findByCitizenId(citizenId);
 		return result;
@@ -187,8 +231,13 @@ public class PetitionService {
 	public Collection<Petition> findByPrincipal() {
 
 		final Citizen citizen = this.citizenService.findByPrincipal();
+		Assert.notNull(citizen);
 		final Collection<Petition> result = this.findByCitizenIdNonDeleted(citizen.getId());
 		return result;
+	}
+
+	public void flush() {
+		this.petitionRepository.flush();
 	}
 
 }

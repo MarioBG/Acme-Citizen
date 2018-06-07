@@ -3,9 +3,11 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -58,11 +60,16 @@ public class CandidatureService {
 
 	public Candidature create(final int electionId) {
 
+		Assert.notNull(this.citizenService.findByPrincipal());
+		final Election election = this.electionService.findOne(electionId);
+		Assert.isTrue(election.getCandidatureDate().before(new Date()) || election.getCandidatureDate().equals(new Date()));
+		Assert.isTrue(new DateTime(election.getCelebrationDate()).minusDays(1).toDate().after(new Date()));
+
 		final Candidature candidature = new Candidature();
 
 		candidature.setVoteNumber(0);
 
-		candidature.setElection(this.electionService.findOne(electionId));
+		candidature.setElection(election);
 		candidature.setCandidates(new ArrayList<Candidate>());
 		candidature.setComments(new ArrayList<Comment>());
 
@@ -85,6 +92,16 @@ public class CandidatureService {
 
 	public Candidature save(final Candidature candidature) {
 
+		Assert.notNull(candidature);
+		Assert.notNull(this.citizenService.findByPrincipal());
+		final Election election = candidature.getElection();
+		Assert.isTrue(election.getCandidatureDate().before(new Date()) || election.getCandidatureDate().equals(new Date()));
+		Assert.isTrue(new DateTime(election.getCelebrationDate()).minusDays(1).toDate().after(new Date()));
+
+		Assert.isTrue(candidature.getElectoralProgram() != "" && candidature.getElectoralProgram() != null);
+		Assert.isTrue(candidature.getDescription() != "" && candidature.getDescription() != null);
+		Assert.isTrue(candidature.getPartyLogo() != "" && candidature.getPartyLogo() != null);
+
 		final Candidature result = this.candidatureRepository.save(candidature);
 
 		if (candidature.getId() == 0) {
@@ -98,7 +115,7 @@ public class CandidatureService {
 
 	public void delete(final Candidature candidature) {
 
-		Assert.notNull(this.governmentAgentService.findByPrincipal());
+		Assert.isTrue(this.governmentAgentService.findByPrincipal() != null || this.citizenService.findByPrincipal() != null);
 
 		candidature.getElection().getCandidatures().remove(candidature);
 

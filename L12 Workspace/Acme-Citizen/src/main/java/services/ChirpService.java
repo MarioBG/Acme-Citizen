@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,20 @@ public class ChirpService {
 	}
 
 	// Other business methods
+
+	public ArrayList<Chirp> lastChirps() {
+
+		ArrayList<Chirp> chirps1, chirps2;
+
+		chirps1 = (ArrayList<Chirp>) this.findAll();
+		Collections.sort(chirps1);
+		if (chirps1.size() > 3)
+			chirps2 = new ArrayList<Chirp>(chirps1.subList(0, 3));
+		else
+			chirps2 = new ArrayList<Chirp>(chirps1);
+
+		return chirps2;
+	}
 
 	public ChirpForm construct(final Chirp chirp) {
 

@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CitizenService;
-import services.GovernmentAgentService;
 import services.PetitionService;
 import controllers.AbstractController;
-import domain.GovernmentAgent;
 import domain.Petition;
 import forms.PetitionForm;
 
@@ -29,13 +27,11 @@ public class PetitionCitizenController extends AbstractController {
 	// Services ------------------------------------------------------
 
 	@Autowired
-	private PetitionService petitionService;
+	private PetitionService	petitionService;
 
 	@Autowired
-	private CitizenService citizenService;
+	private CitizenService	citizenService;
 
-	@Autowired
-	private GovernmentAgentService governmentAgentService;
 
 	// Constructors --------------------------------------------------
 
@@ -109,9 +105,8 @@ public class PetitionCitizenController extends AbstractController {
 			result = this.createEditModelAndView(petitionForm);
 		else
 			try {
-				petitionForm.setDeleted(true);
 				final Petition petition = this.petitionService.reconstruct(petitionForm, binding);
-				this.petitionService.save(petition);
+				this.petitionService.virtualDelete(petition);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(petitionForm, "petition.commit.error");
@@ -120,41 +115,25 @@ public class PetitionCitizenController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addGovernmentAgent", method = RequestMethod.GET)
-	public ModelAndView addGovernmentAgent(@RequestParam final int petitionId,
-			@RequestParam final int governmentAgentId) {
+	public ModelAndView addGovernmentAgent(@RequestParam final int petitionId, @RequestParam final int governmentAgentId) {
 
 		ModelAndView result;
 
-		final Petition petition = this.petitionService.findOne(petitionId);
-		Assert.isTrue(petition.getCitizen() == this.citizenService.findByPrincipal());
-		final GovernmentAgent governmentAgent = this.governmentAgentService.findOne(governmentAgentId);
-		Assert.isTrue(governmentAgent != null && !petition.getGovernmentAgents().contains(governmentAgent));
-		petition.getGovernmentAgents().add(governmentAgent);
-		governmentAgent.getPetitions().add(petition);
-		this.petitionService.save(petition);
-		this.governmentAgentService.save(governmentAgent);
-		result = new ModelAndView(
-				"redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
+		this.petitionService.addGovernmentAgent(petitionId, governmentAgentId);
+
+		result = new ModelAndView("redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/removeGovernmentAgent", method = RequestMethod.GET)
-	public ModelAndView removeGovernmentAgent(@RequestParam final int petitionId,
-			@RequestParam final int governmentAgentId) {
+	public ModelAndView removeGovernmentAgent(@RequestParam final int petitionId, @RequestParam final int governmentAgentId) {
 
 		ModelAndView result;
 
-		final Petition petition = this.petitionService.findOne(petitionId);
-		Assert.isTrue(petition.getCitizen() == this.citizenService.findByPrincipal());
-		final GovernmentAgent governmentAgent = this.governmentAgentService.findOne(governmentAgentId);
-		Assert.isTrue(governmentAgent != null && petition.getGovernmentAgents().contains(governmentAgent));
-		petition.getGovernmentAgents().remove(governmentAgent);
-		governmentAgent.getPetitions().remove(petition);
-		this.petitionService.save(petition);
-		this.governmentAgentService.save(governmentAgent);
-		result = new ModelAndView(
-				"redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
+		this.petitionService.removeGovernmentAgent(petitionId, governmentAgentId);
+
+		result = new ModelAndView("redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
 
 		return result;
 	}
