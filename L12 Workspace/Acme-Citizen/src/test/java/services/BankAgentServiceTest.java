@@ -26,12 +26,13 @@ public class BankAgentServiceTest extends AbstractTest {
 	public void driverBankAgent() {
 		final Object testingRegisterBankAgent[][] = {
 				// Casos positivos
-				{ "government", "address1", "1234", "agent@mail.com", "agent", "656565656", null },
+				{ "government", "address1", "1234", "agent@mail.com", "agent", "656565656",
+						IllegalArgumentException.class },
 
 				// Casos negativos
 				{ "bankagent", "address1", "1234", "agent@mail.com", "agent", "656565656",
 						IllegalArgumentException.class }, // Un usuario no puede registrarse por si mismo
-				{ "tvhisperia", null, "1234", "agent@mail.com", null, "656565656", IllegalArgumentException.class }, // No
+				{ "tvhisperia", null, "1234", "agent@mail.com", null, "656565656", NullPointerException.class }, // No
 				// se
 				// puede
 				// crear
