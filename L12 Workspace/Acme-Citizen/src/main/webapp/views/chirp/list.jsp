@@ -52,7 +52,13 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-
+	
+	<spring:message code="chirp.image" var="chirpImageHead" />
+	<jstl:if test="${ row.image!=null }">
+		<display:column title="${ chirpImageHead }">
+			<img src="${row.image}" style="display: block; max-width: 100px; max-height: 100px; width: auto; height: auto;"/>
+		</display:column>
+	</jstl:if>
 
 	<display:column>
 		<a href="chirp/display.do?chirpId=${row.id}"><spring:message
