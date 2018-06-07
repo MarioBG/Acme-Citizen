@@ -38,19 +38,7 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="governmentAgents" requestURI="${ requestURI }" id="row">
 
-	<!-- Attributes -->
-	<display:column>
-		<jstl:if test="${!petition.governmentAgents.contains(row) }">
-			<a
-				href="petition/citizen/addGovernmentAgent.do?petitionId=${petition.id}&governmentAgentId=${row.id}"><spring:message
-					code="governmentAgent.add" /></a>
-		</jstl:if>
-		<jstl:if test="${petition.governmentAgents.contains(row) }">
-			<a
-				href="petition/citizen/removeGovernmentAgent.do?petitionId=${petition.id}&governmentAgentId=${row.id}"><spring:message
-					code="governmentAgent.remove" /></a>
-		</jstl:if>
-	</display:column>
+	
 
 	<spring:message code="governmentAgent.show" var="showHeader" />
 	<display:column title="${showHeader}">
