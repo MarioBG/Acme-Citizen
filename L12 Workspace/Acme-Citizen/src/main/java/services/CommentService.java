@@ -27,18 +27,21 @@ public class CommentService {
 	// Managed repository
 
 	@Autowired
-	private CommentRepository	commentRepository;
+	private CommentRepository		commentRepository;
 
 	// Supporting services
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private CommentableService	commentableService;
+	private GovernmentAgentService	governmentAgentService;
 
 	@Autowired
-	private Validator			validator;
+	private CommentableService		commentableService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Constructors
@@ -98,6 +101,8 @@ public class CommentService {
 	}
 
 	public void delete(final Comment comment) {
+
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
 
 		comment.getCommentable().getComments().remove(comment);
 		comment.getActor().getComments().remove(comment);

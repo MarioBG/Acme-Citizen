@@ -27,6 +27,6 @@
 	
 	<acme:submit name="save" code="petition.save"/>
 	&nbsp;
-	<acme:cancel url="candidature/list.do?electionId=${candidatureForm.electionId}" code="candidature.back"/>
+	<acme:cancel url="election/display.do?electionId=${candidatureForm.electionId}" code="candidature.back"/>
 	
 </form:form>

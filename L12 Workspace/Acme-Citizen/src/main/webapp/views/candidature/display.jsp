@@ -43,7 +43,7 @@
 	</h3>
 
 	<display:table name="candidature.candidates" id="row"
-		requestURI="candidature/display.do" pagesize="5" class="displaytag">
+		requestURI="candidature/display.do" pagesize="5" class="displaytag" defaultsort="1">
 
 		<spring:message code="candidature.listOrder" var="listOrderHeader" />
 		<display:column title="${listOrderHeader}" sortable="true">
@@ -60,11 +60,12 @@
 </jstl:if>
 
 <security:authorize access="hasRole('CITIZEN')">
-	<jstl:if test="${isCandidate == false and dateOneDayBeforeCelebrationDate.after(date)}">
+	<jstl:if test="${isCandidate == false and daysCelebration < -1}">
 		<a href="candidate/citizen/register.do?candidatureId=${candidature.id}"><spring:message code="candidature.registerAsCandidate"/></a>
+		<br/>
 	</jstl:if>
 </security:authorize>
 
 <acme:cancel
-	url="candidature/list.do?electionId=${candidature.election.id}"
+	url="election/display.do?electionId=${candidature.election.id}"
 	code="candidature.back" />

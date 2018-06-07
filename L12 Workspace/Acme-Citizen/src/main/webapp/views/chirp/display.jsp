@@ -31,6 +31,8 @@
 		<img src="<jstl:out value="${chirp.image}"/>" width="450" height="174">
 		<br />
 	</jstl:when>
+</jstl:choose>
+<jstl:choose>
 	<jstl:when test="${chirp.link != null}">
 		<a href="<jstl:out value="${chirp.link}"/>"><spring:message
 				code="chirp.link" /></a>

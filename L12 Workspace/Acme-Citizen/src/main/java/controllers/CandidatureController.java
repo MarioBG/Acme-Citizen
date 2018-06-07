@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -101,7 +102,7 @@ public class CandidatureController extends AbstractController {
 		final Candidature candidature = this.candidatureService.findOne(candidatureId);
 
 		Boolean isCandidate = null;
-		Date dateOneDayBeforeCelebrationDate = null;
+		Integer daysCelebration = null;
 
 		if (this.citizenService.findByPrincipal() != null) {
 
@@ -110,13 +111,13 @@ public class CandidatureController extends AbstractController {
 			else
 				isCandidate = false;
 
-			dateOneDayBeforeCelebrationDate = new DateTime(this.electionService.findOne(candidature.getElection().getId()).getCelebrationDate()).minusDays(1).toDate();
+			daysCelebration = this.getDayDifference(candidature.getElection().getCelebrationDate(), new Date());
 		}
 
 		final ModelAndView result = new ModelAndView("candidature/display");
 		result.addObject("candidature", candidature);
 		result.addObject("isCandidate", isCandidate);
-		result.addObject("dateOneDayBeforeCelebrationDate", dateOneDayBeforeCelebrationDate);
+		result.addObject("daysCelebration", daysCelebration);
 
 		return result;
 
@@ -124,4 +125,24 @@ public class CandidatureController extends AbstractController {
 
 	// Ancillary methods ---------------------------------------------
 
+	private int getDayDifference(Date date1, Date date2) {
+		int ans;
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			date1 = sdf.parse(sdf.format(date1));
+		} catch (final ParseException e1) {
+			//nada de nada
+		}
+		try {
+			date2 = sdf.parse(sdf.format(date2));
+		} catch (final ParseException e1) {
+			//nada de nada
+		}
+		final Long ms = date2.getTime() - date1.getTime();
+		if (ms > 0)
+			ans = (int) Math.floor(ms / 1000 / 60 / 60 / 24);
+		else
+			ans = (int) Math.floor(ms / 1000 / 60 / 60 / 24);
+		return ans;
+	}
 }

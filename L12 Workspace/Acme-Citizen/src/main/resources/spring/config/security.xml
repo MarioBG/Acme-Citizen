@@ -105,7 +105,19 @@
 			pattern="/transactions/create.do" access="permitAll" />
 		<security:intercept-url
 			pattern="/transactions/edit.do" access="permitAll" />
-
+			
+		<!-- Candidate -->
+		<security:intercept-url
+			pattern="/candidate/citizen/**" access="hasRole('CITIZEN')" />
+		
+		<!-- Candidature -->
+		<security:intercept-url
+			pattern="/candidature/governmentAgent/**" access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url
+			pattern="/candidature/citizen/**" access="hasRole('CITIZEN')" />
+		<security:intercept-url
+			pattern="/candidature/**" access="permitAll" />
+		
 		<!-- Chirp -->
 		<security:intercept-url
 			pattern="/chirp/governmentAgent/**"
@@ -115,18 +127,19 @@
 
 		<!-- Comment -->
 		<security:intercept-url
+			pattern="/comment/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
+		<security:intercept-url
 			pattern="/comment/actor/**"
 			access="hasAnyRole('CITIZEN', 'GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/comment/**"
 			access="permitAll" />
 
 		<!-- Election -->
+		<security:intercept-url pattern="/election/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/election/**"
 			access="permitAll" />
-
-		<!-- Candidature -->
-		<security:intercept-url
-			pattern="/candidature/**" access="permitAll" />
 
 		<!-- Citizen -->
 		<security:intercept-url

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.CandidateRepository;
 import domain.Candidate;
@@ -40,9 +41,9 @@ public class CandidateService {
 
 		final Candidate candidate = new Candidate();
 
-		candidate.setListOrder(0);
-
 		candidate.setCitizen(this.citizenService.findByPrincipal());
+		final int numCandidates = this.candidatureService.findOne(candidatureId).getCandidates().size();
+		candidate.setListOrder(numCandidates);
 		candidate.setCandidature(this.candidatureService.findOne(candidatureId));
 
 		return candidate;
@@ -93,6 +94,7 @@ public class CandidateService {
 	public Candidate findByPrincipalAndCandidatureId(final int candidatureId) {
 
 		final Citizen citizen = this.citizenService.findByPrincipal();
+		Assert.notNull(citizen);
 		final Candidate candidate = this.findByCitizenIdAndCandidatureId(citizen.getId(), candidatureId);
 		return candidate;
 	}

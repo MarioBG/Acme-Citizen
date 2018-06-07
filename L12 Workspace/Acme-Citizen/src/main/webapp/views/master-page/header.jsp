@@ -62,6 +62,7 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.governmentAgent" /></a>
 				<ul>
+					<li class="arrow"></li>
 					<li><a href="governmentAgent/governmentAgent/dashboard.do"><spring:message
 								code="master.page.governmentAgent.information" /></a></li>
 					<li><a href="configuration/governmentAgent/edit.do"><spring:message
@@ -72,6 +73,7 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.register" /></a>
 				<ul>
+					<li class="arrow"></li>
 					<li><a href="governmentAgent/governmentAgent/register.do"><spring:message
 								code="master.page.register.govAgent" /></a></li>
 					<li><a href="bankAgent/governmentAgent/register.do"><spring:message
@@ -87,6 +89,7 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.bankAgent" /></a>
 				<ul>
+					<li class="arrow"></li>
 					<li><a href="bankaccount/bankAgent/create.do"><spring:message
 								code="master.page.bankAgent.createAccount" /></a></li>
 					<li><a href="citizen/list.do"><spring:message
@@ -123,6 +126,7 @@
 			<li><a class="fNiv"><spring:message
 						code="master.page.lottos" /></a>
 				<ul>
+					<li class="arrow"></li>
 					<li><a href="lottery/list.do"><spring:message
 								code="master.page.lottery.list" /></a></li>
 					<security:authorize access="hasRole('CITIZEN')">
@@ -139,11 +143,22 @@
 		</security:authorize>
 
 		<li><a href="chirp/list.do"><spring:message
-					code="master.page.chirp.list" /></a></li>
+					code="master.page.listChirps" /></a> <security:authorize
+				access="hasRole('GOVERNMENTAGENT')">
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="chirp/governmentAgent/list.do"><spring:message
+								code="master.page.yourChirps" /> </a></li>
+					<li><a href="chirp/governmentAgent/create.do"><spring:message
+								code="master.page.createChirp" /></a></li>
+				</ul>
+
+			</security:authorize></li>
 
 		<li><a class="fNiv"><spring:message
 					code="master.page.listActors" /></a>
 			<ul>
+				<li class="arrow"></li>
 				<li><a href="governmentAgent/list.do"><spring:message
 							code="master.page.listActors.govAgent" /></a></li>
 				<li><a href="bankAgent/list.do"><spring:message

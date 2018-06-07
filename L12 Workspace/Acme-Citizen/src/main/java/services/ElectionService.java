@@ -51,6 +51,9 @@ public class ElectionService {
 
 	public Election create() {
 
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
+		Assert.isTrue(this.governmentAgentService.findByPrincipal().getCanOrganiseElection() == true);
+
 		final Election election = new Election();
 
 		election.setGovernmentAgent(this.governmentAgentService.findByPrincipal());
@@ -77,6 +80,8 @@ public class ElectionService {
 
 	public Election save(final Election election) {
 
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
+		Assert.isTrue(this.governmentAgentService.findByPrincipal().getCanOrganiseElection() == true);
 		Assert.isTrue(election.getCandidatureDate().before(election.getCelebrationDate()));
 
 		final Election result = this.electionRepository.save(election);
@@ -88,6 +93,8 @@ public class ElectionService {
 	}
 
 	public void delete(final Election election) {
+
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
 
 		election.getGovernmentAgent().getElections().remove(election);
 

@@ -31,6 +31,13 @@
 
 <display:table name="comments" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
+	
+	<security:authorize access="hasRole('GOVERNMENTAGENT')">
+		<display:column>
+				<a href="comment/governmentAgent/delete.do?commentId=${row.id}"><spring:message
+						code="comment.delete" /></a>
+		</display:column>
+	</security:authorize>
 
 	<security:authorize access="hasAnyRole('CITIZEN', 'GOVERNMENTAGENT')">
 		<display:column>
