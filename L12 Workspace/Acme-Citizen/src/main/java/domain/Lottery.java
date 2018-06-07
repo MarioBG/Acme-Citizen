@@ -31,13 +31,11 @@ public class Lottery extends DomainEntity {
 
 	}
 
-
-	private double	quantity;
-	private double	percentageForPrizes;
-	private Date	celebrationDate;
-	private double	ticketCost;
-	private String	lotteryName;
-
+	private double quantity;
+	private double percentageForPrizes;
+	private Date celebrationDate;
+	private double ticketCost;
+	private String lotteryName;
 
 	@Digits(fraction = 2, integer = 12)
 	@Min(0)
@@ -90,13 +88,11 @@ public class Lottery extends DomainEntity {
 		this.lotteryName = lotteryName;
 	}
 
-
 	// Relationships
 
-	private Collection<LotteryTicket>	lotteryTickets;
-	private GovernmentAgent				governmentAgent;
-	private LotteryTicket				winnerTicket;
-
+	private Collection<LotteryTicket> lotteryTickets;
+	private GovernmentAgent governmentAgent;
+	private LotteryTicket winnerTicket;
 
 	@Valid
 	@NotNull

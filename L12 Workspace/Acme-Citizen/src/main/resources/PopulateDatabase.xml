@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2017 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="government" />
-		<property name="password" value="30618461f5ff731e12c61bae54582b80" />
+		<property name="password"
+			value="30618461f5ff731e12c61bae54582b80" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -32,7 +27,8 @@
 
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="bank1" />
-		<property name="password" value="a7bbdbdbfa865645a06e58b6a7fa6b53" />
+		<property name="password"
+			value="a7bbdbdbfa865645a06e58b6a7fa6b53" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -44,7 +40,8 @@
 
 	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="citizen1" />
-		<property name="password" value="6434f4f9f570f22ac1348668350651ff" />
+		<property name="password"
+			value="6434f4f9f570f22ac1348668350651ff" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -53,10 +50,11 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount4" class="security.UserAccount">
 		<property name="username" value="tvhisperia" />
-		<property name="password" value="d114d982010bc65ec4cf13e8ea778d50" />
+		<property name="password"
+			value="d114d982010bc65ec4cf13e8ea778d50" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -65,10 +63,11 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount5" class="security.UserAccount">
 		<property name="username" value="citizen2" />
-		<property name="password" value="77656a3c627fc61da117d13d86473361" />
+		<property name="password"
+			value="77656a3c627fc61da117d13d86473361" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -77,10 +76,11 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount6" class="security.UserAccount">
 		<property name="username" value="citizen3" />
-		<property name="password" value="3a16f3d63bc67d5b0d0b8e45c04f0aff" />
+		<property name="password"
+			value="3a16f3d63bc67d5b0d0b8e45c04f0aff" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -89,7 +89,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="government" class="domain.GovernmentAgent">
 		<property name="name" value="Gobierno de Hisperia" />
 		<property name="email" value="republicahisperia@gmail.com" />
@@ -127,15 +127,16 @@
 		<property name="lotteries">
 			<list>
 				<ref bean="lottery1" />
+				<ref bean="lottery2" />
 			</list>
 		</property>
 		<property name="chirps">
 			<list>
-				<ref bean="chirp2"/>
+				<ref bean="chirp2" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="bank" class="domain.BankAgent">
 		<property name="name" value="Banco de Hisperia" />
 		<property name="email" value="bancohisperiano@gmail.com" />
@@ -166,18 +167,19 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="citizen1" class="domain.Citizen">
 		<property name="name" value="Mario" />
-		<property name="surname" value="Bizcocho González"/>
-		<property name="nickname" value="MarioBG"/>
+		<property name="surname" value="Bizcocho González" />
+		<property name="nickname" value="MarioBG" />
 		<property name="email" value="bancohisperiano@gmail.com" />
 		<property name="address" value="Calle Fontenla, 3, Mineville" />
 		<property name="nif" value="HISGOB-00000002C" />
 		<property name="userAccount" ref="userAccount3" />
+		<property name="bankAccount" ref="bankAccount3" />
 		<property name="candidates">
 			<list>
-				<ref bean="candidate1"/>
+				<ref bean="candidate1" />
 			</list>
 		</property>
 		<property name="comments">
@@ -187,18 +189,19 @@
 		</property>
 		<property name="petitions">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="elections">
 			<list>
-				<ref bean="election1"/>
+				<ref bean="election1" />
 			</list>
 		</property>
 		<property name="lotteryTickets">
 			<list>
-				<ref bean="lotteryTicket1"/>
-				<ref bean="lotteryTicket2"/>
+				<ref bean="lotteryTicket1" />
+				<ref bean="lotteryTicket2" />
+				<ref bean="lotteryTicket3" />
 			</list>
 		</property>
 		<property name="folders">
@@ -211,37 +214,37 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="citizen2" class="domain.Citizen">
 		<property name="name" value="Eva María" />
-		<property name="surname" value="Rivero Sánchez"/>
+		<property name="surname" value="Rivero Sánchez" />
 		<property name="email" value="evamrs91@gmail.com" />
-		<property name="address" value="Kita 17 Jonishi, Kita, Sapporo, Hokkaido 001-0017 (Japón)" />
+		<property name="address"
+			value="Kita 17 Jonishi, Kita, Sapporo, Hokkaido 001-0017 (Japón)" />
 		<property name="nif" value="HISMIN-00000001A" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="candidates">
 			<list>
-				<ref bean="candidate3"/>
+				<ref bean="candidate3" />
 			</list>
 		</property>
 		<property name="elections">
 			<list>
-				<ref bean="election1"/>
+				<ref bean="election1" />
 			</list>
 		</property>
 		<property name="lotteryTickets">
 			<list>
-				<ref bean="lotteryTicket3"/>
 			</list>
 		</property>
 		<property name="comments">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="petitions">
 			<list>
-				<ref bean="petition1"/>
+				<ref bean="petition1" />
 			</list>
 		</property>
 		<property name="folders">
@@ -254,7 +257,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="tvh" class="domain.GovernmentAgent">
 		<property name="name" value="Televisión Hisperiana" />
 		<property name="email" value="rtvh@gmail.com" />
@@ -275,62 +278,63 @@
 		</property>
 		<property name="elections">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="lotteries">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="comments">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="petitions">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="chirps">
 			<list>
-				<ref bean="chirp1"/>
+				<ref bean="chirp1" />
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="citizen3" class="domain.Citizen">
 		<property name="name" value="Teresa Ángela" />
-		<property name="nickname" value="HeidiiMeh"/>
-		<property name="surname" value="Vilaplana de Trías"/>
+		<property name="nickname" value="HeidiiMeh" />
+		<property name="surname" value="Vilaplana de Trías" />
 		<property name="email" value="tviltri@gmail.com" />
-		<property name="address" value="Avenida de la Constitución, 12, Minevile" />
+		<property name="address"
+			value="Avenida de la Constitución, 12, Minevile" />
 		<property name="nif" value="HISGOB-00000004E" />
 		<property name="userAccount" ref="userAccount6" />
 		<property name="comments">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="petitions">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="lotteryTickets">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="candidates">
 			<list>
-				<ref bean="candidate2"/>
+				<ref bean="candidate2" />
 			</list>
 		</property>
 		<property name="elections">
 			<list>
-				<ref bean="election1"/>
+				<ref bean="election1" />
 			</list>
 		</property>
 		<property name="folders">
@@ -343,10 +347,10 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Other domain beans come here -->
-	
-		<!-- Folder -->
+
+	<!-- Folder -->
 	<!-- GovAgent folders -->
 	<bean id="folder1" class="domain.Folder">
 		<property name="name" value="in box" />
@@ -625,8 +629,8 @@
 			</list>
 		</property>
 	</bean>
-	
-		<!-- RTVH folders -->
+
+	<!-- RTVH folders -->
 	<bean id="folder16" class="domain.Folder">
 		<property name="name" value="in box" />
 		<property name="predefined" value="true" />
@@ -671,7 +675,7 @@
 		</property>
 		<property name="messages">
 			<list>
-				<null/>
+				<null />
 			</list>
 		</property>
 		<property name="children">
@@ -716,7 +720,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- User4 folders -->
 	<bean id="folder21" class="domain.Folder">
 		<property name="name" value="in box" />
@@ -898,9 +902,9 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Message -->
-	
+
 	<bean id="message1" class="domain.Message">
 		<property name="moment" value="2018/04/01 12:00" />
 		<property name="subject" value="Message from User1 to User2" />
@@ -909,7 +913,7 @@
 		<property name="priority" value="LOW" />
 		<property name="sender" ref="citizen1" />
 		<property name="recipient" ref="citizen2" />
-		<property name="folder" ref="folder7"/>
+		<property name="folder" ref="folder7" />
 	</bean>
 
 	<!-- Message 2 -->
@@ -921,7 +925,7 @@
 		<property name="priority" value="LOW" />
 		<property name="sender" ref="citizen1" />
 		<property name="recipient" ref="citizen2" />
-		<property name="folder" ref="folder11"/>
+		<property name="folder" ref="folder11" />
 	</bean>
 
 	<!-- Message 3 -->
@@ -933,7 +937,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="citizen1" />
-		<property name="folder" ref="folder2"/>
+		<property name="folder" ref="folder2" />
 	</bean>
 
 	<!-- Message 4 -->
@@ -945,7 +949,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="citizen2" />
-		<property name="folder" ref="folder2"/>
+		<property name="folder" ref="folder2" />
 	</bean>
 
 	<!-- Message 5 -->
@@ -957,7 +961,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="citizen3" />
-		<property name="folder" ref="folder2"/>
+		<property name="folder" ref="folder2" />
 	</bean>
 
 	<!-- Message 6 -->
@@ -969,7 +973,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="bank" />
-		<property name="folder" ref="folder2"/>
+		<property name="folder" ref="folder2" />
 	</bean>
 
 	<!-- Message 7 -->
@@ -981,7 +985,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="tvh" />
-		<property name="folder" ref="folder2"/>
+		<property name="folder" ref="folder2" />
 	</bean>
 
 	<!-- Message 8 -->
@@ -993,7 +997,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="government" />
-		<property name="folder" ref="folder2"/>
+		<property name="folder" ref="folder2" />
 	</bean>
 
 	<!-- Message 9 -->
@@ -1005,7 +1009,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="government" />
-		<property name="folder" ref="folder3"/>
+		<property name="folder" ref="folder3" />
 	</bean>
 
 	<!-- Message 10 -->
@@ -1017,7 +1021,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="bank" />
-		<property name="folder" ref="folder8"/>
+		<property name="folder" ref="folder8" />
 	</bean>
 
 	<!-- Message 11 -->
@@ -1029,7 +1033,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="citizen1" />
-		<property name="folder" ref="folder13"/>
+		<property name="folder" ref="folder13" />
 	</bean>
 
 	<!-- Message 12 -->
@@ -1041,7 +1045,7 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="citizen2" />
-		<property name="folder" ref="folder18"/>
+		<property name="folder" ref="folder18" />
 	</bean>
 
 	<!-- Message 13 -->
@@ -1053,9 +1057,9 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="tvh" />
-		<property name="folder" ref="folder23"/>
+		<property name="folder" ref="folder23" />
 	</bean>
-	
+
 	<!-- Message 14 -->
 	<bean id="message14" class="domain.Message">
 		<property name="moment" value="2018/04/01 12:00" />
@@ -1065,39 +1069,46 @@
 		<property name="priority" value="HIGH" />
 		<property name="sender" ref="government" />
 		<property name="recipient" ref="citizen3" />
-		<property name="folder" ref="folder28"/>
+		<property name="folder" ref="folder28" />
 	</bean>
-	
-	<!--Chirp-->
-	
+
+	<!--Chirp -->
+
 	<bean id="chirp1" class="domain.Chirp">
-		<property name="title" value="Lluvias fuertes en el valle del Truman"/>
-		<property name="content" value="Aviso a todos los granjeros del valle que guarden a las vacas, no se les vayan río abajo"/>
-		<property name="publicationMoment" value="2018/04/01 13:37"/>
-		<property name="image" value="http://rtvh.hol.es/gallery_gen/b5880d15ae849a12628f2debca704ad6_200x152.94117647059.png"/>
-		<property name="link" value="http://rtvh.hol.es/gallery_gen/b5880d15ae849a12628f2debca704ad6_200x152.94117647059.png"/>
-		<property name="governmentAgent" ref="tvh"/>
+		<property name="title"
+			value="Lluvias fuertes en el valle del Truman" />
+		<property name="content"
+			value="Aviso a todos los granjeros del valle que guarden a las vacas, no se les vayan río abajo" />
+		<property name="publicationMoment" value="2018/04/01 13:37" />
+		<property name="image"
+			value="http://rtvh.hol.es/gallery_gen/b5880d15ae849a12628f2debca704ad6_200x152.94117647059.png" />
+		<property name="link"
+			value="http://rtvh.hol.es/gallery_gen/b5880d15ae849a12628f2debca704ad6_200x152.94117647059.png" />
+		<property name="governmentAgent" ref="tvh" />
 	</bean>
-	
+
 	<bean id="chirp2" class="domain.Chirp">
-		<property name="title" value="Ley Orgánica de Cosas"/>
-		<property name="content" value="Aprobada la nueva Ley Orgánica para la Regulación de Cosas"/>
-		<property name="publicationMoment" value="2018/04/01 13:37"/>
-		<property name="image" value="http://republicadehisperia.16mb.com/Escudo_oficial.png"/>
-		<property name="link" value="http://republicadehisperia.16mb.com/Escudo_oficial.png"/>
-		<property name="governmentAgent" ref="government"/>
+		<property name="title" value="Ley Orgánica de Cosas" />
+		<property name="content"
+			value="Aprobada la nueva Ley Orgánica para la Regulación de Cosas" />
+		<property name="publicationMoment" value="2018/04/01 13:37" />
+		<property name="image"
+			value="http://republicadehisperia.16mb.com/Escudo_oficial.png" />
+		<property name="link"
+			value="http://republicadehisperia.16mb.com/Escudo_oficial.png" />
+		<property name="governmentAgent" ref="government" />
 	</bean>
-	
+
 	<!-- BankAccount -->
-	
+
 	<bean id="bankAccount1" class="domain.BankAccount">
-		<property name="money" value="200"/>
-		<property name="accountNumber" value="90009391230218"/>
-		<property name="actor" ref="government"/>
-		<property name="bankAgent" ref="bank"/>
+		<property name="money" value="200" />
+		<property name="accountNumber" value="90009391230218" />
+		<property name="actor" ref="government" />
+		<property name="bankAgent" ref="bank" />
 		<property name="debts">
 			<list>
-				<ref bean="economicTransaction1"/>
+				<ref bean="economicTransaction1" />
 			</list>
 		</property>
 		<property name="credits">
@@ -1106,12 +1117,12 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="bankAccount2" class="domain.BankAccount">
-		<property name="money" value="50.35"/>
-		<property name="accountNumber" value="90009391230210"/>
-		<property name="actor" ref="bank"/>
-		<property name="bankAgent" ref="bank"/>
+		<property name="money" value="50.35" />
+		<property name="accountNumber" value="90009391230210" />
+		<property name="actor" ref="bank" />
+		<property name="bankAgent" ref="bank" />
 		<property name="debts">
 			<list>
 				<null />
@@ -1119,60 +1130,81 @@
 		</property>
 		<property name="credits">
 			<list>
-				<ref bean="economicTransaction1"/>
-				<ref bean="economicTransaction2"/>
+				<ref bean="economicTransaction1" />
+				<ref bean="economicTransaction2" />
 			</list>
 		</property>
 	</bean>
-	
+
+	<bean id="bankAccount3" class="domain.BankAccount">
+		<property name="money" value="8" />
+		<property name="accountNumber" value="90001525458563" />
+		<property name="actor" ref="citizen1" />
+		<property name="bankAgent" ref="bank" />
+		<property name="debts">
+			<list>
+			</list>
+		</property>
+		<property name="credits">
+			<list>
+			</list>
+		</property>
+	</bean>
+
 	<!-- EconomicTransaction -->
-	
+
 	<bean id="economicTransaction1" class="domain.EconomicTransaction">
-		<property name="quantity" value="10.0"/>
-		<property name="transactionMoment" value="2018/04/01 13:37:00"/>
-		<property name="concept" value="Compra de deuda pública"/>
-		<property name="debtor" ref="bankAccount1"/>
-		<property name="creditor" ref="bankAccount2"/>
+		<property name="quantity" value="10.0" />
+		<property name="transactionMoment"
+			value="2018/04/01 13:37:00" />
+		<property name="concept" value="Compra de deuda pública" />
+		<property name="debtor" ref="bankAccount1" />
+		<property name="creditor" ref="bankAccount2" />
 		<property name="doMoney" value="false"></property>
 	</bean>
-	
+
 	<bean id="economicTransaction2" class="domain.EconomicTransaction">
-		<property name="quantity" value="15.0"/>
-		<property name="transactionMoment" value="2018/04/01 13:37:00"/>
-		<property name="concept" value="Medida contra la Inflación num. 1"/>
-		<property name="creditor" ref="bankAccount2"/>
-		<property name="debtor" ref="bankAccount1"/>
+		<property name="quantity" value="15.0" />
+		<property name="transactionMoment"
+			value="2018/04/01 13:37:00" />
+		<property name="concept"
+			value="Medida contra la Inflación num. 1" />
+		<property name="creditor" ref="bankAccount2" />
+		<property name="debtor" ref="bankAccount1" />
 		<property name="doMoney" value="true"></property>
 	</bean>
-	
+
 	<!-- Configuration -->
-	
+
 	<bean id="configuration" class="domain.Configuration">
-		<property name="defaultCountryCode" value="+34"/>
-		<property name="countryFlag" value="http://republicadehisperia.16mb.com/Escudo_bandera/bandera_hires.png"/>
-		<property name="numberParliamentSeats" value="150"/>
+		<property name="defaultCountryCode" value="+34" />
+		<property name="countryFlag"
+			value="http://republicadehisperia.16mb.com/Escudo_bandera/bandera_hires.png" />
+		<property name="numberParliamentSeats" value="150" />
 		<property name="welcomeMessages">
 			<list>
-				<ref bean="welcomeEs"/>
-				<ref bean="welcomeEn"/>
+				<ref bean="welcomeEs" />
+				<ref bean="welcomeEn" />
 			</list>
 		</property>
 	</bean>
-	
-	<!-- WelcomeMessage-->
-	
+
+	<!-- WelcomeMessage -->
+
 	<bean id="welcomeEs" class="domain.WelcomeMessage">
-		<property name="languageCode" value="es"/>
-		<property name="content" value="Bienvenido a la plataforma de atención al ciudadano de la República de Hisperia. Seleccione una opción para continuar."/>
+		<property name="languageCode" value="es" />
+		<property name="content"
+			value="Bienvenido a la plataforma de atención al ciudadano de la República de Hisperia. Seleccione una opción para continuar." />
 	</bean>
-	
+
 	<bean id="welcomeEn" class="domain.WelcomeMessage">
-		<property name="languageCode" value="en"/>
-		<property name="content" value="Welcome to the Hisperian Republic's citizen platform. Please, choose an option to continue."/>
+		<property name="languageCode" value="en" />
+		<property name="content"
+			value="Welcome to the Hisperian Republic's citizen platform. Please, choose an option to continue." />
 	</bean>
-	
+
 	<!-- Comment -->
-	
+
 	<bean id="comment1" class="domain.Comment">
 		<property name="moment" value="23/01/2011 19:09" />
 		<property name="text" value="A short comment" />
@@ -1184,17 +1216,19 @@
 		</property>
 		<property name="actor" ref="citizen1" />
 		<property name="commentable" ref="election1" />
-		<property name="parentComment"><null/></property>
+		<property name="parentComment">
+			<null />
+		</property>
 	</bean>
-	
+
 	<!-- Election -->
-	
+
 	<bean id="election1" class="domain.Election">
-		<property name="governmentAgent" ref="government"/>
+		<property name="governmentAgent" ref="government" />
 		<property name="candidatures">
 			<list>
-				<ref bean="candidature1"/>
-				<ref bean="candidature2"/>
+				<ref bean="candidature1" />
+				<ref bean="candidature2" />
 			</list>
 		</property>
 		<property name="comments">
@@ -1209,19 +1243,20 @@
 				<ref bean="citizen3" />
 			</list>
 		</property>
-		<property name="candidatureDate" value="2017/11/01"/>
-		<property name="celebrationDate" value="2017/11/16"/>
-		<property name="description" value="Elecciones Generales de 2017."/>
+		<property name="candidatureDate" value="2017/11/01" />
+		<property name="celebrationDate" value="2017/11/16" />
+		<property name="description"
+			value="Elecciones Generales de 2017." />
 	</bean>
-	
-	<!--Candidature-->
-	
+
+	<!--Candidature -->
+
 	<bean id="candidature1" class="domain.Candidature">
-		<property name="election" ref="election1"/>
+		<property name="election" ref="election1" />
 		<property name="candidates">
 			<list>
-				<ref bean="candidate1"/>
-				<ref bean="candidate2"/>
+				<ref bean="candidate1" />
+				<ref bean="candidate2" />
 			</list>
 		</property>
 		<property name="comments">
@@ -1229,95 +1264,117 @@
 				<null />
 			</list>
 		</property>
-		<property name="electoralProgram" value="https://1drv.ms/b/s!AhWvlklDDRp-lyPixYzmJb_3hC28"/>
-		<property name="description" value="Candidatura de Avanza - Por Hisperia para las Elecciones Generales de noviembre de 2017"/>
-		<property name="partyLogo" value="http://republicadehisperia.16mb.com/Avanza.png"/>
-		<property name="voteNumber" value="11"/>
+		<property name="electoralProgram"
+			value="https://1drv.ms/b/s!AhWvlklDDRp-lyPixYzmJb_3hC28" />
+		<property name="description"
+			value="Candidatura de Avanza - Por Hisperia para las Elecciones Generales de noviembre de 2017" />
+		<property name="partyLogo"
+			value="http://republicadehisperia.16mb.com/Avanza.png" />
+		<property name="voteNumber" value="11" />
 	</bean>
 	<bean id="candidature2" class="domain.Candidature">
-		<property name="election" ref="election1"/>
+		<property name="election" ref="election1" />
 		<property name="candidates">
-			<ref bean="candidate3"/>
+			<ref bean="candidate3" />
 		</property>
 		<property name="comments">
 			<list>
 				<null />
 			</list>
 		</property>
-		<property name="electoralProgram" value="https://www5.csudh.edu/ccauthen/576f12/frankfurt__harry_-_on_bullshit.pdf"/>
-		<property name="description" value="La candidatura del Partido Irrelevante Surrealista para las Elecciones Generales de 2017"/>
-		<property name="partyLogo" value="http://republicadehisperia.16mb.com/imgs/partido_irrelevante_surrealista.jpg"/>
-		<property name="voteNumber" value="2"/>
+		<property name="electoralProgram"
+			value="https://www5.csudh.edu/ccauthen/576f12/frankfurt__harry_-_on_bullshit.pdf" />
+		<property name="description"
+			value="La candidatura del Partido Irrelevante Surrealista para las Elecciones Generales de 2017" />
+		<property name="partyLogo"
+			value="http://republicadehisperia.16mb.com/imgs/partido_irrelevante_surrealista.jpg" />
+		<property name="voteNumber" value="2" />
 	</bean>
-	
+
 	<!-- Candidate -->
-	
+
 	<bean id="candidate1" class="domain.Candidate">
-		<property name="listOrder" value="0"/>
-		<property name="citizen" ref="citizen1"/>
-		<property name="candidature" ref="candidature1"/>
+		<property name="listOrder" value="0" />
+		<property name="citizen" ref="citizen1" />
+		<property name="candidature" ref="candidature1" />
 	</bean>
 	<bean id="candidate2" class="domain.Candidate">
-		<property name="listOrder" value="1"/>
-		<property name="citizen" ref="citizen3"/>
-		<property name="candidature" ref="candidature1"/>
+		<property name="listOrder" value="1" />
+		<property name="citizen" ref="citizen3" />
+		<property name="candidature" ref="candidature1" />
 	</bean>
 	<bean id="candidate3" class="domain.Candidate">
-		<property name="listOrder" value="0"/>
-		<property name="citizen" ref="citizen2"/>
-		<property name="candidature" ref="candidature2"/>
+		<property name="listOrder" value="0" />
+		<property name="citizen" ref="citizen2" />
+		<property name="candidature" ref="candidature2" />
 	</bean>
-	
+
 	<!-- Lottery -->
-	
+
 	<bean id="lottery1" class="domain.Lottery">
-		<property name="quantity" value="35"/>
-		<property name="percentageForPrizes" value="80"/>
-		<property name="celebrationDate" value="2019/05/16"/>
-		<property name="ticketCost" value="5"/>
-		<property name="lotteryName" value="Lotería Nacional"/>
-		<property name="governmentAgent" ref="government"/>
+		<property name="quantity" value="40" />
+		<property name="percentageForPrizes" value="80" />
+		<property name="celebrationDate" value="2018/05/16" />
+		<property name="ticketCost" value="10" />
+		<property name="lotteryName" value="Lotería Nacional" />
+		<property name="governmentAgent" ref="government" />
 		<property name="lotteryTickets">
 			<list>
-				<ref bean="lotteryTicket1"/>
-				<ref bean="lotteryTicket2"/>
-				<ref bean="lotteryTicket3"/>
+				<ref bean="lotteryTicket1" />
+				<ref bean="lotteryTicket2" />
+				<ref bean="lotteryTicket3" />
 			</list>
 		</property>
-		<property name="winnerTicket" ref="lotteryTicket3"/>
+		<property name="winnerTicket" ref="lotteryTicket3" />
 	</bean>
-	
+
+	<bean id="lottery2" class="domain.Lottery">
+		<property name="quantity" value="0" />
+		<property name="percentageForPrizes" value="80" />
+		<property name="celebrationDate" value="2018/06/05" />
+		<property name="ticketCost" value="40" />
+		<property name="lotteryName" value="Lotería Junio" />
+		<property name="governmentAgent" ref="government" />
+		<property name="lotteryTickets">
+			<list>
+			</list>
+		</property>
+	</bean>
+
 	<!-- LotteryTicket -->
-	
+
 	<bean id="lotteryTicket1" class="domain.LotteryTicket">
-		<property name="number" value="290321"/>
-		<property name="lottery" ref="lottery1"/>
-		<property name="citizen" ref="citizen1"/>
+		<property name="number" value="290321" />
+		<property name="lottery" ref="lottery1" />
+		<property name="citizen" ref="citizen1" />
 	</bean>
 	<bean id="lotteryTicket2" class="domain.LotteryTicket">
-		<property name="number" value="302152"/>
-		<property name="lottery" ref="lottery1"/>
-		<property name="citizen" ref="citizen1"/>
-	</bean>	
+		<property name="number" value="302152" />
+		<property name="lottery" ref="lottery1" />
+		<property name="citizen" ref="citizen1" />
+	</bean>
 	<bean id="lotteryTicket3" class="domain.LotteryTicket">
-		<property name="number" value="289348"/>
-		<property name="lottery" ref="lottery1"/>
-		<property name="citizen" ref="citizen2"/>
-	</bean>	
-	
+		<property name="number" value="289348" />
+		<property name="lottery" ref="lottery1" />
+		<property name="citizen" ref="citizen1" />
+	</bean>
+
+
 	<!-- Petition -->
-	
+
 	<bean id="petition1" class="domain.Petition">
-		<property name="name" value="Queja sobre cosas"/>
-		<property name="description" value="La cosa está mu mala y debería estar mejor, porque si está mal no está bien."/>
-		<property name="picture" value="https://static2.fjcdn.com/comments/Minecraftmemes+rolled+image+mfw+that+dunk+_b6fde0968fd27cff5f4990045a3cd208.jpg"/>
-		<property name="creationMoment" value="2018/05/10 10:00"/>
+		<property name="name" value="Queja sobre cosas" />
+		<property name="description"
+			value="La cosa está mu mala y debería estar mejor, porque si está mal no está bien." />
+		<property name="picture"
+			value="https://static2.fjcdn.com/comments/Minecraftmemes+rolled+image+mfw+that+dunk+_b6fde0968fd27cff5f4990045a3cd208.jpg" />
+		<property name="creationMoment" value="2018/05/10 10:00" />
 		<property name="finalVersion" value="true"></property>
 		<property name="resolved" value="false"></property>
 		<property name="deleted" value="false"></property>
 		<property name="governmentAgents">
 			<list>
-				<ref bean="government"/>
+				<ref bean="government" />
 			</list>
 		</property>
 		<property name="comments">
@@ -1325,7 +1382,7 @@
 				<null />
 			</list>
 		</property>
-		<property name="citizen" ref="citizen2"/>
-	</bean>	
-	
+		<property name="citizen" ref="citizen2" />
+	</bean>
+
 </beans>

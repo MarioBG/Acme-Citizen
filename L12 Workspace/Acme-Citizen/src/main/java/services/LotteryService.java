@@ -105,15 +105,16 @@ public class LotteryService {
 		Lottery lottery = this.findOne(lotteryId);
 		Collection<Lottery> lottos = this.getLotteryByGovernmentAgentId(lottery.getGovernmentAgent().getId());
 		List<LotteryTicket> lista = new ArrayList<LotteryTicket>(lottery.getLotteryTickets());
-		System.out.println("tamaño loco-> " + lista.size());
 
-		if (lottery.getWinnerTicket() == null && lottos.contains(lottery)) {
-			Integer num1 = (int) (Math.random() * lista.size());
+		if (lottos.size() > 0) {
+			if (lottery.getWinnerTicket() == null && lottos.contains(lottery)) {
+				Integer num1 = (int) (Math.random() * lista.size());
 
-			LotteryTicket winner = lista.get(num1);
-			lottery.setWinnerTicket(winner);
-			moneyWon(lottery, winner);
+				LotteryTicket winner = lista.get(num1);
+				lottery.setWinnerTicket(winner);
+				moneyWon(lottery, winner);
 
+			}
 		}
 
 	}

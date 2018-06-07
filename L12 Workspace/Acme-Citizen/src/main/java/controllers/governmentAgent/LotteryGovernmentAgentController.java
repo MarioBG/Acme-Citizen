@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import controllers.AbstractController;
 import domain.GovernmentAgent;
 import domain.Lottery;
+import domain.LotteryTicket;
 import services.GovernmentAgentService;
 import services.LotteryService;
 
@@ -93,6 +94,7 @@ public class LotteryGovernmentAgentController extends AbstractController {
 		result = new ModelAndView("lottery/MyLotterys");
 		result.addObject("lotterys", lotterys);
 		result.addObject("date", date);
+		result.addObject("principal", ga);
 
 		return result;
 	}
@@ -102,9 +104,14 @@ public class LotteryGovernmentAgentController extends AbstractController {
 
 		ModelAndView result;
 
+		Lottery lottery = this.lotteryService.findOne(lotteryId);
+		Collection<LotteryTicket> lotteryTickets = lottery.getLotteryTickets();
+		Integer tam = lotteryTickets.size();
 		lotteryService.lotteryWinner(lotteryId);
 
 		result = new ModelAndView("redirect:MyLotterys.do");
+		result.addObject("lotteryTickets", lotteryTickets);
+		result.addObject("tam", tam);
 
 		return result;
 

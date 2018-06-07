@@ -29,7 +29,8 @@
 
 	<spring:message var="formatPrice" code="lottery.format.price" />
 	<spring:message var="quantityHeader" code="lottery.quantity" />
-	<display:column title="${quantityHeader}" property="quantity" format="${formatPrice}" />
+	<display:column title="${quantityHeader}" property="quantity"
+		format="${formatPrice}" />
 
 	<spring:message var="percentageForPrizesHeader"
 		code="lottery.percentageForPrizes" />
@@ -38,17 +39,32 @@
 
 	<spring:message var="formatPrice" code="lottery.format.price" />
 	<spring:message var="ticketCostHeader" code="lottery.ticketCost" />
-	<display:column title="${ticketCostHeader}" property="ticketCost" format="${formatPrice}" />
+	<display:column title="${ticketCostHeader}" property="ticketCost"
+		format="${formatPrice}" />
 
 
 	<security:authorize access="hasRole('GOVERNMENTAGENT')">
 		<display:column>
-			<jstl:if
-				test="${ row.winnerTicket == null && row.celebrationDate.before(date) }">
-				<input type="button"
-					value="<spring:message code="lottery.makeWinner" />"
-					onclick="javascript: window.location.assign('lottery/governmentAgent/makeWinner.do?lotteryId=${row.id}')" />
-			</jstl:if>
+			<jstl:choose>
+				<jstl:when
+					test="${row.lotteryTickets.size() > 0 && row.celebrationDate.before(date)}">
+					<jstl:if test="${ row.winnerTicket == null  }">
+						<input type="button"
+							value="<spring:message code="lottery.makeWinner" />"
+							onclick="javascript: window.location.assign('lottery/governmentAgent/makeWinner.do?lotteryId=${row.id}')" />
+					</jstl:if>
+					<jstl:if test="${ row.winnerTicket != null  }">
+						<jstl:out
+							value="${row.winnerTicket.citizen.name} ${row.winnerTicket.citizen.surname}" />
+					</jstl:if>
+				</jstl:when>
+				<jstl:otherwise>
+					<jstl:if
+						test="${row.lotteryTickets.size() == 0 && row.celebrationDate.before(date)}">
+						<spring:message code="lottery.noWinnerLottery"></spring:message>
+					</jstl:if>
+				</jstl:otherwise>
+			</jstl:choose>
 		</display:column>
 	</security:authorize>
 

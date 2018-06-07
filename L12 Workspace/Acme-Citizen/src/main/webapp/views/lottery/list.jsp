@@ -50,12 +50,19 @@
 
 	<spring:message var="winnerTicketHeader" code="lottery.winner" />
 	<display:column>
+
 		<jstl:choose>
 			<jstl:when test="${row.celebrationDate.before(date)}">
-				<jstl:out
-					value="${row.winnerTicket.citizen.name} ${row.winnerTicket.citizen.surname}" />
+				<jstl:choose>
+					<jstl:when test="${row.lotteryTickets.size() > 0}">
+						<jstl:out
+							value="${row.winnerTicket.citizen.name} ${row.winnerTicket.citizen.surname}" />
+					</jstl:when>
+					<jstl:otherwise>
+						<spring:message code="lottery.noWinnerLottery"></spring:message>
+					</jstl:otherwise>
+				</jstl:choose>
 			</jstl:when>
-
 			<jstl:otherwise>
 				<security:authorize access="hasRole('CITIZEN')">
 					<jstl:if test="${principal.bankAccount == null}">
