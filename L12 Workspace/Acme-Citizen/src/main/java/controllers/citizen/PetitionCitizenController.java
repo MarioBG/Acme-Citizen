@@ -29,14 +29,13 @@ public class PetitionCitizenController extends AbstractController {
 	// Services ------------------------------------------------------
 
 	@Autowired
-	private PetitionService			petitionService;
+	private PetitionService petitionService;
 
 	@Autowired
-	private CitizenService			citizenService;
+	private CitizenService citizenService;
 
 	@Autowired
-	private GovernmentAgentService	governmentAgentService;
-
+	private GovernmentAgentService governmentAgentService;
 
 	// Constructors --------------------------------------------------
 
@@ -121,7 +120,8 @@ public class PetitionCitizenController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/addGovernmentAgent", method = RequestMethod.GET)
-	public ModelAndView addGovernmentAgent(@RequestParam final int petitionId, @RequestParam final int governmentAgentId) {
+	public ModelAndView addGovernmentAgent(@RequestParam final int petitionId,
+			@RequestParam final int governmentAgentId) {
 
 		ModelAndView result;
 
@@ -133,13 +133,15 @@ public class PetitionCitizenController extends AbstractController {
 		governmentAgent.getPetitions().add(petition);
 		this.petitionService.save(petition);
 		this.governmentAgentService.save(governmentAgent);
-		result = new ModelAndView("redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
+		result = new ModelAndView(
+				"redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/removeGovernmentAgent", method = RequestMethod.GET)
-	public ModelAndView removeGovernmentAgent(@RequestParam final int petitionId, @RequestParam final int governmentAgentId) {
+	public ModelAndView removeGovernmentAgent(@RequestParam final int petitionId,
+			@RequestParam final int governmentAgentId) {
 
 		ModelAndView result;
 
@@ -151,7 +153,8 @@ public class PetitionCitizenController extends AbstractController {
 		governmentAgent.getPetitions().remove(petition);
 		this.petitionService.save(petition);
 		this.governmentAgentService.save(governmentAgent);
-		result = new ModelAndView("redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
+		result = new ModelAndView(
+				"redirect:../../governmentAgent/citizen/addGovernmentAgents.do?petitionId=" + petitionId);
 
 		return result;
 	}

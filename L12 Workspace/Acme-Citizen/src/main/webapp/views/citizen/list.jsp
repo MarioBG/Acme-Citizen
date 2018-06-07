@@ -25,13 +25,13 @@
 <h3>
 	<jstl:choose>
 		<jstl:when test="${requestURI == 'citizen/list.do'  }">
-			<spring:message code="citizen.generalList"/>
+			<spring:message code="citizen.generalList" />
 		</jstl:when>
 		<jstl:when test="${requestURI == 'user/user/list-followers.do'  }">
-			<spring:message code="user.followers"/>
+			<spring:message code="user.followers" />
 		</jstl:when>
 		<jstl:when test="${requestURI == 'user/user/list-followed.do'  }">
-			<spring:message code="user.followed"/>
+			<spring:message code="user.followed" />
 		</jstl:when>
 	</jstl:choose>
 </h3>
@@ -52,13 +52,14 @@
 
 	<spring:message code="user.email" var="emailHeader" />
 	<display:column property="email" title="${emailHeader}" sortable="true" />
-	
+
 	<spring:message code="user.nickname" var="nicknameHeader" />
-	<display:column property="nickname" title="${nicknameHeader}" sortable="true" />
-	
+	<display:column property="nickname" title="${nicknameHeader}"
+		sortable="true" />
+
 	<spring:message code="user.petitions" var="jorlHeader" />
 	<display:column title="${jorlHeader}">
-		<a href="petitions/list.do?citizenId=${row.id}"> <spring:message
+		<a href="petition/list.do?citizenId=${row.id}"> <spring:message
 				code="user.displayPetitions" />
 		</a>
 	</display:column>

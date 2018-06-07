@@ -105,19 +105,20 @@
 			pattern="/transactions/create.do" access="permitAll" />
 		<security:intercept-url
 			pattern="/transactions/edit.do" access="permitAll" />
-			
+
 		<!-- Candidate -->
 		<security:intercept-url
 			pattern="/candidate/citizen/**" access="hasRole('CITIZEN')" />
-		
+
 		<!-- Candidature -->
 		<security:intercept-url
-			pattern="/candidature/governmentAgent/**" access="hasRole('GOVERNMENTAGENT')" />
+			pattern="/candidature/governmentAgent/**"
+			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url
 			pattern="/candidature/citizen/**" access="hasRole('CITIZEN')" />
 		<security:intercept-url
 			pattern="/candidature/**" access="permitAll" />
-		
+
 		<!-- Chirp -->
 		<security:intercept-url
 			pattern="/chirp/governmentAgent/**"
@@ -136,7 +137,8 @@
 			access="permitAll" />
 
 		<!-- Election -->
-		<security:intercept-url pattern="/election/governmentAgent/**"
+		<security:intercept-url
+			pattern="/election/governmentAgent/**"
 			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url pattern="/election/**"
 			access="permitAll" />
@@ -150,8 +152,8 @@
 		<!-- Government agent -->
 		<security:intercept-url
 			pattern="/governmentAgent/citizen/**" access="hasRole('CITIZEN')" />
-		<security:intercept-url pattern="/governmentAgent/**"
-			access="permitAll" />
+		<security:intercept-url
+			pattern="/governmentAgent/**" access="permitAll" />
 
 
 		<!-- Folders y messages -->
@@ -169,6 +171,8 @@
 			access="hasRole('GOVERNMENTAGENT')" />
 		<security:intercept-url
 			pattern="/petition/citizen/**" access="hasRole('CITIZEN')" />
+		<security:intercept-url
+			pattern="/petition/citizen/list.do" access="permitAll" />
 		<security:intercept-url pattern="/petition/**"
 			access="permitAll" />
 
