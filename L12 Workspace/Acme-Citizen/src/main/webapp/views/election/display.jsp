@@ -64,6 +64,10 @@
 	</jstl:if>
 </security:authorize>
 
+<h3>
+	<spring:message code="election.candidatures"/>
+</h3>
+
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="election.candidatures" requestURI="election/display.do" id="row">
 

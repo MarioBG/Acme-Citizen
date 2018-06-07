@@ -49,7 +49,7 @@ public class GovernmentAgentCitizenController extends AbstractController {
 		final ModelAndView result = new ModelAndView("governmentAgent/list");
 		result.addObject("governmentAgents", governmentAgents);
 		result.addObject("petition", petition);
-		result.addObject("requestURI", "governmentAgent/citizen/list.do");
+		result.addObject("requestURI", "governmentAgent/citizen/addGovernmentAgents.do");
 
 		return result;
 	}

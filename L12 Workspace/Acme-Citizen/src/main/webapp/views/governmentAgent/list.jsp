@@ -38,26 +38,31 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="governmentAgents" requestURI="${ requestURI }" id="row">
 
-	<!-- Attributes -->
-	<display:column>
-		<jstl:if test="${!petition.governmentAgents.contains(row) }">
-			<a
-				href="petition/citizen/addGovernmentAgent.do?petitionId=${petition.id}&governmentAgentId=${row.id}"><spring:message
-					code="governmentAgent.add" /></a>
-		</jstl:if>
-		<jstl:if test="${petition.governmentAgents.contains(row) }">
-			<a
-				href="petition/citizen/removeGovernmentAgent.do?petitionId=${petition.id}&governmentAgentId=${row.id}"><spring:message
-					code="governmentAgent.remove" /></a>
-		</jstl:if>
-	</display:column>
+	<jstl:if
+		test="${requestURI == 'governmentAgent/citizen/addGovernmentAgents.do' }">
+		<display:column>
+			<jstl:if test="${!petition.governmentAgents.contains(row) }">
+				<a
+					href="petition/citizen/addGovernmentAgent.do?petitionId=${petition.id}&governmentAgentId=${row.id}"><spring:message
+						code="governmentAgent.add" /></a>
+			</jstl:if>
+			<jstl:if test="${petition.governmentAgents.contains(row) }">
+				<a
+					href="petition/citizen/removeGovernmentAgent.do?petitionId=${petition.id}&governmentAgentId=${row.id}"><spring:message
+						code="governmentAgent.remove" /></a>
+			</jstl:if>
+		</display:column>
+	</jstl:if>
 
-	<spring:message code="governmentAgent.show" var="showHeader" />
-	<display:column title="${showHeader}">
-		<a href="governmentAgent/display.do?governmentAgentId=${row.id}">
-			<spring:message code="user.display" />
-		</a>
-	</display:column>
+	<jstl:if
+		test="${requestURI != 'governmentAgent/citizen/addGovernmentAgents.do' }">
+		<spring:message code="governmentAgent.show" var="showHeader" />
+		<display:column title="${showHeader}">
+			<a href="governmentAgent/display.do?governmentAgentId=${row.id}">
+				<spring:message code="user.display" />
+			</a>
+		</display:column>
+	</jstl:if>
 
 	<spring:message code="user.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" sortable="true" />
@@ -80,7 +85,7 @@
 
 <spring:message var="backValue" code="agent.back" />
 <jstl:choose>
-	<jstl:when test="${requestURI == 'governmentAgent/citizen/list.do' }">
+	<jstl:when test="${requestURI == 'governmentAgent/citizen/addGovernmentAgents.do' }">
 		<input type="button" name="back" value="${backValue}"
 			onclick="javascript: relativeRedir('petition/citizen/edit.do?petitionId=${petition.id}');" />
 	</jstl:when>
