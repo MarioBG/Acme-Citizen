@@ -22,7 +22,7 @@
 	</definition>
 	
 	<definition name="folder/edit" extends="master.page">	
-		<put-attribute name="title" value="Edition of a folder" />
+		<put-attribute name="title" value="Edit a folder" />
 		<put-attribute name="body" value="/views/folder/edit.jsp" />
 	</definition>
 	

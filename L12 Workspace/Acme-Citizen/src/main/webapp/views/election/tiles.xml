@@ -22,12 +22,12 @@
 	</definition>
 	
 	<definition name="election/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit a election" />
+		<put-attribute name="title" value="Edit an election" />
 		<put-attribute name="body" value="/views/election/edit.jsp" />
 	</definition>
 	
 	<definition name="election/create" extends="master.page">	
-		<put-attribute name="title" value="Create a election" />
+		<put-attribute name="title" value="Create an election" />
 		<put-attribute name="body" value="/views/election/edit.jsp" />
 	</definition>
 	
