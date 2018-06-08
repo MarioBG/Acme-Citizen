@@ -92,4 +92,54 @@ public class CandidatureServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
+	/*
+	 * Caso de uso 15.j: Borrar una candidatura que vaya contra la legalidad hisperiana hasta el día de celebración de las elecciones asociadas. Esto también implica borrar las candidaturas asociadas.
+	 */
+
+	@Test
+	public void driverDelete() {
+		final Object testingDeleteData[][] = {
+
+			// Casos positivos
+			{
+				"government", "candidature1", null
+			},
+			// Casos negativos
+			{
+				"bank1", null, NullPointerException.class
+			/*
+			 * Solo los agentes gubernamentales y los ciudadanos pueden eliminar candidaturas.
+			 */
+			}, {
+				null, "candidature1", IllegalArgumentException.class
+			/*
+			 * Los usuarios anonimos no pueden eliminar comentarios.
+			 */
+			}
+		};
+
+		for (int i = 0; i < testingDeleteData.length; i++)
+			this.templateDelete((String) testingDeleteData[i][0], (String) testingDeleteData[i][1], (Class<?>) testingDeleteData[i][2]);
+
+	}
+
+	protected void templateDelete(final String authenticate, final String candidatureBean, final Class<?> expected) {
+
+		Class<?> caught;
+		caught = null;
+
+		try {
+			final int candidatureId = super.getEntityId(candidatureBean);
+			final Candidature candidature = this.candidatureService.findOne(candidatureId);
+			super.authenticate(authenticate);
+			this.candidatureService.delete(candidature);
+			Assert.isTrue(!this.candidatureService.findAll().contains(candidature) && !candidature.getElection().getCandidatures().contains(candidature));
+			super.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
 }

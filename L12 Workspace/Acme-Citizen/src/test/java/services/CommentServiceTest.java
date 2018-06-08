@@ -56,7 +56,7 @@ public class CommentServiceTest extends AbstractTest {
 			},
 			// Casos negativos
 			{
-				"citizen1", "petitionTest", "Quiero decir...", "http://www.google.es/", AssertionError.class
+				"citizen1", "petitionTest", "Quiero decir...", "http://www.google.es/", NumberFormatException.class
 			/*
 			 * No se puede crear un comentario para una petición que no existe.
 			 */
@@ -111,7 +111,7 @@ public class CommentServiceTest extends AbstractTest {
 			},
 			// Casos negativos
 			{
-				"citizen1", "electionTest", "Quiero decir...", "http://www.google.es/", AssertionError.class
+				"citizen1", "electionTest", "Quiero decir...", "http://www.google.es/", NumberFormatException.class
 			/*
 			 * No se puede crear un comentario para una elección que no existe.
 			 */
@@ -166,7 +166,7 @@ public class CommentServiceTest extends AbstractTest {
 			},
 			// Casos negativos
 			{
-				"citizen1", "candidatureTest", "Quiero decir...", "http://www.google.es/", AssertionError.class
+				"citizen1", "candidatureTest", "Quiero decir...", "http://www.google.es/", NumberFormatException.class
 			/*
 			 * No se puede crear un comentario para una candidatura que no existe.
 			 */
@@ -198,6 +198,56 @@ public class CommentServiceTest extends AbstractTest {
 			comment.setPicture(picture);
 			final Comment saved = this.commentService.save(comment);
 			Assert.isTrue(candidature.getComments().contains(saved));
+			super.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
+	/*
+	 * Caso de uso 15.h: Borrar un comentario que considere inapropiado. Cuando se borra un comentario también se borran todas sus respuestas.
+	 */
+
+	@Test
+	public void driverDelete() {
+		final Object testingDeleteData[][] = {
+
+			// Casos positivos
+			{
+				"government", "comment1", null
+			},
+			// Casos negativos
+			{
+				"citizen1", null, NullPointerException.class
+			/*
+			 * Solo los agentes gubernamentales pueden eliminar comentarios
+			 */
+			}, {
+				null, "comment1", IllegalArgumentException.class
+			/*
+			 * Los usuarios anonimos no pueden eliminar comentarios.
+			 */
+			}
+		};
+
+		for (int i = 0; i < testingDeleteData.length; i++)
+			this.templateDelete((String) testingDeleteData[i][0], (String) testingDeleteData[i][1], (Class<?>) testingDeleteData[i][2]);
+
+	}
+
+	protected void templateDelete(final String authenticate, final String commentBean, final Class<?> expected) {
+
+		Class<?> caught;
+		caught = null;
+
+		try {
+			final int commentId = super.getEntityId(commentBean);
+			final Comment comment = this.commentService.findOne(commentId);
+			super.authenticate(authenticate);
+			this.commentService.delete(comment);
+			Assert.isTrue(!this.commentService.findAll().contains(comment) && !comment.getActor().getComments().contains(comment));
 			super.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

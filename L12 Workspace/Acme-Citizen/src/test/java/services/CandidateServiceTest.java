@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -15,7 +16,9 @@ import utilities.AbstractTest;
 import domain.Candidate;
 import domain.Candidature;
 
-@ContextConfiguration(locations = { "classpath:spring/junit.xml" })
+@ContextConfiguration(locations = {
+	"classpath:spring/junit.xml"
+})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class CandidateServiceTest extends AbstractTest {
@@ -23,10 +26,11 @@ public class CandidateServiceTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private CandidateService candidateService;
+	private CandidateService	candidateService;
 
 	@Autowired
-	private CandidatureService candidatureService;
+	private CandidatureService	candidatureService;
+
 
 	// Tests ------------------------------------------------------------------
 
@@ -39,38 +43,36 @@ public class CandidateServiceTest extends AbstractTest {
 	public void driverList() {
 		final Object testingListData[][] = {
 
-				// Casos positivos
-				{ null, "candidature1", null },
-				// Casos negativos
-				{ null, "candidatureTest", AssertionError.class
-				/*
-				 * No se puede acceder a una candidatura que no existe
-				 */
-				} };
+			// Casos positivos
+			{
+				null, "candidature1", null
+			},
+			// Casos negativos
+			{
+				null, "candidatureTest", NumberFormatException.class
+			/*
+			 * No se puede acceder a una candidatura que no existe
+			 */
+			}
+		};
 
 		for (int i = 0; i < testingListData.length; i++)
-			this.templateList((String) testingListData[i][0],
-					(String) testingListData[i][1],
-					(Class<?>) testingListData[i][2]);
+			this.templateList((String) testingListData[i][0], (String) testingListData[i][1], (Class<?>) testingListData[i][2]);
 
 	}
 
-	protected void templateList(final String authenticate,
-			final String candidatureBean, final Class<?> expected) {
+	protected void templateList(final String authenticate, final String candidatureBean, final Class<?> expected) {
 
 		Class<?> caught;
 		caught = null;
 
 		try {
 			final int candidatureId = super.getEntityId(candidatureBean);
-			final Candidature candidature = this.candidatureService
-					.findOne(candidatureId);
+			final Candidature candidature = this.candidatureService.findOne(candidatureId);
 			super.authenticate(authenticate);
 			if (!candidature.getCandidates().isEmpty()) {
-				final Collection<Candidate> candidates = this.candidateService
-						.findByCandidatureId(candidatureId);
-				Assert.isTrue(candidature.getCandidates().containsAll(
-						candidates));
+				final Collection<Candidate> candidates = this.candidateService.findByCandidatureId(candidatureId);
+				Assert.isTrue(candidature.getCandidates().containsAll(candidates));
 			}
 			super.unauthenticate();
 		} catch (final Throwable oops) {

@@ -96,7 +96,7 @@ public class ChirpServiceTest extends AbstractTest {
 			 * Solo los agentes gubernamentales poseen chirps
 			 */
 			}, {
-				"government", "governmentTest", AssertionError.class
+				"government", "governmentTest", NumberFormatException.class
 			/*
 			 * El agente gubernamental no exite
 			 */
@@ -128,28 +128,31 @@ public class ChirpServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
+	/*
+	 * Caso de uso 15.b: Crear chirps y borrar sus propios chirps.
+	 */
+
 	@Test
-	public void driver() {
-		final Object testingCreate[][] = {
+	public void driverCreateAndDelete() {
+		final Object testingCreateAndDelete[][] = {
 			// Casos positivos
 			{
 				"government", "chirp title", "chirp description", "http://localhost/Acme-Citizen/images/logo.png", "http://localhost/Acme-Citizen/images/logo.png", null
 			}, {
-				"tvhisperia", "chirp title", "chirp description", null, null, null
+				"tvh", "chirp title", "chirp description", null, null, null
 			},
 			// Casos negativos
 			{
-				"pepitoperez", "chirp title", "chirp description", "http://localhost/Acme-Citizen/images/logo.png", "http://localhost/Acme-Citizen/images/logo.png", IllegalArgumentException.class
-			}, // Usuario no
-				// registrado
+				"government", "", "chirp description", "http://localhost/Acme-Citizen/images/logo.png", "http://localhost/Acme-Citizen/images/logo.png", IllegalArgumentException.class
+			}, // Usuario no se puede guardar un chirp sin titulo
 			{
-				"bank1", "chirp title", "chirp description", "http://localhost/Acme-Citizen/images/logo.png", "http://localhost/Acme-Citizen/images/logo.png", IllegalArgumentException.class
-			}, // Usuario no
-				// autenticado
+				"bank1", "chirp title", "chirp description", "http://localhost/Acme-Citizen/images/logo.png", "http://localhost/Acme-Citizen/images/logo.png", NumberFormatException.class
+			}, // Usuario inexistente
 		};
 
-		for (int i = 0; i < testingCreate.length; i++)
-			this.templateCreateAndEdit((String) testingCreate[i][0], (String) testingCreate[i][1], (String) testingCreate[i][2], (String) testingCreate[i][3], (String) testingCreate[i][4], (Class<?>) testingCreate[i][5]);
+		for (int i = 0; i < testingCreateAndDelete.length; i++)
+			this.templateCreateAndEdit((String) testingCreateAndDelete[i][0], (String) testingCreateAndDelete[i][1], (String) testingCreateAndDelete[i][2], (String) testingCreateAndDelete[i][3], (String) testingCreateAndDelete[i][4],
+				(Class<?>) testingCreateAndDelete[i][5]);
 	}
 
 	private void templateCreateAndEdit(final String username, final String title, final String description, final String image, final String link, final Class<?> expected) {
@@ -159,18 +162,23 @@ public class ChirpServiceTest extends AbstractTest {
 		Chirp chirp;
 
 		try {
-			super.authenticate(username);
+			final int governmentAgentId = super.getEntityId(username);
+			final GovernmentAgent governmentAgent = this.governmentAgentService.findOne(governmentAgentId);
+			super.authenticate(governmentAgent.getUserAccount().getUsername());
 			chirp = this.chirpService.create();
 			chirp.setTitle(title);
 			chirp.setContent(description);
 			chirp.setImage(image);
 			chirp.setLink(link);
-
+			final Chirp saved = this.chirpService.save(chirp);
+			Assert.isTrue(this.chirpService.findAll().contains(saved) && governmentAgent.getChirps().contains(saved));
+			this.chirpService.delete(saved);
+			Assert.isTrue(!this.chirpService.findAll().contains(saved) && !governmentAgent.getChirps().contains(saved));
+			super.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
-			this.chirpService.flush();
 		}
-		this.checkExceptions(expected, caught);
 
+		this.checkExceptions(expected, caught);
 	}
 }

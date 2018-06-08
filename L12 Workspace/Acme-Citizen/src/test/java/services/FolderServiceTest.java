@@ -1,3 +1,4 @@
+
 package services;
 
 import javax.transaction.Transactional;
@@ -13,7 +14,9 @@ import utilities.AbstractTest;
 import domain.Folder;
 import forms.FolderForm;
 
-@ContextConfiguration(locations = { "classpath:spring/junit.xml" })
+@ContextConfiguration(locations = {
+	"classpath:spring/junit.xml"
+})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class FolderServiceTest extends AbstractTest {
@@ -21,7 +24,8 @@ public class FolderServiceTest extends AbstractTest {
 	// System under test ------------------------------------------------------
 
 	@Autowired
-	private FolderService folderService;
+	private FolderService	folderService;
+
 
 	// Tests ------------------------------------------------------------------
 
@@ -34,56 +38,58 @@ public class FolderServiceTest extends AbstractTest {
 	public void driverCreate() {
 		final Object testingCreateData[][] = {
 
-				// Casos positivos
+			// Casos positivos
 
-				{ "citizen1", "folder test", "folder10", null },
+			{
+				"citizen1", "folder test", "folder11", null
+			},
 
-				// Casos negativos
-				{ "user1", "Folder test", "folder6",
-						IllegalArgumentException.class },
-				/**
-				 * No se puede crear una carpeta de una carpeta padre que no es
-				 * suya
-				 */
+			// Casos negativos
+			{
+				"user1", "Folder test", "folder6", IllegalArgumentException.class
+			},
+			/**
+			 * No se puede crear una carpeta de una carpeta padre que no es
+			 * suya
+			 */
 
-				{ null, "New folder", "folder1", NullPointerException.class },
-				/**
-				 * No se puede seleccionar una carpeta padre que no pertenece al
-				 * usuario
-				 */
-				{ "agent2", "", "folder41", AssertionError.class }
+			{
+				null, "New folder", "folder1", NullPointerException.class
+			},
+			/**
+			 * No se puede seleccionar una carpeta padre que no pertenece al
+			 * usuario
+			 */
+			{
+				"agent2", "", "folder41", NumberFormatException.class
+			}
 		/**
 		 * El campo nombre no puede ser vacio
 		 */
 		};
 
 		for (int i = 0; i < testingCreateData.length; i++)
-			this.templateCreate((String) testingCreateData[i][0],
-					(String) testingCreateData[i][1],
-					(String) testingCreateData[i][2],
-					(Class<?>) testingCreateData[i][3]);
+			this.templateCreate((String) testingCreateData[i][0], (String) testingCreateData[i][1], (String) testingCreateData[i][2], (Class<?>) testingCreateData[i][3]);
 
 	}
 
-	protected void templateCreate(String authenticate, String name,
-			String parentBeanName, Class<?> expected) {
+	protected void templateCreate(final String authenticate, final String name, final String parentBeanName, final Class<?> expected) {
 
 		Class<?> caught;
 		caught = null;
 
 		try {
-			int parentId = getEntityId(parentBeanName);
+			final int parentId = this.getEntityId(parentBeanName);
 			super.authenticate(authenticate);
-			Folder folder = folderService.create(false, null);
-			FolderForm folderForm = folderService.construct(folder);
+			final Folder folder = this.folderService.create(false, this.folderService.findOne(parentId));
+			final FolderForm folderForm = this.folderService.construct(folder);
 			folderForm.setName(name);
 			folderForm.setParentId(parentId);
-			Folder folder2 = folderService.reconstruct(folderForm, null);
-			Folder folderSaved = folderService.save(folder2);
-			Assert.isTrue(folderSaved.getParent().getChildren()
-					.contains(folderSaved));
-			folderService.delete(folderSaved);
-			Assert.isTrue(!folderService.findAll().contains(folderSaved));
+			final Folder folder2 = this.folderService.reconstruct(folderForm, null);
+			final Folder folderSaved = this.folderService.save(folder2);
+			Assert.isTrue(folderSaved.getParent().getChildren().contains(folderSaved));
+			this.folderService.delete(folderSaved);
+			Assert.isTrue(!this.folderService.findAll().contains(folderSaved));
 			super.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

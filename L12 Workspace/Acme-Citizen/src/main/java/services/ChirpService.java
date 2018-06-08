@@ -71,7 +71,11 @@ public class ChirpService {
 	}
 
 	public Chirp save(final Chirp chirp) {
+
 		Assert.notNull(chirp);
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
+		Assert.isTrue(chirp.getTitle() != "" && chirp.getTitle() != null);
+		Assert.isTrue(chirp.getContent() != "" && chirp.getContent() != null);
 
 		if (chirp.getId() == 0)
 			chirp.setPublicationMoment(new Date(System.currentTimeMillis() - 1000));
@@ -83,8 +87,9 @@ public class ChirpService {
 
 		return res;
 	}
-
 	public void delete(final Chirp chirp) {
+
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
 
 		chirp.getGovernmentAgent().getChirps().remove(chirp);
 		this.chirpRepository.delete(chirp);

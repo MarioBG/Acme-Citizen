@@ -70,11 +70,12 @@ public class PetitionService {
 
 	public Petition findOne(final int petitionId) {
 
+		Assert.isTrue(petitionId != 0);
+
 		Petition result = null;
 		result = this.petitionRepository.findOne(petitionId);
 		return result;
 	}
-
 	public Collection<Petition> findAll() {
 
 		Collection<Petition> result = null;

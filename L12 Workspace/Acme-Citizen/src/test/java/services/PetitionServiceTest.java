@@ -270,4 +270,54 @@ public class PetitionServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
+	/*
+	 * Caso de uso 15.g: Borrar una petición que considere inapropiada.
+	 */
+
+	@Test
+	public void driverDelete() {
+		final Object testingDeleteData[][] = {
+
+			// Casos positivos
+			{
+				"government", "petition1", null
+			},
+			// Casos negativos
+			{
+				"citizen1", null, NullPointerException.class
+			/*
+			 * Solo los agentes gubernamentales pueden eliminar peticiones
+			 */
+			}, {
+				null, "petition1", IllegalArgumentException.class
+			/*
+			 * Los usuarios anonimos no pueden eliminar peticiones.
+			 */
+			}
+		};
+
+		for (int i = 0; i < testingDeleteData.length; i++)
+			this.templateDelete((String) testingDeleteData[i][0], (String) testingDeleteData[i][1], (Class<?>) testingDeleteData[i][2]);
+
+	}
+
+	protected void templateDelete(final String authenticate, final String petitionBean, final Class<?> expected) {
+
+		Class<?> caught;
+		caught = null;
+
+		try {
+			final int petitionId = super.getEntityId(petitionBean);
+			final Petition petition = this.petitionService.findOne(petitionId);
+			super.authenticate(authenticate);
+			this.petitionService.delete(petition);
+			Assert.isTrue(!this.petitionService.findAll().contains(petition) && !petition.getCitizen().getPetitions().contains(petition));
+			super.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.checkExceptions(expected, caught);
+	}
+
 }
