@@ -1,6 +1,6 @@
-
 package services;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.LotteryRepository;
 import domain.Actor;
 import domain.Citizen;
 import domain.GovernmentAgent;
 import domain.Lottery;
 import domain.LotteryTicket;
-import repositories.LotteryRepository;
 
 @Service
 @Transactional()
@@ -62,7 +62,8 @@ public class LotteryService {
 
 		Date date = new Date();
 		if (lottery.getCelebrationDate().before(date)) {
-			Assert.isTrue(lottery.getCelebrationDate().after(date), "commit.error.date");
+			Assert.isTrue(lottery.getCelebrationDate().after(date),
+					"commit.error.date");
 
 		}
 		result = this.lotteryRepository.save(lottery);
@@ -103,8 +104,10 @@ public class LotteryService {
 
 	public void lotteryWinner(int lotteryId) {
 		Lottery lottery = this.findOne(lotteryId);
-		Collection<Lottery> lottos = this.getLotteryByGovernmentAgentId(lottery.getGovernmentAgent().getId());
-		List<LotteryTicket> lista = new ArrayList<LotteryTicket>(lottery.getLotteryTickets());
+		Collection<Lottery> lottos = this.getLotteryByGovernmentAgentId(lottery
+				.getGovernmentAgent().getId());
+		List<LotteryTicket> lista = new ArrayList<LotteryTicket>(
+				lottery.getLotteryTickets());
 
 		if (lottos.size() > 0) {
 			if (lottery.getWinnerTicket() == null && lottos.contains(lottery)) {
@@ -130,11 +133,25 @@ public class LotteryService {
 		winCitizen = (cantidad * percentage) / 100;
 		winAgent = cantidad - winCitizen;
 
-		Citizen citizen = (Citizen) this.actorService.findOne(lt.getCitizen().getId());
-		GovernmentAgent ga = (GovernmentAgent) this.actorService.findOne(lotto.getGovernmentAgent().getId());
+		Citizen citizen = (Citizen) this.actorService.findOne(lt.getCitizen()
+				.getId());
+		GovernmentAgent ga = (GovernmentAgent) this.actorService.findOne(lotto
+				.getGovernmentAgent().getId());
 
-		citizen.getBankAccount().setMoney(citizen.getBankAccount().getMoney() + winCitizen);
-		ga.getBankAccount().setMoney(ga.getBankAccount().getMoney() + winAgent);
+		// this.lotteryRepository.flush();
+		Double newMoneyCitizen = citizen.getBankAccount().getMoney()
+				+ winCitizen;
+		Double newMoneyGa = ga.getBankAccount().getMoney() + winAgent;
+
+		DecimalFormat de = new DecimalFormat("0.00");
+		String citi = de.format(newMoneyCitizen);
+		String gAgent = de.format(newMoneyGa);
+
+		newMoneyCitizen = Double.parseDouble(citi);
+		newMoneyGa = Double.parseDouble(gAgent);
+
+		citizen.getBankAccount().setMoney(newMoneyCitizen);
+		ga.getBankAccount().setMoney(newMoneyGa);
 
 	}
 

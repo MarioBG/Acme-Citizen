@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -9,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.LotteryTicketRepository;
 import domain.Actor;
 import domain.Citizen;
 import domain.Lottery;
 import domain.LotteryTicket;
-import repositories.LotteryTicketRepository;
 
 @Service
 @Transactional
@@ -66,7 +65,8 @@ public class LotteryTicketService {
 
 	public Collection<LotteryTicket> findAll() {
 
-		final Collection<LotteryTicket> result = this.lotteryTicketRepository.findAll();
+		final Collection<LotteryTicket> result = this.lotteryTicketRepository
+				.findAll();
 		return result;
 	}
 
@@ -74,7 +74,8 @@ public class LotteryTicketService {
 
 		Assert.isTrue(lotteryTicketId != 0);
 
-		final LotteryTicket result = this.lotteryTicketRepository.findOne(lotteryTicketId);
+		final LotteryTicket result = this.lotteryTicketRepository
+				.findOne(lotteryTicketId);
 		return result;
 	}
 
@@ -121,11 +122,17 @@ public class LotteryTicketService {
 
 		final Double money = citizen.getBankAccount().getMoney();
 		if (money >= cost) {
-			final Double newMoney = money - ticket.getLottery().getTicketCost();
+			Double newMoney = money - ticket.getLottery().getTicketCost();
+			newMoney = (double) Math.round(newMoney * 100) / 100;
 			citizen.getBankAccount().setMoney(newMoney);
 			citizen.getLotteryTickets().add(ticket);
 			lottery.getLotteryTickets().add(ticket);
-			lottery.setQuantity(lottery.getQuantity() + cost);
+
+			Double newQuantity = lottery.getQuantity() + cost;
+			newQuantity = (double) Math.round(newQuantity * 100) / 100;
+			lottery.setQuantity(newQuantity);
+
+			// this.lotteryTicketRepository.flush();
 			this.save(ticket);
 			this.citizenService.save(citizen);
 			this.lotteryService.save(lottery);
