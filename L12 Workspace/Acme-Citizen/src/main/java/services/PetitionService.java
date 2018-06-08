@@ -125,6 +125,17 @@ public class PetitionService {
 		this.save(petition);
 	}
 
+	public void resolve(final Petition petition) {
+
+		Assert.notNull(petition);
+		Assert.isTrue(petition.getId() != 0);
+		Assert.notNull(this.governmentAgentService.findByPrincipal());
+		Assert.isTrue(petition.getResolved() == false);
+
+		petition.setResolved(true);
+		this.save(petition);
+	}
+
 	// Ancillary methods
 
 	public PetitionForm construct(final Petition petition) {
