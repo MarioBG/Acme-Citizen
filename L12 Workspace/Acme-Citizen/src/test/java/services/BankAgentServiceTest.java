@@ -26,24 +26,22 @@ public class BankAgentServiceTest extends AbstractTest {
 	public void driverBankAgent() {
 		final Object testingRegisterBankAgent[][] = {
 				// Casos positivos
-				{ "government", "address1", "1234", "agent@mail.com", "agent", "656565656",
-						IllegalArgumentException.class },
+				{ "government", "address1", "1234", "agent@mail.com", "agent", "656565656", null },
 
 				// Casos negativos
-				{ "bankagent", "address1", "1234", "agent@mail.com", "agent", "656565656",
-						IllegalArgumentException.class }, // Un usuario no puede registrarse por si mismo
-				{ "tvhisperia", null, "1234", "agent@mail.com", null, "656565656", NullPointerException.class }, // No
-				// se
-				// puede
-				// crear
-				// un
-				// bank
-				// agent
-				// sin
-				// direccion
-				// o
-				// sin
-				// nombre
+				{ "", "address1", "1234", "agent@mail.com", "agent", "656565656", IllegalArgumentException.class }, // Un
+																													// usuario
+																													// no
+																													// puede
+																													// registrarse
+																													// sin
+																													// que
+																													// lo
+																													// registre
+																													// el
+																													// agente
+																													// gubernamental
+
 		};
 
 		for (int i = 0; i < testingRegisterBankAgent.length; i++)
@@ -59,10 +57,12 @@ public class BankAgentServiceTest extends AbstractTest {
 		caught = null;
 
 		BankAgent bankAgent = null;
+		String message = "  ";
 
 		try {
 			super.authenticate(username);
 			bankAgent = this.bankAgentService.create();
+			message += "username: " + username;
 			bankAgent.setAddress(address);
 			bankAgent.setBankCode(bankCode);
 			bankAgent.setEmail(email);
@@ -73,7 +73,7 @@ public class BankAgentServiceTest extends AbstractTest {
 			caught = oops.getClass();
 			this.bankAgentService.flush();
 		}
-		this.checkExceptions(expected, caught);
+		this.checkExceptions(expected, caught, message);
 
 	}
 }

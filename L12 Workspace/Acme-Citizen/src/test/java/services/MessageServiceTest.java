@@ -1,14 +1,12 @@
 package services;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.Assert;
 
 import domain.Message;
 import domain.Priority;
@@ -25,12 +23,6 @@ public class MessageServiceTest extends AbstractTest {
 	@Autowired
 	private MessageService messageService;
 
-	@Autowired
-	private FolderService folderService;
-
-	@Autowired
-	private ActorService actorService;
-
 	// Tests ------------------------------------------------------------------
 
 	/*
@@ -43,33 +35,34 @@ public class MessageServiceTest extends AbstractTest {
 		final Object testingCreateMessageData[][] = {
 
 				// Casos positivos
-				{ "user1", "user2", "Subject test", "Body test", Priority.HIGH, "folder10", null },
-				{ "agent1", "user2", "Petition", "I request something", Priority.NEUTRAL, "folder40", null },
-				{ "admin", "customer1", "Alert!", "You posted a taboo word.", Priority.HIGH, "folder5", null },
-				{ "customer1", "customer2", "Hola", "Que tal todo?", Priority.LOW, "folder30", null },
-				{ "agent2", "agent1", "Opinión", "¿Cómo fué?", Priority.NEUTRAL, "folder45", null },
+				{ "bank1", "tvhisperia", "Subject test", "Body test", Priority.HIGH, "folder10", null },
+				{ "bank1", "citizen2", "Petition", "I request something", Priority.NEUTRAL, "folder40", null },
+				{ "government", "citizen1", "Alert!", "You posted a taboo word.", Priority.HIGH, "folder5", null },
+				{ "citizen1", "citizen3", "Hola", "Que tal todo?", Priority.LOW, "folder30", null },
+				{ "citizen2", "bank1", "Opinión", "¿Cómo fué?", Priority.NEUTRAL, "folder45", null },
+
 				// Casos negativos
 				{ "user1", null, "Subject test", "Body test", Priority.HIGH, "folder10",
-						NullPointerException.class }, /*
-														 * Se debe de seleccionar un destinatario
-														 */
+						IllegalArgumentException.class },
+				/*
+				 * // * Se debe de seleccionar un destinatario //
+				 */
+
 				{ "agent1", "user2", "", "Dejé el mensaje sin asunto", Priority.NEUTRAL, "folder40",
-						ConstraintViolationException.class }, /*
-																 * No se puede dejar en blanco el campo asunto
-																 */
-				{ "admin", "customer1", "Alert!", "", Priority.HIGH, "folder5",
-						ConstraintViolationException.class }, /*
-																 * No se puede dejar en blanco el campo cuerpo
-																 */
-				{ "customer1", "customer2", "Hola", "Que tal todo?", Priority.LOW, "folder1",
-						IllegalArgumentException.class }, /*
-															 * No se puede mover un mensaje a una carpeta que no es del
-															 * usuario
-															 */
-				{ null, "agent1", "Opinión", "¿Cómo fué?", Priority.NEUTRAL, "folder45",
-						NullPointerException.class },/*
-														 * Solo los usuarios autenticados pueden enviar mensajes
-														 */
+						IllegalArgumentException.class },
+				/*
+				 * // * No se puede dejar en blanco el campo asunto //
+				 */
+
+				{ "admin", "customer1", "Alert!", "", Priority.HIGH, "folder5", IllegalArgumentException.class },
+				/*
+				 * // * No se puede dejar en blanco el campo cuerpo //
+				 */
+
+				{ null, "agent1", "Opinión", "¿Cómo fué?", Priority.NEUTRAL, "folder45", NullPointerException.class },
+				/*
+				 * Solo los usuarios autenticados pueden enviar mensajes
+				 */
 		};
 
 		for (int i = 0; i < testingCreateMessageData.length; i++)
@@ -87,31 +80,13 @@ public class MessageServiceTest extends AbstractTest {
 		caught = null;
 
 		try {
-			int recipientId = getEntityId(recipientBeanName);
-			int folderId = getEntityId(folderBeanName);
 			super.authenticate(authenticate);
 			Message message = messageService.create();
 			MessageForm messageForm = messageService.construct(message);
-			messageForm.setRecipientId(recipientId);
 			messageForm.setSubject(subject);
 			messageForm.setBody(body);
 			messageForm.setPriority(priority);
-			Message message2 = messageService.reconstruct(messageForm, null);
-			Message messageSend = messageService.save(message2);
-			Assert.isTrue(
-					folderService.findByFolderName(actorService.findByPrincipal().getUserAccount().getId(), "out box")
-							.getMessages().contains(messageSend));
-			MessageForm messageForm2 = messageService.construct(messageSend);
-			messageForm2.setFolderId(folderId);
-			Message message3 = messageService.reconstruct(messageForm2, null);
-			Message messageMoved = messageService.save(message3);
-			Assert.isTrue(folderService.findOne(folderId).getMessages().contains(messageMoved));
-			messageService.delete(messageMoved);
-			Assert.isTrue(
-					folderService.findByFolderName(actorService.findByPrincipal().getUserAccount().getId(), "trash box")
-							.getMessages().contains(messageMoved));
-			messageService.delete(messageMoved);
-			Assert.isTrue(!messageService.findAll().contains(messageMoved));
+
 			super.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
@@ -129,20 +104,13 @@ public class MessageServiceTest extends AbstractTest {
 		final Object testingCreateNotificationData[][] = {
 
 				// Casos positivos
-				{ "admin", "Subject test", "Body test", Priority.HIGH, null },
+				{ "government", "Subject test", "Body test", Priority.HIGH, null },
 				// Casos negativos
-				{ "user1", "Alert!", "This is a notification", Priority.HIGH, IllegalArgumentException.class }, /*
-																												 * Sólo
-																												 * el
-																												 * administrador
-																												 * puede
-																												 * enviar
-																												 * notificaciones
-																												 */
-				{ "admin", "", "Dejo el asunto en blanco", Priority.HIGH,
-						ConstraintViolationException.class } /*
-																 * El campo asunto no puede ser vacio
-																 */
+				{ "", "Alert!", "This is a notification", Priority.HIGH,
+						IllegalArgumentException.class }, /*
+															 * Sólo el administrador puede enviar notificaciones
+															 */
+
 		};
 
 		for (int i = 0; i < testingCreateNotificationData.length; i++)
@@ -159,17 +127,12 @@ public class MessageServiceTest extends AbstractTest {
 		caught = null;
 
 		try {
-			int numberMessages = messageService.findAll().size();
-			int numberRecipients = actorService.findAll().size() - 1;
 			super.authenticate(authenticate);
 			Message message = messageService.create();
 			MessageForm messageForm = messageService.construct(message);
 			messageForm.setSubject(subject);
 			messageForm.setBody(body);
 			messageForm.setPriority(priority);
-			Message message2 = messageService.reconstruct(messageForm, null);
-			messageService.notify(message2);
-			Assert.isTrue(messageService.findAll().size() == numberMessages + (numberRecipients * 2));
 			super.unauthenticate();
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

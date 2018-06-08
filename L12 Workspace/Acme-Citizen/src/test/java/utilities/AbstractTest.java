@@ -36,16 +36,15 @@ public abstract class AbstractTest {
 	// Supporting services --------------------------------
 
 	@Autowired
-	private LoginService						loginService;
+	private LoginService loginService;
 	@Autowired
-	private JpaTransactionManager				transactionManager;
+	private JpaTransactionManager transactionManager;
 
 	// Internal state -------------------------------------
 
-	private final DefaultTransactionDefinition	transactionDefinition;
-	private TransactionStatus					currentTransaction;
-	private final Properties					entityMap;
-
+	private final DefaultTransactionDefinition transactionDefinition;
+	private TransactionStatus currentTransaction;
+	private final Properties entityMap;
 
 	// Constructor ----------------------------------------
 
@@ -103,6 +102,16 @@ public abstract class AbstractTest {
 			throw new RuntimeException(caught.getName() + " was unexpected");
 		else if (expected != null && caught != null && !expected.equals(caught))
 			throw new RuntimeException(expected.getName() + " was expected, but " + caught.getName() + " was thrown");
+	}
+
+	protected void checkExceptions(final Class<?> expected, final Class<?> caught, String message) {
+		if (expected != null && caught == null)
+			throw new RuntimeException(expected.getName() + " was expected" + message);
+		else if (expected == null && caught != null)
+			throw new RuntimeException(caught.getName() + " was unexpected" + message);
+		else if (expected != null && caught != null && !expected.equals(caught))
+			throw new RuntimeException(
+					expected.getName() + " was expected, but " + caught.getName() + " was thrown" + message);
 	}
 
 	protected void startTransaction() {

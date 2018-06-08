@@ -1,7 +1,6 @@
 package services;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,24 +35,26 @@ public class FolderServiceTest extends AbstractTest {
 		final Object testingCreateData[][] = {
 
 				// Casos positivos
-				{ "user1", "Folder test", "folder6", null },
+
+				{ "citizen1", "folder test", "folder10", null },
+
 				// Casos negativos
-				{ "user2", "New folder", "folder1",
-						IllegalArgumentException.class }, /*
-														 * No se puede
-														 * seleccionar una
-														 * carpeta padre que no
-														 * pertenece al usuario
-														 */
-				{ "agent2", "", "folder41", ConstraintViolationException.class } /*
-																				 * El
-																				 * campo
-																				 * nombre
-																				 * no
-																				 * puede
-																				 * ser
-																				 * vacio
-																				 */
+				{ "user1", "Folder test", "folder6",
+						IllegalArgumentException.class },
+				/**
+				 * No se puede crear una carpeta de una carpeta padre que no es
+				 * suya
+				 */
+
+				{ null, "New folder", "folder1", NullPointerException.class },
+				/**
+				 * No se puede seleccionar una carpeta padre que no pertenece al
+				 * usuario
+				 */
+				{ "agent2", "", "folder41", AssertionError.class }
+		/**
+		 * El campo nombre no puede ser vacio
+		 */
 		};
 
 		for (int i = 0; i < testingCreateData.length; i++)

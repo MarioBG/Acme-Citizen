@@ -96,7 +96,7 @@ public class ChirpServiceTest extends AbstractTest {
 			 * Solo los agentes gubernamentales poseen chirps
 			 */
 			}, {
-				"government", "governmentTest", NumberFormatException.class
+				"government", "governmentTest", AssertionError.class
 			/*
 			 * El agente gubernamental no exite
 			 */

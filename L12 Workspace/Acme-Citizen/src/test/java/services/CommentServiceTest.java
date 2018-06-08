@@ -56,7 +56,7 @@ public class CommentServiceTest extends AbstractTest {
 			},
 			// Casos negativos
 			{
-				"citizen1", "petitionTest", "Quiero decir...", "http://www.google.es/", NumberFormatException.class
+				"citizen1", "petitionTest", "Quiero decir...", "http://www.google.es/", AssertionError.class
 			/*
 			 * No se puede crear un comentario para una petición que no existe.
 			 */
@@ -111,7 +111,7 @@ public class CommentServiceTest extends AbstractTest {
 			},
 			// Casos negativos
 			{
-				"citizen1", "electionTest", "Quiero decir...", "http://www.google.es/", NumberFormatException.class
+				"citizen1", "electionTest", "Quiero decir...", "http://www.google.es/", AssertionError.class
 			/*
 			 * No se puede crear un comentario para una elección que no existe.
 			 */
@@ -166,7 +166,7 @@ public class CommentServiceTest extends AbstractTest {
 			},
 			// Casos negativos
 			{
-				"citizen1", "candidatureTest", "Quiero decir...", "http://www.google.es/", NumberFormatException.class
+				"citizen1", "candidatureTest", "Quiero decir...", "http://www.google.es/", AssertionError.class
 			/*
 			 * No se puede crear un comentario para una candidatura que no existe.
 			 */

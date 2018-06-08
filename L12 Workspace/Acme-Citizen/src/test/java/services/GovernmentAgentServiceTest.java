@@ -36,7 +36,9 @@ public class GovernmentAgentServiceTest extends AbstractTest {
 				{ "government", null },
 
 				// Casos negativos
-				{ null, IllegalArgumentException.class }, { "citizen1", IllegalArgumentException.class }
+
+				{ "", IllegalArgumentException.class } // Si no hay nadie logueado no se puede visualizar el dashboard
+
 				/*
 				 * Solamente el admin puede mostrar el dashboard.
 				 */
@@ -51,8 +53,10 @@ public class GovernmentAgentServiceTest extends AbstractTest {
 
 		Class<?> caught;
 		caught = null;
+		String message = "  ";
 
 		try {
+			message += "Username -> " + authenticate;
 			super.authenticate(authenticate);
 			this.adminService.candidaturesMoreVotesAverage();
 			this.adminService.citizensMoreLotteryTicketsAverage();
@@ -72,7 +76,7 @@ public class GovernmentAgentServiceTest extends AbstractTest {
 			caught = oops.getClass();
 		}
 
-		this.checkExceptions(expected, caught);
+		this.checkExceptions(expected, caught, message);
 	}
 
 }
