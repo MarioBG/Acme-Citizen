@@ -28,6 +28,25 @@ public class PetitionGovernmentAgentController extends AbstractController {
 		super();
 	}
 
+	// Resolve ----------------------------------------------------------
+
+	@RequestMapping(value = "/resolve", method = RequestMethod.GET)
+	public ModelAndView resolve(@RequestParam final int petitionId) {
+
+		ModelAndView res;
+		Petition petition = null;
+
+		try {
+			petition = this.petitionService.findOne(petitionId);
+			this.petitionService.resolve(petition);
+			res = new ModelAndView("redirect:../display.do?petitionId=" + petitionId);
+		} catch (final Throwable oops) {
+			res = new ModelAndView("redirect:../display.do?petitionId=" + petitionId);
+		}
+
+		return res;
+	}
+
 	// Delete  ----------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
